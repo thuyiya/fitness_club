@@ -7,11 +7,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "d3-interpolate-path": "^2.0.1",
+    "d3-shape": "^1.2.0",
     "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-native": "0.55.3",
     "react-native-svg": "^6.3.1",
-    "react-native-svg-charts": "^5.0.0",
     "react-navigation": "^1.5.11"
   },
   "devDependencies": {

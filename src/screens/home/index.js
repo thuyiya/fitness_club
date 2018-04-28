@@ -39,6 +39,41 @@ const DATA = [{
 },
 ];
 
+const INJUSRY_DATA = [
+  {
+    name: 'Hip',
+    iconUrl: 'https://s3-us-east-2.amazonaws.com/zonein.assets/images/body-parts/NEWHip.png',
+    id: '5a148ae1b101ad66fdc76bca',
+    verticalId: '5a0425ee8b2ec888576425d4',
+    intensity: 1,
+  },
+  {
+    name: 'Quadricep',
+    iconUrl: 'https://s3-us-east-2.amazonaws.com/zonein.assets/images/body-parts/NEWQuadricep.png',
+    id: '5a412338e704aa1ccc566a76',
+    verticalId: '5a0425ee8b2ec888576425d4',
+    intensity: 2,
+  },
+  {
+    name: 'Hamstring',
+    iconUrl: 'https://s3-us-east-2.amazonaws.com/zonein.assets/images/body-parts/NEWHamstring.png',
+    id: '5a412574e704aa1ccc566a78',
+    verticalId: '5a0425ee8b2ec888576425d4',
+    intensity: 3,
+  },
+];
+
+const NUTRITION_DATA = {
+  goal: 15,
+  dailyMeals: [1, 4, 8, 5, 10, 0, 11],
+  totalMeals: 34,
+};
+
+const SESSIONS_DATA = {
+  completed: 4,
+  goal: 6,
+};
+
 export default class Home extends Component {
     state = { }
     render() {
@@ -46,11 +81,9 @@ export default class Home extends Component {
         <View style={{ flex: 1 }}>
           <ScrollView>
             <PerformancePicker data={DATA} />
-            <View style={{ padding: 30, backgroundColor: '#f2f2f2' }}>
-              <NutritionsBarChart />
-            </View>
-            <SessionsCircularChart />
-            <InjuryScreen />
+            <NutritionsBarChart data={NUTRITION_DATA} />
+            <SessionsCircularChart data={SESSIONS_DATA} />
+            <InjuryScreen data={INJUSRY_DATA} />
             <AnalysisScreen />
           </ScrollView>
         </View>

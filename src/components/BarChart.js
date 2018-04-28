@@ -45,7 +45,7 @@ const Bar = ({ height, active, detail }) => {
     alignSelf: 'center', 
     top: -20, 
     position: 'absolute', 
-    width: 55, 
+    width: 60, 
     height: 40, 
     textAlign: 'center', 
     zIndex: 999, 
@@ -73,12 +73,14 @@ export default class BarChart extends Component {
         }
       }
 
+      // shoud create get date by index
+
       return (
         <View style={{ paddingBottom: 30, paddingTop: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
           {sampleData.map((item, i) => (
             <View key={i} >
               <TouchableOpacity onPress={() => { this.setState({ currentIndex: i }); }}>
-                <Bar height={220 * (item / 100)} active={i === this.state.currentIndex} detail={'Today 6 meals'} />
+                <Bar height={220 * (item / this.props.max)} active={i === this.state.currentIndex} detail={`${i == 6 ? 'Today' : ''} ${item} meals`} /> 
               </TouchableOpacity>
             </View>
           ))}

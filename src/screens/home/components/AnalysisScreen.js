@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Text, ImageBackground, View, Dimensions } from 'react-native';
+import { Text, View } from 'react-native';
 import ButtonCustom from '../../../components/ButtonCustom';
 import DescriptionCard from '../../../components/DescriptionCard';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+const CardBackgroundImage = require('../../../../assets/img/bg_daily_dose.png');
 
 export default class Analysis extends Component {
     state = {}
@@ -12,17 +11,32 @@ export default class Analysis extends Component {
       return (
         <View>
           <DescriptionCard 
-            image={require('../../../../assets/img/bg_daily_dose.png')} 
+            image={CardBackgroundImage} 
             buttonText={'Start'}
             title="Post Game Analysis"
             subTitle="Daily Dose"
             descritption="Coping and learning from mistakes"
           />
-          <View style={{ padding: 40, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ paddingBottom: 20, fontSize: 26, fontWeight: '600', textAlign: 'center' }}>Let your Coach know what you've been up to</Text>
+          <View style={styles.statusContainer}>
+            <Text style={styles.statesText}>Let your Coach know what you've been up to</Text>
             <ButtonCustom text="Update Them" />
           </View>
         </View>
       );
     }
 }
+
+const styles = {
+  statusContainer: { 
+    padding: 40, 
+    backgroundColor: '#fff', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+  },
+  statesText: { 
+    paddingBottom: 20, 
+    fontSize: 26, 
+    fontWeight: '600', 
+    textAlign: 'center', 
+  },
+};

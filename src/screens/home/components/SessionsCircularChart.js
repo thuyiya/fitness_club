@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { ProgressCircle } from 'react-native-svg-charts';
+
+import ProgressCircle from '../../../components/ProgressCircle/ProgressCircle';
+
+import { COLOR } from '../../../styles';
 
 import ButtonCustom from '../../../components/ButtonCustom';
 
 export default class SessionsCircularChart extends Component {
   render() {
+    const { goal, completed } = this.props.data;
+
     return (
-      <View style={{ backgroundColor: '#fff', padding: 30 }}>
-        <Text style={{ fontSize: 18, fontWeight: '700', color: '#000', paddingTop: 10, paddingBottom: 20 }}>Mental Performance Progress</Text>
-        <View style={{ padding: 20 }}>
-          <View style={{ position: 'absolute', top: 300 / 2, alignSelf: 'center', alignContent: 'center', alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', width: 220 }}>
-              <Text style={{ fontSize: 58, fontWeight: '800', marginLeft: 25 }}>4</Text>
-              <Text style={{ fontSize: 26, fontWeight: '600' }}>sessions completed</Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Mental Performance Progress</Text>
+        <View style={styles.chartContainer}>
+          <View style={styles.chartDescriptionContent}>
+            <View style={styles.mainDescription}>
+              <Text style={styles.numberDescription}>{completed}</Text>
+              <Text style={styles.textDescription}>sessions completed</Text>
             </View>
-            <Text>Goal: 6 sessions</Text>
+            <Text>Goal: {goal} sessions</Text>
           </View>
           <ProgressCircle
             style={{ height: 340 }}
-            progress={0.7}
+            progress={completed / goal}
             strokeWidth={20}
-            backgroundColor={'#fdf5de'}
-            progressColor={'#f6c84b'}
+            backgroundColor={COLOR.lightOrange}
+            progressColor={COLOR.orange}
             {...this.props}
           />
         </View>
@@ -31,3 +36,40 @@ export default class SessionsCircularChart extends Component {
     );
   }
 }
+
+const styles = {
+  container: { 
+    backgroundColor: '#fff', 
+    padding: 30, 
+  },
+  title: { 
+    fontSize: 18, 
+    fontWeight: '700', 
+    color: '#000', 
+    paddingTop: 10, 
+    paddingBottom: 20,
+  },
+  chartContainer: { 
+    padding: 20, 
+  },
+  chartDescriptionContent: { 
+    position: 'absolute', 
+    top: 300 / 2, 
+    alignSelf: 'center', 
+    alignContent: 'center', 
+    alignItems: 'center', 
+  },
+  mainDescription: { 
+    flexDirection: 'row', 
+    width: 220, 
+  },
+  numberDescription: { 
+    fontSize: 58, 
+    fontWeight: '800', 
+    marginLeft: 25, 
+  },
+  textDescription: { 
+    fontSize: 26, 
+    fontWeight: '600', 
+  },
+};

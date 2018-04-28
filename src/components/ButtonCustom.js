@@ -1,17 +1,21 @@
 import React from 'react';
-
 import { 
   TouchableOpacity,
   Text,
   Image,
 } from 'react-native';
 
+import { COLOR } from '../styles';
+
+const BLUE_ARROW_IMAGE = require('../../assets/img/arrow_blue.png');
+const WHITE_ARROW_IMAGE = require('../../assets/img/arrow_white.png'); 
+
 const ButtonCustom = ({ invert, text, onPress }) =>
   (
-    <TouchableOpacity style={[styles.buttonContainer, { backgroundColor: invert ? '#fff' : '#0abde3' }]} onPress={onPress}>
-      <Text style={[styles.text, { color: invert ? '#5ad0ea' : '#fff' }]}>{text}</Text>
+    <TouchableOpacity style={[styles.buttonContainer, { backgroundColor: invert ? '#fff' : COLOR.lightBlue }]} onPress={onPress}>
+      <Text style={[styles.text, { color: invert ? COLOR.blue : '#fff' }]}>{text}</Text>
       <Image 
-        source={invert ? require('../../assets/img/arrow_blue.png') : require('../../assets/img/arrow_white.png')} 
+        source={invert ? BLUE_ARROW_IMAGE : WHITE_ARROW_IMAGE} 
         style={styles.imageIcon}
       />
     </TouchableOpacity>
