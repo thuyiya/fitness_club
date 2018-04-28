@@ -20,7 +20,7 @@ export default class SessionsCircularChart extends Component {
               <Text style={styles.numberDescription}>{completed}</Text>
               <Text style={styles.textDescription}>sessions completed</Text>
             </View>
-            <Text>Goal: {goal} sessions</Text>
+            <Text style={styles.goal}>Goal: {goal} sessions</Text>
           </View>
           <ProgressCircle
             style={{ height: 340 }}
@@ -64,12 +64,19 @@ const styles = {
     width: 220, 
   },
   numberDescription: { 
+    color: COLOR.pink,
     fontSize: 58, 
     fontWeight: '800', 
     marginLeft: 25, 
   },
   textDescription: { 
+    color: COLOR.pink,
     fontSize: 26, 
     fontWeight: '600', 
+  },
+  goal: {
+    color: COLOR.pink,
+    fontSize: 16,
+    fontWeight: '500',
   },
 };

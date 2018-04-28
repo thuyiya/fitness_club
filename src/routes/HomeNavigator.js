@@ -67,6 +67,7 @@ export default StackNavigator({
       title: 'Hey, James!',
       headerStyle: {
         backgroundColor: '#5ad0ea',
+        borderBottomColor: 'transparent',
       },
       headerRight: <View style={{ padding: 20 }}><Image style={{ width: 25, height: 25 }} source={require('../../assets/img/ring.png')} /></View>,
       headerTitleStyle: {
@@ -75,4 +76,6 @@ export default StackNavigator({
     }, 
   },
   Session: { screen: Session },
+}, {
+  mode: 'modal',
 });
