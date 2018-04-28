@@ -1,0 +1,18 @@
+[
+    {
+        "code": "1100010003",
+        "createdAt": "2018-01-21T01:07:29.600Z",
+        "updatedAt": "2018-01-21T01:09:42.545Z",
+        "id": "5a64ebfbb804b5357ad566ea",
+        "memberId": "5a4fd8f3e569ca255f17232e",
+        "nutritionsessionsId": ""
+    },
+    {
+        "code": "1200010003",
+        "createdAt": "2018-01-21T01:08:14.756Z",
+        "updatedAt": "2018-01-21T01:09:52.193Z",
+        "id": "5a64ec28b804b5357ad566eb",
+        "memberId": "5a4fd8f3e569ca255f17232e",
+        "nutritionsessionsId": ""
+    }
+]
