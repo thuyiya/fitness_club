@@ -1,11 +1,43 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 
-import BarChart from '../../components/BarChart';
-import ButtonCustom from '../../components/ButtonCustom';
 import PerformancePicker from './components/PerformancePicker';
 import AnalysisScreen from './components/AnalysisScreen';
 import InjuryScreen from './components/InjuryScreen';
+import NutritionsBarChart from './components/NutritionsBarChart';
+import SessionsCircularChart from './components/SessionsCircularChart';
+
+const DATA = [{
+  name: 'Nutrition',
+  description: 'Nutrition coaching tailored to your body and needs ',
+  iconUrl: 'https://s3-us-east-2.amazonaws.com/zonein.assets/images/verticals/nutrition.png',
+  order: 1,
+  screenName: 'MealFinder',
+  createdAt: '2017-11-09T09:35:18.853Z',
+  updatedAt: '2017-11-09T09:35:18.853Z',
+  id: '5a042259a87283872edcde4c',
+},
+{
+  name: 'Injury Prevention',
+  description: 'Injury risk analytics and plans by Olympic experts ',
+  iconUrl: 'https://s3-us-east-2.amazonaws.com/zonein.assets/images/verticals/injury.png',
+  order: 2,
+  screenName: 'InjurySelection',
+  createdAt: '2017-11-09T09:51:42.689Z',
+  updatedAt: '2017-11-09T09:51:42.689Z',
+  id: '5a0425ee8b2ec888576425d4',
+},
+{
+  name: 'Mental',
+  description: 'Get in the zone with your pro performance coach ',
+  iconUrl: 'https://s3-us-east-2.amazonaws.com/zonein.assets/images/verticals/mental.png',
+  order: 3,
+  screenName: 'FeaturedPrograms',
+  createdAt: '2017-11-09T09:35:18.853Z',
+  updatedAt: '2017-11-09T09:35:18.853Z',
+  id: '5a042a52a004e60010c36e37',
+},
+];
 
 export default class Home extends Component {
     state = { }
@@ -13,48 +45,12 @@ export default class Home extends Component {
       return (
         <View style={{ flex: 1 }}>
           <ScrollView>
-            <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
-              <PerformancePicker />
+            <PerformancePicker data={DATA} />
+            <View style={{ padding: 30, backgroundColor: '#f2f2f2' }}>
+              <NutritionsBarChart />
             </View>
-            <View style={{ padding: 30 }}>
-              <Text style={{ fontSize: 18, fontWeight: '700', color: '#000', paddingTop: 10, paddingBottom: 20 }}>Performance Nutrition Coahing</Text>
-              <Text style={{ padding: 10, fontSize: 36, fontWeight: '700', alignSelf: 'center' }}>Goal: 15 meals</Text>
-              <View style={{ paddingBottom: 10 }}>
-                <BarChart
-                  min={0}
-                  max={30}
-                  width={20}
-                  height={300}
-                  current={10}
-                />
-                <View>
-                  <View
-                    style={{
-                      borderBottomColor: 'gray',
-                      borderBottomWidth: 1,
-                    }}
-                  />
-                  <Text style={{ 
-                    position: 'absolute',
-                    top: -16,
-                    backgroundColor: '#fff',
-                    padding: 5,
-                    color: '#000', 
-                    fontSize: 18, 
-                    fontWeight: '600', 
-                    alignSelf: 'center', 
-                  }}
-                  >Last 7 Days</Text>
-                </View>
-              </View>
-              <Text style={{ fontSize: 28, padding: 20, alignSelf: 'center' }}>Total: 8 meals</Text>
-              <ButtonCustom text="Get Next Meal" />
-            </View>
-            <View style={{ alignSelf: 'center' }}>
-              <Text style={{ fontSize: 18, fontWeight: '700', color: '#000', paddingTop: 10, paddingBottom: 20 }}>Mental Performance Progress</Text>
-              <Text>circular cahrt react</Text>
-              <ButtonCustom text="Take Next Session" />
-            </View>
+            <SessionsCircularChart />
+            <InjuryScreen />
             <AnalysisScreen />
           </ScrollView>
         </View>

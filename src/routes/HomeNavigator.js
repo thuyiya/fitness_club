@@ -1,23 +1,74 @@
-import { YellowBox } from 'react-native';
+import React from 'react';
+import { Image, YellowBox, View } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
+import Empty from '../screens/empty';
 import Home from '../screens/home/';
 import Session from '../screens/session';
 
 // this for untill react fixed thire issue
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
-const HomeStack = StackNavigator({
+const tabBar = TabNavigator(
+  {
+    Foods: { 
+      screen: Empty,
+      navigationOptions: {
+        tabBarIcon: (data) => <Image style={{ width: 40, height: 40, tintColor: data.tintColor }} source={require('../../assets/img/restaurant.png')} />,
+      }, 
+    },
+    Reports: { 
+      screen: Empty,
+      navigationOptions: {
+        tabBarIcon: (data) => <Image style={{ width: 40, height: 40, tintColor: data.tintColor }} source={require('../../assets/img/reports.png')} />,
+      }, 
+    },
+    Home: { 
+      screen: Home,
+      navigationOptions: {
+        tabBarIcon: (data) => <Image style={{ width: 70, height: 70, tintColor: data.tintColor }} source={require('../../assets/img/spiral.png')} />,
+      }, 
+    },
+    Meditation: { 
+      screen: Empty,
+      navigationOptions: {
+        tabBarIcon: (data) => <Image style={{ width: 40, height: 40, tintColor: data.tintColor }} source={require('../../assets/img/yoga.png')} />,
+      }, 
+    },
+    Profile: { 
+      screen: Empty,
+      navigationOptions: {
+        tabBarIcon: (data) => <Image style={{ width: 40, height: 40, tintColor: data.tintColor }} source={require('../../assets/img/user.png')} />,
+      }, 
+    },
+  }, {
+    initialRouteName: 'Home',
+    tabBarOptions: {
+      showLabel: false,
+      inactiveTintColor: '#dfe6e9',
+      activeTintColor: '#fff',
+      //   activeBackgroundColor: '#0abde3',
+      style: {
+        backgroundColor: '#5ad0ea',
+        borderTopColor: 'transparent',
+      },
+    },
+      
+  }
+);
+
+export default StackNavigator({
   Home: { 
-    screen: Home,
+    screen: tabBar,
     // navigationOptions: ({ navigation }) => ({
     //     title: `${navigation.state.params.name}'s Profile'`,
     //   }),
     navigationOptions: {
       title: 'Hey, James!',
       headerStyle: {
-        backgroundColor: '#0abde3',
+        backgroundColor: '#5ad0ea',
       },
+      headerRight: <View style={{ padding: 20 }}><Image style={{ width: 25, height: 25 }} source={require('../../assets/img/ring.png')} /></View>,
       headerTitleStyle: {
         color: '#fff',
       },
@@ -25,10 +76,3 @@ const HomeStack = StackNavigator({
   },
   Session: { screen: Session },
 });
-
-export default TabNavigator(
-  {
-    Home: { screen: HomeStack },
-    Settings: { screen: Home },
-  }
-);

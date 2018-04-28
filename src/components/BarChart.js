@@ -8,10 +8,6 @@ import {
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const chart_data = {
-  data: [30, 53, 64, 0, 0, 9, 90],
-};
-
 const OFFSET = 30;
 
 const BAR_HEIGHT = ((SCREEN_WIDTH * 2) / 3) + OFFSET;
@@ -27,7 +23,7 @@ const Bar = ({ height, active, detail }) => {
   };
   
   const fillStyle = {
-    backgroundColor: active ? '#f9ca24' : '#ffeaa7',
+    backgroundColor: active ? '#f6c84b' : '#ffeaa7',
     borderRadius: 100,
     width: 20,
     position: 'absolute',
@@ -67,19 +63,19 @@ const Bar = ({ height, active, detail }) => {
 
 export default class BarChart extends Component {
     state = {
-      currentIndex: chart_data.data.length - 1,
+      currentIndex: this.props.data.length - 1,
     }
     render() {
-      const new_data_set = [-30, -30, -30, -30, -30, -30, -30];
-      if (chart_data.data.length <= 7) {
-        for (let i = 0; i < chart_data.data.length; i++) {
-          new_data_set[i] = chart_data.data[i];
+      const sampleData = [-30, -30, -30, -30, -30, -30, -30];
+      if (this.props.data.length <= 7) {
+        for (let i = 0; i < this.props.data.length; i++) {
+          sampleData[i] = this.props.data[i];
         }
       }
 
       return (
         <View style={{ paddingBottom: 30, paddingTop: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
-          {new_data_set.map((item, i) => (
+          {sampleData.map((item, i) => (
             <View key={i} >
               <TouchableOpacity onPress={() => { this.setState({ currentIndex: i }); }}>
                 <Bar height={220 * (item / 100)} active={i === this.state.currentIndex} detail={'Today 6 meals'} />
