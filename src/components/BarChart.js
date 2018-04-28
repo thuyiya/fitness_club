@@ -28,7 +28,6 @@ const Bar = ({ height, active, detail }) => {
     width: 20,
     position: 'absolute',
     bottom: 10,
-    zIndex: 0,
     height: height + OFFSET,
   };
 
@@ -44,20 +43,25 @@ const Bar = ({ height, active, detail }) => {
   const tabDescription = {
     alignSelf: 'center', 
     top: -20, 
-    position: 'absolute', 
+    position: 'absolute',
     width: 60, 
     height: 40, 
     textAlign: 'center', 
-    zIndex: 999, 
     color: '#000', 
   };
   // { active && <Text style={{ position: 'absolute', left: -17, top: -40, width: 55, height: 40, textAlign: 'center', zIndex: 999 }}>Today 12 meals</Text>}
+
+  const detailText = () => ((active & height > -1) ? <Text style={tabDescription}>{detail}</Text> : null);
+  const verticalLineView = () => ((active & height > -1) ? <View style={verticalLine} /> : null);
   return (
-    <View style={style}>
-      {(active & height > -1) && <Text style={tabDescription}>{detail}</Text>}
-      {(active & height > -1) && <View style={verticalLine} />}
-      <View style={fillStyle} />
+    <View>
+      {detailText()}
+      {verticalLineView()}
+      <View style={style}>
+        <View style={fillStyle} />
+      </View>
     </View>
+    
   );
 };
 
@@ -80,7 +84,7 @@ export default class BarChart extends Component {
           {sampleData.map((item, i) => (
             <View key={i} >
               <TouchableOpacity onPress={() => { this.setState({ currentIndex: i }); }}>
-                <Bar height={220 * (item / this.props.max)} active={i === this.state.currentIndex} detail={`${i == 6 ? 'Today' : ''} ${item} meals`} /> 
+                <Bar height={220 * (item / this.props.max)} active={i === this.state.currentIndex} detail={`${i == this.props.data.length - 1 ? 'Today' : ''} ${item} meals`} /> 
               </TouchableOpacity>
             </View>
           ))}

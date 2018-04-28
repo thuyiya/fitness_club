@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, YellowBox, View } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 
 import Empty from '../screens/empty';
 import Home from '../screens/home/';
@@ -43,6 +43,8 @@ const tabBar = TabNavigator(
     },
   }, {
     initialRouteName: 'Home',
+    tabBarPosition: 'bottom',
+    tabBarComponent: TabBarBottom,
     tabBarOptions: {
       showLabel: false,
       inactiveTintColor: '#dfe6e9',
@@ -76,6 +78,4 @@ export default StackNavigator({
     }, 
   },
   Session: { screen: Session },
-}, {
-  mode: 'modal',
 });

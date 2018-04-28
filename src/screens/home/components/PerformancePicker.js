@@ -27,15 +27,15 @@ const styles = {
   container: { 
     backgroundColor: '#fff', 
     flexDirection: 'row', 
-    justifyContent: 'space-between' 
+    justifyContent: 'space-between',
+    padding: 20,  
   },
   imageContainer: { 
-    padding: 20, 
-    alignItems: 'center' 
+    alignItems: 'center', 
   },
   image: { 
     width: 80, 
-    height: 80 
+    height: 80, 
   },
   imageDescriptionText: { 
     width: 80, 
@@ -43,6 +43,6 @@ const styles = {
     textAlign: 'center', 
     paddingTop: 15, 
     fontSize: 16, 
-    fontWeight: '600'
-   }
-}
+    fontWeight: '600',
+  },
+};

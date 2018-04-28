@@ -56,9 +56,9 @@ const styles = {
   lableOnLine: { 
     position: 'absolute',
     top: -16,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: COLOR.lightGray,
     padding: 5,
-    color: '#000', 
+    color: COLOR.gray, 
     fontSize: 18, 
     fontWeight: '600', 
     alignSelf: 'center', 
@@ -66,6 +66,7 @@ const styles = {
   totalText: { 
     fontSize: 28, 
     padding: 20, 
+    color: COLOR.gray,
     alignSelf: 'center', 
   },
 };

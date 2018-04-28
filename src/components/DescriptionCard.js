@@ -23,8 +23,10 @@ const DescriptionCard = ({
           <Text style={styles.subTitle}>{subTitle}</Text>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.descritption}>{descritption}</Text>
+          <View style={{ alignSelf: 'flex-start' }}>
+            <ButtonCustom text={buttonText} invert onPress={onButtonPress} />
+          </View>
         </View>
-        <ButtonCustom text={buttonText} invert onPress={onButtonPress} />
       </ImageBackground>
     </View>
   );
@@ -34,13 +36,14 @@ export default DescriptionCard;
 const styles = {
   image: { 
     width: SCREEN_WIDTH, 
-    height: SCREEN_HEIGHT / 2, 
+    paddingTop: 50, 
+    paddingBottom: 30, 
     justifyContent: 'center', 
   },
   subTitle: { 
     paddingBottom: 20, 
     color: '#fff', 
-    fontSize: 28, 
+    fontSize: 24, 
     fontWeight: '500', 
   },
   title: { 
@@ -50,9 +53,9 @@ const styles = {
     fontWeight: '600', 
   },
   descritption: { 
-    paddingBottom: 10, 
+    paddingBottom: 20, 
     color: '#fff', 
-    fontSize: 24, 
+    fontSize: 20, 
     fontWeight: '300', 
   },
 };
