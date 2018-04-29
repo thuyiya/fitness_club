@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
+  Platform,
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -49,14 +50,22 @@ const Bar = ({ height, active, detail }) => {
     textAlign: 'center', 
     color: '#000', 
   };
-  // { active && <Text style={{ position: 'absolute', left: -17, top: -40, width: 55, height: 40, textAlign: 'center', zIndex: 999 }}>Today 12 meals</Text>}
 
-  const detailText = () => ((active & height > -1) ? <Text style={tabDescription}>{detail}</Text> : null);
-  const verticalLineView = () => ((active & height > -1) ? <View style={verticalLine} /> : null);
+  const detailText = () => ((active & height > -1 & Platform.OS === 'ios') ? <Text style={tabDescription}>{detail}</Text> : null);
+  const verticalLineView = () => ((active & height > -1) ? <View style={[verticalLine, Platform.OS !== 'ios' ? { left: 10 } : {}]} /> : null);
+  
+  const inAndroid = () => (
+    (active & height > -1) ?
+      <View style={{ position: 'relative', width: 30 }}>
+        <Text style={{ fontSize: 11, textAlign: 'center' }}>Today 0 meals</Text>
+      </View> : <View style={{ paddingTop: 40 }} />
+  );
+  
   return (
     <View>
       {detailText()}
-      {verticalLineView()}
+      {Platform.OS !== 'ios' ? inAndroid() : null}
+      {verticalLineView()} 
       <View style={style}>
         <View style={fillStyle} />
       </View>

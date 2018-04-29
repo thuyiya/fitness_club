@@ -80,7 +80,7 @@ export default class Home extends Component {
       return (
         <View style={{ flex: 1 }}>
           <ScrollView>
-            <PerformancePicker data={DATA} />
+            {/* <PerformancePicker data={DATA} /> */}
             <NutritionsBarChart data={NUTRITION_DATA} />
             <SessionsCircularChart data={SESSIONS_DATA} />
             <InjuryScreen data={INJUSRY_DATA} />
