@@ -1,0 +1,338 @@
+import React, { useMemo, useState } from 'react';
+import { View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
+import {
+  ArrowRight,
+  Droplets,
+  Flame,
+  Footprints,
+  Dumbbell,
+  Sparkles,
+  Beef,
+} from 'lucide-react-native';
+import {
+  Card,
+  FadeInView,
+  GlassCard,
+  ProgressRing,
+  Screen,
+  SectionHeader,
+  StatTile,
+  Text,
+  WeightChart,
+} from '@/components';
+import { useTheme } from '@/theme';
+import { useUserStore } from '@/store/userStore';
+import { useLogStore } from '@/store/logStore';
+import { useSettingsStore } from '@/store/settingsStore';
+import { coachHeadlines } from '@/lib/planEngine';
+import { formatDate, formatWeight, greeting } from '@/lib/format';
+
+export default function Dashboard() {
+  const theme = useTheme();
+  const profile = useUserStore((s) => s.profile);
+  const plan = useUserStore((s) => s.plan);
+  const log = useLogStore((s) => s.today());
+  const units = useSettingsStore((s) => s.units);
+
+  const headlines = useMemo(
+    () => (profile && plan ? coachHeadlines(profile, plan) : []),
+    [profile, plan],
+  );
+  const [headlineIdx] = useState(() => Math.floor(Date.now() / 86400000) % 4);
+
+  if (!profile || !plan) {
+    return (
+      <Screen>
+        <Text>Loading your plan…</Text>
+      </Screen>
+    );
+  }
+
+  const { targets, prediction, metrics } = plan;
+
+  const rings = [
+    {
+      label: 'Calories',
+      value: `${log.caloriesConsumed}`,
+      progress: log.caloriesConsumed / targets.calories,
+      color: theme.colors.warning,
+      to: theme.colors.danger,
+      icon: <Flame size={18} color={theme.colors.warning} />,
+    },
+    {
+      label: 'Protein',
+      value: `${log.proteinG}g`,
+      progress: log.proteinG / targets.proteinG,
+      color: theme.colors.protein,
+      to: theme.colors.secondary,
+      icon: <Beef size={18} color={theme.colors.protein} />,
+    },
+    {
+      label: 'Water',
+      value: `${(log.waterMl / 1000).toFixed(1)}L`,
+      progress: log.waterMl / targets.waterMl,
+      color: theme.colors.water,
+      to: theme.colors.primary,
+      icon: <Droplets size={18} color={theme.colors.water} />,
+    },
+    {
+      label: 'Walking',
+      value: `${log.walkingMinutes}m`,
+      progress: log.walkingMinutes / targets.walkingMinutes,
+      color: theme.colors.walking,
+      to: theme.colors.success,
+      icon: <Footprints size={18} color={theme.colors.walking} />,
+    },
+    {
+      label: 'Workout',
+      value: `${log.workoutMinutes}m`,
+      progress: log.workoutMinutes / targets.workoutMinutes,
+      color: theme.colors.success,
+      to: theme.colors.walking,
+      icon: <Dumbbell size={18} color={theme.colors.success} />,
+    },
+  ];
+
+  const chartData = useMemo(() => {
+    const start = { x: 0, y: profile.weightKg };
+    const pts = prediction.milestones.map((m) => ({ x: m.week, y: m.expectedWeightKg }));
+    return [start, ...pts];
+  }, [prediction, profile.weightKg]);
+
+  return (
+    <Screen>
+      {/* Greeting */}
+      <FadeInView delay={0}>
+        <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
+          <Text variant="subhead" color="textTertiary">
+            {greeting()}
+          </Text>
+          <Text variant="largeTitle">{profile.name} 👋</Text>
+        </View>
+      </FadeInView>
+
+      {/* Goal card */}
+      <FadeInView delay={80}>
+        <GoalCard
+          currentWeight={formatWeight(profile.weightKg, units)}
+          targetWeight={formatWeight(profile.targetWeightKg, units)}
+          finishDate={formatDate(prediction.finishDate)}
+          daysRemaining={prediction.daysRemaining}
+          weeklyRate={`${prediction.weeklyRateKg} ${units === 'imperial' ? 'lb' : 'kg'}/wk`}
+        />
+      </FadeInView>
+
+      {/* Rings */}
+      <FadeInView delay={160}>
+        <SectionHeader title="Today's Rings" subtitle="Tap Meals & Workouts to log" />
+        <GlassCard>
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-around',
+              rowGap: theme.spacing.md,
+            }}
+          >
+            {rings.map((r) => (
+              <ProgressRing
+                key={r.label}
+                size={96}
+                strokeWidth={9}
+                progress={r.progress}
+                color={r.color}
+                gradientTo={r.to}
+                value={r.value}
+                label={r.label}
+                icon={r.icon}
+              />
+            ))}
+          </View>
+        </GlassCard>
+      </FadeInView>
+
+      {/* Daily targets */}
+      <FadeInView delay={220}>
+        <SectionHeader title="Daily Targets" />
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.sm }}>
+          <StatTile
+            style={{ flexBasis: '48%', flexGrow: 1 }}
+            label="Calories"
+            value={`${targets.calories}`}
+            unit="kcal"
+            accent={theme.colors.warning}
+            icon={<Flame size={18} color={theme.colors.warning} />}
+          />
+          <StatTile
+            style={{ flexBasis: '48%', flexGrow: 1 }}
+            label="Protein"
+            value={`${targets.proteinG}`}
+            unit="g"
+            accent={theme.colors.protein}
+            icon={<Beef size={18} color={theme.colors.protein} />}
+          />
+          <StatTile
+            style={{ flexBasis: '48%', flexGrow: 1 }}
+            label="Carbs"
+            value={`${targets.carbsG}`}
+            unit="g"
+            accent={theme.colors.carbs}
+            icon={<Text style={{ fontSize: 16 }}>🍞</Text>}
+          />
+          <StatTile
+            style={{ flexBasis: '48%', flexGrow: 1 }}
+            label="Fat"
+            value={`${targets.fatG}`}
+            unit="g"
+            accent={theme.colors.fat}
+            icon={<Text style={{ fontSize: 16 }}>🥑</Text>}
+          />
+        </View>
+      </FadeInView>
+
+      {/* Weight timeline */}
+      <FadeInView delay={280}>
+        <SectionHeader title="Weight Timeline" subtitle={`Projected finish ${formatDate(prediction.finishDate)}`} />
+        <Card>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: theme.spacing.sm }}>
+            <View>
+              <Text variant="caption" color="textTertiary">CURRENT</Text>
+              <Text variant="title3">{formatWeight(profile.weightKg, units)}</Text>
+            </View>
+            <ArrowRight size={20} color={theme.colors.textTertiary} style={{ alignSelf: 'center' }} />
+            <View style={{ alignItems: 'flex-end' }}>
+              <Text variant="caption" color="textTertiary">TARGET</Text>
+              <Text variant="title3" color="success">{formatWeight(profile.targetWeightKg, units)}</Text>
+            </View>
+          </View>
+          <WeightChart data={chartData} targetY={profile.targetWeightKg} width={300} height={180} />
+        </Card>
+      </FadeInView>
+
+      {/* AI Coach card */}
+      <FadeInView delay={340}>
+        <SectionHeader title="Your AI Coach" actionLabel="Chat" onAction={() => router.push('/coach')} />
+        <LinearGradient
+          colors={[theme.colors.primary, theme.colors.secondary]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ borderRadius: theme.radius.xl, padding: theme.spacing.lg, ...theme.shadows.glow }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+            <Sparkles size={20} color="#fff" />
+            <Text variant="headline" color="textInverse">Coach insight</Text>
+          </View>
+          <Text variant="body" color="textInverse" style={{ lineHeight: 24 }}>
+            {headlines[headlineIdx]}
+          </Text>
+        </LinearGradient>
+      </FadeInView>
+
+      {/* Weekly milestones */}
+      <FadeInView delay={400}>
+        <SectionHeader title="Weekly Milestones" subtitle="Your predicted path" />
+        <View style={{ gap: theme.spacing.sm }}>
+          {prediction.milestones.slice(0, 4).map((m) => (
+            <GlassCard key={m.week} padded={false}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', padding: theme.spacing.md, gap: theme.spacing.md }}>
+                <View
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 14,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: theme.colors.primary + '18',
+                  }}
+                >
+                  <Text variant="footnote" color="primary" style={{ fontWeight: '700' }}>
+                    W{m.week}
+                  </Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text variant="headline">{formatWeight(m.expectedWeightKg, units)}</Text>
+                  <Text variant="caption" color="textTertiary">
+                    {m.calories} kcal · {m.workoutMinutes}m workout · {m.walkingMinutes}m walk
+                  </Text>
+                </View>
+                <Text variant="caption" color="textTertiary">{formatDate(m.date).replace(/,.*/, '')}</Text>
+              </View>
+            </GlassCard>
+          ))}
+        </View>
+        <View style={{ height: theme.spacing.xl }} />
+        <Text variant="caption" color="textTertiary" center>
+          BMI {metrics.bmi} · TDEE {metrics.tdee} kcal · Body fat ~{metrics.bodyFatPct}%
+        </Text>
+      </FadeInView>
+    </Screen>
+  );
+}
+
+function GoalCard({
+  currentWeight,
+  targetWeight,
+  finishDate,
+  daysRemaining,
+  weeklyRate,
+}: {
+  currentWeight: string;
+  targetWeight: string;
+  finishDate: string;
+  daysRemaining: number;
+  weeklyRate: string;
+}) {
+  const theme = useTheme();
+  return (
+    <LinearGradient
+      colors={[theme.colors.primary, theme.colors.secondary]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={{ borderRadius: theme.radius.xxl, padding: theme.spacing.xl, ...theme.shadows.glow }}
+    >
+      <Text variant="footnote" style={{ color: 'rgba(255,255,255,0.8)' }}>YOUR GOAL</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: theme.spacing.md, marginTop: 6 }}>
+        <View>
+          <Text variant="caption" style={{ color: 'rgba(255,255,255,0.7)' }}>Current</Text>
+          <Text variant="numberMedium" color="textInverse">{currentWeight}</Text>
+        </View>
+        <ArrowRight size={24} color="rgba(255,255,255,0.8)" style={{ marginBottom: 6 }} />
+        <View>
+          <Text variant="caption" style={{ color: 'rgba(255,255,255,0.7)' }}>Target</Text>
+          <Text variant="numberMedium" color="textInverse">{targetWeight}</Text>
+        </View>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: theme.spacing.lg,
+          borderTopWidth: StyleSheetHairline(),
+          borderTopColor: 'rgba(255,255,255,0.2)',
+          paddingTop: theme.spacing.md,
+        }}
+      >
+        <GoalStat label="Finish" value={finishDate} />
+        <GoalStat label="Days left" value={`${daysRemaining}`} />
+        <GoalStat label="Weekly" value={weeklyRate} />
+      </View>
+    </LinearGradient>
+  );
+}
+
+function GoalStat({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={{ flex: 1 }}>
+      <Text variant="caption" style={{ color: 'rgba(255,255,255,0.7)' }}>{label}</Text>
+      <Text variant="subhead" color="textInverse" style={{ fontWeight: '700', marginTop: 2 }}>
+        {value}
+      </Text>
+    </View>
+  );
+}
+
+function StyleSheetHairline() {
+  return 1;
+}
