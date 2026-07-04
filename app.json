@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.glitchfy.fitnessclub",
+      "bundleIdentifier": "com.glitchfy.solace",
       "entitlements": {
         "com.apple.developer.kernel.increased-memory-limit": true,
         "com.apple.developer.kernel.extended-virtual-addressing": true
@@ -28,7 +28,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0A211A"
       },
-      "package": "com.glitchfy.fitnessclub"
+      "package": "com.glitchfy.solace"
     },
     "web": {
       "bundler": "metro",
