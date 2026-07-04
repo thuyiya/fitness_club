@@ -191,7 +191,7 @@ export default function Settings() {
 
       <View style={{ height: theme.spacing.xl }} />
       <Text variant="caption" color="textTertiary" center>
-        AI Weight Coach · v1.0.0
+        Solace · v1.0.0
       </Text>
       <Text variant="caption" color="textTertiary" center style={{ marginTop: 4 }}>
         Made with 💙 for your health

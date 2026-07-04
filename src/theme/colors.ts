@@ -1,5 +1,5 @@
 /**
- * Color system for AI Weight Coach.
+ * Color system for Solace.
  * Brand palette follows the product spec; each mode exposes semantic tokens
  * so components never reference raw hex values directly.
  */

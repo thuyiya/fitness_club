@@ -62,10 +62,10 @@ export default function Splash() {
 
       <Animated.View entering={FadeIn.delay(500).duration(800)} style={styles.textWrap}>
         <Text variant="title1" color="textInverse" center>
-          AI Weight Coach
+          Solace
         </Text>
         <Text variant="subhead" style={{ color: 'rgba(255,255,255,0.7)', marginTop: 6 }} center>
-          Your personal health companion
+          Your private space to feel better
         </Text>
       </Animated.View>
     </View>

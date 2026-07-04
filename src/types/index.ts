@@ -1,4 +1,4 @@
-/** Shared domain types for AI Weight Coach. */
+/** Shared domain types for Solace. */
 
 export type Goal = 'lose' | 'gain' | 'maintain';
 export type Gender = 'male' | 'female' | 'other';

@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "AI Weight Coach",
+    "name": "Solace",
     "slug": "fitness-club",
     "owner": "glitchfy",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "aiweightcoach",
+    "scheme": "solace",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
