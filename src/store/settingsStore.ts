@@ -23,10 +23,8 @@ interface SettingsState {
   mindIntroSeen: boolean;
   /** Whether the 3-screen wellness intro (after the splash) has been shown. First launch only. */
   welcomeSeen: boolean;
-  /** Selected Calm ambient bed ('drift' | 'morning' | 'night' | 'off'). */
+  /** Selected Calm ambient bed ('drift' | 'morning' | 'night' | 'aurora' | 'off'). */
   calmBed: string;
-  /** Whether spoken breath cues play during a Calm session. */
-  calmVoiceCues: boolean;
   setTheme: (t: ThemePreference) => void;
   setUnits: (u: MeasurementUnit) => void;
   toggleNotification: (k: keyof NotificationPrefs) => void;
@@ -34,7 +32,6 @@ interface SettingsState {
   completeMindIntro: () => void;
   completeWelcome: () => void;
   setCalmBed: (id: string) => void;
-  toggleCalmVoiceCues: () => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -54,7 +51,6 @@ export const useSettingsStore = create<SettingsState>()(
       mindIntroSeen: false,
       welcomeSeen: false,
       calmBed: 'drift',
-      calmVoiceCues: true,
       setTheme: (themePreference) => set({ themePreference }),
       setUnits: (units) => set({ units }),
       toggleNotification: (k) =>
@@ -64,7 +60,6 @@ export const useSettingsStore = create<SettingsState>()(
       completeMindIntro: () => set({ mindIntroSeen: true }),
       completeWelcome: () => set({ welcomeSeen: true }),
       setCalmBed: (calmBed) => set({ calmBed }),
-      toggleCalmVoiceCues: () => set((s) => ({ calmVoiceCues: !s.calmVoiceCues })),
     }),
     {
       name: 'settings',

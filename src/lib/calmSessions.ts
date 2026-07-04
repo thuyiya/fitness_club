@@ -28,7 +28,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     duration: '5 min',
     technique: 'Anapanasati',
     bed: 'drift',
-    accent: '#38BDF8',
+    accent: '#6C86D9',
     takes: [
       require('../../assets/audio/voice-breath-1.mp3'),
       require('../../assets/audio/voice-breath-2.mp3'),
@@ -41,7 +41,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     duration: '7 min',
     technique: 'Body scan',
     bed: 'morning',
-    accent: '#5EEAD4',
+    accent: '#4BA3A0',
     takes: [
       require('../../assets/audio/voice-bodyscan-1.mp3'),
       require('../../assets/audio/voice-bodyscan-2.mp3'),
@@ -54,7 +54,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     duration: '6 min',
     technique: 'Letting go',
     bed: 'drift',
-    accent: '#818CF8',
+    accent: '#9385D0',
     takes: [
       require('../../assets/audio/voice-thoughts-1.mp3'),
       require('../../assets/audio/voice-thoughts-2.mp3'),
@@ -67,7 +67,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     duration: '8 min',
     technique: 'Equanimity',
     bed: 'drift',
-    accent: '#A78BFA',
+    accent: '#8A78C9',
   },
   {
     id: 'metta',
@@ -76,7 +76,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     duration: '7 min',
     technique: 'Metta',
     bed: 'morning',
-    accent: '#F0ABFC',
+    accent: '#C58BC0',
   },
   {
     id: 'sleep',
@@ -85,7 +85,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     duration: '12 min',
     technique: 'Sleep story',
     bed: 'night',
-    accent: '#60A5FA',
+    accent: '#5E7CC0',
   },
 ];
 

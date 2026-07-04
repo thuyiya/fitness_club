@@ -12,18 +12,19 @@ import Animated, {
 
 /**
  * The living backdrop behind the Calm breathing orb. Everything here is
- * decorative and driven by two shared values from the screen:
+ * decorative and driven by shared values from the screen:
  *  - `scale`     — the orb's breath (OUT_SCALE → IN_SCALE)
  *  - `ambiance`  — 0 when idle, 1 while a session runs (fades the aura in/out)
  *  - `ripple`    — pulsed 0→1 on every inhale to send a ring outward
  *
- * Layers, back to front: a soft color wash that brightens on the inhale,
- * three concentric rings that breathe with the orb, an expanding inhale
- * ripple, a slow ring of orbiting dots, and gently rising particles.
+ * Sizes are kept within a ~300px circle so the aura never bleeds past the
+ * orb area into the surrounding UI (it's rendered inside a circular clip).
+ * Opacities are deliberately gentle for comfortable viewing in a dark room.
  */
 
 const OUT = 0.55;
 const IN = 1;
+const RING_BASE = 210;
 
 type Props = {
   scale: SharedValue<number>;
@@ -33,48 +34,47 @@ type Props = {
 };
 
 export function BreathingAura({ scale, ambiance, ripple, colors }: Props) {
-  const tint = colors[1] ?? '#38BDF8';
+  const tint = colors[1] ?? '#5B7FD1';
 
   // Soft color wash — brightens and swells slightly on the inhale.
   const washStyle = useAnimatedStyle(() => ({
-    opacity: ambiance.value * interpolate(scale.value, [OUT, IN], [0.12, 0.28]),
-    transform: [{ scale: interpolate(scale.value, [OUT, IN], [1.1, 1.5]) }],
+    opacity: ambiance.value * interpolate(scale.value, [OUT, IN], [0.08, 0.18]),
+    transform: [{ scale: interpolate(scale.value, [OUT, IN], [1.05, 1.28]) }],
   }));
 
   // Concentric rings breathe with the orb at gentle, differing depths.
   const ring1 = useAnimatedStyle(() => ({
-    opacity: ambiance.value * 0.5,
-    transform: [{ scale: interpolate(scale.value, [OUT, IN], [1.18 * 0.94, 1.18 * 1.04]) }],
+    opacity: ambiance.value * 0.36,
+    transform: [{ scale: interpolate(scale.value, [OUT, IN], [1.02 * 0.96, 1.02 * 1.03]) }],
   }));
   const ring2 = useAnimatedStyle(() => ({
-    opacity: ambiance.value * 0.32,
-    transform: [{ scale: interpolate(scale.value, [OUT, IN], [1.42 * 0.94, 1.42 * 1.04]) }],
+    opacity: ambiance.value * 0.22,
+    transform: [{ scale: interpolate(scale.value, [OUT, IN], [1.2 * 0.96, 1.2 * 1.03]) }],
   }));
   const ring3 = useAnimatedStyle(() => ({
-    opacity: ambiance.value * 0.18,
-    transform: [{ scale: interpolate(scale.value, [OUT, IN], [1.68 * 0.94, 1.68 * 1.04]) }],
+    opacity: ambiance.value * 0.12,
+    transform: [{ scale: interpolate(scale.value, [OUT, IN], [1.36 * 0.96, 1.36 * 1.03]) }],
   }));
 
   // Inhale ripple — a ring that expands outward and fades on each breath in.
   const rippleStyle = useAnimatedStyle(() => ({
-    opacity: ambiance.value * (1 - ripple.value) * 0.5,
-    transform: [{ scale: interpolate(ripple.value, [0, 1], [0.85, 2.1]) }],
+    opacity: ambiance.value * (1 - ripple.value) * 0.4,
+    transform: [{ scale: interpolate(ripple.value, [0, 1], [0.85, 1.36]) }],
   }));
 
   return (
     <View pointerEvents="none" style={{ ...abs, alignItems: 'center', justifyContent: 'center' }}>
       <Animated.View
         style={[
-          { position: 'absolute', width: 300, height: 300, borderRadius: 150, backgroundColor: tint },
+          { position: 'absolute', width: 240, height: 240, borderRadius: 120, backgroundColor: tint },
           washStyle,
         ]}
       />
 
-      <Ring size={240} color={tint} style={ring1} />
-      <Ring size={240} color={tint} style={ring2} />
-      <Ring size={240} color={tint} style={ring3} />
-
-      <Ring size={240} color={tint} width={1.5} style={rippleStyle} />
+      <Ring color={tint} style={ring1} />
+      <Ring color={tint} style={ring2} />
+      <Ring color={tint} style={ring3} />
+      <Ring color={tint} width={1.5} style={rippleStyle} />
 
       <OrbitDots color={tint} ambiance={ambiance} />
       <Particles color={tint} ambiance={ambiance} />
@@ -82,25 +82,15 @@ export function BreathingAura({ scale, ambiance, ripple, colors }: Props) {
   );
 }
 
-function Ring({
-  size,
-  color,
-  width = 1,
-  style,
-}: {
-  size: number;
-  color: string;
-  width?: number;
-  style: any;
-}) {
+function Ring({ color, width = 1, style }: { color: string; width?: number; style: any }) {
   return (
     <Animated.View
       style={[
         {
           position: 'absolute',
-          width: size,
-          height: size,
-          borderRadius: size / 2,
+          width: RING_BASE,
+          height: RING_BASE,
+          borderRadius: RING_BASE / 2,
           borderWidth: width,
           borderColor: color,
         },
@@ -114,19 +104,24 @@ function Ring({
 function OrbitDots({ color, ambiance }: { color: string; ambiance: SharedValue<number> }) {
   const spin = useSharedValue(0);
   useEffect(() => {
-    spin.value = withRepeat(withTiming(1, { duration: 32000, easing: Easing.linear }), -1, false);
+    spin.value = withRepeat(withTiming(1, { duration: 34000, easing: Easing.linear }), -1, false);
   }, [spin]);
 
   const style = useAnimatedStyle(() => ({
-    opacity: ambiance.value * 0.6,
+    opacity: ambiance.value * 0.45,
     transform: [{ rotate: `${spin.value * 360}deg` }],
   }));
 
-  const RADIUS = 150;
+  const RADIUS = 118;
   const dots = [0, 120, 240];
 
   return (
-    <Animated.View style={[{ position: 'absolute', width: 300, height: 300, alignItems: 'center', justifyContent: 'center' }, style]}>
+    <Animated.View
+      style={[
+        { position: 'absolute', width: 260, height: 260, alignItems: 'center', justifyContent: 'center' },
+        style,
+      ]}
+    >
       {dots.map((deg) => {
         const rad = (deg * Math.PI) / 180;
         return (
@@ -134,14 +129,11 @@ function OrbitDots({ color, ambiance }: { color: string; ambiance: SharedValue<n
             key={deg}
             style={{
               position: 'absolute',
-              width: 6,
-              height: 6,
-              borderRadius: 3,
+              width: 5,
+              height: 5,
+              borderRadius: 2.5,
               backgroundColor: color,
-              transform: [
-                { translateX: Math.cos(rad) * RADIUS },
-                { translateY: Math.sin(rad) * RADIUS },
-              ],
+              transform: [{ translateX: Math.cos(rad) * RADIUS }, { translateY: Math.sin(rad) * RADIUS }],
             }}
           />
         );
@@ -173,20 +165,19 @@ function Particle({
 }) {
   const p = useSharedValue(0);
 
-  // Deterministic-ish spread from the index so particles don't clump.
-  const startX = (index - 3) * 34 + (index % 2 === 0 ? 12 : -8);
+  const startX = (index - 3) * 22 + (index % 2 === 0 ? 8 : -6);
   const duration = 7000 + index * 900;
-  const size = 3 + (index % 3);
+  const size = 2.5 + (index % 3);
 
   useEffect(() => {
     p.value = withRepeat(withTiming(1, { duration, easing: Easing.inOut(Easing.quad) }), -1, false);
   }, [p, duration]);
 
   const style = useAnimatedStyle(() => ({
-    opacity: ambiance.value * interpolate(p.value, [0, 0.15, 0.8, 1], [0, 0.7, 0.5, 0]),
+    opacity: ambiance.value * interpolate(p.value, [0, 0.15, 0.8, 1], [0, 0.55, 0.4, 0]),
     transform: [
-      { translateX: startX + Math.sin(p.value * Math.PI * 2) * 14 },
-      { translateY: interpolate(p.value, [0, 1], [120, -150]) },
+      { translateX: startX + Math.sin(p.value * Math.PI * 2) * 10 },
+      { translateY: interpolate(p.value, [0, 1], [95, -115]) },
     ],
   }));
 

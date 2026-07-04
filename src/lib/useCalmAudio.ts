@@ -1,13 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Audio } from 'expo-av';
-import * as Speech from 'expo-speech';
 import { BedId, bedById } from './calmSounds';
 
 /**
- * Manages the Calm session soundscape: a looping ambient bed plus optional
- * spoken breath cues. The bed fades in/out so starting and stopping never
- * feels abrupt. Audio is configured to keep playing when the phone is on
- * silent (expected behaviour for a meditation experience).
+ * Manages the Calm session soundscape: a single looping ambient bed that
+ * fades in/out so starting and stopping never feels abrupt. Audio is
+ * configured to keep playing when the phone is on silent (expected
+ * behaviour for a meditation experience).
  */
 export function useCalmAudio() {
   const soundRef = useRef<Audio.Sound | null>(null);
@@ -23,7 +22,6 @@ export function useCalmAudio() {
 
     return () => {
       if (fadeRef.current) clearInterval(fadeRef.current);
-      Speech.stop();
       soundRef.current?.unloadAsync().catch(() => {});
       soundRef.current = null;
     };
@@ -112,13 +110,5 @@ export function useCalmAudio() {
     });
   };
 
-  /** Speak a short breath cue in a calm, slow voice. */
-  const speakCue = (text: string) => {
-    Speech.stop();
-    Speech.speak(text, { rate: 0.72, pitch: 0.92 });
-  };
-
-  const stopSpeaking = () => Speech.stop();
-
-  return { startBed, pauseBed, stopBed, speakCue, stopSpeaking };
+  return { startBed, pauseBed, stopBed };
 }

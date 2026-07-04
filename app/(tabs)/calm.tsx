@@ -10,18 +10,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import {
-  Lock,
-  Moon,
-  Pause,
-  Play,
-  RotateCcw,
-  Sparkles,
-  Square,
-  Volume2,
-  VolumeX,
-  Wind,
-} from 'lucide-react-native';
+import { Lock, Moon, Pause, Play, RotateCcw, Sparkles, Square, Wind } from 'lucide-react-native';
 import {
   BreathingAura,
   GlassCard,
@@ -110,7 +99,8 @@ function usePatterns() {
   return patterns;
 }
 
-const ORB = ['#5EEAD4', '#38BDF8', '#818CF8'] as const;
+// Muted, low-glare gradient — easy on the eyes in a dark room.
+const ORB = ['#4BA3A0', '#6C86D9', '#9385D0'] as const;
 
 export default function Calm() {
   const theme = useTheme();
@@ -125,11 +115,9 @@ export default function Calm() {
   const completeMindIntro = useSettingsStore((s) => s.completeMindIntro);
   const [showIntro, setShowIntro] = useState(!mindIntroSeen);
 
-  // Sound + voice preferences (persisted).
+  // Ambient bed preference (persisted).
   const calmBed = useSettingsStore((s) => s.calmBed) as BedId;
   const setCalmBed = useSettingsStore((s) => s.setCalmBed);
-  const calmVoiceCues = useSettingsStore((s) => s.calmVoiceCues);
-  const toggleCalmVoiceCues = useSettingsStore((s) => s.toggleCalmVoiceCues);
 
   const [patternId, setPatternId] = useState(patterns[0].id);
   const [running, setRunning] = useState(false);
@@ -145,8 +133,6 @@ export default function Calm() {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const voiceRef = useRef(calmVoiceCues);
-  voiceRef.current = calmVoiceCues;
   const bedRef = useRef(calmBed);
   bedRef.current = calmBed;
 
@@ -181,7 +167,6 @@ export default function Calm() {
           easing: Easing.out(Easing.quad),
         });
       }
-      if (voiceRef.current) audio.speakCue(phase.label);
 
       let remaining = phase.seconds;
       intervalRef.current = setInterval(() => {
@@ -231,8 +216,8 @@ export default function Calm() {
 
   const orbStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
   const glowStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value * 1.35 }],
-    opacity: 0.25 + (scale.value - OUT_SCALE) * 0.4,
+    transform: [{ scale: scale.value * 1.3 }],
+    opacity: 0.16 + (scale.value - OUT_SCALE) * 0.28,
   }));
 
   const toggle = () => {
@@ -245,7 +230,6 @@ export default function Calm() {
     } else {
       ambiance.value = withTiming(0, { duration: 700 });
       audio.pauseBed();
-      audio.stopSpeaking();
     }
   };
 
@@ -259,7 +243,6 @@ export default function Calm() {
     scale.value = withTiming(OUT_SCALE, { duration: 400 });
     ambiance.value = withTiming(0, { duration: 500 });
     audio.pauseBed();
-    audio.stopSpeaking();
   };
 
   const selectPattern = (id: string) => {
@@ -272,19 +255,12 @@ export default function Calm() {
     scale.value = withTiming(OUT_SCALE, { duration: 400 });
     ambiance.value = withTiming(0, { duration: 500 });
     audio.pauseBed();
-    audio.stopSpeaking();
     setPatternId(id);
   };
 
   const selectBed = (id: BedId) => {
     setCalmBed(id);
     if (running) audio.startBed(id);
-  };
-
-  const onToggleVoice = () => {
-    Haptics.selectionAsync().catch(() => {});
-    if (calmVoiceCues) audio.stopSpeaking();
-    toggleCalmVoiceCues();
   };
 
   const changeMode = (next: Mode) => {
@@ -342,8 +318,22 @@ export default function Calm() {
       />
 
       {/* Breathing orb with its living aura (shared by both modes) */}
-      <View style={{ alignItems: 'center', justifyContent: 'center', height: 320, marginTop: theme.spacing.sm }}>
-        <BreathingAura scale={scale} ambiance={ambiance} ripple={ripple} colors={orbColors} />
+      <View style={{ alignItems: 'center', justifyContent: 'center', height: 300, marginTop: theme.spacing.sm }}>
+        {/* Aura is clipped to a circle so it never bleeds into the UI above/below */}
+        <View
+          pointerEvents="none"
+          style={{
+            position: 'absolute',
+            width: 300,
+            height: 300,
+            borderRadius: 150,
+            overflow: 'hidden',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <BreathingAura scale={scale} ambiance={ambiance} ripple={ripple} colors={orbColors} />
+        </View>
 
         <Animated.View
           style={[
@@ -416,12 +406,10 @@ export default function Calm() {
           patterns={patterns}
           patternId={patternId}
           calmBed={calmBed}
-          calmVoiceCues={calmVoiceCues}
           onToggle={toggle}
           onReset={reset}
           onSelectPattern={selectPattern}
           onSelectBed={selectBed}
-          onToggleVoice={onToggleVoice}
         />
       ) : (
         <JourneysMode
@@ -456,24 +444,20 @@ function BreatheMode({
   patterns,
   patternId,
   calmBed,
-  calmVoiceCues,
   onToggle,
   onReset,
   onSelectPattern,
   onSelectBed,
-  onToggleVoice,
 }: {
   running: boolean;
   rounds: number;
   patterns: Pattern[];
   patternId: string;
   calmBed: BedId;
-  calmVoiceCues: boolean;
   onToggle: () => void;
   onReset: () => void;
   onSelectPattern: (id: string) => void;
   onSelectBed: (id: BedId) => void;
-  onToggleVoice: () => void;
 }) {
   const theme = useTheme();
   return (
@@ -527,9 +511,9 @@ function BreatheMode({
         </RoundButton>
       </View>
 
-      {/* Sound + voice */}
+      {/* Soundscape */}
       <View style={{ marginTop: theme.spacing.xl }}>
-        <SectionHeader title="Soundscape" subtitle="Choose an ambient bed and spoken cues" />
+        <SectionHeader title="Soundscape" subtitle="Choose an ambient bed to breathe to" />
 
         <ScrollView
           horizontal
@@ -562,51 +546,6 @@ function BreatheMode({
             );
           })}
         </ScrollView>
-
-        <Pressable onPress={onToggleVoice} style={{ marginTop: theme.spacing.md }}>
-          <GlassCard>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
-              <View
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 14,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor:
-                    (calmVoiceCues ? theme.colors.primary : theme.colors.textTertiary) + '14',
-                }}
-              >
-                {calmVoiceCues ? (
-                  <Volume2 size={20} color={theme.colors.primary} />
-                ) : (
-                  <VolumeX size={20} color={theme.colors.textTertiary} />
-                )}
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text variant="headline">Spoken breath cues</Text>
-                <Text variant="caption" color="textTertiary">
-                  {calmVoiceCues
-                    ? 'A gentle voice guides each breath'
-                    : 'Silent — follow the orb and haptics'}
-                </Text>
-              </View>
-              <View
-                style={{
-                  width: 52,
-                  height: 30,
-                  borderRadius: 15,
-                  padding: 3,
-                  backgroundColor: calmVoiceCues ? theme.colors.primary : theme.colors.separator,
-                  alignItems: calmVoiceCues ? 'flex-end' : 'flex-start',
-                  justifyContent: 'center',
-                }}
-              >
-                <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: '#fff' }} />
-              </View>
-            </View>
-          </GlassCard>
-        </Pressable>
       </View>
 
       {/* Pattern picker */}
