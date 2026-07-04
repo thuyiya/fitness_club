@@ -29,6 +29,9 @@ jobs:
   build:
     name: EAS Build
     runs-on: ubuntu-latest
+    # EXPO_TOKEN is stored as an environment secret on the "production"
+    # environment, so the job must opt into that environment to read it.
+    environment: production
     # On push events there are no inputs, so fall back to android/preview.
     env:
       PLATFORM: ${{ github.event.inputs.platform || 'android' }}
