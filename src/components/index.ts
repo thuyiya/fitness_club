@@ -11,4 +11,5 @@ export * from './StatTile';
 export * from './SegmentedControl';
 export * from './SectionHeader';
 export * from './FadeInView';
+export * from './BreathingAura';
 export * from './ExpandableCard';
