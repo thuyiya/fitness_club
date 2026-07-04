@@ -30,7 +30,7 @@ export default function AILoading() {
       setIndex((i) => {
         if (i >= LOADING_MESSAGES.length - 1) {
           clearInterval(interval);
-          setTimeout(() => router.replace('/(tabs)'), 700);
+          setTimeout(() => router.replace('/ai-setup'), 700);
           return i;
         }
         return i + 1;

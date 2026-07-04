@@ -30,6 +30,7 @@ function StackNavigator() {
         <Stack.Screen name="welcome" />
         <Stack.Screen name="onboarding" />
         <Stack.Screen name="ai-loading" />
+        <Stack.Screen name="ai-setup" />
         <Stack.Screen name="(tabs)" />
       </Stack>
     </>

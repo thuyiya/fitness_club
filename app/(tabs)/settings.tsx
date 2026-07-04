@@ -10,6 +10,7 @@ import {
   Moon,
   Ruler,
   Shield,
+  Sparkles,
   Trash2,
   Upload,
   User,
@@ -26,8 +27,10 @@ import {
 import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
 import { useSettingsStore, ThemePreference } from '@/store/settingsStore';
+import { useAiCoachStore } from '@/store/aiCoachStore';
 import { MeasurementUnit } from '@/types';
 import { formatHeight, formatWeight } from '@/lib/format';
+import { MODEL } from '@/lib/llm/config';
 
 export default function Settings() {
   const theme = useTheme();
@@ -157,8 +160,11 @@ export default function Settings() {
         </GlassCard>
       </FadeInView>
 
+      {/* On-device AI */}
+      <AIModelSection />
+
       {/* Data */}
-      <FadeInView delay={220}>
+      <FadeInView delay={240}>
         <SectionHeader title="Data & Privacy" />
         <GlassCard padded={false}>
           <NavRow icon={<Shield size={20} color={theme.colors.primary} />} label="Privacy" first />
@@ -191,6 +197,99 @@ export default function Settings() {
         Made with 💙 for your health
       </Text>
     </Screen>
+  );
+}
+
+/** Manage the on-device AI model: status, size, download or delete to free space. */
+function AIModelSection() {
+  const theme = useTheme();
+  const { available, status, progress, downloaded, connect, removeModel } = useAiCoachStore();
+
+  if (!available) return null;
+
+  const installed = downloaded || status === 'ready';
+  const statusLabel =
+    status === 'ready'
+      ? 'Ready'
+      : status === 'downloading'
+        ? `Downloading ${Math.round(progress * 100)}%`
+        : status === 'preparing'
+          ? 'Loading…'
+          : installed
+            ? 'Installed'
+            : 'Not installed';
+  const statusColor =
+    status === 'ready' || installed ? 'success' : status === 'error' ? 'danger' : 'textTertiary';
+
+  const confirmDelete = () => {
+    Alert.alert(
+      'Delete AI model?',
+      `This frees ${MODEL.sizeLabel} of storage. You can download it again anytime.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive', onPress: () => removeModel() },
+      ],
+    );
+  };
+
+  return (
+    <FadeInView delay={200}>
+      <SectionHeader title="AI Coach" />
+      <GlassCard padded={false}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: theme.spacing.md,
+            padding: theme.spacing.md,
+          }}
+        >
+          <Sparkles size={20} color={theme.colors.primary} />
+          <View style={{ flex: 1 }}>
+            <Text variant="callout">On-device model</Text>
+            <Text variant="caption" color="textTertiary">
+              {MODEL.displayName} · {MODEL.sizeLabel}
+            </Text>
+          </View>
+          <Text variant="caption" color={statusColor as never}>{statusLabel}</Text>
+        </View>
+
+        {status === 'downloading' || status === 'preparing' ? null : installed ? (
+          <Pressable onPress={confirmDelete}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: theme.spacing.md,
+                padding: theme.spacing.md,
+                borderTopWidth: 1,
+                borderTopColor: theme.colors.separator,
+              }}
+            >
+              <Trash2 size={20} color={theme.colors.danger} />
+              <Text variant="callout" color="danger" style={{ flex: 1 }}>Delete model (free {MODEL.sizeLabel})</Text>
+            </View>
+          </Pressable>
+        ) : (
+          <Pressable onPress={() => connect()}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: theme.spacing.md,
+                padding: theme.spacing.md,
+                borderTopWidth: 1,
+                borderTopColor: theme.colors.separator,
+              }}
+            >
+              <Download size={20} color={theme.colors.primary} />
+              <Text variant="callout" color="primary" style={{ flex: 1 }}>Download AI model ({MODEL.sizeLabel})</Text>
+              <ChevronRight size={18} color={theme.colors.textTertiary} />
+            </View>
+          </Pressable>
+        )}
+      </GlassCard>
+    </FadeInView>
   );
 }
 

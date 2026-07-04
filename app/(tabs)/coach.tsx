@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -10,12 +11,16 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Send, Sparkles } from 'lucide-react-native';
+import { Download, RotateCcw, Send, ShieldCheck, Sparkles } from 'lucide-react-native';
 import { Text } from '@/components';
 import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
+import { useAiCoachStore } from '@/store/aiCoachStore';
 import { ChatMessage } from '@/types';
-import { coachReply, MEDICAL_DISCLAIMER, SUGGESTED_PROMPTS } from '@/lib/coach';
+import { buildMessages, coachReply, MEDICAL_DISCLAIMER, SUGGESTED_PROMPTS } from '@/lib/coach';
+import { MODEL } from '@/lib/llm/config';
+
+type UiMessage = ChatMessage & { streaming?: boolean };
 
 let idCounter = 0;
 const nextId = () => `m${idCounter++}`;
@@ -27,7 +32,9 @@ export default function Coach() {
   const plan = useUserStore((s) => s.plan);
   const scrollRef = useRef<ScrollView>(null);
 
-  const [messages, setMessages] = useState<ChatMessage[]>([
+  const ai = useAiCoachStore();
+
+  const [messages, setMessages] = useState<UiMessage[]>([
     {
       id: nextId(),
       role: 'coach',
@@ -36,21 +43,88 @@ export default function Coach() {
     },
   ]);
   const [input, setInput] = useState('');
+  const [busy, setBusy] = useState(false);
 
-  const send = (text: string) => {
+  // If the model was downloaded in a previous session, load it into memory when
+  // the tab opens so the first message uses the on-device LLM.
+  useEffect(() => {
+    if (ai.available && ai.downloaded && ai.status !== 'ready' && ai.status !== 'preparing') {
+      ai.ensureReady();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ai.available, ai.downloaded]);
+
+  const scrollToEnd = () =>
+    requestAnimationFrame(() => scrollRef.current?.scrollToEnd({ animated: true }));
+
+  const send = async (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed || !profile || !plan) return;
-    const userMsg: ChatMessage = { id: nextId(), role: 'user', text: trimmed, createdAt: Date.now() };
-    const reply: ChatMessage = {
+    if (!trimmed || !profile || !plan || busy) return;
+
+    const history = messages.map((m) => ({ role: m.role, text: m.text }));
+    const userMsg: UiMessage = { id: nextId(), role: 'user', text: trimmed, createdAt: Date.now() };
+    setMessages((m) => [...m, userMsg]);
+    setInput('');
+    scrollToEnd();
+
+    // On-device LLM path (streaming) when the model is ready.
+    if (ai.status === 'ready') {
+      const replyId = nextId();
+      setMessages((m) => [
+        ...m,
+        { id: replyId, role: 'coach', text: '', createdAt: Date.now() + 1, streaming: true },
+      ]);
+      setBusy(true);
+      try {
+        const msgs = buildMessages(trimmed, profile, plan, history);
+        await ai.generate(msgs, (token) => {
+          setMessages((m) =>
+            m.map((x) => (x.id === replyId ? { ...x, text: x.text + token } : x)),
+          );
+          scrollToEnd();
+        });
+        setMessages((m) =>
+          m.map((x) =>
+            x.id === replyId
+              ? { ...x, streaming: false, text: x.text.trim() || coachReply(trimmed, profile, plan) }
+              : x,
+          ),
+        );
+      } catch {
+        // Fall back to the rule engine if generation fails.
+        setMessages((m) =>
+          m.map((x) =>
+            x.id === replyId
+              ? { ...x, streaming: false, text: coachReply(trimmed, profile, plan) }
+              : x,
+          ),
+        );
+      } finally {
+        setBusy(false);
+        scrollToEnd();
+      }
+      return;
+    }
+
+    // Rule-based fallback (offline, or model not connected yet).
+    const reply: UiMessage = {
       id: nextId(),
       role: 'coach',
       text: coachReply(trimmed, profile, plan),
       createdAt: Date.now() + 1,
     };
-    setMessages((m) => [...m, userMsg, reply]);
-    setInput('');
-    requestAnimationFrame(() => scrollRef.current?.scrollToEnd({ animated: true }));
+    setMessages((m) => [...m, reply]);
+    scrollToEnd();
   };
+
+  const subtitle =
+    ai.status === 'ready'
+      ? '● On-device AI · private'
+      : ai.status === 'downloading'
+        ? `● Downloading AI · ${Math.round(ai.progress * 100)}%`
+        : ai.status === 'preparing'
+          ? '● Loading AI…'
+          : '● Online · here to help';
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
@@ -69,7 +143,7 @@ export default function Coach() {
           </LinearGradient>
           <View>
             <Text variant="title3">AI Coach</Text>
-            <Text variant="caption" color="success">● Online · here to help</Text>
+            <Text variant="caption" color="success">{subtitle}</Text>
           </View>
         </View>
       </View>
@@ -85,6 +159,8 @@ export default function Coach() {
           showsVerticalScrollIndicator={false}
           onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
         >
+          {ai.available && ai.status !== 'ready' && <ConnectCard />}
+
           {messages.map((m) => (
             <Bubble key={m.id} message={m} />
           ))}
@@ -135,6 +211,7 @@ export default function Coach() {
             placeholderTextColor={theme.colors.textTertiary}
             onSubmitEditing={() => send(input)}
             returnKeyType="send"
+            editable={!busy}
             style={{
               flex: 1,
               height: 50,
@@ -147,12 +224,12 @@ export default function Coach() {
               fontSize: 16,
             }}
           />
-          <Pressable onPress={() => send(input)}>
+          <Pressable onPress={() => send(input)} disabled={busy}>
             <LinearGradient
               colors={[theme.colors.primary, theme.colors.secondary]}
-              style={{ width: 50, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center' }}
+              style={{ width: 50, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', opacity: busy ? 0.6 : 1 }}
             >
-              <Send size={20} color="#fff" />
+              {busy ? <ActivityIndicator color="#fff" /> : <Send size={20} color="#fff" />}
             </LinearGradient>
           </Pressable>
         </View>
@@ -161,7 +238,112 @@ export default function Coach() {
   );
 }
 
-function Bubble({ message }: { message: ChatMessage }) {
+/** Opt-in / download / loading card for the on-device AI model. */
+function ConnectCard() {
+  const theme = useTheme();
+  const { status, progress, error, downloaded, connect, ensureReady } = useAiCoachStore();
+
+  const card = (children: React.ReactNode) => (
+    <View
+      style={{
+        backgroundColor: theme.colors.backgroundElevated,
+        borderWidth: 1,
+        borderColor: theme.colors.cardBorder,
+        borderRadius: theme.radius.lg,
+        padding: theme.spacing.md,
+        gap: 10,
+        ...theme.shadows.soft,
+      }}
+    >
+      {children}
+    </View>
+  );
+
+  if (status === 'downloading') {
+    const pct = Math.round(progress * 100);
+    return card(
+      <>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Download size={18} color={theme.colors.primary} />
+          <Text variant="subhead">Downloading AI model…</Text>
+        </View>
+        <View style={{ height: 8, borderRadius: 4, backgroundColor: theme.colors.cardBorder, overflow: 'hidden' }}>
+          <View style={{ width: `${pct}%`, height: '100%' }}>
+            <LinearGradient
+              colors={[theme.colors.primary, theme.colors.secondary]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={{ flex: 1 }}
+            />
+          </View>
+        </View>
+        <Text variant="caption" color="textTertiary">
+          {pct}% of {MODEL.sizeLabel} · keeps going in the background. You can keep chatting meanwhile.
+        </Text>
+      </>,
+    );
+  }
+
+  if (status === 'preparing') {
+    return card(
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <ActivityIndicator color={theme.colors.primary} />
+        <Text variant="subhead">Warming up your on-device coach…</Text>
+      </View>,
+    );
+  }
+
+  if (status === 'error') {
+    return card(
+      <>
+        <Text variant="subhead">Couldn't set up the AI</Text>
+        <Text variant="caption" color="textTertiary">{error ?? 'Please try again.'}</Text>
+        <Pressable onPress={() => (downloaded ? ensureReady() : connect())}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <RotateCcw size={16} color={theme.colors.primary} />
+            <Text variant="subhead" color="primary">Try again</Text>
+          </View>
+        </Pressable>
+      </>,
+    );
+  }
+
+  // idle — offer to connect (or resume a paused download)
+  return card(
+    <>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+        <ShieldCheck size={18} color={theme.colors.primary} />
+        <Text variant="subhead">Run the coach on your device</Text>
+      </View>
+      <Text variant="caption" color="textTertiary">
+        Connect a private AI that runs fully on your phone — your data never leaves the device.
+        One-time {MODEL.sizeLabel} download over Wi-Fi.
+      </Text>
+      <Pressable onPress={() => connect()} style={{ marginTop: 2 }}>
+        <LinearGradient
+          colors={[theme.colors.primary, theme.colors.secondary]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            paddingVertical: 12,
+            borderRadius: theme.radius.pill,
+          }}
+        >
+          <Download size={18} color="#fff" />
+          <Text variant="subhead" color="textInverse">
+            {downloaded ? 'Resume download' : `Connect AI (${MODEL.sizeLabel})`}
+          </Text>
+        </LinearGradient>
+      </Pressable>
+    </>,
+  );
+}
+
+function Bubble({ message }: { message: UiMessage }) {
   const theme = useTheme();
   const isUser = message.role === 'user';
 
@@ -201,7 +383,9 @@ function Bubble({ message }: { message: ChatMessage }) {
         ...theme.shadows.soft,
       }}
     >
-      <Text variant="callout" style={{ lineHeight: 22 }}>{message.text}</Text>
+      <Text variant="callout" style={{ lineHeight: 22 }}>
+        {message.text || (message.streaming ? '…' : '')}
+      </Text>
     </Animated.View>
   );
 }

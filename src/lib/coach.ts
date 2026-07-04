@@ -62,6 +62,66 @@ export function coachReply(
   return `Great question! Based on your plan you're targeting ${plan.targets.calories} kcal and ${plan.targets.proteinG}g protein daily, heading for ${profile.targetWeightKg}kg by ${finish}. Ask me about meals, workouts, macros or your progress anytime.`;
 }
 
+export type LlmRole = 'system' | 'user' | 'assistant';
+export interface LlmMessage {
+  role: LlmRole;
+  content: string;
+}
+
+/**
+ * Builds the grounding system prompt for the on-device LLM. It injects the
+ * user's real, live plan numbers so the model gives personalised advice rather
+ * than generic tips — no fine-tuning required.
+ */
+export function buildSystemPrompt(profile: UserProfile, plan: Plan): string {
+  const finish = new Date(plan.prediction.finishDate).toLocaleDateString(undefined, {
+    month: 'long',
+    day: 'numeric',
+  });
+  const name = profile.name ? profile.name : 'the user';
+  return [
+    `You are ${name}'s personal AI fitness and nutrition coach inside a mobile app.`,
+    'Be warm, encouraging and practical. Keep replies short — 2 to 4 sentences.',
+    "Use the user's real numbers below whenever relevant, and speak directly to them.",
+    'You are not a doctor: for medical questions, briefly suggest consulting a healthcare professional.',
+    '',
+    'USER PROFILE',
+    `- Goal: ${profile.goal} weight at a ${profile.targetSpeed} pace`,
+    `- Current weight: ${profile.weightKg} kg; target: ${profile.targetWeightKg} kg`,
+    `- Diet preference: ${profile.diet.replace(/_/g, ' ')}`,
+    `- Training days per week: ${profile.workoutDaysPerWeek}`,
+    '',
+    'DAILY TARGETS',
+    `- Calories: ${plan.targets.calories} kcal (TDEE ${plan.metrics.tdee} kcal)`,
+    `- Protein ${plan.targets.proteinG} g, Carbs ${plan.targets.carbsG} g, Fat ${plan.targets.fatG} g`,
+    `- Water ${plan.targets.waterMl} ml, Workout ${plan.targets.workoutMinutes} min, Walking ${plan.targets.walkingMinutes} min`,
+    `- BMI ${plan.metrics.bmi} (${plan.metrics.bmiCategory}); estimated body fat ${plan.metrics.bodyFatPct}%`,
+    '',
+    'PROGRESS',
+    `- Projected to reach ${profile.targetWeightKg} kg around ${finish} — about ${plan.prediction.totalWeeks} weeks away at ${plan.prediction.weeklyRateKg} kg/week.`,
+  ].join('\n');
+}
+
+/**
+ * Assembles the full chat-message array for the LLM: grounding system prompt,
+ * a short slice of recent conversation for continuity, then the new question.
+ */
+export function buildMessages(
+  question: string,
+  profile: UserProfile,
+  plan: Plan,
+  history: { role: 'user' | 'coach'; text: string }[] = [],
+): LlmMessage[] {
+  const messages: LlmMessage[] = [
+    { role: 'system', content: buildSystemPrompt(profile, plan) },
+  ];
+  for (const h of history.slice(-6)) {
+    messages.push({ role: h.role === 'user' ? 'user' : 'assistant', content: h.text });
+  }
+  messages.push({ role: 'user', content: question });
+  return messages;
+}
+
 const MOTIVATION = [
   "Every day you show up is a vote for the person you're becoming. Keep going. 💪",
   "Progress isn't linear — one tough day doesn't erase your streak. Reset and refocus.",
