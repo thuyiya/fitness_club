@@ -41,7 +41,7 @@ export default function Welcome() {
       <View style={[styles.content, { paddingBottom: insets.bottom + 24 }]}>
         <Animated.View entering={FadeInDown.delay(300).springify().damping(16)}>
           <Text variant="largeTitle" center>
-            Meet your personal{'\n'}AI Health Coach
+            Meet your personal{'\n'}wellness coach
           </Text>
         </Animated.View>
         <Animated.View entering={FadeInDown.delay(450).springify().damping(16)}>

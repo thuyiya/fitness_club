@@ -48,9 +48,9 @@ export default function AISetup() {
           >
             <Sparkles size={44} color="#fff" />
           </LinearGradient>
-          <Text variant="title1" center>Meet your AI coach</Text>
+          <Text variant="title1" center>Meet your coach</Text>
           <Text variant="callout" color="textSecondary" center style={{ lineHeight: 22 }}>
-            Add a private AI that runs fully on your phone. It answers questions about your meals,
+            A private coach that runs fully on your phone. It answers questions about your meals,
             workouts and progress — using your real plan, right on device.
           </Text>
         </Animated.View>
@@ -88,7 +88,7 @@ export default function AISetup() {
         ) : (
           <PrimaryButton
             icon={<Download size={18} color="#fff" />}
-            label={`Download AI coach (${MODEL.sizeLabel})`}
+            label={`Download coach (${MODEL.sizeLabel})`}
             onPress={() => connect()}
             theme={theme}
           />

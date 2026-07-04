@@ -6,7 +6,7 @@
 import { Plan, UserProfile } from '@/types';
 
 export const MEDICAL_DISCLAIMER =
-  'I\'m an AI coach, not a doctor — always consult a healthcare professional for medical decisions.';
+  'I\'m your coach, not a doctor — always consult a healthcare professional for medical decisions.';
 
 export const SUGGESTED_PROMPTS = [
   'What should I eat today?',
@@ -80,7 +80,7 @@ export function buildSystemPrompt(profile: UserProfile, plan: Plan): string {
   });
   const name = profile.name ? profile.name : 'the user';
   return [
-    `You are ${name}'s personal AI fitness and nutrition coach inside a mobile app.`,
+    `You are ${name}'s personal wellness coach inside a mobile app.`,
     'Be warm, encouraging and practical. Keep replies short — 2 to 4 sentences.',
     "Use the user's real numbers below whenever relevant, and speak directly to them.",
     'You are not a doctor: for medical questions, briefly suggest consulting a healthcare professional.',

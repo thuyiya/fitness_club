@@ -207,9 +207,9 @@ export default function Progress() {
         </Card>
       </FadeInView>
 
-      {/* AI Insights */}
+      {/* Insights */}
       <FadeInView delay={280}>
-        <SectionHeader title="AI Insights" subtitle="Personalized observations" />
+        <SectionHeader title="Insights" subtitle="Personalized observations" />
         <View style={{ gap: theme.spacing.sm }}>
           {insights.map((ins) => {
             const tone =

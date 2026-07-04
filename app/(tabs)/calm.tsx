@@ -10,7 +10,9 @@ import Animated, {
 import * as Haptics from 'expo-haptics';
 import { Moon, Pause, Play, RotateCcw, Sparkles, Wind } from 'lucide-react-native';
 import { GlassCard, Screen, SectionHeader, Text } from '@/components';
+import { MindIntro } from '@/components/MindIntro';
 import { useTheme } from '@/theme';
+import { useSettingsStore } from '@/store/settingsStore';
 
 /**
  * Calm — a mind-relaxation space. Guided breathing with a living orb that
@@ -86,6 +88,11 @@ const ORB = ['#5EEAD4', '#38BDF8', '#818CF8'] as const;
 export default function Calm() {
   const theme = useTheme();
   const patterns = usePatterns();
+
+  // One-time "Clearing the Mind" intro on the first visit to this tab.
+  const mindIntroSeen = useSettingsStore((s) => s.mindIntroSeen);
+  const completeMindIntro = useSettingsStore((s) => s.completeMindIntro);
+  const [showIntro, setShowIntro] = useState(!mindIntroSeen);
 
   const [patternId, setPatternId] = useState(patterns[0].id);
   const [running, setRunning] = useState(false);
@@ -332,6 +339,14 @@ export default function Calm() {
           </Text>
         </GlassCard>
       </View>
+
+      <MindIntro
+        visible={showIntro}
+        onDone={() => {
+          completeMindIntro();
+          setShowIntro(false);
+        }}
+      />
     </Screen>
   );
 }

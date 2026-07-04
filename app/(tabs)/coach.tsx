@@ -38,7 +38,7 @@ export default function Coach() {
     {
       id: nextId(),
       role: 'coach',
-      text: `Hi ${profile?.name ?? 'there'}! I'm your AI coach. Ask me about meals, workouts, macros, your progress — or just say you need motivation. 💪`,
+      text: `Hi ${profile?.name ?? 'there'}! I'm your coach. Ask me about meals, workouts, macros, your progress — or just say you need motivation. 💪`,
       createdAt: Date.now(),
     },
   ]);
@@ -119,11 +119,11 @@ export default function Coach() {
 
   const subtitle =
     ai.status === 'ready'
-      ? '● On-device AI · private'
+      ? '● On-device · private'
       : ai.status === 'downloading'
-        ? `● Downloading AI · ${Math.round(ai.progress * 100)}%`
+        ? `● Downloading · ${Math.round(ai.progress * 100)}%`
         : ai.status === 'preparing'
-          ? '● Loading AI…'
+          ? '● Loading…'
           : '● Online · here to help';
 
   return (
@@ -142,7 +142,7 @@ export default function Coach() {
             <Sparkles size={22} color="#fff" />
           </LinearGradient>
           <View>
-            <Text variant="title3">AI Coach</Text>
+            <Text variant="title3">Coach</Text>
             <Text variant="caption" color="success">{subtitle}</Text>
           </View>
         </View>
@@ -238,7 +238,7 @@ export default function Coach() {
   );
 }
 
-/** Opt-in / download / loading card for the on-device AI model. */
+/** Opt-in / download / loading card for the on-device coach model. */
 function ConnectCard() {
   const theme = useTheme();
   const { status, progress, error, downloaded, connect, ensureReady } = useAiCoachStore();
@@ -265,7 +265,7 @@ function ConnectCard() {
       <>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Download size={18} color={theme.colors.primary} />
-          <Text variant="subhead">Downloading AI model…</Text>
+          <Text variant="subhead">Downloading model…</Text>
         </View>
         <View style={{ height: 8, borderRadius: 4, backgroundColor: theme.colors.cardBorder, overflow: 'hidden' }}>
           <View style={{ width: `${pct}%`, height: '100%' }}>
@@ -296,7 +296,7 @@ function ConnectCard() {
   if (status === 'error') {
     return card(
       <>
-        <Text variant="subhead">Couldn't set up the AI</Text>
+        <Text variant="subhead">Couldn't set up your coach</Text>
         <Text variant="caption" color="textTertiary">{error ?? 'Please try again.'}</Text>
         <Pressable onPress={() => (downloaded ? ensureReady() : connect())}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -316,7 +316,7 @@ function ConnectCard() {
         <Text variant="subhead">Run the coach on your device</Text>
       </View>
       <Text variant="caption" color="textTertiary">
-        Connect a private AI that runs fully on your phone — your data never leaves the device.
+        A private coach that runs fully on your phone — your data never leaves the device.
         One-time {MODEL.sizeLabel} download over Wi-Fi.
       </Text>
       <Pressable onPress={() => connect()} style={{ marginTop: 2 }}>
@@ -335,7 +335,7 @@ function ConnectCard() {
         >
           <Download size={18} color="#fff" />
           <Text variant="subhead" color="textInverse">
-            {downloaded ? 'Resume download' : `Connect AI (${MODEL.sizeLabel})`}
+            {downloaded ? 'Resume download' : `Enable coach (${MODEL.sizeLabel})`}
           </Text>
         </LinearGradient>
       </Pressable>

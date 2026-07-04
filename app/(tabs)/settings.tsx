@@ -160,7 +160,7 @@ export default function Settings() {
         </GlassCard>
       </FadeInView>
 
-      {/* On-device AI */}
+      {/* On-device coach */}
       <AIModelSection />
 
       {/* Data */}
@@ -223,7 +223,7 @@ function AIModelSection() {
 
   const confirmDelete = () => {
     Alert.alert(
-      'Delete AI model?',
+      'Delete coach model?',
       `This frees ${MODEL.sizeLabel} of storage. You can download it again anytime.`,
       [
         { text: 'Cancel', style: 'cancel' },
@@ -234,7 +234,7 @@ function AIModelSection() {
 
   return (
     <FadeInView delay={200}>
-      <SectionHeader title="AI Coach" />
+      <SectionHeader title="Coach" />
       <GlassCard padded={false}>
         <View
           style={{
@@ -283,7 +283,7 @@ function AIModelSection() {
               }}
             >
               <Download size={20} color={theme.colors.primary} />
-              <Text variant="callout" color="primary" style={{ flex: 1 }}>Download AI model ({MODEL.sizeLabel})</Text>
+              <Text variant="callout" color="primary" style={{ flex: 1 }}>Download coach ({MODEL.sizeLabel})</Text>
               <ChevronRight size={18} color={theme.colors.textTertiary} />
             </View>
           </Pressable>

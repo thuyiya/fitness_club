@@ -146,5 +146,5 @@ export const LOADING_MESSAGES = [
   'Generating meal plan…',
   'Predicting weight timeline…',
   'Preparing workout…',
-  'Building your AI coach…',
+  'Building your coach…',
 ];

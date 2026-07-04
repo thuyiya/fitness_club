@@ -94,7 +94,7 @@ export default function Meals() {
       <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
         <Text variant="largeTitle">Meal Plan</Text>
         <Text variant="subhead" color="textTertiary">
-          AI-generated for {profile?.diet.replace('_', ' ')} · {plan?.targets.calories} kcal
+          Personalized for {profile?.diet.replace('_', ' ')} · {plan?.targets.calories} kcal
         </Text>
       </View>
 

@@ -116,7 +116,7 @@ export const useAiCoachStore = create<AiCoachState>()(
           return true;
         }
         if (!initLlama) {
-          set({ status: 'error', error: 'The on-device AI engine is not available in this build.' });
+          set({ status: 'error', error: 'The on-device coach is not available in this build.' });
           return false;
         }
         const info = await FileSystem.getInfoAsync(MODEL_PATH);
@@ -142,7 +142,7 @@ export const useAiCoachStore = create<AiCoachState>()(
       generate: async (messages, onToken) => {
         if (!llamaCtx) {
           const ok = await get().ensureReady();
-          if (!ok || !llamaCtx) throw new Error('AI model is not ready');
+          if (!ok || !llamaCtx) throw new Error('Coach model is not ready');
         }
         let full = '';
         const res = await llamaCtx.completion(

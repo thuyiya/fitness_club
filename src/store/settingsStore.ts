@@ -19,10 +19,13 @@ interface SettingsState {
   units: MeasurementUnit;
   notifications: NotificationPrefs;
   connectedHealth: { apple: boolean; google: boolean; samsung: boolean };
+  /** Whether the one-time "Clearing the Mind" intro on the Calm tab has been shown. */
+  mindIntroSeen: boolean;
   setTheme: (t: ThemePreference) => void;
   setUnits: (u: MeasurementUnit) => void;
   toggleNotification: (k: keyof NotificationPrefs) => void;
   toggleHealth: (k: keyof SettingsState['connectedHealth']) => void;
+  completeMindIntro: () => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -39,12 +42,14 @@ export const useSettingsStore = create<SettingsState>()(
         motivation: true,
       },
       connectedHealth: { apple: false, google: false, samsung: false },
+      mindIntroSeen: false,
       setTheme: (themePreference) => set({ themePreference }),
       setUnits: (units) => set({ units }),
       toggleNotification: (k) =>
         set((s) => ({ notifications: { ...s.notifications, [k]: !s.notifications[k] } })),
       toggleHealth: (k) =>
         set((s) => ({ connectedHealth: { ...s.connectedHealth, [k]: !s.connectedHealth[k] } })),
+      completeMindIntro: () => set({ mindIntroSeen: true }),
     }),
     {
       name: 'settings',

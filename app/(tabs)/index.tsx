@@ -244,9 +244,9 @@ export default function Dashboard() {
         </Card>
       </FadeInView>
 
-      {/* AI Coach card */}
+      {/* Coach card */}
       <FadeInView delay={340}>
-        <SectionHeader title="Your AI Coach" actionLabel="Chat" onAction={() => router.push('/coach')} />
+        <SectionHeader title="Your Coach" actionLabel="Chat" onAction={() => router.push('/coach')} />
         <LinearGradient
           colors={[theme.colors.primary, theme.colors.secondary]}
           start={{ x: 0, y: 0 }}
