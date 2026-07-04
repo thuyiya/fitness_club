@@ -17,14 +17,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.aiweightcoach.app"
+      "bundleIdentifier": "com.glitchfy.fitnessclub"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0F172A"
       },
-      "package": "com.aiweightcoach.app"
+      "package": "com.glitchfy.fitnessclub"
     },
     "web": {
       "bundler": "metro",
