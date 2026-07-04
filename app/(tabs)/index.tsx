@@ -1,15 +1,17 @@
 import React, { useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
+import { Href, router } from 'expo-router';
 import {
   ArrowRight,
   Droplets,
   Flame,
   Footprints,
   Dumbbell,
+  HeartPulse,
   Sparkles,
   Beef,
+  UtensilsCrossed,
 } from 'lucide-react-native';
 import {
   Card,
@@ -110,6 +112,9 @@ export default function Dashboard() {
             {greeting()}
           </Text>
           <Text variant="largeTitle">{profile.name} 👋</Text>
+          <Text variant="footnote" color="textTertiary" style={{ marginTop: 2 }}>
+            Nourish the body · calm the mind
+          </Text>
         </View>
       </FadeInView>
 
@@ -122,6 +127,34 @@ export default function Dashboard() {
           daysRemaining={prediction.daysRemaining}
           weeklyRate={`${prediction.weeklyRateKg} ${units === 'imperial' ? 'lb' : 'kg'}/wk`}
         />
+      </FadeInView>
+
+      {/* Quick actions — Meals, Workouts & Calm now live here */}
+      <FadeInView delay={130}>
+        <SectionHeader title="Quick Actions" />
+        <View style={{ flexDirection: 'row', gap: theme.spacing.sm }}>
+          <QuickAction
+            label="Meals"
+            hint="Log & plan"
+            color={theme.colors.warning}
+            icon={<UtensilsCrossed size={22} color={theme.colors.warning} />}
+            onPress={() => router.push('/meals')}
+          />
+          <QuickAction
+            label="Workouts"
+            hint="Train & move"
+            color={theme.colors.success}
+            icon={<Dumbbell size={22} color={theme.colors.success} />}
+            onPress={() => router.push('/workouts')}
+          />
+          <QuickAction
+            label="Calm"
+            hint="Breathe & relax"
+            color={theme.colors.water}
+            icon={<HeartPulse size={22} color={theme.colors.water} />}
+            onPress={() => router.push('/calm' as Href)}
+          />
+        </View>
       </FadeInView>
 
       {/* Rings */}
@@ -330,6 +363,55 @@ function GoalStat({ label, value }: { label: string; value: string }) {
         {value}
       </Text>
     </View>
+  );
+}
+
+function QuickAction({
+  label,
+  hint,
+  color,
+  icon,
+  onPress,
+}: {
+  label: string;
+  hint: string;
+  color: string;
+  icon: React.ReactNode;
+  onPress: () => void;
+}) {
+  const theme = useTheme();
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => ({
+        flex: 1,
+        opacity: pressed ? 0.7 : 1,
+        transform: [{ scale: pressed ? 0.97 : 1 }],
+      })}
+    >
+      <GlassCard>
+        <View style={{ alignItems: 'center', gap: 8, paddingVertical: theme.spacing.xs }}>
+          <View
+            style={{
+              width: 46,
+              height: 46,
+              borderRadius: 16,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: color + '1A',
+            }}
+          >
+            {icon}
+          </View>
+          <Text variant="footnote" style={{ fontWeight: '700' }}>
+            {label}
+          </Text>
+          <Text variant="caption" color="textTertiary">
+            {hint}
+          </Text>
+        </View>
+      </GlassCard>
+    </Pressable>
   );
 }
 

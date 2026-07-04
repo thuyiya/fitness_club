@@ -7,7 +7,9 @@ dist/
 web-build/
 expo-env.d.ts
 
-# Native
+# Native (managed workflow — EAS runs prebuild, so don't commit generated projects)
+/ios/
+/android/
 *.orig.*
 *.jks
 *.p8

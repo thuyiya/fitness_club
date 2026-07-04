@@ -3,12 +3,11 @@ import { Platform, StyleSheet, View } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import {
-  Dumbbell,
+  HeartPulse,
   LayoutDashboard,
   MessageCircle,
   Settings,
   TrendingUp,
-  UtensilsCrossed,
 } from 'lucide-react-native';
 import { useTheme } from '@/theme';
 
@@ -57,18 +56,14 @@ export default function TabsLayout() {
           tabBarIcon: ({ color, size }) => <LayoutDashboard color={color} size={size - 2} />,
         }}
       />
+      {/* Meals & Workouts are no longer in the tab bar — reached from Home. */}
+      <Tabs.Screen name="meals" options={{ href: null }} />
+      <Tabs.Screen name="workouts" options={{ href: null }} />
       <Tabs.Screen
-        name="meals"
+        name="calm"
         options={{
-          title: 'Meals',
-          tabBarIcon: ({ color, size }) => <UtensilsCrossed color={color} size={size - 2} />,
-        }}
-      />
-      <Tabs.Screen
-        name="workouts"
-        options={{
-          title: 'Workouts',
-          tabBarIcon: ({ color, size }) => <Dumbbell color={color} size={size - 2} />,
+          title: 'Calm',
+          tabBarIcon: ({ color, size }) => <HeartPulse color={color} size={size - 2} />,
         }}
       />
       <Tabs.Screen
