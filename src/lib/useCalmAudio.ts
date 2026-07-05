@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Audio } from 'expo-av';
+import { Audio, AVPlaybackSource } from 'expo-av';
 import { BedId, bedById } from './calmSounds';
 
 /**
@@ -91,6 +91,35 @@ export function useCalmAudio() {
     }
   };
 
+  /** Load and fade in an arbitrary looping track (e.g. per-practice music). */
+  const startTrack = async (module: AVPlaybackSource) => {
+    clearFade();
+    await soundRef.current?.unloadAsync().catch(() => {});
+    soundRef.current = null;
+    loadedBedRef.current = null;
+    try {
+      const { sound } = await Audio.Sound.createAsync(module, {
+        isLooping: true,
+        volume: 0,
+        shouldPlay: true,
+      });
+      soundRef.current = sound;
+      fadeTo(0.7, 1400);
+    } catch {
+      soundRef.current = null;
+    }
+  };
+
+  /** Resume the currently-loaded track after a pause. */
+  const resumeTrack = async () => {
+    const sound = soundRef.current;
+    if (!sound) return;
+    clearFade();
+    await sound.setVolumeAsync(0).catch(() => {});
+    await sound.playAsync().catch(() => {});
+    fadeTo(0.7, 1200);
+  };
+
   /** Fade out and pause the bed (kept loaded for a quick restart). */
   const pauseBed = async () => {
     const sound = soundRef.current;
@@ -110,5 +139,5 @@ export function useCalmAudio() {
     });
   };
 
-  return { startBed, pauseBed, stopBed };
+  return { startBed, startTrack, resumeTrack, pauseBed, stopBed };
 }

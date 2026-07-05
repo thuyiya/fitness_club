@@ -21,6 +21,7 @@ import { useSettingsStore } from '@/store/settingsStore';
 import { useCalmStore } from '@/store/calmStore';
 import { BedId } from '@/lib/calmSounds';
 import { practiceById } from '@/lib/practices';
+import { pickPracticeMusic } from '@/lib/practiceSounds';
 
 /**
  * Full-screen guided practice — Focus, Relax the Body, Loving-Kindness, Let Go.
@@ -42,6 +43,12 @@ export default function Practice() {
   const calmBed = useSettingsStore((s) => s.calmBed) as BedId;
   const addRound = useCalmStore((s) => s.addRound);
 
+  // A random music variant for this practice, chosen once per session. Falls
+  // back to the shared ambient bed if a practice has no dedicated music yet.
+  const [track] = useState(() => pickPracticeMusic(practice.id));
+  const startMusic = () => (track ? audio.startTrack(track) : audio.startBed(calmBed));
+  const resumeMusic = () => (track ? audio.resumeTrack() : audio.startBed(calmBed));
+
   const [running, setRunning] = useState(true);
   const [label, setLabel] = useState(phases[0]?.label ?? '');
   const [cycles, setCycles] = useState(0);
@@ -57,7 +64,7 @@ export default function Practice() {
 
   // Continuous slow orb breathing + ambient bed while the session is open.
   useEffect(() => {
-    audio.startBed(calmBed);
+    startMusic();
     breath.value = withRepeat(
       withTiming(IN, { duration: 5500, easing: Easing.inOut(Easing.sin) }),
       -1,
@@ -100,7 +107,7 @@ export default function Practice() {
       audio.pauseBed();
       cancelAnimation(breath);
     } else {
-      audio.startBed(calmBed);
+      resumeMusic();
       breath.value = withRepeat(
         withTiming(IN, { duration: 5500, easing: Easing.inOut(Easing.sin) }),
         -1,
