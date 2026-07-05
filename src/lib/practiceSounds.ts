@@ -34,3 +34,41 @@ export function pickPracticeMusic(practiceId: string): AVPlaybackSource | null {
   if (!variants || variants.length === 0) return null;
   return variants[Math.floor(Math.random() * variants.length)];
 }
+
+/**
+ * Background scenes per practice — one is picked at random each play (paired
+ * with the random music) so a session looks and sounds different every time.
+ */
+const IMAGES: Record<string, number[]> = {
+  breath: [
+    require('../../assets/bg/bg-breath-1.jpg'),
+    require('../../assets/bg/bg-breath-2.jpg'),
+  ],
+  focus: [
+    require('../../assets/bg/bg-focus-1.jpg'),
+    require('../../assets/bg/bg-focus-2.jpg'),
+  ],
+  body: [
+    require('../../assets/bg/bg-body-1.jpg'),
+    require('../../assets/bg/bg-body-2.jpg'),
+    require('../../assets/bg/bg-body-3.jpg'),
+  ],
+  metta: [
+    require('../../assets/bg/bg-metta-1.jpg'),
+    require('../../assets/bg/bg-metta-2.jpg'),
+    require('../../assets/bg/bg-metta-3.jpg'),
+  ],
+  letgo: [
+    require('../../assets/bg/bg-letgo-1.jpg'),
+    require('../../assets/bg/bg-letgo-2.jpg'),
+    require('../../assets/bg/bg-letgo-3.jpg'),
+    require('../../assets/bg/bg-letgo-4.jpg'),
+  ],
+};
+
+/** A random background scene for a practice, or null if it has none. */
+export function pickPracticeImage(practiceId: string): number | null {
+  const imgs = IMAGES[practiceId];
+  if (!imgs || imgs.length === 0) return null;
+  return imgs[Math.floor(Math.random() * imgs.length)];
+}

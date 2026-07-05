@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   cancelAnimation,
@@ -36,7 +36,6 @@ import { MindIntro } from '@/components/MindIntro';
 import { useTheme } from '@/theme';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useCalmStore } from '@/store/calmStore';
-import { BedId, BEDS } from '@/lib/calmSounds';
 import { GUIDED_SESSIONS } from '@/lib/calmSessions';
 import { PRACTICES, Practice } from '@/lib/practices';
 import { formatTime, useGuidedPlayer } from '@/lib/useGuidedPlayer';
@@ -66,10 +65,6 @@ export default function Calm() {
   const mindIntroSeen = useSettingsStore((s) => s.mindIntroSeen);
   const completeMindIntro = useSettingsStore((s) => s.completeMindIntro);
   const [showIntro, setShowIntro] = useState(!mindIntroSeen);
-
-  // Ambient bed preference (persisted).
-  const calmBed = useSettingsStore((s) => s.calmBed) as BedId;
-  const setCalmBed = useSettingsStore((s) => s.setCalmBed);
 
   // Persisted calm activity, surfaced on the Progress tab in Calm focus.
   const logSession = useCalmStore((s) => s.startSession);
@@ -124,8 +119,6 @@ export default function Calm() {
     if (p.kind === 'breath') router.push('/breathe');
     else router.push({ pathname: '/practice', params: { id: p.id } });
   };
-
-  const selectBed = (id: BedId) => setCalmBed(id);
 
   const changeMode = (next: Mode) => {
     if (next === mode) return;
@@ -252,7 +245,7 @@ export default function Calm() {
       </View>
 
       {mode === 'practices' ? (
-        <PracticesMode calmBed={calmBed} onOpenPractice={openPractice} onSelectBed={selectBed} />
+        <PracticesMode onOpenPractice={openPractice} />
       ) : (
         <JourneysMode
           activeSession={activeSession}
@@ -290,13 +283,9 @@ const PRACTICE_ICON: Record<string, (c: string) => React.ReactNode> = {
 };
 
 function PracticesMode({
-  calmBed,
   onOpenPractice,
-  onSelectBed,
 }: {
-  calmBed: BedId;
   onOpenPractice: (p: Practice) => void;
-  onSelectBed: (id: BedId) => void;
 }) {
   const theme = useTheme();
   return (
@@ -349,43 +338,6 @@ function PracticesMode({
             </Pressable>
           ))}
         </View>
-      </View>
-
-      {/* Soundscape */}
-      <View style={{ marginTop: theme.spacing.xl }}>
-        <SectionHeader title="Soundscape" subtitle="An ambient bed plays under every practice" />
-
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: theme.spacing.sm, paddingVertical: 2 }}
-        >
-          {BEDS.map((b) => {
-            const active = b.id === calmBed;
-            return (
-              <Pressable key={b.id} onPress={() => onSelectBed(b.id)}>
-                <View
-                  style={{
-                    paddingHorizontal: theme.spacing.md,
-                    paddingVertical: 10,
-                    borderRadius: 999,
-                    backgroundColor: active ? theme.colors.primary : theme.colors.surfaceGlass,
-                    borderWidth: active ? 0 : 1,
-                    borderColor: theme.colors.separator,
-                  }}
-                >
-                  <Text
-                    variant="subhead"
-                    color={active ? 'textInverse' : 'textSecondary'}
-                    style={{ fontWeight: '600' }}
-                  >
-                    {b.label}
-                  </Text>
-                </View>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
       </View>
 
       <GroundingNote />

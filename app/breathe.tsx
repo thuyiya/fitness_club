@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { ImageBackground, Pressable, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { StatusBar } from 'expo-status-bar';
@@ -17,9 +17,8 @@ import * as Haptics from 'expo-haptics';
 import { ChevronDown, Pause, Play } from 'lucide-react-native';
 import { Text } from '@/components';
 import { useCalmAudio } from '@/lib/useCalmAudio';
-import { useSettingsStore } from '@/store/settingsStore';
 import { useCalmStore } from '@/store/calmStore';
-import { BedId } from '@/lib/calmSounds';
+import { pickPracticeImage, pickPracticeMusic } from '@/lib/practiceSounds';
 
 /**
  * Full-screen breathing session — a distraction-free space to focus on the
@@ -83,8 +82,14 @@ export default function Breathe() {
   const pattern = PATTERNS.find((p) => p.id === patternId) ?? PATTERNS[0];
 
   const audio = useCalmAudio();
-  const calmBed = useSettingsStore((s) => s.calmBed) as BedId;
   const addRound = useCalmStore((s) => s.addRound);
+
+  // Random music + scene each time, so the breathing space feels different every
+  // session (shares the Breath practice's variants).
+  const [track] = useState(() => pickPracticeMusic('breath'));
+  const [scene] = useState(() => pickPracticeImage('breath'));
+  const startMusic = () => track && audio.startTrack(track);
+  const resumeMusic = () => track && audio.resumeTrack();
 
   const [running, setRunning] = useState(true);
   const [phaseLabel, setPhaseLabel] = useState('Breathe in');
@@ -106,7 +111,7 @@ export default function Breathe() {
 
   // Start the ambient bed on mount; slow continuous rotation for the guide dots.
   useEffect(() => {
-    audio.startBed(calmBed);
+    startMusic();
     spin.value = withRepeat(withTiming(1, { duration: 40000, easing: Easing.linear }), -1, false);
     return () => {
       cancelAnimation(spin);
@@ -169,7 +174,7 @@ export default function Breathe() {
   const toggle = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
     if (running) audio.pauseBed();
-    else audio.startBed(calmBed);
+    else resumeMusic();
     setRunning((r) => !r);
   };
 
@@ -200,7 +205,17 @@ export default function Breathe() {
   return (
     <View style={styles.fill}>
       <StatusBar style="light" />
-      <LinearGradient colors={['#0B1220', '#0E1526', '#0A0F1C']} style={StyleSheet.absoluteFill} />
+      {scene ? (
+        <ImageBackground source={scene} style={StyleSheet.absoluteFill} resizeMode="cover">
+          <LinearGradient
+            colors={['rgba(10,15,28,0.5)', 'rgba(10,15,28,0.4)', 'rgba(10,15,28,0.82)']}
+            locations={[0, 0.5, 1]}
+            style={StyleSheet.absoluteFill}
+          />
+        </ImageBackground>
+      ) : (
+        <LinearGradient colors={['#0B1220', '#0E1526', '#0A0F1C']} style={StyleSheet.absoluteFill} />
+      )}
       {/* Soft accent wash from the top */}
       <LinearGradient
         colors={[ACCENT + '33', 'transparent']}

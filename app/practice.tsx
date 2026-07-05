@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { ImageBackground, Pressable, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { StatusBar } from 'expo-status-bar';
@@ -21,7 +21,7 @@ import { useSettingsStore } from '@/store/settingsStore';
 import { useCalmStore } from '@/store/calmStore';
 import { BedId } from '@/lib/calmSounds';
 import { practiceById } from '@/lib/practices';
-import { pickPracticeMusic } from '@/lib/practiceSounds';
+import { pickPracticeImage, pickPracticeMusic } from '@/lib/practiceSounds';
 
 /**
  * Full-screen guided practice — Focus, Relax the Body, Loving-Kindness, Let Go.
@@ -46,6 +46,7 @@ export default function Practice() {
   // A random music variant for this practice, chosen once per session. Falls
   // back to the shared ambient bed if a practice has no dedicated music yet.
   const [track] = useState(() => pickPracticeMusic(practice.id));
+  const [scene] = useState(() => pickPracticeImage(practice.id));
   const startMusic = () => (track ? audio.startTrack(track) : audio.startBed(calmBed));
   const resumeMusic = () => (track ? audio.resumeTrack() : audio.startBed(calmBed));
 
@@ -131,11 +132,28 @@ export default function Practice() {
   return (
     <View style={styles.fill}>
       <StatusBar style="light" />
-      <LinearGradient colors={['#0B1220', '#0E1526', '#0A0F1C']} style={StyleSheet.absoluteFill} />
-      <LinearGradient
-        colors={[accent + '33', 'transparent']}
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 320 }}
-      />
+      {scene ? (
+        <ImageBackground source={scene} style={StyleSheet.absoluteFill} resizeMode="cover">
+          {/* Darken for legibility and mood */}
+          <LinearGradient
+            colors={['rgba(10,15,28,0.45)', 'rgba(10,15,28,0.35)', 'rgba(10,15,28,0.8)']}
+            locations={[0, 0.5, 1]}
+            style={StyleSheet.absoluteFill}
+          />
+          <LinearGradient
+            colors={[accent + '33', 'transparent']}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 320 }}
+          />
+        </ImageBackground>
+      ) : (
+        <>
+          <LinearGradient colors={['#0B1220', '#0E1526', '#0A0F1C']} style={StyleSheet.absoluteFill} />
+          <LinearGradient
+            colors={[accent + '33', 'transparent']}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 320 }}
+          />
+        </>
+      )}
 
       {/* Top bar */}
       <View style={[styles.topBar, { paddingTop: insets.top + 10 }]}>
