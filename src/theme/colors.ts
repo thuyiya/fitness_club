@@ -1,26 +1,28 @@
 /**
- * Color system for Solace.
- * Brand palette follows the product spec; each mode exposes semantic tokens
- * so components never reference raw hex values directly.
+ * Color system for Solace — a calm, greenish wellness palette.
+ * Three themes share the same semantic tokens so components never touch raw hex:
+ *   • light — soft cream-green, dark text
+ *   • dark  — deep calm green, bright text (the default)
+ *   • glass — frosted translucent surfaces over a deep-green backdrop
  */
 
 export const palette = {
-  primary: '#2563EB',
-  primaryLight: '#60A5FA',
-  primaryDark: '#1D4ED8',
-  secondary: '#4F46E5',
-  secondaryLight: '#818CF8',
-  success: '#22C55E',
-  successLight: '#4ADE80',
-  warning: '#F59E0B',
-  warningLight: '#FBBF24',
-  danger: '#EF4444',
-  dangerLight: '#F87171',
-  water: '#06B6D4',
-  protein: '#8B5CF6',
-  carbs: '#F59E0B',
-  fat: '#EC4899',
-  walking: '#14B8A6',
+  primary: '#557E40',
+  primaryLight: '#8FBF6F',
+  primaryDark: '#3E6130',
+  secondary: '#3B8574',
+  secondaryLight: '#6EC5AE',
+  success: '#4CAF6E',
+  successLight: '#77D69A',
+  warning: '#D99A34',
+  warningLight: '#F0C061',
+  danger: '#CE6258',
+  dangerLight: '#EC8B82',
+  water: '#4FA3C4',
+  protein: '#8677BE',
+  carbs: '#D99A34',
+  fat: '#D585A2',
+  walking: '#3BA089',
   white: '#FFFFFF',
   black: '#000000',
 } as const;
@@ -60,12 +62,8 @@ export interface ThemeColors {
   shadow: string;
 }
 
-export const lightColors: ThemeColors = {
-  primary: palette.primary,
-  primaryLight: palette.primaryLight,
-  primaryDark: palette.primaryDark,
-  secondary: palette.secondary,
-  secondaryLight: palette.secondaryLight,
+/** Data-viz / functional accents, tuned per luminance for clear contrast. */
+const softAccents = {
   success: palette.success,
   warning: palette.warning,
   danger: palette.danger,
@@ -74,58 +72,99 @@ export const lightColors: ThemeColors = {
   carbs: palette.carbs,
   fat: palette.fat,
   walking: palette.walking,
+};
 
-  background: '#F8FAFC',
+const brightAccents = {
+  success: palette.successLight,
+  warning: palette.warningLight,
+  danger: palette.dangerLight,
+  water: '#68C7E0',
+  protein: '#AE9FE0',
+  carbs: palette.warningLight,
+  fat: '#EDA6C2',
+  walking: '#66C9B2',
+};
+
+export const lightColors: ThemeColors = {
+  primary: palette.primary,
+  primaryLight: palette.primaryLight,
+  primaryDark: palette.primaryDark,
+  secondary: palette.secondary,
+  secondaryLight: palette.secondaryLight,
+  ...softAccents,
+
+  background: '#F2F5EA',
   backgroundElevated: '#FFFFFF',
   surface: '#FFFFFF',
   surfaceGlass: 'rgba(255,255,255,0.72)',
   card: '#FFFFFF',
-  cardBorder: 'rgba(15,23,42,0.06)',
+  cardBorder: 'rgba(38,48,30,0.10)',
 
-  text: '#0F172A',
-  textSecondary: '#475569',
-  textTertiary: '#94A3B8',
+  text: '#22301A',
+  textSecondary: '#4C5A40',
+  textTertiary: '#7E8B70',
   textInverse: '#FFFFFF',
 
-  separator: 'rgba(15,23,42,0.08)',
-  overlay: 'rgba(15,23,42,0.4)',
+  separator: 'rgba(38,48,30,0.10)',
+  overlay: 'rgba(30,40,22,0.40)',
 
-  gradientStart: '#EFF6FF',
-  gradientEnd: '#F8FAFC',
-  shadow: '#1E293B',
+  gradientStart: '#E7EFD6',
+  gradientEnd: '#F2F5EA',
+  shadow: '#2A3320',
 };
 
 export const darkColors: ThemeColors = {
   primary: palette.primaryLight,
-  primaryLight: '#93C5FD',
+  primaryLight: '#B4DE9A',
   primaryDark: palette.primary,
   secondary: palette.secondaryLight,
-  secondaryLight: '#A5B4FC',
-  success: palette.successLight,
-  warning: palette.warningLight,
-  danger: palette.dangerLight,
-  water: '#22D3EE',
-  protein: '#A78BFA',
-  carbs: palette.warningLight,
-  fat: '#F472B6',
-  walking: '#2DD4BF',
+  secondaryLight: '#96D9C9',
+  ...brightAccents,
 
-  background: '#0F172A',
-  backgroundElevated: '#1E293B',
-  surface: '#1E293B',
-  surfaceGlass: 'rgba(30,41,59,0.72)',
-  card: 'rgba(30,41,59,0.85)',
-  cardBorder: 'rgba(255,255,255,0.08)',
+  background: '#121A11',
+  backgroundElevated: '#1B261A',
+  surface: '#1B261A',
+  surfaceGlass: 'rgba(27,38,26,0.72)',
+  card: 'rgba(27,38,26,0.90)',
+  cardBorder: 'rgba(255,255,255,0.12)',
 
-  text: '#F8FAFC',
-  textSecondary: '#CBD5E1',
-  textTertiary: '#64748B',
-  textInverse: '#0F172A',
+  text: '#EEF3E6',
+  textSecondary: '#C2CEB4',
+  textTertiary: '#8A9A7A',
+  textInverse: '#121A11',
 
-  separator: 'rgba(255,255,255,0.08)',
-  overlay: 'rgba(0,0,0,0.6)',
+  separator: 'rgba(255,255,255,0.10)',
+  overlay: 'rgba(0,0,0,0.60)',
 
-  gradientStart: '#0F172A',
-  gradientEnd: '#1E1B4B',
+  gradientStart: '#121A11',
+  gradientEnd: '#0E1B16',
+  shadow: '#000000',
+};
+
+export const glassColors: ThemeColors = {
+  primary: '#A6D585',
+  primaryLight: '#C2E5AC',
+  primaryDark: palette.primaryLight,
+  secondary: '#83D6C0',
+  secondaryLight: '#A6E4D5',
+  ...brightAccents,
+
+  background: '#16241C',
+  backgroundElevated: 'rgba(255,255,255,0.10)',
+  surface: 'rgba(255,255,255,0.08)',
+  surfaceGlass: 'rgba(255,255,255,0.12)',
+  card: 'rgba(255,255,255,0.09)',
+  cardBorder: 'rgba(255,255,255,0.20)',
+
+  text: '#F1F7EC',
+  textSecondary: 'rgba(241,247,236,0.82)',
+  textTertiary: 'rgba(241,247,236,0.58)',
+  textInverse: '#12201A',
+
+  separator: 'rgba(255,255,255,0.16)',
+  overlay: 'rgba(0,0,0,0.50)',
+
+  gradientStart: '#20362A',
+  gradientEnd: '#101D17',
   shadow: '#000000',
 };

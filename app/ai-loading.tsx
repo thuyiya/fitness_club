@@ -83,7 +83,7 @@ export default function AILoading() {
           exiting={FadeOut.duration(300)}
           style={{ marginTop: 60 }}
         >
-          <Text variant="title3" color="textInverse" center>
+          <Text variant="title3" center style={{ color: '#F4F8EE' }}>
             {LOADING_MESSAGES[index]}
           </Text>
         </Animated.View>

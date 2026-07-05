@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import Animated, {
@@ -12,9 +12,10 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-import { Leaf } from 'lucide-react-native';
 import { Text } from '@/components';
 import { useSettingsStore } from '@/store/settingsStore';
+
+const MARK = require('../assets/logo-mark.png');
 
 /** Cream calm-brand splash: gently breathing mark, then into the app (or the
  *  one-time wellness intro on the very first launch). */
@@ -54,17 +55,16 @@ export default function Splash() {
       />
       <Particles />
 
-      <Animated.View style={[styles.glow, glowStyle]} />
-      <Animated.View style={[styles.logo, logoStyle]}>
-        <Leaf size={54} color="#85A067" strokeWidth={2.5} />
-      </Animated.View>
+      <View style={styles.markWrap}>
+        <Animated.View style={[styles.glow, glowStyle]} />
+        <Animated.View style={logoStyle}>
+          <Image source={MARK} style={styles.mark} resizeMode="contain" />
+        </Animated.View>
+      </View>
 
       <Animated.View entering={FadeIn.delay(500).duration(800)} style={styles.textWrap}>
-        <Text variant="title1" center style={{ color: '#3F5233' }}>
-          Solace
-        </Text>
-        <Text variant="subhead" style={{ color: '#6E8055', marginTop: 6 }} center>
-          Your private space to feel better
+        <Text variant="title3" center style={{ color: '#6E8055' }}>
+          Let’s calm your body
         </Text>
       </Animated.View>
     </View>
@@ -125,22 +125,14 @@ function Particle({ index }: { index: number }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  markWrap: { width: 120, height: 120, alignItems: 'center', justifyContent: 'center' },
+  textWrap: { position: 'absolute', bottom: 96, left: 0, right: 0, alignItems: 'center' },
   glow: {
     position: 'absolute',
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    backgroundColor: 'rgba(133,160,103,0.22)',
+    width: 170,
+    height: 170,
+    borderRadius: 85,
+    backgroundColor: 'rgba(133,160,103,0.20)',
   },
-  logo: {
-    width: 110,
-    height: 110,
-    borderRadius: 34,
-    backgroundColor: 'rgba(255,255,255,0.6)',
-    borderWidth: 1,
-    borderColor: 'rgba(133,160,103,0.35)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textWrap: { position: 'absolute', bottom: 120, alignItems: 'center' },
+  mark: { width: 84, height: 84 },
 });

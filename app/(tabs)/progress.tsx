@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
-import { Activity, Heart, Lock } from 'lucide-react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Activity, Flame, Heart, Lock, Moon, Wind } from 'lucide-react-native';
 import {
   BarChart,
   Card,
@@ -11,6 +12,7 @@ import {
   Screen,
   SectionHeader,
   SegmentedControl,
+  StatTile,
   Text,
   TodayLog,
   WeightChart,
@@ -22,6 +24,7 @@ import { buildInsights } from '@/lib/planEngine';
 import { clamp } from '@/lib/calculations';
 import { formatWeight } from '@/lib/format';
 import { useSettingsStore } from '@/store/settingsStore';
+import { calmStats, useCalmStore } from '@/store/calmStore';
 
 type Horizon = '1m' | '3m' | '6m' | '1y';
 const HORIZON_WEEKS: Record<Horizon, number> = { '1m': 4, '3m': 13, '6m': 26, '1y': 52 };
@@ -32,6 +35,7 @@ export default function Progress() {
   const plan = useUserStore((s) => s.plan);
   const history = useUserStore((s) => s.weightHistory);
   const units = useSettingsStore((s) => s.units);
+  const calmFocus = useSettingsStore((s) => s.focus) === 'calm';
   const [horizon, setHorizon] = useState<Horizon>('3m');
 
   const insights = useMemo(
@@ -51,6 +55,9 @@ export default function Progress() {
       }),
     [history],
   );
+
+  // Calm focus shows a calm/sleep-only progress view (no weight or body metrics).
+  if (calmFocus) return <CalmProgress />;
 
   if (!profile || !plan) {
     return (
@@ -326,6 +333,125 @@ export default function Progress() {
         <Heart size={14} color={theme.colors.danger} />
         <Text variant="caption" color="textTertiary">Keep going — every day counts</Text>
         <Activity size={14} color={theme.colors.primary} />
+      </View>
+    </Screen>
+  );
+}
+
+/** Calm-focus Progress: breathing activity + sleep, no weight or body metrics. */
+function CalmProgress() {
+  const theme = useTheme();
+  const roundLog = useCalmStore((s) => s.roundLog);
+  const sessionLog = useCalmStore((s) => s.sessionLog);
+  const profile = useUserStore((s) => s.profile);
+  const stats = useMemo(() => calmStats(roundLog, sessionLog), [roundLog, sessionLog]);
+
+  return (
+    <Screen>
+      <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
+        <Text variant="largeTitle">Progress</Text>
+        <Text variant="subhead" color="textTertiary">Your calm journey</Text>
+      </View>
+
+      {/* This week hero */}
+      <FadeInView delay={20}>
+        <LinearGradient
+          colors={[theme.colors.primary, theme.colors.secondary]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ borderRadius: theme.radius.xxl, padding: theme.spacing.xl, ...theme.shadows.glow }}
+        >
+          <Text variant="footnote" style={{ color: 'rgba(255,255,255,0.85)' }}>THIS WEEK</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 8, marginTop: 6 }}>
+            <Text variant="numberLarge" color="textInverse">{stats.roundsThisWeek}</Text>
+            <Text variant="title3" color="textInverse" style={{ marginBottom: 6, opacity: 0.9 }}>
+              rounds
+            </Text>
+          </View>
+          <Text variant="subhead" style={{ color: 'rgba(255,255,255,0.9)', marginTop: 2 }}>
+            {stats.sessionsThisWeek} calm {stats.sessionsThisWeek === 1 ? 'session' : 'sessions'} this week
+          </Text>
+        </LinearGradient>
+      </FadeInView>
+
+      {/* Stat tiles */}
+      <FadeInView delay={80}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.sm, marginTop: theme.spacing.md }}>
+          <StatTile
+            style={{ flexBasis: '48%', flexGrow: 1 }}
+            label="Total rounds"
+            value={`${stats.totalRounds}`}
+            unit="breaths"
+            accent={theme.colors.water}
+            icon={<Wind size={18} color={theme.colors.water} />}
+          />
+          <StatTile
+            style={{ flexBasis: '48%', flexGrow: 1 }}
+            label="Active days"
+            value={`${stats.activeDays}`}
+            unit="days"
+            accent={theme.colors.walking}
+            icon={<Activity size={18} color={theme.colors.walking} />}
+          />
+          <StatTile
+            style={{ flexBasis: '48%', flexGrow: 1 }}
+            label="Streak"
+            value={`${stats.streak}`}
+            unit="days"
+            accent={theme.colors.warning}
+            icon={<Flame size={18} color={theme.colors.warning} />}
+          />
+          <StatTile
+            style={{ flexBasis: '48%', flexGrow: 1 }}
+            label="Sessions"
+            value={`${stats.totalSessions}`}
+            unit="total"
+            accent={theme.colors.primary}
+            icon={<Heart size={18} color={theme.colors.primary} />}
+          />
+        </View>
+      </FadeInView>
+
+      {/* Sleep */}
+      <FadeInView delay={140}>
+        <SectionHeader title="Sleep" subtitle="Rest is part of calm" />
+        <GlassCard>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
+            <View
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 18,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: theme.colors.secondary + '1A',
+              }}
+            >
+              <Moon size={24} color={theme.colors.secondary} />
+            </View>
+            <View style={{ flex: 1 }}>
+              {profile?.sleepHours ? (
+                <>
+                  <Text variant="title3">{profile.sleepHours} h / night</Text>
+                  <Text variant="caption" color="textTertiary">Your usual rest, from your profile</Text>
+                </>
+              ) : (
+                <>
+                  <Text variant="headline">Add your sleep</Text>
+                  <Text variant="caption" color="textTertiary">
+                    Set up your profile to track your rest here
+                  </Text>
+                </>
+              )}
+            </View>
+          </View>
+        </GlassCard>
+      </FadeInView>
+
+      <View style={{ height: theme.spacing.lg }} />
+      <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 6, alignItems: 'center' }}>
+        <Heart size={14} color={theme.colors.danger} />
+        <Text variant="caption" color="textTertiary">A calmer mind, one breath at a time</Text>
       </View>
     </Screen>
   );

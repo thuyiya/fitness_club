@@ -32,6 +32,10 @@ function StackNavigator() {
         <Stack.Screen name="ai-loading" />
         <Stack.Screen name="ai-setup" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="player"
+          options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+        />
       </Stack>
     </>
   );

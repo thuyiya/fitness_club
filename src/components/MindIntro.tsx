@@ -133,7 +133,7 @@ export function MindIntro({ visible, onDone }: { visible: boolean; onDone: () =>
                 <Text variant="caption" style={{ color: GOLD, letterSpacing: 1.5, textTransform: 'uppercase' }}>
                   {s.eyebrow}
                 </Text>
-                <Text variant="largeTitle" color="textInverse" center style={{ marginTop: 10 }}>
+                <Text variant="largeTitle" center style={{ color: '#F4F8EE', marginTop: 10 }}>
                   {s.title}
                 </Text>
                 <Text

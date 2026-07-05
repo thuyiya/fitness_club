@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Href, router } from 'expo-router';
+import { Href, Redirect, router } from 'expo-router';
 import {
   ArrowRight,
   Droplets,
@@ -37,12 +37,26 @@ export default function Dashboard() {
   const plan = useUserStore((s) => s.plan);
   const log = useLogStore((s) => s.today());
   const units = useSettingsStore((s) => s.units);
+  const tabBar = useSettingsStore((s) => s.tabBar);
 
   const headlines = useMemo(
     () => (profile && plan ? coachHeadlines(profile, plan) : []),
     [profile, plan],
   );
   const [headlineIdx] = useState(() => Math.floor(Date.now() / 86400000) % 4);
+
+  // If Home isn't in the customized tab bar, hand off to the first visible tab.
+  if (!tabBar.includes('index')) {
+    const routes: Record<string, Href> = {
+      meals: '/(tabs)/meals',
+      workouts: '/(tabs)/workouts',
+      calm: '/(tabs)/calm',
+      progress: '/(tabs)/progress',
+      coach: '/(tabs)/coach',
+      settings: '/(tabs)/settings',
+    };
+    return <Redirect href={routes[tabBar[0]] ?? '/(tabs)/calm'} />;
+  }
 
   // Before the health questionnaire, we don't invent numbers — the goal, rings
   // and plan sections stay hidden behind a gentle prompt to set up the profile.

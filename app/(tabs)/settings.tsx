@@ -5,6 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {
   Bell,
   ChevronRight,
+  Cloud,
+  Compass,
   Download,
   Heart,
   Moon,
@@ -26,7 +28,14 @@ import {
 } from '@/components';
 import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
-import { useSettingsStore, ThemePreference } from '@/store/settingsStore';
+import {
+  DataMode,
+  FocusMode,
+  MAX_TABS,
+  TAB_META,
+  ThemePreference,
+  useSettingsStore,
+} from '@/store/settingsStore';
 import { useAiCoachStore } from '@/store/aiCoachStore';
 import { MeasurementUnit } from '@/types';
 import { formatHeight, formatWeight } from '@/lib/format';
@@ -41,6 +50,12 @@ export default function Settings() {
     setTheme,
     units,
     setUnits,
+    focus,
+    setFocus,
+    dataMode,
+    setDataMode,
+    tabBar,
+    toggleTab,
     notifications,
     toggleNotification,
     connectedHealth,
@@ -102,20 +117,112 @@ export default function Settings() {
       <FadeInView delay={60}>
         <SectionHeader title="Appearance" />
         <Card>
-          <Row icon={<Moon size={20} color={theme.colors.primary} />} label="Theme" noBorder>
-            <View style={{ width: 200 }}>
-              <SegmentedControl<ThemePreference>
-                value={themePreference}
-                onChange={setTheme}
-                options={[
-                  { label: 'Auto', value: 'system' },
-                  { label: 'Light', value: 'light' },
-                  { label: 'Dark', value: 'dark' },
-                ]}
-              />
-            </View>
-          </Row>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: theme.spacing.md,
+              marginBottom: theme.spacing.sm,
+            }}
+          >
+            <Moon size={20} color={theme.colors.primary} />
+            <Text variant="callout" style={{ flex: 1 }}>Theme</Text>
+          </View>
+          <SegmentedControl<ThemePreference>
+            value={themePreference}
+            onChange={setTheme}
+            options={[
+              { label: 'Auto', value: 'system' },
+              { label: 'Light', value: 'light' },
+              { label: 'Dark', value: 'dark' },
+              { label: 'Glass', value: 'glass' },
+            ]}
+          />
         </Card>
+      </FadeInView>
+
+      {/* Focus */}
+      <FadeInView delay={80}>
+        <SectionHeader title="Focus" subtitle="What the app is tuned around" />
+        <Card>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: theme.spacing.md,
+              marginBottom: theme.spacing.sm,
+            }}
+          >
+            <Compass size={20} color={theme.colors.primary} />
+            <Text variant="callout" style={{ flex: 1 }}>Main focus</Text>
+          </View>
+          <SegmentedControl<FocusMode>
+            value={focus}
+            onChange={setFocus}
+            options={[
+              { label: 'Calm', value: 'calm' },
+              { label: 'Wellness', value: 'wellness' },
+            ]}
+          />
+          <Text variant="caption" color="textTertiary" style={{ marginTop: theme.spacing.sm }}>
+            {focus === 'calm'
+              ? 'Calm keeps only the mind-relaxation tabs.'
+              : 'Wellness unlocks nutrition, workouts and full progress.'}
+          </Text>
+        </Card>
+      </FadeInView>
+
+      {/* Tab bar customization */}
+      <FadeInView delay={90}>
+        <SectionHeader
+          title="Tab bar"
+          subtitle={`Choose up to ${MAX_TABS} · ${tabBar.length}/${MAX_TABS} shown`}
+        />
+        <GlassCard padded={false}>
+          {TAB_META.map((t, i) => {
+            const on = tabBar.includes(t.key);
+            const atMax = !on && tabBar.length >= MAX_TABS;
+            return (
+              <View
+                key={t.key}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: theme.spacing.md,
+                  padding: theme.spacing.md,
+                  borderTopWidth: i === 0 ? 0 : 1,
+                  borderTopColor: theme.colors.separator,
+                }}
+              >
+                <View
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 5,
+                    backgroundColor: on ? theme.colors.primary : theme.colors.separator,
+                  }}
+                />
+                <Text variant="callout" style={{ flex: 1 }} color={on ? 'text' : 'textTertiary'}>
+                  {t.label}
+                </Text>
+                {t.locked ? (
+                  <Text variant="caption" color="textTertiary">Always on</Text>
+                ) : (
+                  <Switch
+                    value={on}
+                    disabled={atMax}
+                    onValueChange={() => toggleTab(t.key)}
+                    trackColor={{ true: theme.colors.primary, false: theme.colors.separator }}
+                    thumbColor="#fff"
+                  />
+                )}
+              </View>
+            );
+          })}
+        </GlassCard>
+        <Text variant="caption" color="textTertiary" style={{ marginTop: theme.spacing.sm }}>
+          Home, Meals and Workouts can also be reached from Home when hidden.
+        </Text>
       </FadeInView>
 
       {/* Units */}
@@ -134,6 +241,37 @@ export default function Settings() {
               />
             </View>
           </Row>
+        </Card>
+      </FadeInView>
+
+      {/* Data */}
+      <FadeInView delay={120}>
+        <SectionHeader title="Data" subtitle="Where your information lives" />
+        <Card>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: theme.spacing.md,
+              marginBottom: theme.spacing.sm,
+            }}
+          >
+            <Cloud size={20} color={theme.colors.secondary} />
+            <Text variant="callout" style={{ flex: 1 }}>Sync</Text>
+          </View>
+          <SegmentedControl<DataMode>
+            value={dataMode}
+            onChange={setDataMode}
+            options={[
+              { label: 'Offline', value: 'offline' },
+              { label: 'Cloud', value: 'cloud' },
+            ]}
+          />
+          <Text variant="caption" color="textTertiary" style={{ marginTop: theme.spacing.sm }}>
+            {dataMode === 'offline'
+              ? 'Everything stays on this device.'
+              : 'Your journey is backed up and synced.'}
+          </Text>
         </Card>
       </FadeInView>
 

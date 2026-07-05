@@ -4,22 +4,24 @@ import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Tabs } from 'expo-router';
 import {
+  Dumbbell,
   HeartPulse,
   LayoutDashboard,
   MessageCircle,
   Settings,
   TrendingUp,
+  UtensilsCrossed,
 } from 'lucide-react-native';
 import { useTheme } from '@/theme';
-import { useUserStore } from '@/store/userStore';
+import { useSettingsStore } from '@/store/settingsStore';
 
 export default function TabsLayout() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const isDark = theme.mode === 'dark';
-  // Progress has nothing to show until the health profile exists — hide the tab
-  // entirely until then, rather than surfacing an empty screen.
-  const hasData = useUserStore((s) => s.onboarded && !!s.plan);
+  // The bottom bar is user-customizable (Settings › Tab bar), capped at 5.
+  const tabBar = useSettingsStore((s) => s.tabBar);
+  const shown = (key: string) => (tabBar.includes(key as never) ? undefined : null);
 
   // Frosted-glass edge highlight — a bright hairline rim in light mode, a soft
   // luminous one in dark mode.
@@ -79,16 +81,31 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Home',
+          href: shown('index'),
           tabBarIcon: ({ color, size }) => <LayoutDashboard color={color} size={size - 2} />,
         }}
       />
-      {/* Meals & Workouts are no longer in the tab bar — reached from Home. */}
-      <Tabs.Screen name="meals" options={{ href: null }} />
-      <Tabs.Screen name="workouts" options={{ href: null }} />
+      <Tabs.Screen
+        name="meals"
+        options={{
+          title: 'Meals',
+          href: shown('meals'),
+          tabBarIcon: ({ color, size }) => <UtensilsCrossed color={color} size={size - 2} />,
+        }}
+      />
+      <Tabs.Screen
+        name="workouts"
+        options={{
+          title: 'Workouts',
+          href: shown('workouts'),
+          tabBarIcon: ({ color, size }) => <Dumbbell color={color} size={size - 2} />,
+        }}
+      />
       <Tabs.Screen
         name="calm"
         options={{
           title: 'Calm',
+          href: shown('calm'),
           tabBarIcon: ({ color, size }) => <HeartPulse color={color} size={size - 2} />,
         }}
       />
@@ -96,7 +113,7 @@ export default function TabsLayout() {
         name="progress"
         options={{
           title: 'Progress',
-          href: hasData ? undefined : null,
+          href: shown('progress'),
           tabBarIcon: ({ color, size }) => <TrendingUp color={color} size={size - 2} />,
         }}
       />
@@ -104,6 +121,7 @@ export default function TabsLayout() {
         name="coach"
         options={{
           title: 'Coach',
+          href: shown('coach'),
           tabBarIcon: ({ color, size }) => <MessageCircle color={color} size={size - 2} />,
         }}
       />

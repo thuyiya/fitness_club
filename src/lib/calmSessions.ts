@@ -1,3 +1,4 @@
+import { ImageSourcePropType } from 'react-native';
 import { AVPlaybackSource } from 'expo-av';
 import { BedId } from './calmSounds';
 
@@ -16,6 +17,8 @@ export type GuidedSession = {
   /** Ambient bed layered softly underneath the voice. */
   bed: BedId;
   accent: string;
+  /** Full-screen scene shown behind the player, chosen to match the journey. */
+  image: ImageSourcePropType;
   /** Two narrated takes; omitted → session shown as locked / coming soon. */
   takes?: AVPlaybackSource[];
 };
@@ -29,6 +32,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     technique: 'Anapanasati',
     bed: 'drift',
     accent: '#6C86D9',
+    image: require('../../assets/bg/bg-breath.jpg'),
     takes: [
       require('../../assets/audio/voice-breath-1.mp3'),
       require('../../assets/audio/voice-breath-2.mp3'),
@@ -42,6 +46,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     technique: 'Body scan',
     bed: 'morning',
     accent: '#4BA3A0',
+    image: require('../../assets/bg/bg-bodyscan.jpg'),
     takes: [
       require('../../assets/audio/voice-bodyscan-1.mp3'),
       require('../../assets/audio/voice-bodyscan-2.mp3'),
@@ -55,6 +60,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     technique: 'Letting go',
     bed: 'drift',
     accent: '#9385D0',
+    image: require('../../assets/bg/bg-thoughts.jpg'),
     takes: [
       require('../../assets/audio/voice-thoughts-1.mp3'),
       require('../../assets/audio/voice-thoughts-2.mp3'),
@@ -68,6 +74,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     technique: 'Equanimity',
     bed: 'drift',
     accent: '#8A78C9',
+    image: require('../../assets/bg/bg-problem.jpg'),
   },
   {
     id: 'metta',
@@ -77,6 +84,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     technique: 'Metta',
     bed: 'morning',
     accent: '#C58BC0',
+    image: require('../../assets/bg/bg-metta.jpg'),
   },
   {
     id: 'sleep',
@@ -86,6 +94,7 @@ export const GUIDED_SESSIONS: GuidedSession[] = [
     technique: 'Sleep story',
     bed: 'night',
     accent: '#5E7CC0',
+    image: require('../../assets/bg/bg-sleep.jpg'),
   },
 ];
 
