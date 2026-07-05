@@ -1,0 +1,18 @@
+diff --git a/node_modules/react-native-reanimated/src/reanimated2/animation/util.ts b/node_modules/react-native-reanimated/src/reanimated2/animation/util.ts
+index cf96941..bf17682 100644
+--- a/node_modules/react-native-reanimated/src/reanimated2/animation/util.ts
++++ b/node_modules/react-native-reanimated/src/reanimated2/animation/util.ts
+@@ -36,7 +36,12 @@ import { isReducedMotion, shouldBeUseWeb } from '../PlatformChecker';
+ import type { EasingFunction, EasingFunctionFactory } from '../Easing';
+ 
+ let IN_STYLE_UPDATER = false;
+-const IS_REDUCED_MOTION = isReducedMotion();
++// Solace patch: our breathing/journey animations ARE the experience, so they
++// must always play even when the OS "Reduce Motion" accessibility setting is on
++// (which otherwise makes every default animation snap to its end value on a real
++// device). Force reduced-motion OFF for default animations. Individual calls can
++// still opt in via `reduceMotion: ReduceMotion.Always`.
++const IS_REDUCED_MOTION = false && isReducedMotion();
+ const SHOULD_BE_USE_WEB = shouldBeUseWeb();
+ 
+ if (__DEV__ && IS_REDUCED_MOTION) {

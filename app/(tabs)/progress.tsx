@@ -56,6 +56,19 @@ export default function Progress() {
     [history],
   );
 
+  // Kept above the early returns so the hook order never changes between renders.
+  const predictionData = useMemo(() => {
+    if (!profile || !plan) return [];
+    const weeks = HORIZON_WEEKS[horizon];
+    const pts = plan.prediction.milestones
+      .filter((m) => m.week <= weeks)
+      .map((m) => ({ x: m.week, y: m.expectedWeightKg }));
+    // If the plan finishes before the horizon, extend flat at target.
+    const last = pts[pts.length - 1];
+    if (last && last.x < weeks) pts.push({ x: weeks, y: last.y });
+    return [{ x: 0, y: profile.weightKg }, ...pts];
+  }, [horizon, profile, plan]);
+
   // Calm focus shows a calm/sleep-only progress view (no weight or body metrics).
   if (calmFocus) return <CalmProgress />;
 
@@ -95,19 +108,6 @@ export default function Progress() {
   }
 
   const { metrics, prediction } = plan;
-
-  const predictionData = useMemo(() => {
-    const weeks = HORIZON_WEEKS[horizon];
-    const pts = prediction.milestones
-      .filter((m) => m.week <= weeks)
-      .map((m) => ({ x: m.week, y: m.expectedWeightKg }));
-    // If plan finishes before horizon, extend flat at target.
-    const last = pts[pts.length - 1];
-    if (last && last.x < weeks) {
-      pts.push({ x: weeks, y: last.y });
-    }
-    return [{ x: 0, y: profile.weightKg }, ...pts];
-  }, [horizon, prediction, profile.weightKg]);
 
   const predictedWeight =
     predictionData[predictionData.length - 1]?.y ?? profile.weightKg;

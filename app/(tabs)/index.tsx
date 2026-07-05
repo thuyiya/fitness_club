@@ -43,6 +43,12 @@ export default function Dashboard() {
     () => (profile && plan ? coachHeadlines(profile, plan) : []),
     [profile, plan],
   );
+  // Kept above the early returns so the hook order never changes between renders.
+  const chartData = useMemo(() => {
+    if (!profile || !plan) return [];
+    const pts = plan.prediction.milestones.map((m) => ({ x: m.week, y: m.expectedWeightKg }));
+    return [{ x: 0, y: profile.weightKg }, ...pts];
+  }, [profile, plan]);
   const [headlineIdx] = useState(() => Math.floor(Date.now() / 86400000) % 4);
 
   // If Home isn't in the customized tab bar, hand off to the first visible tab.
@@ -204,12 +210,6 @@ export default function Dashboard() {
       icon: <Dumbbell size={18} color={theme.colors.success} />,
     },
   ];
-
-  const chartData = useMemo(() => {
-    const start = { x: 0, y: profile.weightKg };
-    const pts = prediction.milestones.map((m) => ({ x: m.week, y: m.expectedWeightKg }));
-    return [start, ...pts];
-  }, [prediction, profile.weightKg]);
 
   return (
     <Screen>
