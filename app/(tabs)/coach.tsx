@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -55,6 +56,17 @@ export default function Coach() {
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
   const [offerCalm, setOfferCalm] = useState(false);
+  const [kbVisible, setKbVisible] = useState(false);
+
+  // Track the keyboard so the composer hugs it (and drops the tab-bar clearance).
+  useEffect(() => {
+    const show = Keyboard.addListener('keyboardWillShow', () => setKbVisible(true));
+    const hide = Keyboard.addListener('keyboardWillHide', () => setKbVisible(false));
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
 
   /** Apply a parsed action to the relevant store. */
   const applyAction = (a: CoachAction) => {
@@ -212,30 +224,32 @@ export default function Coach() {
         style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 260 }}
       />
 
-      <View style={{ paddingTop: insets.top + 12, paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.sm }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-          <LinearGradient
-            colors={[theme.colors.primary, theme.colors.secondary]}
-            style={{ width: 44, height: 44, borderRadius: 16, alignItems: 'center', justifyContent: 'center' }}
-          >
-            <Sparkles size={22} color="#fff" />
-          </LinearGradient>
-          <View>
-            <Text variant="title3">Coach</Text>
-            <Text variant="caption" color="success">{subtitle}</Text>
-          </View>
-        </View>
-      </View>
-
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={90}
+        keyboardVerticalOffset={0}
       >
+        <View style={{ paddingTop: insets.top + 12, paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.sm }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            <LinearGradient
+              colors={[theme.colors.primary, theme.colors.secondary]}
+              style={{ width: 44, height: 44, borderRadius: 16, alignItems: 'center', justifyContent: 'center' }}
+            >
+              <Sparkles size={22} color="#fff" />
+            </LinearGradient>
+            <View>
+              <Text variant="title3">Coach</Text>
+              <Text variant="caption" color="success">{subtitle}</Text>
+            </View>
+          </View>
+        </View>
+
         <ScrollView
           ref={scrollRef}
+          style={{ flex: 1 }}
           contentContainerStyle={{ padding: theme.spacing.lg, gap: theme.spacing.sm, paddingBottom: 20 }}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
           onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
         >
           {ai.available && ai.status !== 'ready' && <ConnectCard />}
@@ -303,7 +317,8 @@ export default function Coach() {
             gap: theme.spacing.sm,
             paddingHorizontal: theme.spacing.lg,
             paddingTop: theme.spacing.sm,
-            paddingBottom: insets.bottom + 70,
+            // Hug the keyboard when open; clear the floating tab bar when closed.
+            paddingBottom: kbVisible ? theme.spacing.sm : insets.bottom + 70,
           }}
         >
           <TextInput
