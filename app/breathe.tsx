@@ -78,7 +78,8 @@ const ACCENT = '#6C86D9';
 
 export default function Breathe() {
   const insets = useSafeAreaInsets();
-  const { pattern: patternId } = useLocalSearchParams<{ pattern: string }>();
+  const { pattern: initialPattern } = useLocalSearchParams<{ pattern: string }>();
+  const [patternId, setPatternId] = useState(initialPattern ?? PATTERNS[0].id);
   const pattern = PATTERNS.find((p) => p.id === patternId) ?? PATTERNS[0];
 
   const audio = useCalmAudio();
@@ -155,7 +156,15 @@ export default function Breathe() {
     startPhase(idxRef.current);
     return clearTimers;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running]);
+  }, [running, patternId]);
+
+  const selectRhythm = (id: string) => {
+    if (id === patternId) return;
+    Haptics.selectionAsync().catch(() => {});
+    idxRef.current = 0;
+    setPatternId(id);
+    setRunning(true);
+  };
 
   const toggle = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
@@ -261,7 +270,35 @@ export default function Breathe() {
       </View>
 
       {/* Bottom controls */}
-      <View style={{ alignItems: 'center', paddingBottom: insets.bottom + 28, gap: 18 }}>
+      <View style={{ alignItems: 'center', paddingBottom: insets.bottom + 28, gap: 16 }}>
+        {/* Rhythm switcher */}
+        <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap', justifyContent: 'center', paddingHorizontal: 20 }}>
+          {PATTERNS.map((p) => {
+            const active = p.id === patternId;
+            return (
+              <Pressable key={p.id} onPress={() => selectRhythm(p.id)}>
+                <BlurView intensity={active ? 0 : 24} tint="dark" style={styles.rhythmPill}>
+                  <View
+                    style={[
+                      StyleSheet.absoluteFill,
+                      {
+                        borderRadius: 15,
+                        backgroundColor: active ? ACCENT : 'transparent',
+                      },
+                    ]}
+                  />
+                  <Text
+                    variant="caption"
+                    style={{ color: '#fff', opacity: active ? 1 : 0.75, fontWeight: '600' }}
+                  >
+                    {p.name}
+                  </Text>
+                </BlurView>
+              </Pressable>
+            );
+          })}
+        </View>
+
         <Text variant="footnote" style={{ color: 'rgba(255,255,255,0.6)' }}>
           {rounds} {rounds === 1 ? 'round' : 'rounds'} · let each exhale be longer
         </Text>
@@ -333,6 +370,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: 'rgba(255,255,255,0.25)',
+  },
+  rhythmPill: {
+    paddingHorizontal: 14,
+    height: 30,
+    borderRadius: 15,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: 'rgba(255,255,255,0.22)',
   },
   playBtn: {
     width: 76,

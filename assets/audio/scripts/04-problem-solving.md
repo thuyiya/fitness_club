@@ -1,40 +1,549 @@
-# Thinking Clearly About a Problem — the Buddhist Way
-# → voice-problem.mp3  ·  ~8 min
+[very calm]
+[slow]
+[warm]
+[gentle]
+[thoughtful]
+[soft]
+[intimate]
+[breath]
 
-You've come here with something on your mind. <break time="1.5s" /> A problem. <break time="1.0s" /> A decision. <break time="1.0s" /> A knot that won't untie. <break time="2.0s" /> For the next few minutes, we won't force a solution. <break time="1.5s" /> Buddhist practice teaches that clarity comes not from gripping harder, <break time="1.0s" /> but from loosening. <break time="2.0s" /> Let's loosen. <break time="2.5s" />
+Thinking Clearly About a Problem
 
-Sit comfortably, and take three slow breaths. <break time="2.5s" /> In... <break time="2.0s" /> and out. <break time="2.5s" /> In... <break time="2.0s" /> and out. <break time="2.5s" /> In... <break time="2.0s" /> and out. <break time="2.5s" />
+[pause]
 
-<break time="2.0s" />
+Welcome.
 
-First, simply acknowledge the problem is here. <break time="2.0s" /> Don't rush to fix it. <break time="1.5s" /> Just let it sit in front of you, <break time="1.0s" /> like an object on a table. <break time="2.0s" /> You are the one looking at it. <break time="1.5s" /> You are not the problem itself. <break time="2.5s" />
+[pause]
 
-Notice how the body feels as you hold it. <break time="2.0s" /> Tightness? <break time="1.5s" /> Heat? <break time="1.5s" /> A heaviness in the chest? <break time="2.0s" /> Breathe into that place. <break time="2.0s" /> Let the *feeling* soften first, <break time="1.0s" /> before you touch the thinking. <break time="3.0s" />
+You've come here today...
 
-<break time="2.5s" />
+because something is resting on your mind.
 
-Now, the first teaching: <break time="1.0s" /> impermanence. <break time="2.0s" /> Every problem you have ever faced has changed. <break time="1.5s" /> Grown, shrunk, transformed, or dissolved. <break time="2.0s" /> This one is not solid. <break time="1.5s" /> It only feels permanent because you're standing so close to it. <break time="2.0s" /> Take a step back. <break time="2.5s" /> See it as a passing weather system, <break time="1.0s" /> not a mountain. <break time="3.0s" />
+[pause]
 
-<break time="2.5s" />
+Perhaps it's a difficult decision.
 
-The second teaching: <break time="1.0s" /> separate the fact from the story. <break time="2.0s" /> There is what actually happened — <break time="1.0s" /> the bare facts. <break time="1.5s" /> And then there is the story your mind wrapped around it — <break time="1.0s" /> the fear, the blame, the "what if." <break time="2.5s" /> Gently, ask yourself: <break time="2.0s" /> what do I actually *know* to be true here? <break time="2.5s" /> And what am I only *imagining*? <break time="3.0s" />
+A conversation you're avoiding.
 
-<break time="3.0s" />
+A future you're uncertain about.
 
-The third teaching: <break time="1.0s" /> non-attachment to the outcome. <break time="2.0s" /> Much of the suffering in a problem is the grip — <break time="1.5s" /> "it must go *this* way." <break time="2.0s" /> Loosen that grip, just a little. <break time="2.0s" /> Ask: <break time="1.5s" /> if I could not control the result, <break time="1.5s" /> what is the next wise, kind action I *can* take? <break time="3.0s" /> Not the whole path. <break time="1.5s" /> Just the next honest step. <break time="3.0s" />
+Or a problem...
 
-<break time="3.0s" />
+that keeps returning...
 
-Now, do something the thinking mind resists. <break time="1.5s" /> Stop working on it. <break time="2.0s" /> Return to the breath, and leave the problem alone. <break time="2.5s" /> Insight rarely arrives when we squeeze for it. <break time="1.5s" /> It surfaces in the space we make. <break time="2.0s" /> So make space. <break time="3.0s" />
+every time the mind becomes quiet.
 
-<break time="3.0s" />
+[pause]
 
-Breathing in... <break time="2.5s" /> breathing out. <break time="3.0s" /> Let the mind be still water. <break time="2.0s" /> When water is still, <break time="1.5s" /> it becomes clear, <break time="1.5s" /> and you can finally see to the bottom. <break time="3.0s" />
+For the next few minutes...
 
-<break time="3.0s" />
+you don't need to solve it.
 
-Rest in that stillness a moment longer. <break time="3.0s" /> You may notice a quiet knowing beginning to rise — <break time="1.5s" /> a first small step, <break time="1.0s" /> becoming clear on its own. <break time="2.5s" /> Trust it. <break time="1.5s" /> You don't need the whole answer today. <break time="2.0s" /> You only need the next step. <break time="3.0s" />
+You don't need to fix it.
 
-<break time="2.5s" />
+You don't need to force an answer.
 
-When you're ready, open your eyes. <break time="1.5s" /> Take the calm with you, <break time="1.0s" /> and take the one small step. <break time="1.5s" /> The rest will reveal itself, in time.
+[pause]
+
+Sometimes...
+
+clarity doesn't arrive...
+
+because we think harder.
+
+Sometimes...
+
+it arrives...
+
+because we finally stop pulling so tightly.
+
+[pause]
+
+Let's begin there.
+
+[pause]
+
+Take one slow breath in.
+
+[inhale]
+
+Hold it gently.
+
+[pause]
+
+And slowly breathe out.
+
+[exhale]
+
+[pause]
+
+Again.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause]
+
+One more time.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause 3s]
+
+Now...
+
+imagine placing your problem...
+
+on a small wooden table...
+
+in front of you.
+
+[pause]
+
+You can see it clearly.
+
+You can observe it.
+
+But for this moment...
+
+you don't have to carry it.
+
+[pause]
+
+Notice something.
+
+You are the one...
+
+looking at the problem.
+
+You are not...
+
+the problem itself.
+
+[pause]
+
+Feel your shoulders.
+
+Are they tight?
+
+[pause]
+
+Your jaw.
+
+Your chest.
+
+Your stomach.
+
+[pause]
+
+Wherever the body is holding tension...
+
+send the next breath there.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause]
+
+Allow the body to soften...
+
+before asking the mind to understand.
+
+[pause 3s]
+
+There is an old teaching.
+
+Everything changes.
+
+Everything.
+
+[pause]
+
+Every storm...
+
+eventually passes.
+
+Every season...
+
+comes to an end.
+
+Every sunrise...
+
+becomes evening.
+
+[pause]
+
+Think about every difficult moment...
+
+you've ever lived through.
+
+[pause]
+
+At one time...
+
+each one felt permanent.
+
+Yet every one of them...
+
+changed.
+
+[pause]
+
+This problem...
+
+will also change.
+
+[pause]
+
+Perhaps not today.
+
+Perhaps not tomorrow.
+
+But nothing remains exactly the same.
+
+[pause]
+
+The mind often believes...
+
+"This will last forever."
+
+Reality quietly whispers...
+
+"Everything moves."
+
+[pause 4s]
+
+Now let's look a little closer.
+
+Ask yourself one gentle question.
+
+[pause]
+
+What do I know...
+
+to be absolutely true?
+
+[pause]
+
+Not what I fear.
+
+Not what I imagine.
+
+Not what I assume.
+
+[pause]
+
+Only...
+
+what is true.
+
+[pause]
+
+Notice how small...
+
+the facts usually are.
+
+[pause]
+
+Then notice...
+
+how large...
+
+the story around them has become.
+
+[pause]
+
+The mind is a wonderful storyteller.
+
+It fills empty spaces.
+
+It predicts futures.
+
+It imagines disasters.
+
+It repeats old memories.
+
+[pause]
+
+Sometimes...
+
+the story creates more suffering...
+
+than the event itself.
+
+[pause 4s]
+
+Now imagine...
+
+setting the story down...
+
+beside the problem.
+
+[pause]
+
+Leave only the facts...
+
+resting on the table.
+
+[pause]
+
+How different does it feel?
+
+[pause]
+
+Perhaps...
+
+just a little lighter.
+
+[pause 4s]
+
+Now ask yourself another question.
+
+[pause]
+
+Am I holding too tightly...
+
+to one outcome?
+
+[pause]
+
+Perhaps you've been saying...
+
+"It has to happen this way."
+
+[pause]
+
+Or...
+
+"If this doesn't work...
+
+everything is ruined."
+
+[pause]
+
+Take a slow breath.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause]
+
+Life is rarely controlled...
+
+by force.
+
+[pause]
+
+Like holding water...
+
+the tighter we squeeze...
+
+the faster it escapes.
+
+[pause]
+
+Instead...
+
+open the hand.
+
+[pause]
+
+Release the need...
+
+to control everything.
+
+[pause]
+
+Not because you don't care.
+
+But because peace grows...
+
+where control ends.
+
+[pause 5s]
+
+Now ask one final question.
+
+[pause]
+
+What is the next kind...
+
+honest...
+
+wise step...
+
+I can take?
+
+[pause]
+
+Not the next hundred steps.
+
+Just one.
+
+[pause]
+
+Perhaps it's making a phone call.
+
+Writing one email.
+
+Resting tonight.
+
+Asking for help.
+
+Having one conversation.
+
+Or simply...
+
+waiting until tomorrow...
+
+with a calmer mind.
+
+[pause]
+
+One step...
+
+is enough.
+
+[pause 5s]
+
+Now...
+
+leave the problem alone.
+
+[pause]
+
+Don't solve it.
+
+Don't analyze it.
+
+Don't improve it.
+
+[pause]
+
+Return to your breathing.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause]
+
+Imagine your mind...
+
+becoming a still lake.
+
+[pause]
+
+When the water is disturbed...
+
+it cannot reflect the mountains.
+
+[pause]
+
+But when it becomes still...
+
+everything appears clearly...
+
+without effort.
+
+[pause]
+
+Clarity isn't created.
+
+It is revealed...
+
+when the mind becomes quiet.
+
+[pause 5s]
+
+Rest here...
+
+for a few peaceful breaths.
+
+[silence]
+
+[pause 10s]
+
+[silence]
+
+[pause 10s]
+
+Perhaps...
+
+an answer has appeared.
+
+Perhaps it hasn't.
+
+[pause]
+
+Both are perfectly okay.
+
+[pause]
+
+You don't need...
+
+the entire path today.
+
+You only need enough light...
+
+for the next step.
+
+[pause]
+
+The rest...
+
+will reveal itself...
+
+when the time is right.
+
+[pause 4s]
+
+[soft smile]
+
+Take one final deep breath.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause]
+
+And whenever you're ready...
+
+gently open your eyes.
+
+Carry this calm with you.
+
+Carry this patience with you.
+
+Trust that a quiet mind...
+
+sees more clearly...
+
+than a busy one.
+
+[pause]
+
+May wisdom guide your next step.
+
+And may peace...
+
+walk beside you...
+wherever you go.

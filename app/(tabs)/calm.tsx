@@ -11,7 +11,19 @@ import Animated, {
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
-import { ChevronUp, Lock, Moon, Pause, Play, Sparkles, Square, Wind } from 'lucide-react-native';
+import {
+  ChevronRight,
+  ChevronUp,
+  Cloud,
+  Heart,
+  Lock,
+  Pause,
+  Play,
+  Square,
+  Target,
+  Waves,
+  Wind,
+} from 'lucide-react-native';
 import {
   BreathingAura,
   GlassCard,
@@ -26,6 +38,7 @@ import { useSettingsStore } from '@/store/settingsStore';
 import { useCalmStore } from '@/store/calmStore';
 import { BedId, BEDS } from '@/lib/calmSounds';
 import { GUIDED_SESSIONS } from '@/lib/calmSessions';
+import { PRACTICES, Practice } from '@/lib/practices';
 import { formatTime, useGuidedPlayer } from '@/lib/useGuidedPlayer';
 
 /**
@@ -35,80 +48,19 @@ import { formatTime, useGuidedPlayer } from '@/lib/useGuidedPlayer';
  * Both share the same breathing aura so the screen always feels alive.
  */
 
-type Mode = 'breathe' | 'journeys';
-
-type Phase = { label: string; seconds: number; scale: number };
-type Pattern = {
-  id: string;
-  name: string;
-  subtitle: string;
-  icon: React.ReactNode;
-  phases: Phase[];
-};
+type Mode = 'practices' | 'journeys';
 
 const IN_SCALE = 1;
 const OUT_SCALE = 0.55;
-
-function usePatterns() {
-  const theme = useTheme();
-  const patterns: Pattern[] = [
-    {
-      id: 'box',
-      name: 'Steady Square',
-      subtitle: 'In 4 · Hold 4 · Out 4 · Hold 4 — even and grounding',
-      icon: <Wind size={18} color={theme.colors.water} />,
-      phases: [
-        { label: 'Breathe in', seconds: 4, scale: IN_SCALE },
-        { label: 'Hold', seconds: 4, scale: IN_SCALE },
-        { label: 'Breathe out', seconds: 4, scale: OUT_SCALE },
-        { label: 'Hold', seconds: 4, scale: OUT_SCALE },
-      ],
-    },
-    {
-      id: 'calm478',
-      name: 'Deep Calm',
-      subtitle: 'In 4 · Hold 7 · Out 8 — melts tension quickly',
-      icon: <Sparkles size={18} color={theme.colors.protein} />,
-      phases: [
-        { label: 'Breathe in', seconds: 4, scale: IN_SCALE },
-        { label: 'Hold', seconds: 7, scale: IN_SCALE },
-        { label: 'Breathe out', seconds: 8, scale: OUT_SCALE },
-      ],
-    },
-    {
-      id: 'release',
-      name: 'Let Go',
-      subtitle: 'In 4 · Hold 2 · Out 6 — a longer exhale to release',
-      icon: <Moon size={18} color={theme.colors.secondary} />,
-      phases: [
-        { label: 'Breathe in', seconds: 4, scale: IN_SCALE },
-        { label: 'Hold', seconds: 2, scale: IN_SCALE },
-        { label: 'Breathe out', seconds: 6, scale: OUT_SCALE },
-      ],
-    },
-    {
-      id: 'balance',
-      name: 'Even Balance',
-      subtitle: 'In 5 · Out 5 — a calm, coherent rhythm',
-      icon: <Wind size={18} color={theme.colors.walking} />,
-      phases: [
-        { label: 'Breathe in', seconds: 5, scale: IN_SCALE },
-        { label: 'Breathe out', seconds: 5, scale: OUT_SCALE },
-      ],
-    },
-  ];
-  return patterns;
-}
 
 // Muted, low-glare gradient — easy on the eyes in a dark room.
 const ORB = ['#4BA3A0', '#6C86D9', '#9385D0'] as const;
 
 export default function Calm() {
   const theme = useTheme();
-  const patterns = usePatterns();
   const guided = useGuidedPlayer();
 
-  const [mode, setMode] = useState<Mode>('breathe');
+  const [mode, setMode] = useState<Mode>('practices');
 
   // One-time "Clearing the Mind" intro on the first visit to this tab.
   const mindIntroSeen = useSettingsStore((s) => s.mindIntroSeen);
@@ -121,9 +73,6 @@ export default function Calm() {
 
   // Persisted calm activity, surfaced on the Progress tab in Calm focus.
   const logSession = useCalmStore((s) => s.startSession);
-
-  const [patternId, setPatternId] = useState(patterns[0].id);
-  const pattern = patterns.find((p) => p.id === patternId) ?? patterns[0];
 
   const scale = useSharedValue(OUT_SCALE);
   const ambiance = useSharedValue(0);
@@ -161,30 +110,26 @@ export default function Calm() {
     opacity: 0.16 + (scale.value - OUT_SCALE) * 0.28,
   }));
 
-  // Breathing runs in a dedicated full-screen focus player.
-  const beginBreathe = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
-    logSession();
-    router.push({ pathname: '/breathe', params: { pattern: patternId } });
-  };
-
   const settleOrb = () => {
     cancelAnimation(scale);
     scale.value = withTiming(OUT_SCALE, { duration: 500 });
     ambiance.value = withTiming(0, { duration: 500 });
   };
 
-  const selectPattern = (id: string) => {
-    if (id === patternId) return;
-    settleOrb();
-    setPatternId(id);
+  // Launch a practice full-screen: Breath opens the breathing player, the others
+  // open the guided prompt player. Each open counts as a calm session.
+  const openPractice = (p: Practice) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    logSession();
+    if (p.kind === 'breath') router.push('/breathe');
+    else router.push({ pathname: '/practice', params: { id: p.id } });
   };
 
   const selectBed = (id: BedId) => setCalmBed(id);
 
   const changeMode = (next: Mode) => {
     if (next === mode) return;
-    if (next === 'breathe') guided.stop(); // stop any playing journey
+    if (next === 'practices') guided.stop(); // stop any playing journey
     settleOrb();
     setMode(next);
   };
@@ -221,7 +166,7 @@ export default function Calm() {
 
       <SegmentedControl<Mode>
         options={[
-          { label: 'Breathe', value: 'breathe' },
+          { label: 'Practices', value: 'practices' },
           { label: 'Journeys', value: 'journeys' },
         ]}
         value={mode}
@@ -273,13 +218,13 @@ export default function Calm() {
               ...theme.shadows.medium,
             }}
           >
-            {mode === 'breathe' ? (
+            {mode === 'practices' ? (
               <>
                 <Text variant="title3" style={{ color: '#fff', opacity: 0.97, textAlign: 'center' }}>
-                  {pattern.name}
+                  Be here
                 </Text>
                 <Text variant="footnote" style={{ color: '#fff', opacity: 0.8, marginTop: 4 }}>
-                  Tap Begin
+                  Choose a practice
                 </Text>
               </>
             ) : guided.state.activeId ? (
@@ -306,15 +251,8 @@ export default function Calm() {
         </Animated.View>
       </View>
 
-      {mode === 'breathe' ? (
-        <BreatheMode
-          patterns={patterns}
-          patternId={patternId}
-          calmBed={calmBed}
-          onBegin={beginBreathe}
-          onSelectPattern={selectPattern}
-          onSelectBed={selectBed}
-        />
+      {mode === 'practices' ? (
+        <PracticesMode calmBed={calmBed} onOpenPractice={openPractice} onSelectBed={selectBed} />
       ) : (
         <JourneysMode
           activeSession={activeSession}
@@ -343,53 +281,79 @@ export default function Calm() {
 /* Breathe mode                                                        */
 /* ------------------------------------------------------------------ */
 
-function BreatheMode({
-  patterns,
-  patternId,
+const PRACTICE_ICON: Record<string, (c: string) => React.ReactNode> = {
+  breath: (c) => <Wind size={22} color={c} />,
+  focus: (c) => <Target size={22} color={c} />,
+  body: (c) => <Waves size={22} color={c} />,
+  metta: (c) => <Heart size={22} color={c} />,
+  letgo: (c) => <Cloud size={22} color={c} />,
+};
+
+function PracticesMode({
   calmBed,
-  onBegin,
-  onSelectPattern,
+  onOpenPractice,
   onSelectBed,
 }: {
-  patterns: Pattern[];
-  patternId: string;
   calmBed: BedId;
-  onBegin: () => void;
-  onSelectPattern: (id: string) => void;
+  onOpenPractice: (p: Practice) => void;
   onSelectBed: (id: BedId) => void;
 }) {
   const theme = useTheme();
   return (
     <>
-      {/* Begin — opens the full-screen focus player */}
-      <Pressable onPress={onBegin} style={{ marginTop: theme.spacing.sm }}>
-        {({ pressed }) => (
-          <LinearGradient
-            colors={[theme.colors.primary, theme.colors.secondary]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 10,
-              paddingVertical: 16,
-              borderRadius: theme.radius.pill,
-              opacity: pressed ? 0.9 : 1,
-              ...theme.shadows.glow,
-            }}
-          >
-            <Play size={22} color="#fff" fill="#fff" />
-            <Text variant="headline" style={{ color: '#fff' }}>
-              Begin session
-            </Text>
-          </LinearGradient>
-        )}
-      </Pressable>
+      {/* Practice list */}
+      <View style={{ marginTop: theme.spacing.sm }}>
+        <SectionHeader title="Practices" subtitle="Choose a way to settle the mind" />
+        <View style={{ gap: theme.spacing.sm }}>
+          {PRACTICES.map((p) => (
+            <Pressable key={p.id} onPress={() => onOpenPractice(p)}>
+              <GlassCard>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
+                  <View
+                    style={{
+                      width: 46,
+                      height: 46,
+                      borderRadius: 15,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: p.accent + '22',
+                    }}
+                  >
+                    {PRACTICE_ICON[p.id]?.(p.accent)}
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                      <Text variant="headline">{p.name}</Text>
+                      <View
+                        style={{
+                          paddingHorizontal: 8,
+                          paddingVertical: 2,
+                          borderRadius: 6,
+                          backgroundColor: theme.colors.surfaceGlass,
+                          borderWidth: 1,
+                          borderColor: theme.colors.separator,
+                        }}
+                      >
+                        <Text variant="caption" color="textTertiary" style={{ fontWeight: '600' }}>
+                          {p.technique}
+                        </Text>
+                      </View>
+                    </View>
+                    <Text variant="caption" color="textTertiary" style={{ marginTop: 2 }}>
+                      {p.subtitle} · {p.minutes} min
+                    </Text>
+                  </View>
+                  <ChevronRight size={18} color={theme.colors.textTertiary} />
+                </View>
+              </GlassCard>
+            </Pressable>
+          ))}
+        </View>
+      </View>
 
       {/* Soundscape */}
       <View style={{ marginTop: theme.spacing.xl }}>
-        <SectionHeader title="Soundscape" subtitle="Choose an ambient bed to breathe to" />
+        <SectionHeader title="Soundscape" subtitle="An ambient bed plays under every practice" />
 
         <ScrollView
           horizontal
@@ -422,46 +386,6 @@ function BreatheMode({
             );
           })}
         </ScrollView>
-      </View>
-
-      {/* Pattern picker */}
-      <View style={{ marginTop: theme.spacing.xl }}>
-        <SectionHeader title="Choose a rhythm" subtitle="Pick what feels right today" />
-        <View style={{ gap: theme.spacing.sm }}>
-          {patterns.map((p) => {
-            const active = p.id === patternId;
-            return (
-              <Pressable key={p.id} onPress={() => onSelectPattern(p.id)}>
-                <GlassCard
-                  style={active ? { borderColor: theme.colors.primary, borderWidth: 1.5 } : undefined}
-                >
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
-                    <View
-                      style={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 14,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: theme.colors.primary + '14',
-                      }}
-                    >
-                      {p.icon}
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text variant="headline" color={active ? 'primary' : 'text'}>
-                        {p.name}
-                      </Text>
-                      <Text variant="caption" color="textTertiary">
-                        {p.subtitle}
-                      </Text>
-                    </View>
-                  </View>
-                </GlassCard>
-              </Pressable>
-            );
-          })}
-        </View>
       </View>
 
       <GroundingNote />

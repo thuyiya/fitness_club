@@ -36,6 +36,14 @@ function StackNavigator() {
           name="player"
           options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
         />
+        <Stack.Screen
+          name="breathe"
+          options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+        />
+        <Stack.Screen
+          name="practice"
+          options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+        />
       </Stack>
     </>
   );
@@ -48,6 +56,8 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      {/* Note: the OS "Reduce Motion" setting is neutralised in index.js so the
+          breathing/journey animations always play — see the comment there. */}
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
           <ThemeProvider>

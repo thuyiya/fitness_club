@@ -1,54 +1,488 @@
-# Softening the Heart — Loving-Kindness (Metta)
-# → voice-metta.mp3  ·  ~7 min
+[very calm]
+[slow]
+[warm]
+[gentle]
+[compassionate]
+[soft]
+[intimate]
+[breath]
 
-This is a practice for the heart. <break time="1.5s" /> It is called Metta — <break time="1.0s" /> loving-kindness. <break time="2.0s" /> It is medicine for a mind that has been harsh with itself, <break time="1.0s" /> or anxious, <break time="1.0s" /> or tender. <break time="2.0s" /> Let's begin gently. <break time="2.5s" />
+Softening the Heart
 
-Settle, and breathe. <break time="2.0s" /> Rest your attention in the center of your chest — <break time="1.5s" /> the space around the heart. <break time="2.5s" />
+[pause]
 
-<break time="2.0s" />
+Welcome.
 
-We begin with the hardest person to be kind to. <break time="1.5s" /> Ourselves. <break time="2.5s" /> Picture yourself, sitting just as you are now. <break time="2.0s" /> Not the improved you. <break time="1.5s" /> Not the finished you. <break time="1.5s" /> Just you, <break time="1.0s" /> here, <break time="1.0s" /> doing your best. <break time="2.5s" />
+[pause]
 
-And silently, offer these words. <break time="1.5s" /> Let them be a wish, from you, to you. <break time="2.5s" />
+Today...
 
-May I be safe. <break time="3.0s" /> May I be well. <break time="3.0s" /> May I be at peace. <break time="3.0s" /> May I be kind to myself, <break time="1.0s" /> just as I am. <break time="3.0s" />
+we'll practice something beautifully simple.
 
-<break time="2.5s" />
+A practice of kindness.
 
-Feel those words land, <break time="1.0s" /> even if only a little. <break time="2.0s" /> You are worthy of your own kindness. <break time="3.0s" />
+Not toward the world first...
 
-<break time="2.5s" />
+but toward yourself.
 
-Now bring to mind someone you love easily. <break time="2.0s" /> A friend, <break time="1.0s" /> a child, <break time="1.0s" /> someone who makes you smile. <break time="1.5s" /> See their face. <break time="2.0s" /> And offer the wish to them. <break time="2.5s" />
+[pause]
 
-May you be safe. <break time="3.0s" /> May you be well. <break time="3.0s" /> May you be at peace. <break time="3.0s" />
+Many of us speak gently to friends...
 
-<break time="2.5s" />
+yet harshly to ourselves.
 
-Notice how naturally the heart opens for them. <break time="2.0s" /> That warmth — <break time="1.0s" /> that is your own true nature. <break time="3.0s" />
+We forgive others...
 
-<break time="2.5s" />
+while carrying our own mistakes for years.
 
-Now, someone neutral. <break time="1.5s" /> A stranger you passed today. <break time="1.5s" /> A face in a crowd. <break time="2.0s" /> They too carry a whole life, <break time="1.0s" /> hopes and fears just like yours. <break time="2.0s" /> Offer it to them, too. <break time="2.5s" />
+[pause]
 
-May you be safe. <break time="3.0s" /> May you be well. <break time="3.0s" /> May you be at peace. <break time="3.0s" />
+For the next few minutes...
 
-<break time="2.5s" />
+allow yourself...
 
-And now, if you feel ready — <break time="1.0s" /> someone difficult. <break time="2.0s" /> Not the hardest person in your life. <break time="1.5s" /> Just someone who troubles you a little. <break time="2.0s" /> You are not excusing anything. <break time="1.5s" /> You are simply refusing to carry the poison of ill-will. <break time="2.5s" /> For your own freedom, <break time="1.0s" /> offer the wish. <break time="2.5s" />
+to rest.
 
-May you be safe. <break time="3.0s" /> May you, too, be at peace. <break time="3.0s" />
+[pause]
 
-<break time="3.0s" />
+Take a slow breath in.
 
-And finally, let the kindness spread out in all directions, <break time="1.5s" /> without limit. <break time="2.0s" /> To everyone, near and far. <break time="2.0s" /> All beings, everywhere. <break time="2.5s" />
+[inhale]
 
-May all beings be safe. <break time="2.5s" /> May all beings be well. <break time="2.5s" /> May all beings be free from suffering. <break time="3.0s" />
+...
 
-<break time="3.0s" />
+And gently breathe out.
 
-Rest now in the warmth you've created. <break time="2.0s" /> You made this. <break time="1.5s" /> It was always within you. <break time="3.0s" />
+[exhale]
 
-<break time="3.0s" />
+[pause]
 
-When you're ready, let your eyes open, <break time="1.0s" /> and carry this open heart gently into the world.
+Again.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause]
+
+One more time.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause 4s]
+
+Now...
+
+bring your attention...
+
+to the center of your chest.
+
+[pause]
+
+Not because kindness lives there...
+
+but because many people naturally feel warmth...
+
+when they rest their awareness in this space.
+
+[pause]
+
+Simply notice.
+
+The gentle movement of your breathing.
+
+The rise.
+
+The fall.
+
+[pause 4s]
+
+Now imagine...
+
+you are sitting across from yourself.
+
+Not a perfect version.
+
+Not the person you hope to become someday.
+
+Just...
+
+the person you are today.
+
+[pause]
+
+Doing your best.
+
+Learning.
+
+Growing.
+
+Sometimes succeeding.
+
+Sometimes struggling.
+
+[pause]
+
+Look at yourself...
+
+with the same kindness...
+
+you would offer someone you deeply love.
+
+[pause]
+
+Silently repeat these words.
+
+Slowly.
+
+Allow them to settle.
+
+[pause]
+
+May I be safe.
+
+[pause 4s]
+
+May I be healthy.
+
+[pause 4s]
+
+May I find peace.
+
+[pause 4s]
+
+May I be patient...
+
+with myself.
+
+[pause 4s]
+
+May I accept myself...
+
+just as I am...
+
+while continuing to grow.
+
+[pause 6s]
+
+If these words feel unfamiliar...
+
+that's okay.
+
+You don't have to force anything.
+
+Simply plant the seed.
+
+[pause]
+
+Every act of kindness...
+
+begins as a small seed.
+
+[pause 5s]
+
+Now...
+
+bring to mind someone...
+
+who is easy to love.
+
+Perhaps a close friend.
+
+A family member.
+
+A child.
+
+Or someone whose smile...
+
+naturally warms your heart.
+
+[pause]
+
+Picture them clearly.
+
+Notice their face.
+
+Their eyes.
+
+Their presence.
+
+[pause]
+
+And silently offer them these wishes.
+
+[pause]
+
+May you be safe.
+
+[pause 4s]
+
+May you be healthy.
+
+[pause 4s]
+
+May you find peace.
+
+[pause 4s]
+
+May your life be filled...
+
+with kindness.
+
+[pause 6s]
+
+Notice how naturally...
+
+the heart opens.
+
+[pause]
+
+That warmth...
+
+didn't come from them.
+
+It came from you.
+
+It has always lived within you.
+
+[pause 6s]
+
+Now...
+
+bring to mind someone...
+
+you don't know very well.
+
+Perhaps someone you passed today.
+
+Someone at a shop.
+
+Someone walking by.
+
+Someone whose name you'll never know.
+
+[pause]
+
+Just like you...
+
+they hope to be happy.
+
+They worry.
+
+They dream.
+
+They love.
+
+They experience joy...
+
+and disappointment.
+
+[pause]
+
+Offer them the same wish.
+
+[pause]
+
+May you be safe.
+
+[pause]
+
+May you be healthy.
+
+[pause]
+
+May you find peace.
+
+[pause]
+
+May your life be gentle.
+
+[pause 6s]
+
+Now...
+
+only if it feels comfortable...
+
+bring to mind someone...
+
+who has been difficult.
+
+Not the hardest person in your life.
+
+Just someone...
+
+who creates a little tension.
+
+[pause]
+
+This practice...
+
+is not about agreeing with them.
+
+It is not about forgetting.
+
+It is not about pretending...
+
+that hurt never happened.
+
+[pause]
+
+It is about freeing...
+
+your own heart...
+
+from carrying unnecessary weight.
+
+[pause]
+
+Silently offer these words.
+
+[pause]
+
+May you be safe.
+
+[pause]
+
+May you find peace.
+
+[pause]
+
+May you live...
+
+with wisdom.
+
+[pause 8s]
+
+Perhaps your heart feels open.
+
+Perhaps it doesn't.
+
+Both are perfectly okay.
+
+Simply showing up...
+
+is enough.
+
+[pause 6s]
+
+Now imagine...
+
+your heart becoming...
+
+a warm light.
+
+[pause]
+
+With every breath...
+
+that light expands.
+
+Beyond your body.
+
+Beyond this room.
+
+Across your neighborhood.
+
+Across your country.
+
+Across the entire world.
+
+[pause]
+
+Touching every person.
+
+Every child.
+
+Every family.
+
+Every creature.
+
+Every living being.
+
+[pause]
+
+Silently repeat.
+
+[pause]
+
+May all beings be safe.
+
+[pause]
+
+May all beings be healthy.
+
+[pause]
+
+May all beings know peace.
+
+[pause]
+
+May all beings...
+
+live with compassion.
+
+[pause 10s]
+
+Rest here.
+
+Simply breathing.
+
+Simply feeling.
+
+Allow the warmth...
+
+to remain.
+
+[silence]
+
+[pause 12s]
+
+Take one final deep breath.
+
+[inhale]
+
+...
+
+And slowly breathe out.
+
+[exhale]
+
+[pause]
+
+Whenever you're ready...
+
+gently open your eyes.
+
+Carry this kindness...
+
+into the rest of your day.
+
+Remember...
+
+the heart becomes stronger...
+
+not by protecting itself...
+
+but by learning...
+
+to remain open.
+
+[pause]
+
+[soft smile]
+
+May you be peaceful.
+
+May you be gentle with yourself.
+
+And may the kindness you've shared today...
+
+continue...
+
+long after this moment ends.

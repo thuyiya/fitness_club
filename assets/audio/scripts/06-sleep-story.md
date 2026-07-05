@@ -1,69 +1,643 @@
-# Bedtime Story — The Lantern on the Mountain
-# → voice-sleepstory.mp3  ·  ~12 min
-# A slow, drifting sleep story. Delivery should get quieter and slower toward the end.
+[very calm]
+[very slow]
+[warm]
+[gentle]
+[storytelling]
+[soft]
+[intimate]
+[sleepy]
+[breath]
 
-Let yourself get comfortable. <break time="1.5s" /> Pull the covers up, <break time="1.0s" /> let your head sink into the pillow. <break time="2.0s" /> There is nothing left to do today. <break time="1.5s" /> Everything that needed doing is done, <break time="1.0s" /> or can wait until morning. <break time="2.5s" /> All you have to do now <break time="1.0s" /> is listen, <break time="1.0s" /> and drift. <break time="3.0s" />
+The Lantern on the Mountain
 
-<break time="2.5s" />
+[pause]
 
-I'm going to tell you a story. <break time="1.5s" /> You don't need to remember any of it. <break time="1.5s" /> In fact, it's better if you don't. <break time="2.0s" /> Let the words blur, <break time="1.0s" /> and let sleep come whenever it likes. <break time="3.0s" />
+Welcome...
 
-<break time="3.0s" />
+[pause]
 
-High on a quiet mountain, <break time="1.5s" /> far above the villages and the noise of the world, <break time="1.5s" /> there was a small stone monastery. <break time="2.5s" /> It had stood there for a thousand years. <break time="2.0s" /> Its walls were worn smooth by wind and rain, <break time="1.5s" /> and warm to the touch in the evening sun. <break time="3.0s" />
+Tonight...
 
-<break time="2.5s" />
+there is nowhere left to go.
 
-To reach it, you would climb a long, winding path <break time="1.0s" /> through tall pine trees. <break time="2.0s" /> The air up there is cool, <break time="1.0s" /> and clean, <break time="1.0s" /> and smells of cedar and stone. <break time="2.5s" /> With every step higher, <break time="1.5s" /> the cares of the valley grow smaller behind you, <break time="1.5s" /> until they are just a soft grey haze, <break time="1.0s" /> far, far below. <break time="3.0s" />
+Nothing left to finish.
 
-<break time="3.0s" />
+Nothing left to solve.
 
-At the top of the path, <break time="1.5s" /> an old wooden gate stands open. <break time="2.0s" /> It is always open. <break time="2.0s" /> Beyond it, a courtyard of pale, smooth stones, <break time="1.5s" /> and in the center, <break time="1.0s" /> a still pool of water. <break time="2.5s" /> The surface is perfectly calm. <break time="2.0s" /> It holds the whole evening sky within it — <break time="1.5s" /> soft pinks, <break time="1.0s" /> deepening blues, <break time="1.0s" /> the very first star. <break time="3.0s" />
+[pause]
 
-<break time="3.0s" />
+The day is complete.
 
-An old monk lives here. <break time="2.0s" /> Every evening, at dusk, <break time="1.5s" /> he performs the same gentle task. <break time="2.0s" /> He takes a single paper lantern, <break time="1.5s" /> and a small flame, <break time="1.5s" /> and he lights it. <break time="2.5s" /> The warm glow spreads slowly through the paper, <break time="1.5s" /> soft and golden. <break time="3.0s" />
+Whatever wasn't finished today...
 
-<break time="2.5s" />
+can quietly wait...
 
-And then, one by one, <break time="1.5s" /> he lights the lanterns that line the courtyard walls. <break time="2.0s" /> He is in no hurry. <break time="2.0s" /> He has done this ten thousand times. <break time="2.0s" /> Each small flame catches, <break time="1.5s" /> and glows, <break time="1.5s" /> and the darkness softens, <break time="1.0s" /> just a little more, <break time="1.0s" /> with each one. <break time="3.0s" />
+until tomorrow.
 
-<break time="3.0s" />
+[pause]
 
-Imagine you are sitting there now, <break time="1.5s" /> on a smooth wooden bench, <break time="1.5s" /> wrapped in a warm blanket. <break time="2.5s" /> The stone is still warm from the day beneath you. <break time="2.0s" /> You have nowhere to go. <break time="1.5s" /> Nothing to carry. <break time="2.0s" /> You simply watch the lanterns, <break time="1.5s" /> one by one, <break time="1.5s" /> coming softly to life. <break time="3.0s" />
+Pull the blanket a little closer.
 
-<break time="3.0s" />
+Allow your head...
 
-A gentle breeze moves through the pines. <break time="2.0s" /> You can hear it, <break time="1.5s" /> a long, slow hush, <break time="1.5s" /> rising and falling, <break time="1.0s" /> like breathing. <break time="3.0s" /> Like your own breath now, <break time="1.5s" /> growing slower, <break time="1.5s" /> and deeper. <break time="3.0s" />
+to sink comfortably...
 
-<break time="3.0s" />
+into the pillow.
 
-The old monk sits beside the still pool. <break time="2.0s" /> He tells you there is only one thing to know here. <break time="2.5s" /> That whatever you brought up the mountain, <break time="1.5s" /> you may set down. <break time="2.5s" /> Right here. <break time="1.5s" /> By the water. <break time="2.5s" /> It will be safe. <break time="2.0s" /> And it will be lighter in the morning. <break time="3.0s" />
+[pause]
 
-<break time="3.0s" />
+Take one slow breath in.
 
-So you let your shoulders drop. <break time="2.5s" /> You let your hands grow heavy. <break time="2.5s" /> You feel the warmth of the lanterns on your face, <break time="1.5s" /> gold and soft and flickering. <break time="3.0s" />
+[inhale]
 
-<break time="3.0s" />
+...
 
-One lantern glows by the gate. <break time="2.5s" /> One glows beside the pool. <break time="2.5s" /> One glows high on the monastery wall. <break time="3.0s" /> And their light reflects in the still water, <break time="1.5s" /> doubling, <break time="1.5s" /> softening, <break time="1.5s" /> until the whole courtyard is filled <break time="1.0s" /> with a warm, <break time="1.0s" /> quiet, <break time="1.0s" /> golden light. <break time="3.0s" />
+And gently breathe out.
 
-<break time="3.0s" />
+[exhale]
 
-The sky above has gone deep and dark now, <break time="1.5s" /> scattered with a thousand soft stars. <break time="2.5s" /> The breeze has settled. <break time="2.0s" /> The pines are still. <break time="2.5s" /> And you are so, <break time="1.0s" /> so comfortable. <break time="3.0s" />
+[pause]
 
-<break time="3.0s" />
+Again...
 
-The old monk lifts the last lantern, <break time="2.0s" /> and slowly, <break time="1.5s" /> gently, <break time="1.5s" /> lets its flame grow dim. <break time="3.0s" /> There is nothing left to watch. <break time="2.5s" /> Nothing left to do. <break time="3.0s" />
+[inhale]
 
-<break time="3.0s" />
+...
 
-Just rest now. <break time="3.0s" /> Warm. <break time="2.5s" /> Safe. <break time="2.5s" /> Held by the quiet mountain. <break time="3.0s" />
+[exhale]
 
-<break time="3.0s" />
+[pause]
 
-Let the last of the light <break time="1.5s" /> fade <break time="2.0s" /> softly <break time="2.0s" /> away. <break time="3.0s" />
+Good.
 
-<break time="3.0s" />
+[pause]
 
-Sleep now. <break time="3.0s" /> Sleep. <break time="3.0s" />
+Now...
+
+I'm going to tell you a story.
+
+You don't need to remember it.
+
+You don't even need to listen carefully.
+
+The story can simply drift...
+
+like clouds across the evening sky.
+
+If sleep arrives before the ending...
+
+that's perfectly wonderful.
+
+[pause 5s]
+
+Imagine...
+
+far beyond the towns...
+
+far beyond the roads...
+
+where the world grows wonderfully quiet...
+
+there is a mountain.
+
+[pause]
+
+Its slopes are covered...
+
+with tall pine trees.
+
+Their branches sway gently...
+
+even when the wind is barely moving.
+
+[pause]
+
+A narrow stone path...
+
+winds slowly upward.
+
+It has been there...
+
+for hundreds...
+
+perhaps thousands...
+
+of years.
+
+[pause]
+
+You begin walking.
+
+Not because you must.
+
+Simply because...
+
+it feels peaceful.
+
+[pause]
+
+With every gentle step...
+
+the sounds of the world...
+
+become quieter.
+
+The busy thoughts...
+
+become softer.
+
+The weight you've been carrying...
+
+becomes lighter.
+
+[pause]
+
+The higher you climb...
+
+the smaller everything below begins to look.
+
+The worries.
+
+The deadlines.
+
+The conversations.
+
+Even the questions...
+
+that seemed so important...
+
+become tiny...
+
+like little lights...
+
+far below.
+
+[pause 6s]
+
+At the very top...
+
+you discover...
+
+a quiet stone courtyard.
+
+Ancient.
+
+Simple.
+
+Peaceful.
+
+[pause]
+
+The stones have been warmed...
+
+by the afternoon sun.
+
+The air smells...
+
+of cedar wood...
+
+cool mountain air...
+
+and fresh rain...
+
+that fell many days ago.
+
+[pause]
+
+In the center...
+
+rests a perfectly still pool.
+
+So calm...
+
+that it reflects the entire evening sky.
+
+Soft blues.
+
+Gentle gold.
+
+The very first stars...
+
+beginning to appear.
+
+[pause]
+
+Beside the water...
+
+rests a single paper lantern.
+
+Its light is warm.
+
+Golden.
+
+Soft.
+
+[pause]
+
+As twilight deepens...
+
+another lantern begins to glow.
+
+Then another.
+
+And another.
+
+[pause]
+
+One by one...
+
+the courtyard fills...
+
+with quiet light.
+
+Not bright.
+
+Never bright.
+
+Only enough...
+
+to make the darkness...
+
+feel gentle.
+
+[pause]
+
+You find a smooth wooden bench.
+
+A soft blanket...
+
+already waiting for you.
+
+As though someone knew...
+
+you were coming.
+
+[pause]
+
+You sit down.
+
+The wood is pleasantly warm.
+
+The blanket feels wonderfully soft.
+
+There is nowhere else...
+
+you would rather be.
+
+[pause 6s]
+
+A gentle breeze...
+
+moves through the pine trees.
+
+Listen carefully.
+
+[pause]
+
+The sound...
+
+is almost like breathing.
+
+Slow...
+
+steady...
+
+peaceful.
+
+[pause]
+
+Without noticing...
+
+your own breathing...
+
+begins to follow.
+
+Slower.
+
+Quieter.
+
+Easier.
+
+[pause]
+
+Somewhere nearby...
+
+water gently touches stone.
+
+Tiny ripples...
+
+spread across the still pool.
+
+Then disappear.
+
+[pause]
+
+Everything returns...
+
+to perfect calm.
+
+[pause]
+
+Perhaps...
+
+there is something...
+
+you've carried all day.
+
+A worry.
+
+A decision.
+
+A memory.
+
+A responsibility.
+
+[pause]
+
+Imagine...
+
+placing it gently...
+
+beside one of the lanterns.
+
+[pause]
+
+You don't have to throw it away.
+
+You don't have to solve it tonight.
+
+You simply...
+
+leave it there.
+
+Safe.
+
+Waiting quietly...
+
+until morning.
+
+[pause]
+
+Notice...
+
+how much lighter...
+
+your shoulders feel.
+
+[pause]
+
+Your hands...
+
+grow pleasantly heavy.
+
+[pause]
+
+Your face softens.
+
+[pause]
+
+Even your thoughts...
+
+seem slower now.
+
+Like leaves...
+
+floating gently...
+
+across still water.
+
+[pause 8s]
+
+Above you...
+
+thousands of stars...
+
+fill the sky.
+
+Each one...
+
+soft.
+
+Silent.
+
+Patient.
+
+[pause]
+
+The lanterns...
+
+continue glowing.
+
+Their reflections...
+
+dance gently...
+
+upon the water.
+
+Golden light...
+
+above.
+
+Golden light...
+
+below.
+
+[pause]
+
+The mountain...
+
+holds everything...
+
+without effort.
+
+The trees.
+
+The stones.
+
+The sky.
+
+The quiet.
+
+And tonight...
+
+it gently holds you too.
+
+[pause 10s]
+
+Nothing is asking...
+
+anything of you.
+
+[pause]
+
+There is nowhere to hurry.
+
+[pause]
+
+Nothing to remember.
+
+[pause]
+
+Nothing to become.
+
+[pause]
+
+Just this breath.
+
+[inhale]
+
+...
+
+[exhale]
+
+[pause]
+
+And then...
+
+another.
+
+[pause 10s]
+
+The breeze grows softer.
+
+The lanterns...
+
+glow more quietly.
+
+The stars...
+
+become brighter.
+
+[pause]
+
+Everything...
+
+slows.
+
+[pause]
+
+Even time...
+
+seems to slow.
+
+[pause]
+
+Your breathing...
+
+is slow.
+
+Your body...
+
+is warm.
+
+Your mind...
+
+is quiet.
+
+[pause 12s]
+
+One by one...
+
+the lanterns...
+
+begin to fade.
+
+Not disappearing.
+
+Simply becoming softer.
+
+Warmer.
+
+More peaceful.
+
+[pause]
+
+Until only one remains.
+
+[pause]
+
+Its golden light...
+
+rests gently...
+
+upon the still water.
+
+[pause]
+
+Then...
+
+very slowly...
+
+its light...
+
+grows smaller.
+
+[pause]
+
+Softer.
+
+[pause]
+
+Gentler.
+
+[pause]
+
+Until it becomes...
+
+only a tiny...
+
+golden glow.
+
+[pause 10s]
+
+And then...
+
+only starlight.
+
+[pause]
+
+Only the mountain.
+
+[pause]
+
+Only peaceful breathing.
+
+[pause 15s]
+
+[whisper]
+
+Rest now...
+
+[pause]
+
+You are safe.
+
+[pause]
+
+You are warm.
+
+[pause]
+
+You are exactly...
+
+where you need to be.
+
+[pause]
+
+Let the mountain...
+
+keep watch...
+
+until morning.
+
+[pause 15s]
+
+Sleep peacefully...
+
+[pause]
+
+Sleep deeply...
+
+[pause]
+
+Good night...
