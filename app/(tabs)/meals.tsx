@@ -3,6 +3,7 @@ import { Pressable, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { Check, Plus, RefreshCw, ShoppingCart } from 'lucide-react-native';
 import {
+  CoachPlans,
   ExpandableCard,
   FadeInView,
   GlassCard,
@@ -97,6 +98,8 @@ export default function Meals() {
           Personalized for {profile?.diet.replace('_', ' ')} · {plan?.targets.calories} kcal
         </Text>
       </View>
+
+      <CoachPlans kind="meal" />
 
       <SegmentedControl<Tab>
         value={tab}

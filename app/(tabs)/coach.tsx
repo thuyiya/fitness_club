@@ -18,6 +18,8 @@ import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
 import { useAiCoachStore } from '@/store/aiCoachStore';
 import { useLogStore } from '@/store/logStore';
+import { useSettingsStore } from '@/store/settingsStore';
+import { useCoachPlanStore, planTitle } from '@/store/coachPlanStore';
 import { ChatMessage } from '@/types';
 import { buildMessages, coachReply, MEDICAL_DISCLAIMER, SUGGESTED_PROMPTS } from '@/lib/coach';
 import { CoachAction, parseCoachActions, summarizeActions } from '@/lib/coachActions';
@@ -36,6 +38,8 @@ export default function Coach() {
   const plan = useUserStore((s) => s.plan);
   const updateProfile = useUserStore((s) => s.updateProfile);
   const log = useLogStore();
+  const setFocus = useSettingsStore((s) => s.setFocus);
+  const addPlan = useCoachPlanStore((s) => s.addPlan);
   const scrollRef = useRef<ScrollView>(null);
 
   const ai = useAiCoachStore();
@@ -74,7 +78,25 @@ export default function Coach() {
       case 'targetWeight':
         updateProfile({ targetWeightKg: a.kg });
         break;
+      case 'focus':
+        setFocus(a.mode);
+        break;
     }
+  };
+
+  /** Save the coach's most recent substantial reply as a workout/meal plan. */
+  const handleSavePlan = (kind: 'workout' | 'meal') => {
+    const lastCoach = [...messages].reverse().find((m) => m.role === 'coach' && m.text.length > 60);
+    if (!lastCoach) {
+      pushCoach(
+        `Tell me what you'd like first — e.g. "make me a 3-day ${kind} plan" — then say "add it to my ${kind} plan" and I'll save it to your ${kind === 'workout' ? 'Workouts' : 'Meals'} tab. 🙂`,
+      );
+      return;
+    }
+    addPlan(kind, { title: planTitle(lastCoach.text, kind), body: lastCoach.text });
+    pushCoach(
+      `Saved to your ${kind === 'workout' ? 'Workouts' : 'Meals'} tab under "From your coach". You can open it there anytime. ✅`,
+    );
   };
 
   const pushCoach = (text: string) =>
@@ -103,9 +125,14 @@ export default function Coach() {
     setOfferCalm(false);
     scrollToEnd();
 
-    // 1) Deterministic intents: logging, profile edits, and distress. These are
-    //    handled locally so they're reliable and instant, model or not.
+    // 1) Deterministic intents: logging, profile edits, plan-saving, distress.
+    //    Handled locally so they're reliable and instant, model or not.
     const parsed = parseCoachActions(trimmed);
+    if (parsed.savePlan) {
+      handleSavePlan(parsed.savePlan);
+      scrollToEnd();
+      return;
+    }
     if (parsed.actions.length > 0) {
       parsed.actions.forEach(applyAction);
       pushCoach(summarizeActions(parsed.actions));

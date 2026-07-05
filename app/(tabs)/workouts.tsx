@@ -4,6 +4,7 @@ import { Redirect } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { Check, Clock, Flame, Plus, Signal } from 'lucide-react-native';
 import {
+  CoachPlans,
   ExpandableCard,
   FadeInView,
   GlassCard,
@@ -66,6 +67,8 @@ export default function Workouts() {
           {profile?.workoutDaysPerWeek}× / week · {plan?.targets.workoutMinutes}min today
         </Text>
       </View>
+
+      <CoachPlans kind="workout" />
 
       <ScrollView
         horizontal

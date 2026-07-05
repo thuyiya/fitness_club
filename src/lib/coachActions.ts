@@ -15,13 +15,16 @@ export type CoachAction =
   | { type: 'workout'; minutes: number; label: string }
   | { type: 'sleep'; hours: number }
   | { type: 'water'; ml: number }
-  | { type: 'targetWeight'; kg: number };
+  | { type: 'targetWeight'; kg: number }
+  | { type: 'focus'; mode: 'calm' | 'wellness' };
 
 export interface ParsedCoach {
   /** A short calming reply when the user sounds distressed. */
   calm?: string;
   /** Data changes to apply to the stores. */
   actions: CoachAction[];
+  /** Request to save the coach's last suggested plan to Workouts or Meals. */
+  savePlan?: 'workout' | 'meal';
 }
 
 const MILES_TO_KM = 1.60934;
@@ -78,10 +81,28 @@ export function parseCoachActions(raw: string): ParsedCoach {
   // should I eat?", "should I do yoga?"). Only statements log.
   const isQuestion =
     raw.includes('?') ||
-    /\b(should i|how many|how much|what should|do i need|can i|is it|recommend|suggest|what's|whats)\b/.test(
+    /\b(should i|how many|how much|what should|do i need|is it|recommend|suggest|what's|whats)\b/.test(
       text,
     ) ||
-    /^\s*(how|what|when|why|which|should|could|would|can|do|does|is|are)\b/.test(raw.toLowerCase());
+    /^\s*(how|what|when|why|which|should|could|would|do|does|is|are)\b/.test(raw.toLowerCase());
+
+  // --- Save the coach's suggested plan ----------------------------------
+  // Detected first so "add this to my workout plan" doesn't also log a workout.
+  if (/\b(add|save|put)\b/.test(text) && /\bplan\b|routine|schedule/.test(text)) {
+    if (/workout|exercise|training|fitness|gym/.test(text)) return { actions: [], savePlan: 'workout' };
+    if (/meal|food|diet|nutrition|eating/.test(text)) return { actions: [], savePlan: 'meal' };
+  }
+
+  // --- Switch the app focus (calm-only vs full wellness) ----------------
+  const focusCtx = /\b(app|focus|mode|switch|make|turn|set|only|just)\b/.test(text);
+  if (focusCtx) {
+    if (/only calm|just calm|calm only|calm mode|calm focus|no (wellness|fitness|nutrition|diet)|focus on calm|only (the )?calm|calm.only/.test(text)) {
+      return { actions: [{ type: 'focus', mode: 'calm' }] };
+    }
+    if (/wellness mode|full (app|experience)|switch to wellness|turn on wellness|wellness focus|bring back|add (fitness|nutrition|wellness|meals|workouts)/.test(text)) {
+      return { actions: [{ type: 'focus', mode: 'wellness' }] };
+    }
+  }
 
   // --- Target weight change ---------------------------------------------
   // Only when clearly about a goal/target weight, to avoid catching other numbers.
@@ -204,6 +225,10 @@ function phrase(a: CoachAction): string {
       return `logged ${a.ml} ml of water`;
     case 'targetWeight':
       return `set your target weight to ${a.kg} kg and refreshed your plan`;
+    case 'focus':
+      return a.mode === 'calm'
+        ? 'switched the app to Calm-only — nutrition and fitness are tucked away'
+        : 'switched the app back to full Wellness';
   }
 }
 

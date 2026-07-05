@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
@@ -10,7 +10,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Lock, Moon, Pause, Play, RotateCcw, Sparkles, Square, Wind } from 'lucide-react-native';
+import { router } from 'expo-router';
+import { ChevronUp, Lock, Moon, Pause, Play, Sparkles, Square, Wind } from 'lucide-react-native';
 import {
   BreathingAura,
   GlassCard,
@@ -22,7 +23,7 @@ import {
 import { MindIntro } from '@/components/MindIntro';
 import { useTheme } from '@/theme';
 import { useSettingsStore } from '@/store/settingsStore';
-import { useCalmAudio } from '@/lib/useCalmAudio';
+import { useCalmStore } from '@/store/calmStore';
 import { BedId, BEDS } from '@/lib/calmSounds';
 import { GUIDED_SESSIONS } from '@/lib/calmSessions';
 import { formatTime, useGuidedPlayer } from '@/lib/useGuidedPlayer';
@@ -105,7 +106,6 @@ const ORB = ['#4BA3A0', '#6C86D9', '#9385D0'] as const;
 export default function Calm() {
   const theme = useTheme();
   const patterns = usePatterns();
-  const audio = useCalmAudio();
   const guided = useGuidedPlayer();
 
   const [mode, setMode] = useState<Mode>('breathe');
@@ -119,74 +119,15 @@ export default function Calm() {
   const calmBed = useSettingsStore((s) => s.calmBed) as BedId;
   const setCalmBed = useSettingsStore((s) => s.setCalmBed);
 
-  const [patternId, setPatternId] = useState(patterns[0].id);
-  const [running, setRunning] = useState(false);
-  const [phaseLabel, setPhaseLabel] = useState('Ready when you are');
-  const [count, setCount] = useState(0);
-  const [rounds, setRounds] = useState(0);
+  // Persisted calm activity, surfaced on the Progress tab in Calm focus.
+  const logSession = useCalmStore((s) => s.startSession);
 
+  const [patternId, setPatternId] = useState(patterns[0].id);
   const pattern = patterns.find((p) => p.id === patternId) ?? patterns[0];
 
   const scale = useSharedValue(OUT_SCALE);
   const ambiance = useSharedValue(0);
   const ripple = useSharedValue(0);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const bedRef = useRef(calmBed);
-  bedRef.current = calmBed;
-
-  const clearTimers = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    timeoutRef.current = null;
-    intervalRef.current = null;
-  };
-
-  // Drive the breathing loop whenever we're running (restarts on pattern change).
-  useEffect(() => {
-    if (!running) return;
-
-    const phases = pattern.phases;
-    let idx = 0;
-
-    const startPhase = (i: number) => {
-      const phase = phases[i];
-      setPhaseLabel(phase.label);
-      setCount(phase.seconds);
-      scale.value = withTiming(phase.scale, {
-        duration: phase.seconds * 1000,
-        easing: Easing.inOut(Easing.quad),
-      });
-      Haptics.selectionAsync().catch(() => {});
-
-      if (phase.label === 'Breathe in') {
-        ripple.value = 0;
-        ripple.value = withTiming(1, {
-          duration: phase.seconds * 1000,
-          easing: Easing.out(Easing.quad),
-        });
-      }
-
-      let remaining = phase.seconds;
-      intervalRef.current = setInterval(() => {
-        remaining -= 1;
-        setCount(Math.max(remaining, 0));
-      }, 1000);
-
-      timeoutRef.current = setTimeout(() => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        const next = (i + 1) % phases.length;
-        if (next === 0) setRounds((r) => r + 1);
-        idx = next;
-        startPhase(next);
-      }, phase.seconds * 1000);
-    };
-
-    startPhase(idx);
-    return clearTimers;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running, patternId]);
 
   // In Journeys mode, gently auto-breathe the orb while a session plays.
   useEffect(() => {
@@ -220,71 +161,41 @@ export default function Calm() {
     opacity: 0.16 + (scale.value - OUT_SCALE) * 0.28,
   }));
 
-  const toggle = () => {
+  // Breathing runs in a dedicated full-screen focus player.
+  const beginBreathe = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
-    const next = !running;
-    setRunning(next);
-    if (next) {
-      ambiance.value = withTiming(1, { duration: 900 });
-      audio.startBed(bedRef.current);
-    } else {
-      ambiance.value = withTiming(0, { duration: 700 });
-      audio.pauseBed();
-    }
+    logSession();
+    router.push({ pathname: '/breathe', params: { pattern: patternId } });
   };
 
-  const reset = () => {
-    clearTimers();
-    setRunning(false);
-    setRounds(0);
-    setCount(0);
-    setPhaseLabel('Ready when you are');
+  const settleOrb = () => {
     cancelAnimation(scale);
-    scale.value = withTiming(OUT_SCALE, { duration: 400 });
+    scale.value = withTiming(OUT_SCALE, { duration: 500 });
     ambiance.value = withTiming(0, { duration: 500 });
-    audio.pauseBed();
   };
 
   const selectPattern = (id: string) => {
     if (id === patternId) return;
-    clearTimers();
-    setRunning(false);
-    setRounds(0);
-    setCount(0);
-    setPhaseLabel('Ready when you are');
-    scale.value = withTiming(OUT_SCALE, { duration: 400 });
-    ambiance.value = withTiming(0, { duration: 500 });
-    audio.pauseBed();
+    settleOrb();
     setPatternId(id);
   };
 
-  const selectBed = (id: BedId) => {
-    setCalmBed(id);
-    if (running) audio.startBed(id);
-  };
+  const selectBed = (id: BedId) => setCalmBed(id);
 
   const changeMode = (next: Mode) => {
     if (next === mode) return;
-    if (next === 'journeys') {
-      reset(); // stop any breathing session + its audio
-    } else {
-      guided.stop();
-      cancelAnimation(scale);
-      scale.value = withTiming(OUT_SCALE, { duration: 500 });
-      ambiance.value = withTiming(0, { duration: 500 });
-    }
+    if (next === 'breathe') guided.stop(); // stop any playing journey
+    settleOrb();
     setMode(next);
   };
 
-  const onPlayJourney = (id: string) => {
+  // Start a journey (if it isn't already the active one) and open the full-screen player.
+  const startJourney = (id: string) => {
     const session = GUIDED_SESSIONS.find((s) => s.id === id);
     if (!session || !session.takes) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
-    if (guided.state.activeId === id) {
-      guided.togglePlay();
-    } else {
-      guided.play(session);
-    }
+    if (guided.state.activeId !== id) guided.play(session);
+    router.push({ pathname: '/player', params: { id } });
   };
 
   const activeSession = GUIDED_SESSIONS.find((s) => s.id === guided.state.activeId);
@@ -364,33 +275,29 @@ export default function Calm() {
           >
             {mode === 'breathe' ? (
               <>
-                <Text variant="title2" color="textInverse" style={{ opacity: 0.95 }}>
-                  {phaseLabel}
+                <Text variant="title3" style={{ color: '#fff', opacity: 0.97, textAlign: 'center' }}>
+                  {pattern.name}
                 </Text>
-                {count > 0 && (
-                  <Text variant="numberLarge" color="textInverse">
-                    {count}
-                  </Text>
-                )}
+                <Text variant="footnote" style={{ color: '#fff', opacity: 0.8, marginTop: 4 }}>
+                  Tap Begin
+                </Text>
               </>
             ) : guided.state.activeId ? (
               <>
                 <Text
                   variant="caption"
-                  color="textInverse"
-                  style={{ opacity: 0.85, letterSpacing: 1 }}
+                  style={{ color: '#fff', opacity: 0.9, letterSpacing: 1 }}
                 >
                   {guided.state.isPlaying ? 'NOW PLAYING' : 'PAUSED'}
                 </Text>
-                <Text variant="numberLarge" color="textInverse">
+                <Text variant="numberLarge" style={{ color: '#fff' }}>
                   {formatTime(remainingMs)}
                 </Text>
               </>
             ) : (
               <Text
                 variant="title3"
-                color="textInverse"
-                style={{ opacity: 0.95, textAlign: 'center' }}
+                style={{ color: '#fff', opacity: 0.97, textAlign: 'center' }}
               >
                 Pick a{'\n'}journey
               </Text>
@@ -401,13 +308,10 @@ export default function Calm() {
 
       {mode === 'breathe' ? (
         <BreatheMode
-          running={running}
-          rounds={rounds}
           patterns={patterns}
           patternId={patternId}
           calmBed={calmBed}
-          onToggle={toggle}
-          onReset={reset}
+          onBegin={beginBreathe}
           onSelectPattern={selectPattern}
           onSelectBed={selectBed}
         />
@@ -418,7 +322,8 @@ export default function Calm() {
           progress={guided.state.progress}
           positionMs={guided.state.positionMs}
           durationMs={guided.state.durationMs}
-          onPlay={onPlayJourney}
+          onStartJourney={startJourney}
+          onToggle={guided.togglePlay}
           onStop={guided.stop}
         />
       )}
@@ -439,77 +344,48 @@ export default function Calm() {
 /* ------------------------------------------------------------------ */
 
 function BreatheMode({
-  running,
-  rounds,
   patterns,
   patternId,
   calmBed,
-  onToggle,
-  onReset,
+  onBegin,
   onSelectPattern,
   onSelectBed,
 }: {
-  running: boolean;
-  rounds: number;
   patterns: Pattern[];
   patternId: string;
   calmBed: BedId;
-  onToggle: () => void;
-  onReset: () => void;
+  onBegin: () => void;
   onSelectPattern: (id: string) => void;
   onSelectBed: (id: BedId) => void;
 }) {
   const theme = useTheme();
   return (
     <>
-      {/* Controls */}
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: theme.spacing.md,
-          marginTop: theme.spacing.sm,
-        }}
-      >
-        <RoundButton onPress={onReset} outline>
-          <RotateCcw size={22} color={theme.colors.textSecondary} />
-        </RoundButton>
-
-        <Pressable onPress={onToggle}>
-          {({ pressed }) => (
-            <LinearGradient
-              colors={[theme.colors.primary, theme.colors.secondary]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={{
-                width: 76,
-                height: 76,
-                borderRadius: 38,
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: pressed ? 0.85 : 1,
-                ...theme.shadows.glow,
-              }}
-            >
-              {running ? (
-                <Pause size={30} color="#fff" fill="#fff" />
-              ) : (
-                <Play size={30} color="#fff" fill="#fff" style={{ marginLeft: 3 }} />
-              )}
-            </LinearGradient>
-          )}
-        </Pressable>
-
-        <RoundButton outline>
-          <View style={{ alignItems: 'center' }}>
-            <Text variant="headline">{rounds}</Text>
-            <Text variant="caption" color="textTertiary">
-              rounds
+      {/* Begin — opens the full-screen focus player */}
+      <Pressable onPress={onBegin} style={{ marginTop: theme.spacing.sm }}>
+        {({ pressed }) => (
+          <LinearGradient
+            colors={[theme.colors.primary, theme.colors.secondary]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
+              paddingVertical: 16,
+              borderRadius: theme.radius.pill,
+              opacity: pressed ? 0.9 : 1,
+              ...theme.shadows.glow,
+            }}
+          >
+            <Play size={22} color="#fff" fill="#fff" />
+            <Text variant="headline" style={{ color: '#fff' }}>
+              Begin session
             </Text>
-          </View>
-        </RoundButton>
-      </View>
+          </LinearGradient>
+        )}
+      </Pressable>
 
       {/* Soundscape */}
       <View style={{ marginTop: theme.spacing.xl }}>
@@ -603,7 +479,8 @@ function JourneysMode({
   progress,
   positionMs,
   durationMs,
-  onPlay,
+  onStartJourney,
+  onToggle,
   onStop,
 }: {
   activeSession: (typeof GUIDED_SESSIONS)[number] | undefined;
@@ -611,18 +488,19 @@ function JourneysMode({
   progress: number;
   positionMs: number;
   durationMs: number;
-  onPlay: (id: string) => void;
+  onStartJourney: (id: string) => void;
+  onToggle: () => void;
   onStop: () => void;
 }) {
   const theme = useTheme();
   return (
     <>
-      {/* Now-playing bar */}
+      {/* Now-playing bar — tap the title to reopen the full-screen player */}
       {activeSession && (
         <View style={{ marginTop: theme.spacing.md }}>
           <GlassCard style={{ borderColor: activeSession.accent, borderWidth: 1.5 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
-              <Pressable onPress={() => onPlay(activeSession.id)}>
+              <Pressable onPress={onToggle}>
                 <View
                   style={{
                     width: 52,
@@ -641,10 +519,13 @@ function JourneysMode({
                 </View>
               </Pressable>
 
-              <View style={{ flex: 1 }}>
-                <Text variant="headline" numberOfLines={1}>
-                  {activeSession.title}
-                </Text>
+              <Pressable style={{ flex: 1 }} onPress={() => onStartJourney(activeSession.id)}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  <Text variant="headline" numberOfLines={1} style={{ flexShrink: 1 }}>
+                    {activeSession.title}
+                  </Text>
+                  <ChevronUp size={15} color={theme.colors.textTertiary} />
+                </View>
                 <View
                   style={{
                     height: 4,
@@ -671,7 +552,7 @@ function JourneysMode({
                     {formatTime(durationMs)}
                   </Text>
                 </View>
-              </View>
+              </Pressable>
 
               <Pressable onPress={onStop} hitSlop={8}>
                 <View
@@ -703,7 +584,7 @@ function JourneysMode({
             const active = activeSession?.id === s.id;
             const playing = active && isPlaying;
             return (
-              <Pressable key={s.id} disabled={locked} onPress={() => onPlay(s.id)}>
+              <Pressable key={s.id} disabled={locked} onPress={() => onStartJourney(s.id)}>
                 <GlassCard
                   style={{
                     opacity: locked ? 0.55 : 1,
@@ -809,35 +690,5 @@ function GroundingNote() {
         </Text>
       </GlassCard>
     </View>
-  );
-}
-
-function RoundButton({
-  children,
-  onPress,
-  outline,
-}: {
-  children: React.ReactNode;
-  onPress?: () => void;
-  outline?: boolean;
-}) {
-  const theme = useTheme();
-  return (
-    <Pressable
-      onPress={onPress}
-      style={({ pressed }) => ({
-        width: 64,
-        height: 64,
-        borderRadius: 32,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: theme.colors.surfaceGlass,
-        borderWidth: outline ? 1 : 0,
-        borderColor: theme.colors.separator,
-        opacity: pressed ? 0.7 : 1,
-      })}
-    >
-      {children}
-    </Pressable>
   );
 }

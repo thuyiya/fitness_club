@@ -64,4 +64,26 @@ describe('parseCoachActions', () => {
     expect(parsed.actions).toHaveLength(0);
     expect(parsed.calm).toBeUndefined();
   });
+
+  it('switches the app to calm-only focus', () => {
+    const parsed = parseCoachActions('make the app calm only, no wellness');
+    expect(parsed.actions).toContainEqual({ type: 'focus', mode: 'calm' });
+  });
+
+  it('switches back to wellness', () => {
+    const parsed = parseCoachActions('switch to wellness mode');
+    expect(parsed.actions).toContainEqual({ type: 'focus', mode: 'wellness' });
+  });
+
+  it('recognises a request to save a workout plan', () => {
+    const parsed = parseCoachActions('add this to my workout plan');
+    expect(parsed.savePlan).toBe('workout');
+    expect(parsed.actions).toHaveLength(0);
+  });
+
+  it('recognises a request to save a meal plan without logging a meal', () => {
+    const parsed = parseCoachActions('save this to my meal plan');
+    expect(parsed.savePlan).toBe('meal');
+    expect(parsed.actions).toHaveLength(0);
+  });
 });

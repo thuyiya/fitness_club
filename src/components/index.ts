@@ -13,4 +13,5 @@ export * from './SectionHeader';
 export * from './FadeInView';
 export * from './BreathingAura';
 export * from './TodayLog';
+export * from './CoachPlans';
 export * from './ExpandableCard';

@@ -9,11 +9,11 @@ export const MEDICAL_DISCLAIMER =
   'I\'m your coach, not a doctor — always consult a healthcare professional for medical decisions.';
 
 export const SUGGESTED_PROMPTS = [
+  'Make me a 3-day workout plan',
   'I ate rice with chicken, 200g',
   'I walked 30 minutes',
-  'I slept 7 hours',
   'Change my target to 75 kg',
-  'What should I eat today?',
+  'Make the app calm only',
   'Am I on track?',
 ];
 
@@ -84,6 +84,8 @@ export function buildSystemPrompt(profile: UserProfile, plan: Plan, today?: Dail
     'Be warm, encouraging and practical. Keep replies short — 2 to 4 sentences.',
     "Use the user's real numbers below whenever relevant, and speak directly to them.",
     'The user can log meals, exercise and sleep just by telling you in plain words, and can change goals like their target weight the same way.',
+    'You can draft a workout or meal plan when asked; keep it concrete with a clear title on the first line. The user can then say "add it to my workout/meal plan" to save it to that tab.',
+    'The user can also say things like "make the app calm only" to switch focus.',
     'If the user sounds stressed or upset, help them calm down first with one gentle, natural sentence — suggest a slow breath or the Calm tab — before any advice.',
     'You are not a doctor: for medical questions, briefly suggest consulting a healthcare professional.',
     '',
