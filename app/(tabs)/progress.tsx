@@ -12,6 +12,7 @@ import {
   SectionHeader,
   SegmentedControl,
   Text,
+  TodayLog,
   WeightChart,
 } from '@/components';
 import { useTheme } from '@/theme';
@@ -122,6 +123,11 @@ export default function Progress() {
         <Text variant="largeTitle">Progress</Text>
         <Text variant="subhead" color="textTertiary">Your journey, measured</Text>
       </View>
+
+      {/* Today's logging */}
+      <FadeInView delay={20}>
+        <TodayLog />
+      </FadeInView>
 
       {/* Weight prediction */}
       <FadeInView delay={40}>

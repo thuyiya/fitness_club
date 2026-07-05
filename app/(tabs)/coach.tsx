@@ -10,14 +10,17 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Download, RotateCcw, Send, ShieldCheck, Sparkles } from 'lucide-react-native';
+import { Download, Leaf, RotateCcw, Send, ShieldCheck, Sparkles } from 'lucide-react-native';
 import { Text } from '@/components';
 import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
 import { useAiCoachStore } from '@/store/aiCoachStore';
+import { useLogStore } from '@/store/logStore';
 import { ChatMessage } from '@/types';
 import { buildMessages, coachReply, MEDICAL_DISCLAIMER, SUGGESTED_PROMPTS } from '@/lib/coach';
+import { CoachAction, parseCoachActions, summarizeActions } from '@/lib/coachActions';
 import { MODEL } from '@/lib/llm/config';
 
 type UiMessage = ChatMessage & { streaming?: boolean };
@@ -28,8 +31,11 @@ const nextId = () => `m${idCounter++}`;
 export default function Coach() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   const profile = useUserStore((s) => s.profile);
   const plan = useUserStore((s) => s.plan);
+  const updateProfile = useUserStore((s) => s.updateProfile);
+  const log = useLogStore();
   const scrollRef = useRef<ScrollView>(null);
 
   const ai = useAiCoachStore();
@@ -38,12 +44,41 @@ export default function Coach() {
     {
       id: nextId(),
       role: 'coach',
-      text: `Hi ${profile?.name ?? 'there'}! I'm your coach. Ask me about meals, workouts, macros, your progress — or just say you need motivation. 💪`,
+      text: `Hi ${profile?.name ?? 'there'}! I'm your coach. Ask me anything — or just tell me what you ate, how you moved, or how you slept and I'll log it. You can even say "change my target to 75 kg". 💪`,
       createdAt: Date.now(),
     },
   ]);
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
+  const [offerCalm, setOfferCalm] = useState(false);
+
+  /** Apply a parsed action to the relevant store. */
+  const applyAction = (a: CoachAction) => {
+    switch (a.type) {
+      case 'meal':
+        log.addMeal(a.calories, a.proteinG);
+        break;
+      case 'walk':
+        if (a.minutes > 0) log.addWalking(a.minutes);
+        if (a.distanceKm > 0) log.addDistance(a.distanceKm);
+        break;
+      case 'workout':
+        log.addWorkout(a.minutes);
+        break;
+      case 'sleep':
+        log.setSleep(a.hours);
+        break;
+      case 'water':
+        log.addWater(a.ml);
+        break;
+      case 'targetWeight':
+        updateProfile({ targetWeightKg: a.kg });
+        break;
+    }
+  };
+
+  const pushCoach = (text: string) =>
+    setMessages((m) => [...m, { id: nextId(), role: 'coach', text, createdAt: Date.now() + 1 }]);
 
   // If the model was downloaded in a previous session, load it into memory when
   // the tab opens so the first message uses the on-device LLM.
@@ -65,9 +100,26 @@ export default function Coach() {
     const userMsg: UiMessage = { id: nextId(), role: 'user', text: trimmed, createdAt: Date.now() };
     setMessages((m) => [...m, userMsg]);
     setInput('');
+    setOfferCalm(false);
     scrollToEnd();
 
-    // On-device LLM path (streaming) when the model is ready.
+    // 1) Deterministic intents: logging, profile edits, and distress. These are
+    //    handled locally so they're reliable and instant, model or not.
+    const parsed = parseCoachActions(trimmed);
+    if (parsed.actions.length > 0) {
+      parsed.actions.forEach(applyAction);
+      pushCoach(summarizeActions(parsed.actions));
+      scrollToEnd();
+      return;
+    }
+    if (parsed.calm) {
+      pushCoach(parsed.calm);
+      setOfferCalm(true);
+      scrollToEnd();
+      return;
+    }
+
+    // 2) On-device LLM path (streaming) when the model is ready.
     if (ai.status === 'ready') {
       const replyId = nextId();
       setMessages((m) => [
@@ -76,7 +128,7 @@ export default function Coach() {
       ]);
       setBusy(true);
       try {
-        const msgs = buildMessages(trimmed, profile, plan, history);
+        const msgs = buildMessages(trimmed, profile, plan, history, log.today());
         await ai.generate(msgs, (token) => {
           setMessages((m) =>
             m.map((x) => (x.id === replyId ? { ...x, text: x.text + token } : x)),
@@ -164,6 +216,29 @@ export default function Coach() {
           {messages.map((m) => (
             <Bubble key={m.id} message={m} />
           ))}
+
+          {offerCalm && (
+            <Pressable onPress={() => router.navigate('/calm')} style={{ alignSelf: 'flex-start' }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 8,
+                  paddingHorizontal: theme.spacing.md,
+                  paddingVertical: 10,
+                  borderRadius: theme.radius.pill,
+                  backgroundColor: theme.colors.backgroundElevated,
+                  borderWidth: 1,
+                  borderColor: theme.colors.cardBorder,
+                }}
+              >
+                <Leaf size={16} color={theme.colors.primary} />
+                <Text variant="subhead" color="primary">
+                  Open Calm & breathe
+                </Text>
+              </View>
+            </Pressable>
+          )}
 
           {messages.length <= 1 && (
             <View style={{ marginTop: theme.spacing.md, gap: 8 }}>

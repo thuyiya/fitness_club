@@ -190,6 +190,10 @@ export interface DailyLog {
   walkingMinutes: number;
   workoutMinutes: number;
   steps: number;
+  /** Distance covered from walking/running, in kilometers. */
+  distanceKm: number;
+  /** Hours slept last night (a nightly value, not additive). */
+  sleepHours: number;
 }
 
 export interface ChatMessage {

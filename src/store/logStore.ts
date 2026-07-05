@@ -16,6 +16,8 @@ function emptyLog(date: string): DailyLog {
     walkingMinutes: 0,
     workoutMinutes: 0,
     steps: 0,
+    distanceKm: 0,
+    sleepHours: 0,
   };
 }
 
@@ -26,7 +28,9 @@ interface LogState {
   addMeal: (calories: number, proteinG: number) => void;
   addWalking: (minutes: number) => void;
   addWorkout: (minutes: number) => void;
+  addDistance: (km: number) => void;
   setSteps: (steps: number) => void;
+  setSleep: (hours: number) => void;
 }
 
 export const useLogStore = create<LogState>()(
@@ -48,7 +52,9 @@ export const useLogStore = create<LogState>()(
         mutate(set, (l) => ({ ...l, walkingMinutes: l.walkingMinutes + minutes })),
       addWorkout: (minutes) =>
         mutate(set, (l) => ({ ...l, workoutMinutes: l.workoutMinutes + minutes })),
+      addDistance: (km) => mutate(set, (l) => ({ ...l, distanceKm: l.distanceKm + km })),
       setSteps: (steps) => mutate(set, (l) => ({ ...l, steps })),
+      setSleep: (hours) => mutate(set, (l) => ({ ...l, sleepHours: hours })),
     }),
     {
       name: 'logs',

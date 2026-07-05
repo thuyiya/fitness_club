@@ -3,18 +3,18 @@
  * their live plan and profile to give grounded, personalized answers.
  * (A production build would swap this for a Claude-powered LLM endpoint.)
  */
-import { Plan, UserProfile } from '@/types';
+import { DailyLog, Plan, UserProfile } from '@/types';
 
 export const MEDICAL_DISCLAIMER =
   'I\'m your coach, not a doctor — always consult a healthcare professional for medical decisions.';
 
 export const SUGGESTED_PROMPTS = [
+  'I ate rice with chicken, 200g',
+  'I walked 30 minutes',
+  'I slept 7 hours',
+  'Change my target to 75 kg',
   'What should I eat today?',
-  'How many calories do I need?',
-  'Give me a quick workout',
   'Am I on track?',
-  'How much protein should I eat?',
-  'I need some motivation',
 ];
 
 export function coachReply(
@@ -73,16 +73,18 @@ export interface LlmMessage {
  * user's real, live plan numbers so the model gives personalised advice rather
  * than generic tips — no fine-tuning required.
  */
-export function buildSystemPrompt(profile: UserProfile, plan: Plan): string {
+export function buildSystemPrompt(profile: UserProfile, plan: Plan, today?: DailyLog): string {
   const finish = new Date(plan.prediction.finishDate).toLocaleDateString(undefined, {
     month: 'long',
     day: 'numeric',
   });
   const name = profile.name ? profile.name : 'the user';
-  return [
+  const lines = [
     `You are ${name}'s personal wellness coach inside a mobile app.`,
     'Be warm, encouraging and practical. Keep replies short — 2 to 4 sentences.',
     "Use the user's real numbers below whenever relevant, and speak directly to them.",
+    'The user can log meals, exercise and sleep just by telling you in plain words, and can change goals like their target weight the same way.',
+    'If the user sounds stressed or upset, help them calm down first with one gentle, natural sentence — suggest a slow breath or the Calm tab — before any advice.',
     'You are not a doctor: for medical questions, briefly suggest consulting a healthcare professional.',
     '',
     'USER PROFILE',
@@ -99,7 +101,19 @@ export function buildSystemPrompt(profile: UserProfile, plan: Plan): string {
     '',
     'PROGRESS',
     `- Projected to reach ${profile.targetWeightKg} kg around ${finish} — about ${plan.prediction.totalWeeks} weeks away at ${plan.prediction.weeklyRateKg} kg/week.`,
-  ].join('\n');
+  ];
+
+  if (today) {
+    const active = (today.walkingMinutes ?? 0) + (today.workoutMinutes ?? 0);
+    lines.push(
+      '',
+      'TODAY SO FAR',
+      `- Eaten ${today.caloriesConsumed} of ${plan.targets.calories} kcal, ${today.proteinG} of ${plan.targets.proteinG} g protein.`,
+      `- Water ${today.waterMl} ml, active ${active} min, slept ${today.sleepHours ?? 0} h.`,
+    );
+  }
+
+  return lines.join('\n');
 }
 
 /**
@@ -111,9 +125,10 @@ export function buildMessages(
   profile: UserProfile,
   plan: Plan,
   history: { role: 'user' | 'coach'; text: string }[] = [],
+  today?: DailyLog,
 ): LlmMessage[] {
   const messages: LlmMessage[] = [
-    { role: 'system', content: buildSystemPrompt(profile, plan) },
+    { role: 'system', content: buildSystemPrompt(profile, plan, today) },
   ];
   for (const h of history.slice(-6)) {
     messages.push({ role: h.role === 'user' ? 'user' : 'assistant', content: h.text });
