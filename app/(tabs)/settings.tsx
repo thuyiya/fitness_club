@@ -55,7 +55,7 @@ export default function Settings() {
         style: 'destructive',
         onPress: () => {
           resetUser();
-          router.replace('/welcome');
+          router.replace('/(tabs)');
         },
       },
     ]);

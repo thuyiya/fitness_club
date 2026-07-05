@@ -44,10 +44,104 @@ export default function Dashboard() {
   );
   const [headlineIdx] = useState(() => Math.floor(Date.now() / 86400000) % 4);
 
+  // Before the health questionnaire, we don't invent numbers — the goal, rings
+  // and plan sections stay hidden behind a gentle prompt to set up the profile.
   if (!profile || !plan) {
     return (
       <Screen>
-        <Text>Loading your plan…</Text>
+        <FadeInView delay={0}>
+          <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.lg }}>
+            <Text variant="subhead" color="textTertiary">
+              {greeting()}
+            </Text>
+            <Text variant="largeTitle">Welcome to Solace 👋</Text>
+            <Text variant="footnote" color="textTertiary" style={{ marginTop: 2 }}>
+              Nourish the body · calm the mind
+            </Text>
+          </View>
+        </FadeInView>
+
+        <FadeInView delay={80}>
+          <LinearGradient
+            colors={[theme.colors.primary, theme.colors.secondary]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ borderRadius: theme.radius.xxl, padding: theme.spacing.xl, ...theme.shadows.glow }}
+          >
+            <View
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 18,
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: theme.spacing.md,
+              }}
+            >
+              <HeartPulse size={26} color="#fff" />
+            </View>
+            <Text variant="title2" color="textInverse">
+              Let’s complete your health profile
+            </Text>
+            <Text
+              variant="body"
+              color="textInverse"
+              style={{ marginTop: 6, lineHeight: 24, color: 'rgba(255,255,255,0.9)' }}
+            >
+              Add your age, height and weight so we can shape your nutrition, workouts and progress
+              around you.
+            </Text>
+            <Pressable
+              onPress={() => router.push('/onboarding')}
+              style={({ pressed }) => ({
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6,
+                height: 50,
+                borderRadius: theme.radius.pill,
+                backgroundColor: '#fff',
+                marginTop: theme.spacing.lg,
+                opacity: pressed ? 0.85 : 1,
+              })}
+            >
+              <Text variant="headline" color="primary">
+                Get started
+              </Text>
+              <ArrowRight size={18} color={theme.colors.primary} />
+            </Pressable>
+          </LinearGradient>
+        </FadeInView>
+
+        <FadeInView delay={140}>
+          <SectionHeader title="Meanwhile" subtitle="No setup needed" />
+          <Pressable onPress={() => router.push('/calm' as Href)}>
+            <GlassCard>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
+                <View
+                  style={{
+                    width: 46,
+                    height: 46,
+                    borderRadius: 16,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: theme.colors.water + '1A',
+                  }}
+                >
+                  <HeartPulse size={22} color={theme.colors.water} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text variant="headline">Find your calm</Text>
+                  <Text variant="caption" color="textTertiary">
+                    Breathe and clear your mind
+                  </Text>
+                </View>
+                <ArrowRight size={18} color={theme.colors.textTertiary} />
+              </View>
+            </GlassCard>
+          </Pressable>
+        </FadeInView>
       </Screen>
     );
   }

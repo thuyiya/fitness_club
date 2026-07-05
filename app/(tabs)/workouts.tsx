@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
+import { Redirect } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { Check, Clock, Flame, Plus, Signal } from 'lucide-react-native';
 import {
@@ -52,6 +53,10 @@ export default function Workouts() {
     addWorkout(w.durationMinutes);
     setDone((d) => ({ ...d, [w.id]: true }));
   };
+
+  // Workouts need a plan — if the user hasn't set up their health profile yet,
+  // send them to the questionnaire (Home normally gates this entry point).
+  if (!profile || !plan) return <Redirect href="/onboarding" />;
 
   return (
     <Screen>

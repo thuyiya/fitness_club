@@ -12,15 +12,14 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-import { Activity } from 'lucide-react-native';
+import { Leaf } from 'lucide-react-native';
 import { Text } from '@/components';
-import { palette } from '@/theme';
-import { useUserStore } from '@/store/userStore';
+import { useSettingsStore } from '@/store/settingsStore';
 
-/** Animated splash: pulsing AI logo + drifting particles, then routes onward. */
+/** Cream calm-brand splash: gently breathing mark, then into the app (or the
+ *  one-time wellness intro on the very first launch). */
 export default function Splash() {
-  const onboarded = useUserStore((s) => s.onboarded);
-
+  const welcomeSeen = useSettingsStore((s) => s.welcomeSeen);
   const scale = useSharedValue(0.6);
   const glow = useSharedValue(0.4);
 
@@ -32,10 +31,10 @@ export default function Splash() {
     glow.value = withRepeat(withTiming(1, { duration: 1200 }), -1, true);
 
     const t = setTimeout(() => {
-      router.replace(onboarded ? '/(tabs)' : '/welcome');
-    }, 2200);
+      router.replace(welcomeSeen ? '/(tabs)' : '/welcome');
+    }, 1800);
     return () => clearTimeout(t);
-  }, [onboarded, scale, glow]);
+  }, [welcomeSeen, scale, glow]);
 
   const logoStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -48,7 +47,7 @@ export default function Splash() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={[palette.primaryDark, palette.secondary, '#1E1B4B']}
+        colors={['#F3F4E2', '#EAEED0', '#DBE4C1']}
         style={StyleSheet.absoluteFill}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -57,14 +56,14 @@ export default function Splash() {
 
       <Animated.View style={[styles.glow, glowStyle]} />
       <Animated.View style={[styles.logo, logoStyle]}>
-        <Activity size={56} color="#fff" strokeWidth={2.5} />
+        <Leaf size={54} color="#85A067" strokeWidth={2.5} />
       </Animated.View>
 
       <Animated.View entering={FadeIn.delay(500).duration(800)} style={styles.textWrap}>
-        <Text variant="title1" color="textInverse" center>
+        <Text variant="title1" center style={{ color: '#3F5233' }}>
           Solace
         </Text>
-        <Text variant="subhead" style={{ color: 'rgba(255,255,255,0.7)', marginTop: 6 }} center>
+        <Text variant="subhead" style={{ color: '#6E8055', marginTop: 6 }} center>
           Your private space to feel better
         </Text>
       </Animated.View>
@@ -116,7 +115,7 @@ function Particle({ index }: { index: number }) {
           width: size,
           height: size,
           borderRadius: size,
-          backgroundColor: '#fff',
+          backgroundColor: '#A9C089',
         },
         style,
       ]}
@@ -131,15 +130,15 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.3)',
+    backgroundColor: 'rgba(133,160,103,0.22)',
   },
   logo: {
     width: 110,
     height: 110,
     borderRadius: 34,
-    backgroundColor: 'rgba(255,255,255,0.15)',
+    backgroundColor: 'rgba(255,255,255,0.6)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.3)',
+    borderColor: 'rgba(133,160,103,0.35)',
     alignItems: 'center',
     justifyContent: 'center',
   },

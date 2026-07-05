@@ -12,21 +12,17 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0A211A"
+      "backgroundColor": "#EAEED0"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.glitchfy.solace",
-      "entitlements": {
-        "com.apple.developer.kernel.increased-memory-limit": true,
-        "com.apple.developer.kernel.extended-virtual-addressing": true
-      }
+      "bundleIdentifier": "com.glitchfy.solace"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#EDEFDA"
+        "backgroundColor": "#EAEED0"
       },
       "package": "com.glitchfy.solace"
     },
@@ -40,7 +36,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0A211A",
+          "backgroundColor": "#EAEED0",
           "image": "./assets/splash.png",
           "resizeMode": "contain"
         }

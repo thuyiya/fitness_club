@@ -10,9 +10,13 @@ import {
   TrendingUp,
 } from 'lucide-react-native';
 import { useTheme } from '@/theme';
+import { useUserStore } from '@/store/userStore';
 
 export default function TabsLayout() {
   const theme = useTheme();
+  // Progress has nothing to show until the health profile exists — hide the tab
+  // entirely until then, rather than surfacing an empty screen.
+  const hasData = useUserStore((s) => s.onboarded && !!s.plan);
 
   return (
     <Tabs
@@ -70,6 +74,7 @@ export default function TabsLayout() {
         name="progress"
         options={{
           title: 'Progress',
+          href: hasData ? undefined : null,
           tabBarIcon: ({ color, size }) => <TrendingUp color={color} size={size - 2} />,
         }}
       />

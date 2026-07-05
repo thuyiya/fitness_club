@@ -54,7 +54,34 @@ export default function Progress() {
   if (!profile || !plan) {
     return (
       <Screen>
-        <Text>Loading…</Text>
+        <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
+          <Text variant="largeTitle">Progress</Text>
+          <Text variant="subhead" color="textTertiary">Your journey, measured</Text>
+        </View>
+        <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 64, gap: 12 }}>
+          <View
+            style={{
+              width: 88,
+              height: 88,
+              borderRadius: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: theme.colors.primary + '14',
+            }}
+          >
+            <Activity size={40} color={theme.colors.primary} />
+          </View>
+          <Text variant="title3" center>Nothing to track yet</Text>
+          <Text
+            variant="footnote"
+            color="textTertiary"
+            center
+            style={{ paddingHorizontal: 32, lineHeight: 20 }}
+          >
+            Complete your health profile and start logging to see your weight timeline, body
+            metrics and achievements here.
+          </Text>
+        </View>
       </Screen>
     );
   }
