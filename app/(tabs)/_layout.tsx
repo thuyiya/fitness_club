@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { BlurView } from 'expo-blur';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Tabs } from 'expo-router';
 import {
   HeartPulse,
@@ -14,9 +15,15 @@ import { useUserStore } from '@/store/userStore';
 
 export default function TabsLayout() {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+  const isDark = theme.mode === 'dark';
   // Progress has nothing to show until the health profile exists — hide the tab
   // entirely until then, rather than surfacing an empty screen.
   const hasData = useUserStore((s) => s.onboarded && !!s.plan);
+
+  // Frosted-glass edge highlight — a bright hairline rim in light mode, a soft
+  // luminous one in dark mode.
+  const glassEdge = isDark ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.6)';
 
   return (
     <Tabs
@@ -26,30 +33,45 @@ export default function TabsLayout() {
         tabBarInactiveTintColor: theme.colors.textTertiary,
         tabBarShowLabel: true,
         tabBarLabelStyle: { fontSize: 10, fontWeight: '600', marginTop: 2 },
+        tabBarItemStyle: { paddingVertical: 6 },
+        // A floating, rounded glass pill detached from the screen edges.
         tabBarStyle: {
           position: 'absolute',
-          borderTopWidth: StyleSheet.hairlineWidth,
-          borderTopColor: theme.colors.separator,
+          left: 16,
+          right: 16,
+          bottom: Math.max(insets.bottom, 12),
+          height: 62,
+          borderRadius: 26,
+          borderTopWidth: 0,
           backgroundColor:
             Platform.OS === 'web' ? theme.colors.backgroundElevated : 'transparent',
-          elevation: 0,
-          height: 64 + (Platform.OS === 'ios' ? 20 : 8),
           paddingTop: 8,
+          paddingBottom: 8,
+          ...theme.shadows.medium,
         },
         tabBarBackground: () =>
           Platform.OS === 'web' ? null : (
-            <BlurView
-              intensity={60}
-              tint={theme.mode === 'dark' ? 'dark' : 'light'}
-              style={StyleSheet.absoluteFill}
+            <View
+              style={[
+                StyleSheet.absoluteFill,
+                {
+                  borderRadius: 26,
+                  overflow: 'hidden',
+                  borderWidth: StyleSheet.hairlineWidth,
+                  borderColor: glassEdge,
+                },
+              ]}
             >
-              <View
-                style={[
-                  StyleSheet.absoluteFill,
-                  { backgroundColor: theme.colors.surfaceGlass },
-                ]}
-              />
-            </BlurView>
+              <BlurView
+                intensity={isDark ? 40 : 55}
+                tint={isDark ? 'dark' : 'light'}
+                style={StyleSheet.absoluteFill}
+              >
+                <View
+                  style={[StyleSheet.absoluteFill, { backgroundColor: theme.colors.surfaceGlass }]}
+                />
+              </BlurView>
+            </View>
           ),
       }}
     >
