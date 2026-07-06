@@ -19,6 +19,12 @@ import { Text } from '@/components';
 import { useCalmAudio } from '@/lib/useCalmAudio';
 import { useCalmStore } from '@/store/calmStore';
 import { pickPracticeImage, pickPracticeMusic } from '@/lib/practiceSounds';
+import {
+  endNowPlaying,
+  setNowPlayingHandlers,
+  startNowPlaying,
+  updateNowPlaying,
+} from '@/lib/nowPlaying';
 
 /**
  * Full-screen breathing session — a distraction-free space to focus on the
@@ -101,6 +107,8 @@ export default function Breathe() {
   const idxRef = useRef(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // So the Lock-Screen play/pause button always calls the latest toggle.
+  const toggleRef = useRef<() => void>(() => {});
 
   const clearTimers = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -112,10 +120,13 @@ export default function Breathe() {
   // Start the ambient bed on mount; slow continuous rotation for the guide dots.
   useEffect(() => {
     startMusic();
+    startNowPlaying({ title: 'Breath', artist: 'Ānāpānasati', artwork: scene, isPlaying: true });
+    setNowPlayingHandlers({ onToggle: () => toggleRef.current() });
     spin.value = withRepeat(withTiming(1, { duration: 40000, easing: Easing.linear }), -1, false);
     return () => {
       cancelAnimation(spin);
       audio.stopBed();
+      endNowPlaying();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -176,7 +187,9 @@ export default function Breathe() {
     if (running) audio.pauseBed();
     else resumeMusic();
     setRunning((r) => !r);
+    updateNowPlaying(!running);
   };
+  toggleRef.current = toggle;
 
   const leave = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});

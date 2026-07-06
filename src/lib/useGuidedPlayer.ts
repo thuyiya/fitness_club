@@ -7,6 +7,12 @@ import {
 } from 'expo-av';
 import { bedById } from './calmSounds';
 import { GuidedSession, pickTake } from './calmSessions';
+import {
+  endNowPlaying,
+  setNowPlayingHandlers,
+  startNowPlaying,
+  updateNowPlaying,
+} from './nowPlaying';
 
 /**
  * Global guided-meditation player. Sound handles live at module scope and state
@@ -78,6 +84,8 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       durationMs,
       progress: durationMs > 0 ? Math.min(positionMs / durationMs, 1) : 0,
     });
+    // Keep the system Now Playing scrubber in sync with the real audio.
+    updateNowPlaying(status.isPlaying, positionMs / 1000, durationMs / 1000);
   };
 
   return {
@@ -106,6 +114,13 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         );
         voice = sound;
         set({ activeId: session.id, isPlaying: true, progress: 0, positionMs: 0, durationMs: 0 });
+        startNowPlaying({
+          title: session.title,
+          artist: session.technique,
+          artwork: session.image,
+          isPlaying: true,
+        });
+        setNowPlayingHandlers({ onToggle: () => get().togglePlay() });
       } catch {
         await teardown();
         set(IDLE);
@@ -115,19 +130,23 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       if (!voice) return;
       const status = await voice.getStatusAsync();
       if (!status.isLoaded) return;
+      const { positionMs, durationMs } = get();
       if (status.isPlaying) {
         await voice.pauseAsync().catch(() => {});
         await bed?.pauseAsync().catch(() => {});
         set({ isPlaying: false });
+        updateNowPlaying(false, positionMs / 1000, durationMs / 1000);
       } else {
         await voice.playAsync().catch(() => {});
         await bed?.playAsync().catch(() => {});
         set({ isPlaying: true });
+        updateNowPlaying(true, positionMs / 1000, durationMs / 1000);
       }
     },
     stop: async () => {
       await teardown();
       set(IDLE);
+      endNowPlaying();
     },
   };
 });

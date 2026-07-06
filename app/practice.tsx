@@ -22,6 +22,12 @@ import { useCalmStore } from '@/store/calmStore';
 import { BedId } from '@/lib/calmSounds';
 import { practiceById } from '@/lib/practices';
 import { pickPracticeImage, pickPracticeMusic } from '@/lib/practiceSounds';
+import {
+  endNowPlaying,
+  setNowPlayingHandlers,
+  startNowPlaying,
+  updateNowPlaying,
+} from '@/lib/nowPlaying';
 
 /**
  * Full-screen guided practice — Focus, Relax the Body, Loving-Kindness, Let Go.
@@ -57,6 +63,8 @@ export default function Practice() {
   const breath = useSharedValue(OUT);
   const idxRef = useRef(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // So the Lock-Screen play/pause button always calls the latest toggle.
+  const toggleRef = useRef<() => void>(() => {});
 
   const clearTimer = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -66,6 +74,13 @@ export default function Practice() {
   // Continuous slow orb breathing + ambient bed while the session is open.
   useEffect(() => {
     startMusic();
+    startNowPlaying({
+      title: practice.name,
+      artist: practice.technique,
+      artwork: scene,
+      isPlaying: true,
+    });
+    setNowPlayingHandlers({ onToggle: () => toggleRef.current() });
     breath.value = withRepeat(
       withTiming(IN, { duration: 5500, easing: Easing.inOut(Easing.sin) }),
       -1,
@@ -74,6 +89,7 @@ export default function Practice() {
     return () => {
       cancelAnimation(breath);
       audio.stopBed();
+      endNowPlaying();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -116,7 +132,9 @@ export default function Practice() {
       );
     }
     setRunning((r) => !r);
+    updateNowPlaying(!running);
   };
+  toggleRef.current = toggle;
 
   const leave = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
