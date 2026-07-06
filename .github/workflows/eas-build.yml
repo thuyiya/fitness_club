@@ -6,6 +6,12 @@ on:
   push:
     branches:
       - master
+    # Don't burn a build on changes that don't affect the app bundle.
+    paths-ignore:
+      - 'scripts/**'
+      - 'docs/**'
+      - '**.md'
+      - '.github/**'
   workflow_dispatch:
     inputs:
       platform:
