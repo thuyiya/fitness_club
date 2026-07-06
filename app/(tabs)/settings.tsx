@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Pressable, Switch, View } from 'react-native';
+import { Alert, Linking, Pressable, Switch, View } from 'react-native';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
@@ -8,6 +8,7 @@ import {
   Cloud,
   Compass,
   Download,
+  FileText,
   Heart,
   Moon,
   Ruler,
@@ -40,6 +41,7 @@ import { useAiCoachStore } from '@/store/aiCoachStore';
 import { MeasurementUnit } from '@/types';
 import { formatHeight, formatWeight } from '@/lib/format';
 import { MODEL } from '@/lib/llm/config';
+import { LEGAL } from '@/lib/links';
 
 export default function Settings() {
   const theme = useTheme();
@@ -63,17 +65,22 @@ export default function Settings() {
   } = useSettingsStore();
 
   const deleteAccount = () => {
-    Alert.alert('Delete Account', 'This will erase all your data. This cannot be undone.', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Delete',
-        style: 'destructive',
-        onPress: () => {
-          resetUser();
-          router.replace('/(tabs)');
+    Alert.alert(
+      'Delete Account',
+      'This erases all data stored on this device and cannot be undone.\n\nIf you have used a cloud feature and want that data removed too, open the online deletion page.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete on device',
+          style: 'destructive',
+          onPress: () => {
+            resetUser();
+            router.replace('/(tabs)');
+          },
         },
-      },
-    ]);
+        { text: 'Online request', onPress: () => Linking.openURL(LEGAL.dataDeletion) },
+      ],
+    );
   };
 
   return (
@@ -305,7 +312,8 @@ export default function Settings() {
       <FadeInView delay={240}>
         <SectionHeader title="Data & Privacy" />
         <GlassCard padded={false}>
-          <NavRow icon={<Shield size={20} color={theme.colors.primary} />} label="Privacy" first />
+          <NavRow icon={<Shield size={20} color={theme.colors.primary} />} label="Privacy Policy" onPress={() => Linking.openURL(LEGAL.privacy)} first />
+          <NavRow icon={<FileText size={20} color={theme.colors.secondary} />} label="Terms of Service" onPress={() => Linking.openURL(LEGAL.terms)} />
           <NavRow icon={<Download size={20} color={theme.colors.success} />} label="Export Data (PDF)" />
           <NavRow icon={<Upload size={20} color={theme.colors.secondary} />} label="Backup & Restore" />
           <Pressable onPress={deleteAccount}>
@@ -498,10 +506,20 @@ function ToggleRow({
   );
 }
 
-function NavRow({ icon, label, first }: { icon: React.ReactNode; label: string; first?: boolean }) {
+function NavRow({
+  icon,
+  label,
+  first,
+  onPress,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  first?: boolean;
+  onPress?: () => void;
+}) {
   const theme = useTheme();
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <View
         style={{
           flexDirection: 'row',

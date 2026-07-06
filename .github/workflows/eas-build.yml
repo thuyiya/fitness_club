@@ -1,7 +1,8 @@
 name: EAS Build
 
-# Auto-builds on every push to master, and can also be run manually
-# from the Actions tab (Run workflow button) with custom options.
+# Every push to master builds the production Android App Bundle and
+# auto-submits it to the Google Play "internal" testing track.
+# Can also be run manually from the Actions tab with custom options.
 on:
   push:
     branches:
@@ -29,7 +30,7 @@ on:
           - preview
           - production
           - development
-        default: preview
+        default: production
 
 jobs:
   build:
@@ -38,10 +39,10 @@ jobs:
     # EXPO_TOKEN is stored as an environment secret on the "production"
     # environment, so the job must opt into that environment to read it.
     environment: production
-    # On push events there are no inputs, so fall back to android/preview.
+    # On push events there are no inputs, so fall back to android/production.
     env:
       PLATFORM: ${{ github.event.inputs.platform || 'android' }}
-      PROFILE: ${{ github.event.inputs.profile || 'preview' }}
+      PROFILE: ${{ github.event.inputs.profile || 'production' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,7 +62,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Only production builds get auto-submitted to Play (submit profile
+      # "production" in eas.json -> internal track). preview/development
+      # builds just queue and produce a shareable artifact.
+      - name: Set submit flag
+        run: |
+          if [ "$PROFILE" = "production" ]; then
+            echo "SUBMIT_FLAG=--auto-submit" >> "$GITHUB_ENV"
+          else
+            echo "SUBMIT_FLAG=" >> "$GITHUB_ENV"
+          fi
+
       - name: Build on EAS
-        # --no-wait queues the build and returns immediately with a build URL;
-        # track progress at https://expo.dev/accounts/glitchfy/projects/fitness-club/builds
-        run: eas build --platform "$PLATFORM" --profile "$PROFILE" --non-interactive --no-wait
+        # --auto-submit queues the Play Store submission on EAS servers once
+        # the build finishes, so --no-wait can return immediately.
+        # Track progress at https://expo.dev/accounts/glitchfy/projects/fitness-club/builds
+        run: eas build --platform "$PLATFORM" --profile "$PROFILE" --non-interactive --no-wait $SUBMIT_FLAG
