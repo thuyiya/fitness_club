@@ -34,3 +34,7 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Build artifacts (regenerable; never commit — exceed GitHub size limits)
+*.aab
+*.apk
