@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ImageBackground, Pressable, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, ImageBackground, Pressable, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { StatusBar } from 'expo-status-bar';
@@ -33,6 +33,7 @@ export default function Player() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const activeId = usePlayerStore((s) => s.activeId);
+  const loadingId = usePlayerStore((s) => s.loadingId);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
   const progress = usePlayerStore((s) => s.progress);
   const positionMs = usePlayerStore((s) => s.positionMs);
@@ -44,6 +45,7 @@ export default function Player() {
   const session = GUIDED_SESSIONS.find((s) => s.id === id) ?? GUIDED_SESSIONS[0];
   const isThis = activeId === session.id;
   const playingThis = isThis && isPlaying;
+  const loadingThis = loadingId === session.id;
 
   const onToggle = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
@@ -126,7 +128,9 @@ export default function Player() {
                       end={{ x: 1, y: 1 }}
                       style={[styles.playBtn, { opacity: pressed ? 0.85 : 1 }]}
                     >
-                      {playingThis ? (
+                      {loadingThis ? (
+                        <ActivityIndicator size="small" color="#fff" />
+                      ) : playingThis ? (
                         <Pause size={30} color="#fff" fill="#fff" />
                       ) : (
                         <Play size={30} color="#fff" fill="#fff" style={{ marginLeft: 3 }} />

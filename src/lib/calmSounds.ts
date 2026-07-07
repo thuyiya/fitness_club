@@ -1,26 +1,23 @@
-import { AVPlaybackSource } from 'expo-av';
-
 /**
- * Ambient background beds for the Calm session. Each `module` is a static
- * `require()` so Metro bundles the audio file. To add / swap a track, drop the
- * MP3 into `assets/audio/` (see PROMPTS.md for the Suno prompts) and point the
- * matching entry here. The files shipped today are silent placeholders — replace
- * them with the generated tracks and everything keeps working with no code change.
+ * Ambient background beds for the Calm session. Each bed names an MP3 in the
+ * Supabase `solace_voices` bucket; the player downloads + caches it on first use
+ * (see `cachedAudio`). To add / swap a bed, upload the MP3 and point the matching
+ * entry's `file` here.
  */
 export type BedId = 'drift' | 'morning' | 'night' | 'aurora' | 'off';
 
 export type Bed = {
   id: BedId;
   label: string;
-  /** Undefined for the "off" option. */
-  module?: AVPlaybackSource;
+  /** Filename in the solace_voices bucket. Undefined for the "off" option. */
+  file?: string;
 };
 
 export const BEDS: Bed[] = [
-  { id: 'drift', label: 'Drift', module: require('../../assets/audio/bed-drift.mp3') },
-  { id: 'morning', label: 'Morning', module: require('../../assets/audio/bed-morning.mp3') },
-  { id: 'night', label: 'Night', module: require('../../assets/audio/bed-night.mp3') },
-  { id: 'aurora', label: 'Aurora', module: require('../../assets/audio/bed-aurora.mp3') },
+  { id: 'drift', label: 'Drift', file: 'bed-drift.mp3' },
+  { id: 'morning', label: 'Morning', file: 'bed-morning.mp3' },
+  { id: 'night', label: 'Night', file: 'bed-night.mp3' },
+  { id: 'aurora', label: 'Aurora', file: 'bed-aurora.mp3' },
   { id: 'off', label: 'Silent' },
 ];
 

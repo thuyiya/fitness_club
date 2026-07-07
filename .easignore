@@ -1,0 +1,3 @@
+# Media assets are served from Supabase Storage (see media/README.md), not
+# bundled. Keep them out of the EAS build archive so uploads stay small.
+media/

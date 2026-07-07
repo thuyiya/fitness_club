@@ -7,6 +7,7 @@ import {
 } from 'expo-av';
 import { bedById } from './calmSounds';
 import { GuidedSession, pickTake } from './calmSessions';
+import { audioSource } from './remoteAsset';
 import {
   endNowPlaying,
   setNowPlayingHandlers,
@@ -39,6 +40,8 @@ async function configureAudio() {
 
 export type GuidedState = {
   activeId: string | null;
+  /** Session whose audio is currently loading/buffering (shows a spinner). */
+  loadingId: string | null;
   isPlaying: boolean;
   /** 0..1 progress through the current track. */
   progress: number;
@@ -54,6 +57,7 @@ type PlayerStore = GuidedState & {
 
 const IDLE: GuidedState = {
   activeId: null,
+  loadingId: null,
   isPlaying: false,
   progress: 0,
   positionMs: 0,
@@ -78,12 +82,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     }
     const durationMs = status.durationMillis ?? 0;
     const positionMs = status.positionMillis ?? 0;
-    set({
+    set((s) => ({
       isPlaying: status.isPlaying,
+      // Buffering done once real playback begins — drop the loading spinner.
+      loadingId: status.isPlaying ? null : s.loadingId,
       positionMs,
       durationMs,
       progress: durationMs > 0 ? Math.min(positionMs / durationMs, 1) : 0,
-    });
+    }));
     // Keep the system Now Playing scrubber in sync with the real audio.
     updateNowPlaying(status.isPlaying, positionMs / 1000, durationMs / 1000);
   };
@@ -91,29 +97,41 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
   return {
     ...IDLE,
     play: async (session) => {
-      const take = pickTake(session);
-      if (!take) return; // locked / coming soon
+      const takeName = pickTake(session);
+      if (!takeName) return; // locked / coming soon
+
+      // Show the loading state immediately so the UI reacts on tap, then start
+      // streaming (playback begins as it buffers — no wait for a full download).
+      set({
+        activeId: session.id,
+        loadingId: session.id,
+        isPlaying: false,
+        progress: 0,
+        positionMs: 0,
+        durationMs: 0,
+      });
 
       await configureAudio();
       await teardown();
 
       try {
         const b = bedById(session.bed);
-        if (b.module) {
-          const { sound } = await Audio.Sound.createAsync(b.module, {
+        if (b.file) {
+          const bedSrc = await audioSource(b.file);
+          const { sound } = await Audio.Sound.createAsync(bedSrc, {
             isLooping: true,
             volume: 0.3,
             shouldPlay: true,
           });
           bed = sound;
         }
+        const takeSrc = await audioSource(takeName);
         const { sound } = await Audio.Sound.createAsync(
-          take,
+          takeSrc,
           { shouldPlay: true, volume: 1 },
           onStatus,
         );
         voice = sound;
-        set({ activeId: session.id, isPlaying: true, progress: 0, positionMs: 0, durationMs: 0 });
         startNowPlaying({
           title: session.title,
           artist: session.technique,
@@ -154,6 +172,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
 /** Backwards-compatible hook shape: `{ state, play, togglePlay, stop }`. */
 export function useGuidedPlayer() {
   const activeId = usePlayerStore((s) => s.activeId);
+  const loadingId = usePlayerStore((s) => s.loadingId);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
   const progress = usePlayerStore((s) => s.progress);
   const positionMs = usePlayerStore((s) => s.positionMs);
@@ -162,7 +181,7 @@ export function useGuidedPlayer() {
   const togglePlay = usePlayerStore((s) => s.togglePlay);
   const stop = usePlayerStore((s) => s.stop);
   return {
-    state: { activeId, isPlaying, progress, positionMs, durationMs },
+    state: { activeId, loadingId, isPlaying, progress, positionMs, durationMs },
     play,
     togglePlay,
     stop,

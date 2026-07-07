@@ -19,6 +19,7 @@ import { Text } from '@/components';
 import { useCalmAudio } from '@/lib/useCalmAudio';
 import { useCalmStore } from '@/store/calmStore';
 import { pickPracticeImage, pickPracticeMusic } from '@/lib/practiceSounds';
+import { prefetchAudio } from '@/lib/remoteAsset';
 import {
   endNowPlaying,
   setNowPlayingHandlers,
@@ -96,6 +97,11 @@ export default function Breathe() {
   const [scene] = useState(() => pickPracticeImage('breath'));
   const startMusic = () => track && audio.startTrack(track);
   const resumeMusic = () => track && audio.resumeTrack();
+
+  // Cache the breathing music on the device up front so it plays instantly/offline.
+  useEffect(() => {
+    if (track) prefetchAudio(track);
+  }, [track]);
 
   const [running, setRunning] = useState(true);
   const [phaseLabel, setPhaseLabel] = useState('Breathe in');

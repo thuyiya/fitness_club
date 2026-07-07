@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   cancelAnimation,
@@ -36,7 +36,12 @@ import { MindIntro } from '@/components/MindIntro';
 import { useTheme } from '@/theme';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useCalmStore } from '@/store/calmStore';
-import { GUIDED_SESSIONS } from '@/lib/calmSessions';
+import {
+  GUIDED_SESSIONS,
+  GuidedSession,
+  MEDITATION_SESSIONS,
+  STORY_SESSIONS,
+} from '@/lib/calmSessions';
 import { PRACTICES, Practice } from '@/lib/practices';
 import { formatTime, useGuidedPlayer } from '@/lib/useGuidedPlayer';
 
@@ -250,6 +255,7 @@ export default function Calm() {
         <JourneysMode
           activeSession={activeSession}
           isPlaying={guided.state.isPlaying}
+          loadingId={guided.state.loadingId}
           progress={guided.state.progress}
           positionMs={guided.state.positionMs}
           durationMs={guided.state.durationMs}
@@ -352,6 +358,7 @@ function PracticesMode({
 function JourneysMode({
   activeSession,
   isPlaying,
+  loadingId,
   progress,
   positionMs,
   durationMs,
@@ -361,6 +368,7 @@ function JourneysMode({
 }: {
   activeSession: (typeof GUIDED_SESSIONS)[number] | undefined;
   isPlaying: boolean;
+  loadingId: string | null;
   progress: number;
   positionMs: number;
   durationMs: number;
@@ -387,7 +395,9 @@ function JourneysMode({
                     backgroundColor: activeSession.accent,
                   }}
                 >
-                  {isPlaying ? (
+                  {loadingId === activeSession.id ? (
+                    <ActivityIndicator size="small" color="#fff" />
+                  ) : isPlaying ? (
                     <Pause size={22} color="#fff" fill="#fff" />
                   ) : (
                     <Play size={22} color="#fff" fill="#fff" style={{ marginLeft: 2 }} />
@@ -451,74 +461,37 @@ function JourneysMode({
         </View>
       )}
 
-      {/* Session list */}
+      {/* Guided journeys */}
       <View style={{ marginTop: theme.spacing.xl }}>
         <SectionHeader title="Guided journeys" subtitle="Narrated meditations rooted in Buddhist practice" />
         <View style={{ gap: theme.spacing.sm }}>
-          {GUIDED_SESSIONS.map((s) => {
-            const locked = !s.takes;
-            const active = activeSession?.id === s.id;
-            const playing = active && isPlaying;
-            return (
-              <Pressable key={s.id} disabled={locked} onPress={() => onStartJourney(s.id)}>
-                <GlassCard
-                  style={{
-                    opacity: locked ? 0.55 : 1,
-                    ...(active ? { borderColor: s.accent, borderWidth: 1.5 } : {}),
-                  }}
-                >
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
-                    <View
-                      style={{
-                        width: 46,
-                        height: 46,
-                        borderRadius: 23,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: locked ? theme.colors.separator : s.accent + '22',
-                      }}
-                    >
-                      {locked ? (
-                        <Lock size={18} color={theme.colors.textTertiary} />
-                      ) : playing ? (
-                        <Pause size={20} color={s.accent} fill={s.accent} />
-                      ) : (
-                        <Play size={20} color={s.accent} fill={s.accent} style={{ marginLeft: 2 }} />
-                      )}
-                    </View>
+          {MEDITATION_SESSIONS.map((s) => (
+            <SessionCard
+              key={s.id}
+              session={s}
+              active={activeSession?.id === s.id}
+              playing={activeSession?.id === s.id && isPlaying}
+              loading={loadingId === s.id}
+              onPress={() => onStartJourney(s.id)}
+            />
+          ))}
+        </View>
+      </View>
 
-                    <View style={{ flex: 1 }}>
-                      <Text variant="headline" color={locked ? 'textTertiary' : 'text'}>
-                        {s.title}
-                      </Text>
-                      <Text variant="caption" color="textTertiary" numberOfLines={1}>
-                        {s.subtitle}
-                      </Text>
-                      <View style={{ flexDirection: 'row', gap: 6, marginTop: 6 }}>
-                        <Chip label={s.duration} />
-                        <Chip label={s.technique} />
-                      </View>
-                    </View>
-
-                    {locked && (
-                      <View
-                        style={{
-                          paddingHorizontal: 10,
-                          paddingVertical: 4,
-                          borderRadius: 999,
-                          backgroundColor: theme.colors.separator,
-                        }}
-                      >
-                        <Text variant="caption" color="textSecondary" style={{ fontWeight: '700' }}>
-                          Soon
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-                </GlassCard>
-              </Pressable>
-            );
-          })}
+      {/* Sleep & morning stories */}
+      <View style={{ marginTop: theme.spacing.xl }}>
+        <SectionHeader title="Sleep & morning stories" subtitle="Long, gentle stories to drift off or begin the day" />
+        <View style={{ gap: theme.spacing.sm }}>
+          {STORY_SESSIONS.map((s) => (
+            <SessionCard
+              key={s.id}
+              session={s}
+              active={activeSession?.id === s.id}
+              playing={activeSession?.id === s.id && isPlaying}
+              loading={loadingId === s.id}
+              onPress={() => onStartJourney(s.id)}
+            />
+          ))}
         </View>
       </View>
 
@@ -530,6 +503,84 @@ function JourneysMode({
 /* ------------------------------------------------------------------ */
 /* Shared bits                                                         */
 /* ------------------------------------------------------------------ */
+
+function SessionCard({
+  session: s,
+  active,
+  playing,
+  loading,
+  onPress,
+}: {
+  session: GuidedSession;
+  active: boolean;
+  playing: boolean;
+  loading: boolean;
+  onPress: () => void;
+}) {
+  const theme = useTheme();
+  const locked = !s.takes;
+  return (
+    <Pressable disabled={locked} onPress={onPress}>
+      <GlassCard
+        style={{
+          opacity: locked ? 0.55 : 1,
+          ...(active ? { borderColor: s.accent, borderWidth: 1.5 } : {}),
+        }}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
+          <View
+            style={{
+              width: 46,
+              height: 46,
+              borderRadius: 23,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: locked ? theme.colors.separator : s.accent + '22',
+            }}
+          >
+            {locked ? (
+              <Lock size={18} color={theme.colors.textTertiary} />
+            ) : loading ? (
+              <ActivityIndicator size="small" color={s.accent} />
+            ) : playing ? (
+              <Pause size={20} color={s.accent} fill={s.accent} />
+            ) : (
+              <Play size={20} color={s.accent} fill={s.accent} style={{ marginLeft: 2 }} />
+            )}
+          </View>
+
+          <View style={{ flex: 1 }}>
+            <Text variant="headline" color={locked ? 'textTertiary' : 'text'}>
+              {s.title}
+            </Text>
+            <Text variant="caption" color="textTertiary" numberOfLines={1}>
+              {s.subtitle}
+            </Text>
+            <View style={{ flexDirection: 'row', gap: 6, marginTop: 6 }}>
+              <Chip label={s.duration} />
+              <Chip label={s.technique} />
+            </View>
+          </View>
+
+          {locked && (
+            <View
+              style={{
+                paddingHorizontal: 10,
+                paddingVertical: 4,
+                borderRadius: 999,
+                backgroundColor: theme.colors.separator,
+              }}
+            >
+              <Text variant="caption" color="textSecondary" style={{ fontWeight: '700' }}>
+                Soon
+              </Text>
+            </View>
+          )}
+        </View>
+      </GlassCard>
+    </Pressable>
+  );
+}
 
 function Chip({ label }: { label: string }) {
   const theme = useTheme();

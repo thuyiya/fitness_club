@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { Audio, AVPlaybackSource } from 'expo-av';
+import { Audio } from 'expo-av';
 import { BedId, bedById } from './calmSounds';
+import { audioSource } from './remoteAsset';
 
 /**
  * Manages the Calm session soundscape: a single looping ambient bed that
@@ -63,7 +64,7 @@ export function useCalmAudio() {
   /** Load (if needed) and fade the chosen bed in. Pass 'off' for silence. */
   const startBed = async (bedId: BedId) => {
     const bed = bedById(bedId);
-    if (!bed.module) {
+    if (!bed.file) {
       await stopBed();
       return;
     }
@@ -79,8 +80,9 @@ export function useCalmAudio() {
     await soundRef.current?.unloadAsync().catch(() => {});
     soundRef.current = null;
     try {
+      const src = await audioSource(bed.file);
       const { sound } = await Audio.Sound.createAsync(
-        bed.module,
+        src,
         { isLooping: true, volume: 0, shouldPlay: true },
       );
       soundRef.current = sound;
@@ -91,14 +93,15 @@ export function useCalmAudio() {
     }
   };
 
-  /** Load and fade in an arbitrary looping track (e.g. per-practice music). */
-  const startTrack = async (module: AVPlaybackSource) => {
+  /** Load and fade in an arbitrary looping track by filename (per-practice music). */
+  const startTrack = async (name: string) => {
     clearFade();
     await soundRef.current?.unloadAsync().catch(() => {});
     soundRef.current = null;
     loadedBedRef.current = null;
     try {
-      const { sound } = await Audio.Sound.createAsync(module, {
+      const src = await audioSource(name);
+      const { sound } = await Audio.Sound.createAsync(src, {
         isLooping: true,
         volume: 0,
         shouldPlay: true,

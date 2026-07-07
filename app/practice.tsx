@@ -22,6 +22,7 @@ import { useCalmStore } from '@/store/calmStore';
 import { BedId } from '@/lib/calmSounds';
 import { practiceById } from '@/lib/practices';
 import { pickPracticeImage, pickPracticeMusic } from '@/lib/practiceSounds';
+import { prefetchAudio } from '@/lib/remoteAsset';
 import {
   endNowPlaying,
   setNowPlayingHandlers,
@@ -55,6 +56,12 @@ export default function Practice() {
   const [scene] = useState(() => pickPracticeImage(practice.id));
   const startMusic = () => (track ? audio.startTrack(track) : audio.startBed(calmBed));
   const resumeMusic = () => (track ? audio.resumeTrack() : audio.startBed(calmBed));
+
+  // Download + cache this practice's music while the user reads the intro, so it
+  // is saved on the device and plays instantly (and offline) on start.
+  useEffect(() => {
+    if (track) prefetchAudio(track);
+  }, [track]);
 
   const [running, setRunning] = useState(true);
   const [label, setLabel] = useState(phases[0]?.label ?? '');

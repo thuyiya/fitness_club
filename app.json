@@ -14,7 +14,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#EAEED0"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": ["assets/**"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.glitchfy.solace",
