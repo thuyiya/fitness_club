@@ -107,6 +107,15 @@ export default function Breathe() {
   const [phaseLabel, setPhaseLabel] = useState('Breathe in');
   const [count, setCount] = useState(pattern.phases[0].seconds);
   const [rounds, setRounds] = useState(0);
+  // A gentle 4-3-2-1 settle-in countdown before the breathing begins.
+  const [countdown, setCountdown] = useState<number | null>(4);
+
+  useEffect(() => {
+    if (countdown === null) return;
+    Haptics.selectionAsync().catch(() => {});
+    const t = setTimeout(() => setCountdown((c) => (c && c > 1 ? c - 1 : null)), 1200);
+    return () => clearTimeout(t);
+  }, [countdown]);
 
   const breath = useSharedValue(OUT);
   const spin = useSharedValue(0);
@@ -139,7 +148,7 @@ export default function Breathe() {
 
   // The breathing loop. Runs while `running`; resumes from the current phase.
   useEffect(() => {
-    if (!running) {
+    if (!running || countdown !== null) {
       clearTimers();
       cancelAnimation(breath);
       return;
@@ -178,7 +187,7 @@ export default function Breathe() {
     startPhase(idxRef.current);
     return clearTimers;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running, patternId]);
+  }, [running, patternId, countdown]);
 
   const selectRhythm = (id: string) => {
     if (id === patternId) return;
@@ -291,12 +300,18 @@ export default function Breathe() {
           <Animated.View style={orbStyle}>
             <LinearGradient colors={ORB as unknown as string[]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.orb}>
               <Text variant="title2" style={{ color: '#fff', opacity: 0.97 }}>
-                {phaseLabel}
+                {countdown !== null ? 'Relax' : phaseLabel}
               </Text>
-              {count > 0 && (
+              {countdown !== null ? (
                 <Text variant="numberLarge" style={{ color: '#fff' }}>
-                  {count}
+                  {countdown}
                 </Text>
+              ) : (
+                count > 0 && (
+                  <Text variant="numberLarge" style={{ color: '#fff' }}>
+                    {count}
+                  </Text>
+                )
               )}
             </LinearGradient>
           </Animated.View>

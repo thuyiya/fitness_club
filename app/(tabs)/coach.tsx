@@ -22,7 +22,17 @@ import { useLogStore } from '@/store/logStore';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useCoachPlanStore, planTitle } from '@/store/coachPlanStore';
 import { ChatMessage } from '@/types';
-import { buildMessages, coachReply, MEDICAL_DISCLAIMER, SUGGESTED_PROMPTS } from '@/lib/coach';
+import {
+  AI_PREPARING_PROMPT,
+  buildMessages,
+  coachReply,
+  coachRuleReply,
+  DOWNLOAD_AI_PROMPT,
+  MEDICAL_DISCLAIMER,
+  SUGGESTED_PROMPTS,
+} from '@/lib/coach';
+import { useMoodStore } from '@/store/moodStore';
+import { inferStatesFromLatest } from '@/lib/mood/inferStates';
 import { CoachAction, parseCoachActions, summarizeActions } from '@/lib/coachActions';
 import { MODEL } from '@/lib/llm/config';
 
@@ -167,7 +177,8 @@ export default function Coach() {
       ]);
       setBusy(true);
       try {
-        const msgs = buildMessages(trimmed, profile, plan, history, log.today());
+        const states = inferStatesFromLatest(useMoodStore.getState().latest());
+        const msgs = buildMessages(trimmed, profile, plan, history, log.today(), states);
         await ai.generate(msgs, (token) => {
           setMessages((m) =>
             m.map((x) => (x.id === replyId ? { ...x, text: x.text + token } : x)),
@@ -197,11 +208,24 @@ export default function Coach() {
       return;
     }
 
-    // Rule-based fallback (offline, or model not connected yet).
+    // Rule-based fallback (offline, or model not connected yet). If the rule
+    // engine can't answer specifically, nudge the user to download the offline
+    // coach rather than showing generic filler.
+    const specific = coachRuleReply(trimmed, profile, plan);
+    let fallbackText: string;
+    if (specific) {
+      fallbackText = specific;
+    } else if (ai.status === 'downloading' || ai.status === 'preparing') {
+      fallbackText = AI_PREPARING_PROMPT;
+    } else if (ai.available) {
+      fallbackText = DOWNLOAD_AI_PROMPT;
+    } else {
+      fallbackText = coachReply(trimmed, profile, plan);
+    }
     const reply: UiMessage = {
       id: nextId(),
       role: 'coach',
-      text: coachReply(trimmed, profile, plan),
+      text: fallbackText,
       createdAt: Date.now() + 1,
     };
     setMessages((m) => [...m, reply]);

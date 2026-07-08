@@ -6,7 +6,13 @@ import {
   InterruptionModeIOS,
 } from 'expo-av';
 import { bedById } from './calmSounds';
-import { GuidedSession, pickTake } from './calmSessions';
+import {
+  GUIDED_SESSIONS,
+  GuidedSession,
+  MEDITATION_SESSIONS,
+  STORY_SESSIONS,
+  pickTake,
+} from './calmSessions';
 import { audioSource } from './remoteAsset';
 import {
   endNowPlaying,
@@ -25,6 +31,23 @@ import {
 let voice: Audio.Sound | null = null;
 let bed: Audio.Sound | null = null;
 let configured = false;
+
+/** After the last voice ends, let the bed play this long before it stops. */
+const TAIL_MS = 10_000;
+/** A short musical bridge before auto-advancing to the next journey. */
+const BRIDGE_MS = 4_000;
+let tailTimer: ReturnType<typeof setTimeout> | null = null;
+
+/** The next playable session in the same list (meditations / stories), or null. */
+function nextPlayable(currentId: string): GuidedSession | null {
+  const cur = GUIDED_SESSIONS.find((s) => s.id === currentId);
+  if (!cur) return null;
+  const list = cur.category === 'story' ? STORY_SESSIONS : MEDITATION_SESSIONS;
+  const playable = list.filter((s) => s.takes && s.takes.length > 0);
+  const idx = playable.findIndex((s) => s.id === currentId);
+  if (idx < 0) return null;
+  return playable[idx + 1] ?? null;
+}
 
 async function configureAudio() {
   if (configured) return;
@@ -65,6 +88,10 @@ const IDLE: GuidedState = {
 };
 
 async function teardown() {
+  if (tailTimer) {
+    clearTimeout(tailTimer);
+    tailTimer = null;
+  }
   const v = voice;
   const b = bed;
   voice = null;
@@ -77,7 +104,20 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
   const onStatus = (status: AVPlaybackStatus) => {
     if (!status.isLoaded) return;
     if (status.didJustFinish) {
-      get().stop();
+      // Voice finished. Unload just the voice but leave the bed playing for a
+      // gentle 10s tail, then auto-advance to the next journey (or stop if this
+      // was the last one in its list).
+      const finishedId = get().activeId;
+      const v = voice;
+      voice = null;
+      v?.unloadAsync().catch(() => {});
+      const next = finishedId ? nextPlayable(finishedId) : null;
+      if (tailTimer) clearTimeout(tailTimer);
+      tailTimer = setTimeout(() => {
+        tailTimer = null;
+        if (next) get().play(next);
+        else get().stop();
+      }, next ? BRIDGE_MS : TAIL_MS);
       return;
     }
     const durationMs = status.durationMillis ?? 0;

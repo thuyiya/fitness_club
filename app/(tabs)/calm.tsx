@@ -296,8 +296,42 @@ function PracticesMode({
   const theme = useTheme();
   return (
     <>
-      {/* Practice list */}
+      {/* Mood check-in */}
       <View style={{ marginTop: theme.spacing.sm }}>
+        <Pressable
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+            router.push('/checkin');
+          }}
+        >
+          <GlassCard>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
+              <View
+                style={{
+                  width: 46,
+                  height: 46,
+                  borderRadius: 15,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: theme.colors.secondary + '22',
+                }}
+              >
+                <Text style={{ fontSize: 24 }}>🫧</Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text variant="headline">How are you feeling?</Text>
+                <Text variant="caption" color="textTertiary" style={{ marginTop: 2 }}>
+                  Take a breath and check in · 30 sec
+                </Text>
+              </View>
+              <ChevronRight size={18} color={theme.colors.textTertiary} />
+            </View>
+          </GlassCard>
+        </Pressable>
+      </View>
+
+      {/* Practice list */}
+      <View style={{ marginTop: theme.spacing.md }}>
         <SectionHeader title="Practices" subtitle="Choose a way to settle the mind" />
         <View style={{ gap: theme.spacing.sm }}>
           {PRACTICES.map((p) => (

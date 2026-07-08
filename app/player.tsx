@@ -42,7 +42,10 @@ export default function Player() {
   const togglePlay = usePlayerStore((s) => s.togglePlay);
   const stop = usePlayerStore((s) => s.stop);
 
-  const session = GUIDED_SESSIONS.find((s) => s.id === id) ?? GUIDED_SESSIONS[0];
+  // Follow the active session so an auto-advanced journey updates this screen;
+  // fall back to the id this player was opened with.
+  const session =
+    GUIDED_SESSIONS.find((s) => s.id === (activeId ?? id)) ?? GUIDED_SESSIONS[0];
   const isThis = activeId === session.id;
   const playingThis = isThis && isPlaying;
   const loadingThis = loadingId === session.id;

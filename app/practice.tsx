@@ -66,6 +66,15 @@ export default function Practice() {
   const [running, setRunning] = useState(true);
   const [label, setLabel] = useState(phases[0]?.label ?? '');
   const [cycles, setCycles] = useState(0);
+  // A gentle 4-3-2-1 settle-in countdown before the guidance begins.
+  const [countdown, setCountdown] = useState<number | null>(4);
+
+  useEffect(() => {
+    if (countdown === null) return;
+    Haptics.selectionAsync().catch(() => {});
+    const t = setTimeout(() => setCountdown((c) => (c && c > 1 ? c - 1 : null)), 1200);
+    return () => clearTimeout(t);
+  }, [countdown]);
 
   const breath = useSharedValue(OUT);
   const idxRef = useRef(0);
@@ -103,7 +112,7 @@ export default function Practice() {
 
   // Advance the guidance prompts on their own timers whenever running.
   useEffect(() => {
-    if (!running || phases.length === 0) {
+    if (!running || countdown !== null || phases.length === 0) {
       clearTimer();
       return;
     }
@@ -123,7 +132,7 @@ export default function Practice() {
     step(idxRef.current);
     return clearTimer;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running]);
+  }, [running, countdown]);
 
   const toggle = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
@@ -211,12 +220,23 @@ export default function Practice() {
               end={{ x: 0.8, y: 1 }}
               style={styles.orb}
             >
-              <Text
-                variant="title3"
-                style={{ color: '#fff', opacity: 0.98, textAlign: 'center', lineHeight: 28 }}
-              >
-                {label}
-              </Text>
+              {countdown !== null ? (
+                <>
+                  <Text variant="footnote" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                    Relax
+                  </Text>
+                  <Text variant="numberLarge" style={{ color: '#fff' }}>
+                    {countdown}
+                  </Text>
+                </>
+              ) : (
+                <Text
+                  variant="title3"
+                  style={{ color: '#fff', opacity: 0.98, textAlign: 'center', lineHeight: 28 }}
+                >
+                  {label}
+                </Text>
+              )}
             </LinearGradient>
           </Animated.View>
         </View>
@@ -225,7 +245,9 @@ export default function Practice() {
       {/* Bottom controls */}
       <View style={{ alignItems: 'center', paddingBottom: insets.bottom + 28, gap: 18 }}>
         <Text variant="footnote" style={{ color: 'rgba(255,255,255,0.6)' }}>
-          {practice.name} · {cycles} {cycles === 1 ? 'round' : 'rounds'}
+          {countdown !== null
+            ? 'Find a comfortable position…'
+            : `${practice.name} · ${cycles} ${cycles === 1 ? 'round' : 'rounds'}`}
         </Text>
         <Pressable onPress={toggle}>
           {({ pressed }) => (

@@ -15,3 +15,6 @@ export * from './BreathingAura';
 export * from './TodayLog';
 export * from './CoachPlans';
 export * from './ExpandableCard';
+export * from './SleepEntryEditor';
+export * from './SleepHistoryChart';
+export * from './FeelingTree';

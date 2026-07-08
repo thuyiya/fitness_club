@@ -1,11 +1,14 @@
 import React, { useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Activity, Flame, Heart, Lock, Moon, Wind } from 'lucide-react-native';
+import { router } from 'expo-router';
+import { Activity, ChevronRight, Flame, Heart, Lock, Moon, Wind } from 'lucide-react-native';
 import {
   BarChart,
   Card,
   FadeInView,
+  FeelingTree,
+  feelingColor,
   Gauge,
   GlassCard,
   ProgressRing,
@@ -17,6 +20,7 @@ import {
   TodayLog,
   WeightChart,
 } from '@/components';
+import { EMOTION_OPTIONS } from '@/components/EmojiMoodPicker';
 import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
 import { computeAchievements } from '@/data/achievements';
@@ -25,6 +29,10 @@ import { clamp } from '@/lib/calculations';
 import { formatWeight } from '@/lib/format';
 import { useSettingsStore } from '@/store/settingsStore';
 import { calmStats, useCalmStore } from '@/store/calmStore';
+import { useLogStore } from '@/store/logStore';
+import { useMoodStore } from '@/store/moodStore';
+import { GUIDED_SESSIONS } from '@/lib/calmSessions';
+import { PRACTICES } from '@/lib/practices';
 
 type Horizon = '1m' | '3m' | '6m' | '1y';
 const HORIZON_WEEKS: Record<Horizon, number> = { '1m': 4, '3m': 13, '6m': 26, '1y': 52 };
@@ -339,12 +347,70 @@ export default function Progress() {
 }
 
 /** Calm-focus Progress: breathing activity + sleep, no weight or body metrics. */
+/** A short, gentle label for the average recent valence. */
+function feelingLabel(v: number | null): string {
+  if (v === null) return 'No check-ins yet';
+  if (v >= 0.5) return 'Feeling good';
+  if (v >= 0.15) return 'Gently positive';
+  if (v > -0.15) return 'Pretty steady';
+  if (v > -0.5) return 'A little low';
+  return 'Going through it';
+}
+
+/** Fisher–Yates sample of `n` items (runtime randomness is fine here). */
+function sample<T>(arr: T[], n: number): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy.slice(0, n);
+}
+
+type Suggestion = { kind: 'journey' | 'practice'; id: string; title: string; subtitle: string; accent: string };
+
+/** Two random journeys + two random practices, shuffled together. */
+function pickSuggestions(): Suggestion[] {
+  const journeys: Suggestion[] = sample(GUIDED_SESSIONS, 2).map((s) => ({
+    kind: 'journey',
+    id: s.id,
+    title: s.title,
+    subtitle: s.subtitle,
+    accent: s.accent,
+  }));
+  const practices: Suggestion[] = sample(PRACTICES, 2).map((p) => ({
+    kind: 'practice',
+    id: p.id,
+    title: p.name,
+    subtitle: p.technique,
+    accent: p.accent,
+  }));
+  return sample([...journeys, ...practices], 4);
+}
+
 function CalmProgress() {
   const theme = useTheme();
   const roundLog = useCalmStore((s) => s.roundLog);
   const sessionLog = useCalmStore((s) => s.sessionLog);
   const profile = useUserStore((s) => s.profile);
   const stats = useMemo(() => calmStats(roundLog, sessionLog), [roundLog, sessionLog]);
+  const sleepHours = useLogStore((s) => s.today().sleepHours);
+
+  // Mood: recent check-ins drive the feeling tree, the mini graph and the label.
+  const moodEntries = useMoodStore((s) => s.entries);
+  const trend = useMemo(() => useMoodStore.getState().recentTrend(7), [moodEntries]);
+  const treeValences = useMemo(() => moodEntries.slice(0, 21).map((e) => e.valence), [moodEntries]);
+  // Oldest→newest for the little left-to-right graph.
+  const graphValences = useMemo(
+    () => moodEntries.slice(0, 10).map((e) => e.valence).reverse(),
+    [moodEntries],
+  );
+  const dominantEmoji = useMemo(
+    () => EMOTION_OPTIONS.find((o) => o.key === trend.dominant)?.emoji ?? '🌱',
+    [trend.dominant],
+  );
+  // Pick once per mount so the suggestions don't reshuffle on every render.
+  const suggestions = useMemo(() => pickSuggestions(), []);
 
   return (
     <Screen>
@@ -412,40 +478,139 @@ function CalmProgress() {
         </View>
       </FadeInView>
 
+      {/* How you've been feeling — the feeling tree */}
+      <FadeInView delay={120}>
+        <SectionHeader
+          title="How you've been feeling"
+          subtitle={trend.count > 0 ? trend.summary : 'Check in and watch your tree grow'}
+          actionLabel="Check in"
+          onAction={() => router.push('/checkin')}
+        />
+        <GlassCard>
+          <FeelingTree valences={treeValences} avgValence={trend.avgValence} size={200} />
+
+          {/* current feeling status */}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              marginTop: theme.spacing.sm,
+            }}
+          >
+            <Text style={{ fontSize: 22 }}>{dominantEmoji}</Text>
+            <Text variant="headline">{feelingLabel(trend.avgValence)}</Text>
+          </View>
+          {trend.count > 0 && (
+            <Text variant="caption" color="textTertiary" style={{ textAlign: 'center', marginTop: 2 }}>
+              {trend.count} recent check-in{trend.count === 1 ? '' : 's'}
+              {trend.direction === 'improving'
+                ? ' · trending up 🌤️'
+                : trend.direction === 'declining'
+                  ? ' · be gentle with yourself'
+                  : ''}
+            </Text>
+          )}
+
+          {/* small feeling graph */}
+          {graphValences.length > 0 && (
+            <View style={{ marginTop: theme.spacing.md }}>
+              <Text variant="caption" color="textTertiary" style={{ marginBottom: 6 }}>
+                Recent feelings
+              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 6, height: 44 }}>
+                {graphValences.map((v, i) => (
+                  <View key={i} style={{ flex: 1, justifyContent: 'flex-end', height: '100%' }}>
+                    <View
+                      style={{
+                        height: Math.max(5, ((v + 1) / 2) * 44),
+                        borderRadius: 4,
+                        backgroundColor: feelingColor(v),
+                      }}
+                    />
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+        </GlassCard>
+
+        {/* suggested journeys & practices */}
+        <SectionHeader title="A little something for you" subtitle="Tap to open in Calm" />
+        <View style={{ gap: theme.spacing.sm }}>
+          {suggestions.map((s) => (
+            <Pressable key={s.kind + s.id} onPress={() => router.navigate('/calm')}>
+              <GlassCard>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
+                  <View
+                    style={{
+                      width: 42,
+                      height: 42,
+                      borderRadius: 13,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: s.accent + '22',
+                    }}
+                  >
+                    <Text style={{ fontSize: 18 }}>{s.kind === 'journey' ? '🎧' : '🧘'}</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text variant="headline">{s.title}</Text>
+                    <Text variant="caption" color="textTertiary" style={{ marginTop: 2 }}>
+                      {s.kind === 'journey' ? 'Journey' : 'Practice'} · {s.subtitle}
+                    </Text>
+                  </View>
+                  <ChevronRight size={18} color={theme.colors.textTertiary} />
+                </View>
+              </GlassCard>
+            </Pressable>
+          ))}
+        </View>
+      </FadeInView>
+
       {/* Sleep */}
       <FadeInView delay={140}>
-        <SectionHeader title="Sleep" subtitle="Rest is part of calm" />
-        <GlassCard>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
-            <View
-              style={{
-                width: 52,
-                height: 52,
-                borderRadius: 18,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: theme.colors.secondary + '1A',
-              }}
-            >
-              <Moon size={24} color={theme.colors.secondary} />
+        <SectionHeader
+          title="Sleep"
+          subtitle="Rest is part of calm"
+          actionLabel="Log"
+          onAction={() => router.push('/sleep')}
+        />
+        <Pressable onPress={() => router.push('/sleep')}>
+          <GlassCard>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
+              <View
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 18,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: theme.colors.secondary + '1A',
+                }}
+              >
+                <Moon size={24} color={theme.colors.secondary} />
+              </View>
+              <View style={{ flex: 1 }}>
+                {sleepHours > 0 ? (
+                  <>
+                    <Text variant="title3">{sleepHours} h last night</Text>
+                    <Text variant="caption" color="textTertiary">Tap to update or see your trend</Text>
+                  </>
+                ) : (
+                  <>
+                    <Text variant="headline">Log last night's sleep</Text>
+                    <Text variant="caption" color="textTertiary">
+                      Bedtime, hours and how rested you feel
+                    </Text>
+                  </>
+                )}
+              </View>
+              <ChevronRight size={18} color={theme.colors.textTertiary} />
             </View>
-            <View style={{ flex: 1 }}>
-              {profile?.sleepHours ? (
-                <>
-                  <Text variant="title3">{profile.sleepHours} h / night</Text>
-                  <Text variant="caption" color="textTertiary">Your usual rest, from your profile</Text>
-                </>
-              ) : (
-                <>
-                  <Text variant="headline">Add your sleep</Text>
-                  <Text variant="caption" color="textTertiary">
-                    Set up your profile to track your rest here
-                  </Text>
-                </>
-              )}
-            </View>
-          </View>
-        </GlassCard>
+          </GlassCard>
+        </Pressable>
       </FadeInView>
 
       <View style={{ height: theme.spacing.lg }} />

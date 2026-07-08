@@ -4,6 +4,7 @@
  * (A production build would swap this for a Claude-powered LLM endpoint.)
  */
 import { DailyLog, Plan, UserProfile } from '@/types';
+import { buildMindGuidancePrompt, MoodState } from '@/lib/mindGuidance';
 
 export const MEDICAL_DISCLAIMER =
   'I\'m your coach, not a doctor — always consult a healthcare professional for medical decisions.';
@@ -17,11 +18,28 @@ export const SUGGESTED_PROMPTS = [
   'Am I on track?',
 ];
 
-export function coachReply(
+/**
+ * Shown when the on-device model isn't downloaded yet and the user asks
+ * something the rule engine can't answer specifically — nudge them to get the
+ * offline coach instead of replying with generic filler.
+ */
+export const DOWNLOAD_AI_PROMPT =
+  'Please download the offline AI coach to continue — it gives you a much better, more personal experience. Tap "Set up" above to get started. 🌱';
+
+/** Shown while the model is still downloading or loading and can't reply yet. */
+export const AI_PREPARING_PROMPT =
+  "Your offline coach is still getting ready — hang tight and it'll be able to answer in a moment. 🌱";
+
+/**
+ * Answers a question from the rule engine, or returns `null` when nothing
+ * specific matches (so callers can decide their own fallback — e.g. nudge the
+ * user to download the offline model instead of showing generic filler).
+ */
+export function coachRuleReply(
   question: string,
   profile: UserProfile,
   plan: Plan,
-): string {
+): string | null {
   const q = question.toLowerCase();
   const finish = new Date(plan.prediction.finishDate).toLocaleDateString(undefined, {
     month: 'long',
@@ -59,6 +77,25 @@ export function coachReply(
     return MEDICAL_DISCLAIMER + ' That said, I can help you build habits that support your health.';
   }
 
+  return null;
+}
+
+/**
+ * A guaranteed reply: the specific rule answer when one matches, otherwise a
+ * friendly generic summary. Used as the graceful fallback when the on-device
+ * model returns nothing.
+ */
+export function coachReply(
+  question: string,
+  profile: UserProfile,
+  plan: Plan,
+): string {
+  const specific = coachRuleReply(question, profile, plan);
+  if (specific) return specific;
+  const finish = new Date(plan.prediction.finishDate).toLocaleDateString(undefined, {
+    month: 'long',
+    day: 'numeric',
+  });
   return `Great question! Based on your plan you're targeting ${plan.targets.calories} kcal and ${plan.targets.proteinG}g protein daily, heading for ${profile.targetWeightKg}kg by ${finish}. Ask me about meals, workouts, macros or your progress anytime.`;
 }
 
@@ -128,10 +165,16 @@ export function buildMessages(
   plan: Plan,
   history: { role: 'user' | 'coach'; text: string }[] = [],
   today?: DailyLog,
+  states: MoodState[] = [],
 ): LlmMessage[] {
   const messages: LlmMessage[] = [
     { role: 'system', content: buildSystemPrompt(profile, plan, today) },
   ];
+  // Inject mind-healing guidance when the user's recent check-in shows an
+  // emotional state we can gently work with (from moodStore → inferStates).
+  if (states.length > 0) {
+    messages.push({ role: 'system', content: buildMindGuidancePrompt(states) });
+  }
   for (const h of history.slice(-6)) {
     messages.push({ role: h.role === 'user' ? 'user' : 'assistant', content: h.text });
   }
