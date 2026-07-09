@@ -2,11 +2,12 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
+import { Platform, StatusBar } from 'react-native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider, useTheme } from '@/theme';
+import { AiBootstrap } from '@/components/AiBootstrap';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -16,9 +17,27 @@ const queryClient = new QueryClient({
 
 function StackNavigator() {
   const theme = useTheme();
+
+  // Drive the OS status bar from our own theme (not the system appearance).
+  // 'light-content' = white icons for our dark/glass backgrounds; 'dark-content'
+  // for the light (cream) theme. On iOS this requires
+  // UIViewControllerBasedStatusBarAppearance = NO (set in app.json infoPlist).
+  useEffect(() => {
+    const barStyle = theme.mode === 'dark' ? 'light-content' : 'dark-content';
+    StatusBar.setBarStyle(barStyle, true);
+    if (Platform.OS === 'android') {
+      StatusBar.setTranslucent(true);
+      StatusBar.setBackgroundColor('transparent');
+    }
+  }, [theme.mode]);
+
   return (
     <>
-      <StatusBar style={theme.mode === 'dark' ? 'light' : 'dark'} />
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={theme.mode === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <Stack
         screenOptions={{
           headerShown: false,
@@ -53,6 +72,10 @@ function StackNavigator() {
           options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
         />
       </Stack>
+
+      {/* Auto-start / reattach the background model download. Progress is shown
+          as a ring around the Lumora tab icon and in-chat — no overlay. */}
+      <AiBootstrap />
     </>
   );
 }

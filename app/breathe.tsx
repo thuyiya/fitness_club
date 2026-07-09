@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ImageBackground, Pressable, StyleSheet, View } from 'react-native';
+import { ImageBackground, Pressable, StatusBar, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
-import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
 import Animated, {
@@ -232,7 +231,7 @@ export default function Breathe() {
 
   return (
     <View style={styles.fill}>
-      <StatusBar style="light" />
+      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
       {scene ? (
         <ImageBackground source={scene} style={StyleSheet.absoluteFill} resizeMode="cover">
           <LinearGradient

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, ImageBackground, Pressable, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, ImageBackground, Pressable, StatusBar, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
-import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
 import Animated, {
@@ -64,7 +63,7 @@ export default function Player() {
 
   return (
     <View style={styles.fill}>
-      <StatusBar style="light" />
+      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
       <ImageBackground source={session.image} style={styles.fill} resizeMode="cover">
         {/* Legibility + mood wash over the scene */}
         <LinearGradient

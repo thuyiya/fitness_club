@@ -19,7 +19,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.glitchfy.solace",
       "infoPlist": {
-        "UIBackgroundModes": ["audio"]
+        "UIBackgroundModes": ["audio"],
+        "UIViewControllerBasedStatusBarAppearance": false
       }
     },
     "android": {
@@ -51,7 +52,9 @@
             "deploymentTarget": "14.0"
           }
         }
-      ]
+      ],
+      "expo-notifications",
+      "./plugins/withBackgroundDownloader"
     ],
     "experiments": {
       "typedRoutes": true

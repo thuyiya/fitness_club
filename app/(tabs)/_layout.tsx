@@ -7,13 +7,13 @@ import {
   Dumbbell,
   HeartPulse,
   LayoutDashboard,
-  MessageCircle,
   Settings,
   TrendingUp,
   UtensilsCrossed,
 } from 'lucide-react-native';
 import { useTheme } from '@/theme';
 import { useSettingsStore } from '@/store/settingsStore';
+import { CoachTabIcon } from '@/components/CoachTabIcon';
 
 export default function TabsLayout() {
   const theme = useTheme();
@@ -120,9 +120,9 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="coach"
         options={{
-          title: 'Coach',
+          title: 'Lumora',
           href: shown('coach'),
-          tabBarIcon: ({ color, size }) => <MessageCircle color={color} size={size - 2} />,
+          tabBarIcon: ({ color, size }) => <CoachTabIcon color={color} size={size} />,
         }}
       />
       <Tabs.Screen

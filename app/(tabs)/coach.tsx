@@ -35,8 +35,10 @@ import { useMoodStore } from '@/store/moodStore';
 import { inferStatesFromLatest } from '@/lib/mood/inferStates';
 import { CoachAction, parseCoachActions, summarizeActions } from '@/lib/coachActions';
 import { MODEL } from '@/lib/llm/config';
+import { CoachSuggestion, suggestForChat } from '@/lib/coachSuggest';
+import { CoachSuggestionCard } from '@/components/CoachSuggestionCard';
 
-type UiMessage = ChatMessage & { streaming?: boolean };
+type UiMessage = ChatMessage & { streaming?: boolean; suggestions?: CoachSuggestion[] };
 
 let idCounter = 0;
 const nextId = () => `m${idCounter++}`;
@@ -59,7 +61,7 @@ export default function Coach() {
     {
       id: nextId(),
       role: 'coach',
-      text: `Hi ${profile?.name ?? 'there'}! I'm your coach. Ask me anything — or just tell me what you ate, how you moved, or how you slept and I'll log it. You can even say "change my target to 75 kg". 💪`,
+      text: `Hi ${profile?.name ?? 'there'}! I'm Lumora, your wellness coach. Ask me anything — or tell me what you ate, how you moved, or how you're feeling. If something's weighing on you, I can suggest a journey or breath you can play right here. 🌿`,
       createdAt: Date.now(),
     },
   ]);
@@ -121,8 +123,11 @@ export default function Coach() {
     );
   };
 
-  const pushCoach = (text: string) =>
-    setMessages((m) => [...m, { id: nextId(), role: 'coach', text, createdAt: Date.now() + 1 }]);
+  const pushCoach = (text: string, suggestions?: CoachSuggestion[]) =>
+    setMessages((m) => [
+      ...m,
+      { id: nextId(), role: 'coach', text, createdAt: Date.now() + 1, suggestions },
+    ]);
 
   // If the model was downloaded in a previous session, load it into memory when
   // the tab opens so the first message uses the on-device LLM.
@@ -147,6 +152,11 @@ export default function Coach() {
     setOfferCalm(false);
     scrollToEnd();
 
+    // How the user feels right now: their words + latest mood check-in. Drives
+    // the playable journey/breath suggestions attached to Lumora's reply.
+    const moodStates = inferStatesFromLatest(useMoodStore.getState().latest());
+    const suggestions = suggestForChat(trimmed, moodStates);
+
     // 1) Deterministic intents: logging, profile edits, plan-saving, distress.
     //    Handled locally so they're reliable and instant, model or not.
     const parsed = parseCoachActions(trimmed);
@@ -162,8 +172,13 @@ export default function Coach() {
       return;
     }
     if (parsed.calm) {
-      pushCoach(parsed.calm);
-      setOfferCalm(true);
+      // Offer concrete, playable sessions when we can match the feeling;
+      // otherwise fall back to the generic "Open Calm" pill.
+      if (suggestions.length > 0) pushCoach(parsed.calm, suggestions);
+      else {
+        pushCoach(parsed.calm);
+        setOfferCalm(true);
+      }
       scrollToEnd();
       return;
     }
@@ -177,8 +192,7 @@ export default function Coach() {
       ]);
       setBusy(true);
       try {
-        const states = inferStatesFromLatest(useMoodStore.getState().latest());
-        const msgs = buildMessages(trimmed, profile, plan, history, log.today(), states);
+        const msgs = buildMessages(trimmed, profile, plan, history, log.today(), moodStates);
         await ai.generate(msgs, (token) => {
           setMessages((m) =>
             m.map((x) => (x.id === replyId ? { ...x, text: x.text + token } : x)),
@@ -188,7 +202,12 @@ export default function Coach() {
         setMessages((m) =>
           m.map((x) =>
             x.id === replyId
-              ? { ...x, streaming: false, text: x.text.trim() || coachReply(trimmed, profile, plan) }
+              ? {
+                  ...x,
+                  streaming: false,
+                  text: x.text.trim() || coachReply(trimmed, profile, plan),
+                  suggestions: suggestions.length ? suggestions : undefined,
+                }
               : x,
           ),
         );
@@ -227,10 +246,16 @@ export default function Coach() {
       role: 'coach',
       text: fallbackText,
       createdAt: Date.now() + 1,
+      suggestions: suggestions.length ? suggestions : undefined,
     };
     setMessages((m) => [...m, reply]);
     scrollToEnd();
   };
+
+  const preparing = ai.status === 'preparing';
+  // Block sending while the model loads into memory — it can take a moment and
+  // tapping send would otherwise feel broken. `busy` covers active generation.
+  const sendDisabled = busy || preparing;
 
   const subtitle =
     ai.status === 'ready'
@@ -238,7 +263,7 @@ export default function Coach() {
       : ai.status === 'downloading'
         ? `● Downloading · ${Math.round(ai.progress * 100)}%`
         : ai.status === 'preparing'
-          ? '● Loading…'
+          ? '● Setting up…'
           : '● Online · here to help';
 
   return (
@@ -262,7 +287,7 @@ export default function Coach() {
               <Sparkles size={22} color="#fff" />
             </LinearGradient>
             <View>
-              <Text variant="title3">Coach</Text>
+              <Text variant="title3">Lumora</Text>
               <Text variant="caption" color="success">{subtitle}</Text>
             </View>
           </View>
@@ -348,11 +373,11 @@ export default function Coach() {
           <TextInput
             value={input}
             onChangeText={setInput}
-            placeholder="Ask your coach anything…"
+            placeholder={preparing ? 'Setting up your coach…' : 'Ask Lumora anything…'}
             placeholderTextColor={theme.colors.textTertiary}
             onSubmitEditing={() => send(input)}
             returnKeyType="send"
-            editable={!busy}
+            editable={!sendDisabled}
             style={{
               flex: 1,
               height: 50,
@@ -363,14 +388,15 @@ export default function Coach() {
               borderColor: theme.colors.cardBorder,
               color: theme.colors.text,
               fontSize: 16,
+              opacity: preparing ? 0.6 : 1,
             }}
           />
-          <Pressable onPress={() => send(input)} disabled={busy}>
+          <Pressable onPress={() => send(input)} disabled={sendDisabled}>
             <LinearGradient
               colors={[theme.colors.primary, theme.colors.secondary]}
-              style={{ width: 50, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', opacity: busy ? 0.6 : 1 }}
+              style={{ width: 50, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', opacity: sendDisabled ? 0.6 : 1 }}
             >
-              {busy ? <ActivityIndicator color="#fff" /> : <Send size={20} color="#fff" />}
+              {sendDisabled ? <ActivityIndicator color="#fff" /> : <Send size={20} color="#fff" />}
             </LinearGradient>
           </Pressable>
         </View>
@@ -382,7 +408,7 @@ export default function Coach() {
 /** Opt-in / download / loading card for the on-device coach model. */
 function ConnectCard() {
   const theme = useTheme();
-  const { status, progress, error, downloaded, connect, ensureReady } = useAiCoachStore();
+  const { status, progress, error, downloaded, connect, ensureReady, redownload } = useAiCoachStore();
 
   const card = (children: React.ReactNode) => (
     <View
@@ -427,10 +453,15 @@ function ConnectCard() {
 
   if (status === 'preparing') {
     return card(
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-        <ActivityIndicator color={theme.colors.primary} />
-        <Text variant="subhead">Warming up your on-device coach…</Text>
-      </View>,
+      <>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+          <ActivityIndicator color={theme.colors.primary} />
+          <Text variant="subhead">Setting up your coach…</Text>
+        </View>
+        <Text variant="caption" color="textTertiary">
+          Loading the model into memory — this takes a few moments the first time. You can chat as soon as it's ready.
+        </Text>
+      </>,
     );
   }
 
@@ -438,13 +469,27 @@ function ConnectCard() {
     return card(
       <>
         <Text variant="subhead">Couldn't set up your coach</Text>
-        <Text variant="caption" color="textTertiary">{error ?? 'Please try again.'}</Text>
-        <Pressable onPress={() => (downloaded ? ensureReady() : connect())}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-            <RotateCcw size={16} color={theme.colors.primary} />
-            <Text variant="subhead" color="primary">Try again</Text>
-          </View>
-        </Pressable>
+        <Text variant="caption" color="textTertiary">
+          {downloaded
+            ? "The model downloaded but couldn't load. This usually fixes itself on a retry — or re-download a fresh copy."
+            : error ?? 'Please try again.'}
+        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20, marginTop: 2 }}>
+          <Pressable onPress={() => (downloaded ? ensureReady() : connect())}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+              <RotateCcw size={16} color={theme.colors.primary} />
+              <Text variant="subhead" color="primary">Try again</Text>
+            </View>
+          </Pressable>
+          {downloaded && (
+            <Pressable onPress={() => redownload()}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                <Download size={16} color={theme.colors.textTertiary} />
+                <Text variant="subhead" color="textTertiary">Re-download</Text>
+              </View>
+            </Pressable>
+          )}
+        </View>
       </>,
     );
   }
@@ -527,6 +572,17 @@ function Bubble({ message }: { message: UiMessage }) {
       <Text variant="callout" style={{ lineHeight: 22 }}>
         {message.text || (message.streaming ? '…' : '')}
       </Text>
+
+      {message.suggestions && message.suggestions.length > 0 && (
+        <View style={{ marginTop: 12, gap: 8 }}>
+          <Text variant="caption" color="textTertiary">
+            FOR HOW YOU'RE FEELING
+          </Text>
+          {message.suggestions.map((s) => (
+            <CoachSuggestionCard key={`${s.kind}:${s.id}`} suggestion={s} />
+          ))}
+        </View>
+      )}
     </Animated.View>
   );
 }
