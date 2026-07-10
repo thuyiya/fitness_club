@@ -4,17 +4,16 @@
  * (A production build would swap this for a Claude-powered LLM endpoint.)
  */
 import { DailyLog, Plan, UserProfile } from '@/types';
-import { buildMindGuidancePrompt, MoodState } from '@/lib/mindGuidance';
 
 export const MEDICAL_DISCLAIMER =
   'I\'m your coach, not a doctor — always consult a healthcare professional for medical decisions.';
 
 export const SUGGESTED_PROMPTS = [
   'Make me a 3-day workout plan',
+  'Suggest a high-protein dinner',
   'I ate rice with chicken, 200g',
   'I walked 30 minutes',
-  "I'm feeling anxious",
-  "I can't sleep",
+  'Change my target weight',
   'Am I on track?',
 ];
 
@@ -24,11 +23,11 @@ export const SUGGESTED_PROMPTS = [
  * offline coach instead of replying with generic filler.
  */
 export const DOWNLOAD_AI_PROMPT =
-  'Please download the offline AI coach to continue — it gives you a much better, more personal experience. Tap "Set up" above to get started. 🌱';
+  'Please download the offline AI coach to continue — it gives you a much better, more personal experience. Tap "Set up" above to get started. 💪';
 
 /** Shown while the model is still downloading or loading and can't reply yet. */
 export const AI_PREPARING_PROMPT =
-  "Your offline coach is still getting ready — hang tight and it'll be able to answer in a moment. 🌱";
+  "Your offline coach is still getting ready — hang tight and it'll be able to answer in a moment. 💪";
 
 /**
  * Answers a question from the rule engine, or returns `null` when nothing
@@ -117,19 +116,20 @@ export function buildSystemPrompt(profile: UserProfile, plan: Plan, today?: Dail
   });
   const name = profile.name ? profile.name : 'the user';
   const lines = [
-    `You are Lumora, ${name}'s personal wellness coach inside a mobile app.`,
-    'Be warm, encouraging and practical. Keep replies short — 2 to 4 sentences.',
+    `You are Lumora, ${name}'s personal nutrition & fitness coach inside a mobile app.`,
+    'Be energetic, encouraging and practical. Keep replies short — 2 to 4 sentences.',
     "Use the user's real numbers below whenever relevant, and speak directly to them.",
-    'The user can log meals, exercise and sleep just by telling you in plain words, and can change goals like their target weight the same way.',
+    'Your job: help the user hit their goal — meal ideas, workout guidance, macro advice, and honest progress checks.',
+    'The user can log meals, workouts, walks and water just by telling you in plain words, and can change goals like their target weight the same way.',
     'You can draft a workout or meal plan when asked; keep it concrete with a clear title on the first line. The user can then say "add it to my workout/meal plan" to save it to that tab.',
-    'The user can also say things like "make the app calm only" to switch focus.',
-    "If the user sounds stressed, low or upset, respond with one gentle, natural sentence and warmly invite them to try a calming session — the app automatically shows tappable audio journeys and breathing exercises right below your reply, so you don't need to name specific titles or links; just encourage them to tap one.",
+    'When suggesting meals, respect the diet preference and allergies below and aim at the daily calorie and protein targets.',
     'You are not a doctor: for medical questions, briefly suggest consulting a healthcare professional.',
     '',
     'USER PROFILE',
     `- Goal: ${profile.goal} weight at a ${profile.targetSpeed} pace`,
     `- Current weight: ${profile.weightKg} kg; target: ${profile.targetWeightKg} kg`,
     `- Diet preference: ${profile.diet.replace(/_/g, ' ')}`,
+    `- Allergies: ${profile.allergies.length > 0 ? profile.allergies.join(', ') : 'none'}`,
     `- Training days per week: ${profile.workoutDaysPerWeek}`,
     '',
     'DAILY TARGETS',
@@ -148,7 +148,7 @@ export function buildSystemPrompt(profile: UserProfile, plan: Plan, today?: Dail
       '',
       'TODAY SO FAR',
       `- Eaten ${today.caloriesConsumed} of ${plan.targets.calories} kcal, ${today.proteinG} of ${plan.targets.proteinG} g protein.`,
-      `- Water ${today.waterMl} ml, active ${active} min, slept ${today.sleepHours ?? 0} h.`,
+      `- Water ${today.waterMl} ml, active ${active} min.`,
     );
   }
 
@@ -165,16 +165,10 @@ export function buildMessages(
   plan: Plan,
   history: { role: 'user' | 'coach'; text: string }[] = [],
   today?: DailyLog,
-  states: MoodState[] = [],
 ): LlmMessage[] {
   const messages: LlmMessage[] = [
     { role: 'system', content: buildSystemPrompt(profile, plan, today) },
   ];
-  // Inject mind-healing guidance when the user's recent check-in shows an
-  // emotional state we can gently work with (from moodStore → inferStates).
-  if (states.length > 0) {
-    messages.push({ role: 'system', content: buildMindGuidancePrompt(states) });
-  }
   for (const h of history.slice(-6)) {
     messages.push({ role: h.role === 'user' ? 'user' : 'assistant', content: h.text });
   }

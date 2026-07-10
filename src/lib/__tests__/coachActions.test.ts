@@ -30,9 +30,9 @@ describe('parseCoachActions', () => {
     expect(actions.some((a) => a.type === 'walk')).toBe(true);
   });
 
-  it('logs sleep hours', () => {
-    const { actions } = parseCoachActions('I slept 7.5 hours last night');
-    expect(actions).toEqual([{ type: 'sleep', hours: 7.5 }]);
+  it('logs water in glasses', () => {
+    const { actions } = parseCoachActions('I drank 3 glasses of water');
+    expect(actions).toContainEqual({ type: 'water', ml: 750 });
   });
 
   it('changes the target weight in kg', () => {
@@ -53,26 +53,15 @@ describe('parseCoachActions', () => {
     expect(w?.type === 'workout' && w.label).toBe('yoga');
   });
 
-  it('flags distress and offers calm instead of logging', () => {
-    const parsed = parseCoachActions("I'm so stressed and anxious right now");
-    expect(parsed.actions).toHaveLength(0);
-    expect(parsed.calm).toBeTruthy();
-  });
-
   it('does not treat a normal question as an action', () => {
     const parsed = parseCoachActions('how many calories should I eat?');
     expect(parsed.actions).toHaveLength(0);
-    expect(parsed.calm).toBeUndefined();
   });
 
-  it('switches the app to calm-only focus', () => {
-    const parsed = parseCoachActions('make the app calm only, no wellness');
-    expect(parsed.actions).toContainEqual({ type: 'focus', mode: 'calm' });
-  });
-
-  it('switches back to wellness', () => {
-    const parsed = parseCoachActions('switch to wellness mode');
-    expect(parsed.actions).toContainEqual({ type: 'focus', mode: 'wellness' });
+  it('does not log anything for venting without data', () => {
+    const parsed = parseCoachActions("I'm so stressed and anxious right now");
+    expect(parsed.actions).toHaveLength(0);
+    expect(parsed.savePlan).toBeUndefined();
   });
 
   it('recognises a request to save a workout plan', () => {

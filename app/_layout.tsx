@@ -51,26 +51,6 @@ function StackNavigator() {
         <Stack.Screen name="ai-loading" />
         <Stack.Screen name="ai-setup" />
         <Stack.Screen name="(tabs)" />
-        <Stack.Screen
-          name="player"
-          options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
-        />
-        <Stack.Screen
-          name="breathe"
-          options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
-        />
-        <Stack.Screen
-          name="practice"
-          options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
-        />
-        <Stack.Screen
-          name="checkin"
-          options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
-        />
-        <Stack.Screen
-          name="sleep"
-          options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
-        />
       </Stack>
 
       {/* Auto-start / reattach the background model download. Progress is shown
@@ -88,7 +68,7 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       {/* Note: the OS "Reduce Motion" setting is neutralised in index.js so the
-          breathing/journey animations always play — see the comment there. */}
+          ring/chart animations always play — see the comment there. */}
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
           <ThemeProvider>

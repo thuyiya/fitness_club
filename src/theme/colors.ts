@@ -1,17 +1,18 @@
 /**
- * Color system for Solace — a calm, greenish wellness palette.
+ * Color system for Nutrition + Fitness — the "Ember" palette: deep warm
+ * charcoal neutrals with vibrant orange-amber accents.
  * Three themes share the same semantic tokens so components never touch raw hex:
- *   • light — soft cream-green, dark text
- *   • dark  — deep calm green, bright text (the default)
- *   • glass — frosted translucent surfaces over a deep-green backdrop
+ *   • light — warm stone off-white, charcoal text
+ *   • dark  — near-black warm charcoal, ember accents (the default)
+ *   • glass — frosted translucent surfaces over a warm charcoal backdrop
  */
 
 export const palette = {
-  primary: '#557E40',
-  primaryLight: '#8FBF6F',
-  primaryDark: '#3E6130',
-  secondary: '#3B8574',
-  secondaryLight: '#6EC5AE',
+  primary: '#F97316',
+  primaryLight: '#FB923C',
+  primaryDark: '#C2410C',
+  secondary: '#F59E0B',
+  secondaryLight: '#FBBF24',
   success: '#4CAF6E',
   successLight: '#77D69A',
   warning: '#D99A34',
@@ -86,85 +87,86 @@ const brightAccents = {
 };
 
 export const lightColors: ThemeColors = {
-  primary: palette.primary,
-  primaryLight: palette.primaryLight,
-  primaryDark: palette.primaryDark,
-  secondary: palette.secondary,
-  secondaryLight: palette.secondaryLight,
+  // Darker ember shades so text/icons on white keep AA contrast.
+  primary: '#C2410C',
+  primaryLight: '#F97316',
+  primaryDark: '#9A3412',
+  secondary: '#B45309',
+  secondaryLight: '#F59E0B',
   ...softAccents,
 
-  background: '#F2F5EA',
+  background: '#FAFAF9',
   backgroundElevated: '#FFFFFF',
   surface: '#FFFFFF',
   surfaceGlass: 'rgba(255,255,255,0.72)',
   card: '#FFFFFF',
-  cardBorder: 'rgba(38,48,30,0.10)',
+  cardBorder: 'rgba(41,37,36,0.10)',
 
-  text: '#22301A',
-  textSecondary: '#4C5A40',
-  textTertiary: '#7E8B70',
+  text: '#292524',
+  textSecondary: '#57534E',
+  textTertiary: '#78716C',
   textInverse: '#FFFFFF',
 
-  separator: 'rgba(38,48,30,0.10)',
-  overlay: 'rgba(30,40,22,0.40)',
+  separator: 'rgba(41,37,36,0.10)',
+  overlay: 'rgba(28,25,23,0.40)',
 
-  gradientStart: '#E7EFD6',
-  gradientEnd: '#F2F5EA',
-  shadow: '#2A3320',
+  gradientStart: '#F6EEE6',
+  gradientEnd: '#FAFAF9',
+  shadow: '#292524',
 };
 
 export const darkColors: ThemeColors = {
   primary: palette.primaryLight,
-  primaryLight: '#B4DE9A',
+  primaryLight: '#FDBA74',
   primaryDark: palette.primary,
   secondary: palette.secondaryLight,
-  secondaryLight: '#96D9C9',
+  secondaryLight: '#FCD34D',
   ...brightAccents,
 
-  background: '#121A11',
-  backgroundElevated: '#1B261A',
-  surface: '#1B261A',
-  surfaceGlass: 'rgba(27,38,26,0.72)',
-  card: 'rgba(27,38,26,0.90)',
+  background: '#151312',
+  backgroundElevated: '#211D1A',
+  surface: '#211D1A',
+  surfaceGlass: 'rgba(33,29,26,0.72)',
+  card: 'rgba(33,29,26,0.90)',
   cardBorder: 'rgba(255,255,255,0.12)',
 
-  text: '#EEF3E6',
-  textSecondary: '#C2CEB4',
-  textTertiary: '#8A9A7A',
-  textInverse: '#121A11',
+  text: '#F5F1EC',
+  textSecondary: '#CFC7BE',
+  textTertiary: '#968C82',
+  textInverse: '#1C1917',
 
   separator: 'rgba(255,255,255,0.10)',
   overlay: 'rgba(0,0,0,0.60)',
 
-  gradientStart: '#121A11',
-  gradientEnd: '#0E1B16',
+  gradientStart: '#1C1917',
+  gradientEnd: '#120F0D',
   shadow: '#000000',
 };
 
 export const glassColors: ThemeColors = {
-  primary: '#A6D585',
-  primaryLight: '#C2E5AC',
-  primaryDark: palette.primaryLight,
-  secondary: '#83D6C0',
-  secondaryLight: '#A6E4D5',
+  primary: '#FDBA74',
+  primaryLight: '#FED7AA',
+  primaryDark: '#FB923C',
+  secondary: '#FCD34D',
+  secondaryLight: '#FDE68A',
   ...brightAccents,
 
-  background: '#16241C',
+  background: '#201A16',
   backgroundElevated: 'rgba(255,255,255,0.10)',
   surface: 'rgba(255,255,255,0.08)',
   surfaceGlass: 'rgba(255,255,255,0.12)',
   card: 'rgba(255,255,255,0.09)',
   cardBorder: 'rgba(255,255,255,0.20)',
 
-  text: '#F1F7EC',
-  textSecondary: 'rgba(241,247,236,0.82)',
-  textTertiary: 'rgba(241,247,236,0.58)',
-  textInverse: '#12201A',
+  text: '#F7F2EC',
+  textSecondary: 'rgba(247,242,236,0.82)',
+  textTertiary: 'rgba(247,242,236,0.58)',
+  textInverse: '#201510',
 
   separator: 'rgba(255,255,255,0.16)',
   overlay: 'rgba(0,0,0,0.50)',
 
-  gradientStart: '#20362A',
-  gradientEnd: '#101D17',
+  gradientStart: '#362518',
+  gradientEnd: '#17110D',
   shadow: '#000000',
 };

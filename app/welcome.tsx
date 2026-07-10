@@ -8,8 +8,6 @@ import {
   Check,
   Cloud,
   CloudOff,
-  Dumbbell,
-  HeartPulse,
   Moon,
   Sparkles,
   Sun,
@@ -24,16 +22,14 @@ import {
 } from '@/theme';
 import {
   DataMode,
-  FocusMode,
   ThemePreference,
   useSettingsStore,
 } from '@/store/settingsStore';
 
 /**
- * First-launch app setup — three quick choices that shape the whole experience:
+ * First-launch app setup — two quick choices that shape the whole experience:
  *   1. Theme (dark / light / glass), applied live so the screen previews itself.
- *   2. Focus (calm vs wellness), which decides the bottom tabs.
- *   3. Data (offline vs cloud).
+ *   2. Data (offline vs cloud).
  * All of these are editable later from Settings.
  */
 
@@ -44,29 +40,9 @@ const THEME_OPTIONS: {
   colors: ThemeColors;
   icon: React.ReactNode;
 }[] = [
-  { value: 'dark', label: 'Dark', hint: 'Deep calm green', colors: darkColors, icon: <Moon size={18} color="#fff" /> },
-  { value: 'light', label: 'Light', hint: 'Soft cream green', colors: lightColors, icon: <Sun size={18} color="#fff" /> },
+  { value: 'dark', label: 'Dark', hint: 'Charcoal & ember', colors: darkColors, icon: <Moon size={18} color="#fff" /> },
+  { value: 'light', label: 'Light', hint: 'Warm stone', colors: lightColors, icon: <Sun size={18} color="#fff" /> },
   { value: 'glass', label: 'Glass', hint: 'Frosted & translucent', colors: glassColors, icon: <Sparkles size={18} color="#fff" /> },
-];
-
-const FOCUS_OPTIONS: {
-  value: FocusMode;
-  title: string;
-  desc: string;
-  icon: (c: string) => React.ReactNode;
-}[] = [
-  {
-    value: 'calm',
-    title: 'Calm',
-    desc: 'Relax your body and quiet your mind with guided breathing and rest.',
-    icon: (c) => <HeartPulse size={24} color={c} />,
-  },
-  {
-    value: 'wellness',
-    title: 'Wellness',
-    desc: 'Manage your nutrition and workouts to reach your health goals.',
-    icon: (c) => <Dumbbell size={24} color={c} />,
-  },
 ];
 
 const DATA_OPTIONS: {
@@ -89,17 +65,15 @@ const DATA_OPTIONS: {
   },
 ];
 
-const STEPS = 3;
+const STEPS = 2;
 
 export default function Welcome() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 
   const themePreference = useSettingsStore((s) => s.themePreference);
-  const focus = useSettingsStore((s) => s.focus);
   const dataMode = useSettingsStore((s) => s.dataMode);
   const setTheme = useSettingsStore((s) => s.setTheme);
-  const setFocus = useSettingsStore((s) => s.setFocus);
   const setDataMode = useSettingsStore((s) => s.setDataMode);
   const completeWelcome = useSettingsStore((s) => s.completeWelcome);
 
@@ -145,13 +119,12 @@ export default function Welcome() {
       >
         <Animated.View key={page} entering={FadeInDown.duration(400).springify().damping(18)}>
           {page === 0 && <ThemeStep selected={themePreference} onSelect={setTheme} />}
-          {page === 1 && <FocusStep selected={focus} onSelect={setFocus} />}
-          {page === 2 && <DataStep selected={dataMode} onSelect={setDataMode} />}
+          {page === 1 && <DataStep selected={dataMode} onSelect={setDataMode} />}
         </Animated.View>
       </ScrollView>
 
       <Animated.View entering={FadeIn} style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
-        <PillButton label={last ? 'Enter Solace' : 'Continue'} onPress={next} />
+        <PillButton label={last ? 'Get Started' : 'Continue'} onPress={next} />
       </Animated.View>
     </View>
   );
@@ -259,47 +232,6 @@ function ThemeSwatch({ colors, icon }: { colors: ThemeColors; icon: React.ReactN
         }}
       >
         {icon}
-      </View>
-    </View>
-  );
-}
-
-function FocusStep({ selected, onSelect }: { selected: FocusMode; onSelect: (v: FocusMode) => void }) {
-  const theme = useTheme();
-  return (
-    <View>
-      <StepHeader
-        eyebrow="YOUR FOCUS"
-        title="What matters most?"
-        subtitle="We'll shape the app around it — you can switch anytime."
-      />
-      <View style={{ gap: theme.spacing.md }}>
-        {FOCUS_OPTIONS.map((opt) => (
-          <ChoiceCard
-            key={opt.value}
-            active={selected === opt.value}
-            title={opt.title}
-            desc={opt.desc}
-            icon={opt.icon}
-            onPress={() => onSelect(opt.value)}
-          />
-        ))}
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 8,
-          marginTop: theme.spacing.lg,
-          padding: theme.spacing.md,
-          borderRadius: theme.radius.lg,
-          backgroundColor: theme.colors.primary + '14',
-        }}
-      >
-        <Sparkles size={16} color={theme.colors.primary} />
-        <Text variant="footnote" color="textSecondary" style={{ flex: 1 }}>
-          Not sure yet? Your coach can help you decide — it's always a tap away.
-        </Text>
       </View>
     </View>
   );

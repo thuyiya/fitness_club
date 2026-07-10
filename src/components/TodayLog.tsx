@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Pressable, TextInput, View } from 'react-native';
-import { Dumbbell, Footprints, Moon, UtensilsCrossed, X } from 'lucide-react-native';
+import { Dumbbell, Droplets, Footprints, UtensilsCrossed, X } from 'lucide-react-native';
 import { useTheme } from '@/theme';
 import { Text } from './Text';
 import { GlassCard } from './GlassCard';
@@ -8,11 +8,11 @@ import { SectionHeader } from './SectionHeader';
 import { useLogStore } from '@/store/logStore';
 import { useUserStore } from '@/store/userStore';
 
-type Sheet = 'meal' | 'exercise' | 'sleep' | null;
+type Sheet = 'meal' | 'exercise' | 'water' | null;
 
 /**
  * The "Today" logging card on the Progress screen: live daily totals plus quick
- * entry points to log a meal, exercise or sleep. Mirrors what the Coach can do
+ * entry points to log a meal, exercise or water. Mirrors what the Coach can do
  * from natural language, for people who prefer tapping.
  */
 export function TodayLog() {
@@ -34,13 +34,13 @@ export function TodayLog() {
           <Stat label="Calories" value={`${today.caloriesConsumed}`} sub={calTarget ? `/ ${calTarget}` : ''} />
           <Stat label="Protein" value={`${today.proteinG}g`} sub={proteinTarget ? `/ ${proteinTarget}g` : ''} />
           <Stat label="Active" value={`${activeMin}m`} sub={today.distanceKm ? `${today.distanceKm}km` : ''} />
-          <Stat label="Sleep" value={today.sleepHours ? `${today.sleepHours}h` : '—'} sub="" />
+          <Stat label="Water" value={today.waterMl ? `${(today.waterMl / 1000).toFixed(1)}L` : '—'} sub="" />
         </View>
 
         <View style={{ flexDirection: 'row', gap: theme.spacing.sm, marginTop: theme.spacing.md }}>
           <LogButton icon={<UtensilsCrossed size={18} color={theme.colors.primary} />} label="Meal" onPress={() => setSheet('meal')} />
           <LogButton icon={<Dumbbell size={18} color={theme.colors.primary} />} label="Exercise" onPress={() => setSheet('exercise')} />
-          <LogButton icon={<Moon size={18} color={theme.colors.primary} />} label="Sleep" onPress={() => setSheet('sleep')} />
+          <LogButton icon={<Droplets size={18} color={theme.colors.primary} />} label="Water" onPress={() => setSheet('water')} />
         </View>
       </GlassCard>
 
@@ -102,15 +102,15 @@ function LogSheet({ type, onClose }: { type: Sheet; onClose: () => void }) {
   const [exKind, setExKind] = useState<'walk' | 'workout'>('walk');
   const [minutes, setMinutes] = useState('');
   const [distance, setDistance] = useState('');
-  // Sleep
-  const [hours, setHours] = useState('');
+  // Water
+  const [waterMl, setWaterMl] = useState('');
 
   const reset = () => {
     setCalories('');
     setProtein('');
     setMinutes('');
     setDistance('');
-    setHours('');
+    setWaterMl('');
     setExKind('walk');
   };
 
@@ -129,9 +129,9 @@ function LogSheet({ type, onClose }: { type: Sheet; onClose: () => void }) {
       const km = parseFloat(distance) || 0;
       if (m > 0) (exKind === 'walk' ? store.addWalking : store.addWorkout)(m);
       if (km > 0) store.addDistance(km);
-    } else if (type === 'sleep') {
-      const h = parseFloat(hours) || 0;
-      if (h > 0) store.setSleep(+h.toFixed(1));
+    } else if (type === 'water') {
+      const ml = Math.round(parseFloat(waterMl) || 0);
+      if (ml > 0) store.addWater(ml);
     }
     close();
   };
@@ -139,7 +139,7 @@ function LogSheet({ type, onClose }: { type: Sheet; onClose: () => void }) {
   const titles: Record<Exclude<Sheet, null>, string> = {
     meal: 'Log a meal',
     exercise: 'Log exercise',
-    sleep: 'Log sleep',
+    water: 'Log water',
   };
 
   return (
@@ -186,8 +186,8 @@ function LogSheet({ type, onClose }: { type: Sheet; onClose: () => void }) {
           </>
         )}
 
-        {type === 'sleep' && (
-          <Field label="Hours slept" value={hours} onChange={setHours} placeholder="e.g. 7.5" />
+        {type === 'water' && (
+          <Field label="Water (ml)" value={waterMl} onChange={setWaterMl} placeholder="e.g. 500" />
         )}
 
         <Pressable onPress={save}>

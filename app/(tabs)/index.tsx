@@ -8,7 +8,6 @@ import {
   Flame,
   Footprints,
   Dumbbell,
-  HeartPulse,
   Sparkles,
   Beef,
   UtensilsCrossed,
@@ -56,12 +55,11 @@ export default function Dashboard() {
     const routes: Record<string, Href> = {
       meals: '/(tabs)/meals',
       workouts: '/(tabs)/workouts',
-      calm: '/(tabs)/calm',
       progress: '/(tabs)/progress',
       coach: '/(tabs)/coach',
       settings: '/(tabs)/settings',
     };
-    return <Redirect href={routes[tabBar[0]] ?? '/(tabs)/calm'} />;
+    return <Redirect href={routes[tabBar[0]] ?? '/(tabs)/progress'} />;
   }
 
   // Before the health questionnaire, we don't invent numbers — the goal, rings
@@ -74,9 +72,9 @@ export default function Dashboard() {
             <Text variant="subhead" color="textTertiary">
               {greeting()}
             </Text>
-            <Text variant="largeTitle">Welcome to Solace 👋</Text>
+            <Text variant="largeTitle">Welcome to Nutrition + Fitness 👋</Text>
             <Text variant="footnote" color="textTertiary" style={{ marginTop: 2 }}>
-              Nourish the body · calm the mind
+              Eat well · train smart
             </Text>
           </View>
         </FadeInView>
@@ -99,7 +97,7 @@ export default function Dashboard() {
                 marginBottom: theme.spacing.md,
               }}
             >
-              <HeartPulse size={26} color="#fff" />
+              <Dumbbell size={26} color="#fff" />
             </View>
             <Text variant="title2" color="textInverse">
               Let’s complete your health profile
@@ -136,7 +134,7 @@ export default function Dashboard() {
 
         <FadeInView delay={140}>
           <SectionHeader title="Meanwhile" subtitle="No setup needed" />
-          <Pressable onPress={() => router.push('/calm' as Href)}>
+          <Pressable onPress={() => router.push('/workouts')}>
             <GlassCard>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
                 <View
@@ -146,15 +144,15 @@ export default function Dashboard() {
                     borderRadius: 16,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: theme.colors.water + '1A',
+                    backgroundColor: theme.colors.success + '1A',
                   }}
                 >
-                  <HeartPulse size={22} color={theme.colors.water} />
+                  <Dumbbell size={22} color={theme.colors.success} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text variant="headline">Find your calm</Text>
+                  <Text variant="headline">Explore workouts</Text>
                   <Text variant="caption" color="textTertiary">
-                    Breathe and clear your mind
+                    Browse routines for every level
                   </Text>
                 </View>
                 <ArrowRight size={18} color={theme.colors.textTertiary} />
@@ -221,7 +219,7 @@ export default function Dashboard() {
           </Text>
           <Text variant="largeTitle">{profile.name} 👋</Text>
           <Text variant="footnote" color="textTertiary" style={{ marginTop: 2 }}>
-            Nourish the body · calm the mind
+            Eat well · train smart
           </Text>
         </View>
       </FadeInView>
@@ -237,7 +235,7 @@ export default function Dashboard() {
         />
       </FadeInView>
 
-      {/* Quick actions — Meals, Workouts & Calm now live here */}
+      {/* Quick actions — Meals, Workouts & Coach live here */}
       <FadeInView delay={130}>
         <SectionHeader title="Quick Actions" />
         <View style={{ flexDirection: 'row', gap: theme.spacing.sm }}>
@@ -256,11 +254,11 @@ export default function Dashboard() {
             onPress={() => router.push('/workouts')}
           />
           <QuickAction
-            label="Calm"
-            hint="Breathe & relax"
-            color={theme.colors.water}
-            icon={<HeartPulse size={22} color={theme.colors.water} />}
-            onPress={() => router.push('/calm' as Href)}
+            label="Coach"
+            hint="Ask Lumora"
+            color={theme.colors.primary}
+            icon={<Sparkles size={22} color={theme.colors.primary} />}
+            onPress={() => router.push('/coach')}
           />
         </View>
       </FadeInView>

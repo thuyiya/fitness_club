@@ -17,8 +17,8 @@ import { useSettingsStore } from '@/store/settingsStore';
 
 const MARK = require('../assets/logo-mark.png');
 
-/** Cream calm-brand splash: gently breathing mark, then into the app (or the
- *  one-time wellness intro on the very first launch). */
+/** Ember-brand splash: gently pulsing mark on warm charcoal, then into the app
+ *  (or the one-time intro on the very first launch). */
 export default function Splash() {
   const welcomeSeen = useSettingsStore((s) => s.welcomeSeen);
   const scale = useSharedValue(0.6);
@@ -48,7 +48,7 @@ export default function Splash() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#F3F4E2', '#EAEED0', '#DBE4C1']}
+        colors={['#25201C', '#1C1917', '#120F0D']}
         style={StyleSheet.absoluteFill}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -63,8 +63,8 @@ export default function Splash() {
       </View>
 
       <Animated.View entering={FadeIn.delay(500).duration(800)} style={styles.textWrap}>
-        <Text variant="title3" center style={{ color: '#6E8055' }}>
-          Let’s calm your body
+        <Text variant="title3" center style={{ color: '#FB923C' }}>
+          Let’s build your strength
         </Text>
       </Animated.View>
     </View>
@@ -115,7 +115,7 @@ function Particle({ index }: { index: number }) {
           width: size,
           height: size,
           borderRadius: size,
-          backgroundColor: '#A9C089',
+          backgroundColor: '#F97316',
         },
         style,
       ]}
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     width: 170,
     height: 170,
     borderRadius: 85,
-    backgroundColor: 'rgba(133,160,103,0.20)',
+    backgroundColor: 'rgba(249,115,22,0.20)',
   },
   mark: { width: 84, height: 84 },
 });

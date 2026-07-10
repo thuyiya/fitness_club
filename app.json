@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Solace",
+    "name": "Nutrition + Fitness",
     "slug": "fitness-club",
     "owner": "glitchfy",
     "version": "1.0.0",
@@ -12,7 +12,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#EAEED0"
+      "backgroundColor": "#1C1917"
     },
     "assetBundlePatterns": [
       "assets/**"
@@ -21,9 +21,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.glitchfy.solaceapp",
       "infoPlist": {
-        "UIBackgroundModes": [
-          "audio"
-        ],
         "UIViewControllerBasedStatusBarAppearance": false,
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -31,7 +28,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#EAEED0"
+        "backgroundColor": "#1C1917"
       },
       "package": "com.glitchfy.solace"
     },
@@ -45,7 +42,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#EAEED0",
+          "backgroundColor": "#1C1917",
           "image": "./assets/splash.png",
           "resizeMode": "contain"
         }

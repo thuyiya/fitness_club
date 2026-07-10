@@ -11,15 +11,13 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Download, Leaf, RotateCcw, Send, ShieldCheck, Sparkles } from 'lucide-react-native';
+import { Download, RotateCcw, Send, ShieldCheck, Sparkles } from 'lucide-react-native';
 import { Text } from '@/components';
 import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
 import { useAiCoachStore } from '@/store/aiCoachStore';
 import { useLogStore } from '@/store/logStore';
-import { useSettingsStore } from '@/store/settingsStore';
 import { useCoachPlanStore, planTitle } from '@/store/coachPlanStore';
 import { ChatMessage } from '@/types';
 import {
@@ -31,14 +29,10 @@ import {
   MEDICAL_DISCLAIMER,
   SUGGESTED_PROMPTS,
 } from '@/lib/coach';
-import { useMoodStore } from '@/store/moodStore';
-import { inferStatesFromLatest } from '@/lib/mood/inferStates';
 import { CoachAction, parseCoachActions, summarizeActions } from '@/lib/coachActions';
 import { MODEL } from '@/lib/llm/config';
-import { CoachSuggestion, suggestForChat } from '@/lib/coachSuggest';
-import { CoachSuggestionCard } from '@/components/CoachSuggestionCard';
 
-type UiMessage = ChatMessage & { streaming?: boolean; suggestions?: CoachSuggestion[] };
+type UiMessage = ChatMessage & { streaming?: boolean };
 
 let idCounter = 0;
 const nextId = () => `m${idCounter++}`;
@@ -46,12 +40,10 @@ const nextId = () => `m${idCounter++}`;
 export default function Coach() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const router = useRouter();
   const profile = useUserStore((s) => s.profile);
   const plan = useUserStore((s) => s.plan);
   const updateProfile = useUserStore((s) => s.updateProfile);
   const log = useLogStore();
-  const setFocus = useSettingsStore((s) => s.setFocus);
   const addPlan = useCoachPlanStore((s) => s.addPlan);
   const scrollRef = useRef<ScrollView>(null);
 
@@ -61,13 +53,12 @@ export default function Coach() {
     {
       id: nextId(),
       role: 'coach',
-      text: `Hi ${profile?.name ?? 'there'}! I'm Lumora, your wellness coach. Ask me anything — or tell me what you ate, how you moved, or how you're feeling. If something's weighing on you, I can suggest a journey or breath you can play right here. 🌿`,
+      text: `Hi ${profile?.name ?? 'there'}! I'm Lumora, your nutrition & fitness coach. Tell me what you ate or how you trained and I'll log it, ask me for a meal or workout plan, or check how you're tracking toward your goal. 💪`,
       createdAt: Date.now(),
     },
   ]);
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
-  const [offerCalm, setOfferCalm] = useState(false);
   const [kbVisible, setKbVisible] = useState(false);
 
   // Track the keyboard so the composer hugs it (and drops the tab-bar clearance).
@@ -93,17 +84,11 @@ export default function Coach() {
       case 'workout':
         log.addWorkout(a.minutes);
         break;
-      case 'sleep':
-        log.setSleep(a.hours);
-        break;
       case 'water':
         log.addWater(a.ml);
         break;
       case 'targetWeight':
         updateProfile({ targetWeightKg: a.kg });
-        break;
-      case 'focus':
-        setFocus(a.mode);
         break;
     }
   };
@@ -123,10 +108,10 @@ export default function Coach() {
     );
   };
 
-  const pushCoach = (text: string, suggestions?: CoachSuggestion[]) =>
+  const pushCoach = (text: string) =>
     setMessages((m) => [
       ...m,
-      { id: nextId(), role: 'coach', text, createdAt: Date.now() + 1, suggestions },
+      { id: nextId(), role: 'coach', text, createdAt: Date.now() + 1 },
     ]);
 
   // If the model was downloaded in a previous session, load it into memory when
@@ -149,15 +134,9 @@ export default function Coach() {
     const userMsg: UiMessage = { id: nextId(), role: 'user', text: trimmed, createdAt: Date.now() };
     setMessages((m) => [...m, userMsg]);
     setInput('');
-    setOfferCalm(false);
     scrollToEnd();
 
-    // How the user feels right now: their words + latest mood check-in. Drives
-    // the playable journey/breath suggestions attached to Lumora's reply.
-    const moodStates = inferStatesFromLatest(useMoodStore.getState().latest());
-    const suggestions = suggestForChat(trimmed, moodStates);
-
-    // 1) Deterministic intents: logging, profile edits, plan-saving, distress.
+    // 1) Deterministic intents: logging, profile edits, plan-saving.
     //    Handled locally so they're reliable and instant, model or not.
     const parsed = parseCoachActions(trimmed);
     if (parsed.savePlan) {
@@ -171,17 +150,6 @@ export default function Coach() {
       scrollToEnd();
       return;
     }
-    if (parsed.calm) {
-      // Offer concrete, playable sessions when we can match the feeling;
-      // otherwise fall back to the generic "Open Calm" pill.
-      if (suggestions.length > 0) pushCoach(parsed.calm, suggestions);
-      else {
-        pushCoach(parsed.calm);
-        setOfferCalm(true);
-      }
-      scrollToEnd();
-      return;
-    }
 
     // 2) On-device LLM path (streaming) when the model is ready.
     if (ai.status === 'ready') {
@@ -192,7 +160,7 @@ export default function Coach() {
       ]);
       setBusy(true);
       try {
-        const msgs = buildMessages(trimmed, profile, plan, history, log.today(), moodStates);
+        const msgs = buildMessages(trimmed, profile, plan, history, log.today());
         await ai.generate(msgs, (token) => {
           setMessages((m) =>
             m.map((x) => (x.id === replyId ? { ...x, text: x.text + token } : x)),
@@ -206,7 +174,6 @@ export default function Coach() {
                   ...x,
                   streaming: false,
                   text: x.text.trim() || coachReply(trimmed, profile, plan),
-                  suggestions: suggestions.length ? suggestions : undefined,
                 }
               : x,
           ),
@@ -246,7 +213,6 @@ export default function Coach() {
       role: 'coach',
       text: fallbackText,
       createdAt: Date.now() + 1,
-      suggestions: suggestions.length ? suggestions : undefined,
     };
     setMessages((m) => [...m, reply]);
     scrollToEnd();
@@ -306,29 +272,6 @@ export default function Coach() {
           {messages.map((m) => (
             <Bubble key={m.id} message={m} />
           ))}
-
-          {offerCalm && (
-            <Pressable onPress={() => router.navigate('/calm')} style={{ alignSelf: 'flex-start' }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 8,
-                  paddingHorizontal: theme.spacing.md,
-                  paddingVertical: 10,
-                  borderRadius: theme.radius.pill,
-                  backgroundColor: theme.colors.backgroundElevated,
-                  borderWidth: 1,
-                  borderColor: theme.colors.cardBorder,
-                }}
-              >
-                <Leaf size={16} color={theme.colors.primary} />
-                <Text variant="subhead" color="primary">
-                  Open Calm & breathe
-                </Text>
-              </View>
-            </Pressable>
-          )}
 
           {messages.length <= 1 && (
             <View style={{ marginTop: theme.spacing.md, gap: 8 }}>
@@ -572,17 +515,6 @@ function Bubble({ message }: { message: UiMessage }) {
       <Text variant="callout" style={{ lineHeight: 22 }}>
         {message.text || (message.streaming ? '…' : '')}
       </Text>
-
-      {message.suggestions && message.suggestions.length > 0 && (
-        <View style={{ marginTop: 12, gap: 8 }}>
-          <Text variant="caption" color="textTertiary">
-            FOR HOW YOU'RE FEELING
-          </Text>
-          {message.suggestions.map((s) => (
-            <CoachSuggestionCard key={`${s.kind}:${s.id}`} suggestion={s} />
-          ))}
-        </View>
-      )}
     </Animated.View>
   );
 }

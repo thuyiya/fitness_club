@@ -1,26 +1,20 @@
 import React, { useMemo, useState } from 'react';
-import { Pressable, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
-import { Activity, ChevronRight, Flame, Heart, Lock, Moon, Wind } from 'lucide-react-native';
+import { View } from 'react-native';
+import { Activity, Flame, Heart, Lock } from 'lucide-react-native';
 import {
   BarChart,
   Card,
   FadeInView,
-  FeelingTree,
-  feelingColor,
   Gauge,
   GlassCard,
   ProgressRing,
   Screen,
   SectionHeader,
   SegmentedControl,
-  StatTile,
   Text,
   TodayLog,
   WeightChart,
 } from '@/components';
-import { EMOTION_OPTIONS } from '@/components/EmojiMoodPicker';
 import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
 import { computeAchievements } from '@/data/achievements';
@@ -28,11 +22,6 @@ import { buildInsights } from '@/lib/planEngine';
 import { clamp } from '@/lib/calculations';
 import { formatWeight } from '@/lib/format';
 import { useSettingsStore } from '@/store/settingsStore';
-import { calmStats, useCalmStore } from '@/store/calmStore';
-import { useLogStore } from '@/store/logStore';
-import { useMoodStore } from '@/store/moodStore';
-import { GUIDED_SESSIONS } from '@/lib/calmSessions';
-import { PRACTICES } from '@/lib/practices';
 
 type Horizon = '1m' | '3m' | '6m' | '1y';
 const HORIZON_WEEKS: Record<Horizon, number> = { '1m': 4, '3m': 13, '6m': 26, '1y': 52 };
@@ -43,7 +32,6 @@ export default function Progress() {
   const plan = useUserStore((s) => s.plan);
   const history = useUserStore((s) => s.weightHistory);
   const units = useSettingsStore((s) => s.units);
-  const calmFocus = useSettingsStore((s) => s.focus) === 'calm';
   const [horizon, setHorizon] = useState<Horizon>('3m');
 
   const insights = useMemo(
@@ -76,9 +64,6 @@ export default function Progress() {
     if (last && last.x < weeks) pts.push({ x: weeks, y: last.y });
     return [{ x: 0, y: profile.weightKg }, ...pts];
   }, [horizon, profile, plan]);
-
-  // Calm focus shows a calm/sleep-only progress view (no weight or body metrics).
-  if (calmFocus) return <CalmProgress />;
 
   if (!profile || !plan) {
     return (
@@ -341,282 +326,6 @@ export default function Progress() {
         <Heart size={14} color={theme.colors.danger} />
         <Text variant="caption" color="textTertiary">Keep going — every day counts</Text>
         <Activity size={14} color={theme.colors.primary} />
-      </View>
-    </Screen>
-  );
-}
-
-/** Calm-focus Progress: breathing activity + sleep, no weight or body metrics. */
-/** A short, gentle label for the average recent valence. */
-function feelingLabel(v: number | null): string {
-  if (v === null) return 'No check-ins yet';
-  if (v >= 0.5) return 'Feeling good';
-  if (v >= 0.15) return 'Gently positive';
-  if (v > -0.15) return 'Pretty steady';
-  if (v > -0.5) return 'A little low';
-  return 'Going through it';
-}
-
-/** Fisher–Yates sample of `n` items (runtime randomness is fine here). */
-function sample<T>(arr: T[], n: number): T[] {
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy.slice(0, n);
-}
-
-type Suggestion = { kind: 'journey' | 'practice'; id: string; title: string; subtitle: string; accent: string };
-
-/** Two random journeys + two random practices, shuffled together. */
-function pickSuggestions(): Suggestion[] {
-  const journeys: Suggestion[] = sample(GUIDED_SESSIONS, 2).map((s) => ({
-    kind: 'journey',
-    id: s.id,
-    title: s.title,
-    subtitle: s.subtitle,
-    accent: s.accent,
-  }));
-  const practices: Suggestion[] = sample(PRACTICES, 2).map((p) => ({
-    kind: 'practice',
-    id: p.id,
-    title: p.name,
-    subtitle: p.technique,
-    accent: p.accent,
-  }));
-  return sample([...journeys, ...practices], 4);
-}
-
-function CalmProgress() {
-  const theme = useTheme();
-  const roundLog = useCalmStore((s) => s.roundLog);
-  const sessionLog = useCalmStore((s) => s.sessionLog);
-  const profile = useUserStore((s) => s.profile);
-  const stats = useMemo(() => calmStats(roundLog, sessionLog), [roundLog, sessionLog]);
-  const sleepHours = useLogStore((s) => s.today().sleepHours);
-
-  // Mood: recent check-ins drive the feeling tree, the mini graph and the label.
-  const moodEntries = useMoodStore((s) => s.entries);
-  const trend = useMemo(() => useMoodStore.getState().recentTrend(7), [moodEntries]);
-  const treeValences = useMemo(() => moodEntries.slice(0, 21).map((e) => e.valence), [moodEntries]);
-  // Oldest→newest for the little left-to-right graph.
-  const graphValences = useMemo(
-    () => moodEntries.slice(0, 10).map((e) => e.valence).reverse(),
-    [moodEntries],
-  );
-  const dominantEmoji = useMemo(
-    () => EMOTION_OPTIONS.find((o) => o.key === trend.dominant)?.emoji ?? '🌱',
-    [trend.dominant],
-  );
-  // Pick once per mount so the suggestions don't reshuffle on every render.
-  const suggestions = useMemo(() => pickSuggestions(), []);
-
-  return (
-    <Screen>
-      <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
-        <Text variant="largeTitle">Progress</Text>
-        <Text variant="subhead" color="textTertiary">Your calm journey</Text>
-      </View>
-
-      {/* This week hero */}
-      <FadeInView delay={20}>
-        <LinearGradient
-          colors={[theme.colors.primary, theme.colors.secondary]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{ borderRadius: theme.radius.xxl, padding: theme.spacing.xl, ...theme.shadows.glow }}
-        >
-          <Text variant="footnote" style={{ color: 'rgba(255,255,255,0.85)' }}>THIS WEEK</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 8, marginTop: 6 }}>
-            <Text variant="numberLarge" color="textInverse">{stats.roundsThisWeek}</Text>
-            <Text variant="title3" color="textInverse" style={{ marginBottom: 6, opacity: 0.9 }}>
-              rounds
-            </Text>
-          </View>
-          <Text variant="subhead" style={{ color: 'rgba(255,255,255,0.9)', marginTop: 2 }}>
-            {stats.sessionsThisWeek} calm {stats.sessionsThisWeek === 1 ? 'session' : 'sessions'} this week
-          </Text>
-        </LinearGradient>
-      </FadeInView>
-
-      {/* Stat tiles */}
-      <FadeInView delay={80}>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.sm, marginTop: theme.spacing.md }}>
-          <StatTile
-            style={{ flexBasis: '48%', flexGrow: 1 }}
-            label="Total rounds"
-            value={`${stats.totalRounds}`}
-            unit="breaths"
-            accent={theme.colors.water}
-            icon={<Wind size={18} color={theme.colors.water} />}
-          />
-          <StatTile
-            style={{ flexBasis: '48%', flexGrow: 1 }}
-            label="Active days"
-            value={`${stats.activeDays}`}
-            unit="days"
-            accent={theme.colors.walking}
-            icon={<Activity size={18} color={theme.colors.walking} />}
-          />
-          <StatTile
-            style={{ flexBasis: '48%', flexGrow: 1 }}
-            label="Streak"
-            value={`${stats.streak}`}
-            unit="days"
-            accent={theme.colors.warning}
-            icon={<Flame size={18} color={theme.colors.warning} />}
-          />
-          <StatTile
-            style={{ flexBasis: '48%', flexGrow: 1 }}
-            label="Sessions"
-            value={`${stats.totalSessions}`}
-            unit="total"
-            accent={theme.colors.primary}
-            icon={<Heart size={18} color={theme.colors.primary} />}
-          />
-        </View>
-      </FadeInView>
-
-      {/* How you've been feeling — the feeling tree */}
-      <FadeInView delay={120}>
-        <SectionHeader
-          title="How you've been feeling"
-          subtitle={trend.count > 0 ? trend.summary : 'Check in and watch your tree grow'}
-          actionLabel="Check in"
-          onAction={() => router.push('/checkin')}
-        />
-        <GlassCard>
-          <FeelingTree valences={treeValences} avgValence={trend.avgValence} size={200} />
-
-          {/* current feeling status */}
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              marginTop: theme.spacing.sm,
-            }}
-          >
-            <Text style={{ fontSize: 22 }}>{dominantEmoji}</Text>
-            <Text variant="headline">{feelingLabel(trend.avgValence)}</Text>
-          </View>
-          {trend.count > 0 && (
-            <Text variant="caption" color="textTertiary" style={{ textAlign: 'center', marginTop: 2 }}>
-              {trend.count} recent check-in{trend.count === 1 ? '' : 's'}
-              {trend.direction === 'improving'
-                ? ' · trending up 🌤️'
-                : trend.direction === 'declining'
-                  ? ' · be gentle with yourself'
-                  : ''}
-            </Text>
-          )}
-
-          {/* small feeling graph */}
-          {graphValences.length > 0 && (
-            <View style={{ marginTop: theme.spacing.md }}>
-              <Text variant="caption" color="textTertiary" style={{ marginBottom: 6 }}>
-                Recent feelings
-              </Text>
-              <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 6, height: 44 }}>
-                {graphValences.map((v, i) => (
-                  <View key={i} style={{ flex: 1, justifyContent: 'flex-end', height: '100%' }}>
-                    <View
-                      style={{
-                        height: Math.max(5, ((v + 1) / 2) * 44),
-                        borderRadius: 4,
-                        backgroundColor: feelingColor(v),
-                      }}
-                    />
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
-        </GlassCard>
-
-        {/* suggested journeys & practices */}
-        <SectionHeader title="A little something for you" subtitle="Tap to open in Calm" />
-        <View style={{ gap: theme.spacing.sm }}>
-          {suggestions.map((s) => (
-            <Pressable key={s.kind + s.id} onPress={() => router.navigate('/calm')}>
-              <GlassCard>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
-                  <View
-                    style={{
-                      width: 42,
-                      height: 42,
-                      borderRadius: 13,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backgroundColor: s.accent + '22',
-                    }}
-                  >
-                    <Text style={{ fontSize: 18 }}>{s.kind === 'journey' ? '🎧' : '🧘'}</Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text variant="headline">{s.title}</Text>
-                    <Text variant="caption" color="textTertiary" style={{ marginTop: 2 }}>
-                      {s.kind === 'journey' ? 'Journey' : 'Practice'} · {s.subtitle}
-                    </Text>
-                  </View>
-                  <ChevronRight size={18} color={theme.colors.textTertiary} />
-                </View>
-              </GlassCard>
-            </Pressable>
-          ))}
-        </View>
-      </FadeInView>
-
-      {/* Sleep */}
-      <FadeInView delay={140}>
-        <SectionHeader
-          title="Sleep"
-          subtitle="Rest is part of calm"
-          actionLabel="Log"
-          onAction={() => router.push('/sleep')}
-        />
-        <Pressable onPress={() => router.push('/sleep')}>
-          <GlassCard>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
-              <View
-                style={{
-                  width: 52,
-                  height: 52,
-                  borderRadius: 18,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: theme.colors.secondary + '1A',
-                }}
-              >
-                <Moon size={24} color={theme.colors.secondary} />
-              </View>
-              <View style={{ flex: 1 }}>
-                {sleepHours > 0 ? (
-                  <>
-                    <Text variant="title3">{sleepHours} h last night</Text>
-                    <Text variant="caption" color="textTertiary">Tap to update or see your trend</Text>
-                  </>
-                ) : (
-                  <>
-                    <Text variant="headline">Log last night's sleep</Text>
-                    <Text variant="caption" color="textTertiary">
-                      Bedtime, hours and how rested you feel
-                    </Text>
-                  </>
-                )}
-              </View>
-              <ChevronRight size={18} color={theme.colors.textTertiary} />
-            </View>
-          </GlassCard>
-        </Pressable>
-      </FadeInView>
-
-      <View style={{ height: theme.spacing.lg }} />
-      <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 6, alignItems: 'center' }}>
-        <Heart size={14} color={theme.colors.danger} />
-        <Text variant="caption" color="textTertiary">A calmer mind, one breath at a time</Text>
       </View>
     </Screen>
   );

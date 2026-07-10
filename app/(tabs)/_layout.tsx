@@ -5,7 +5,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Tabs } from 'expo-router';
 import {
   Dumbbell,
-  HeartPulse,
   LayoutDashboard,
   Settings,
   TrendingUp,
@@ -99,14 +98,6 @@ export default function TabsLayout() {
           title: 'Workouts',
           href: shown('workouts'),
           tabBarIcon: ({ color, size }) => <Dumbbell color={color} size={size - 2} />,
-        }}
-      />
-      <Tabs.Screen
-        name="calm"
-        options={{
-          title: 'Calm',
-          href: shown('calm'),
-          tabBarIcon: ({ color, size }) => <HeartPulse color={color} size={size - 2} />,
         }}
       />
       <Tabs.Screen

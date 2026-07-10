@@ -3,24 +3,16 @@
  * be trusted to do calorie/time math reliably, so logging and profile edits are
  * extracted deterministically here, applied to the stores, and confirmed by the
  * coach. The model still handles open-ended conversation.
- *
- * It also flags emotional distress so the coach can respond by helping the user
- * calm down first (a short, natural line drawing on simple Buddhist practice)
- * rather than firing off advice.
  */
 
 export type CoachAction =
   | { type: 'meal'; calories: number; proteinG: number; label: string }
   | { type: 'walk'; minutes: number; distanceKm: number }
   | { type: 'workout'; minutes: number; label: string }
-  | { type: 'sleep'; hours: number }
   | { type: 'water'; ml: number }
-  | { type: 'targetWeight'; kg: number }
-  | { type: 'focus'; mode: 'calm' | 'wellness' };
+  | { type: 'targetWeight'; kg: number };
 
 export interface ParsedCoach {
-  /** A short calming reply when the user sounds distressed. */
-  calm?: string;
   /** Data changes to apply to the stores. */
   actions: CoachAction[];
   /** Request to save the coach's last suggested plan to Workouts or Meals. */
@@ -55,24 +47,6 @@ function parseDistanceKm(text: string): number | undefined {
   return undefined;
 }
 
-const DISTRESS =
-  /(stress|stressed|anxious|anxiety|overwhelm|panic|can'?t sleep|cant sleep|can'?t cope|depress|hopeless|worthless|so sad|feeling sad|feeling down|angry|furious|upset|worried|burn(?:t|ed)? out|burnout|frustrat|lonely|crying|breaking down|falling apart|exhausted and)/i;
-
-const CALM_LINES = [
-  "That sounds heavy. Before anything else, let's take one slow breath together — in through the nose… and slowly out. You don't have to carry it all at once. 🌿",
-  "I hear you. Feelings move through us like clouds across the sky — real, but passing. Want to open Calm and breathe for a minute? I'll be right here.",
-  "Be gentle with yourself right now. This moment is hard, and like everything, it will change. One breath in… one breath out. That's enough for now.",
-  "Let's pause together. You are not your thoughts — only the quiet awareness noticing them. A short breathing space might steady things. Shall we?",
-  "Take a moment. Nothing needs solving this second. Soften your shoulders, unclench your jaw, and let this out-breath be a little longer than the in-breath.",
-];
-
-/** Pick a stable calm line from the message so it doesn't feel random-random. */
-function calmLine(text: string): string {
-  let h = 0;
-  for (let i = 0; i < text.length; i++) h = (h + text.charCodeAt(i)) % CALM_LINES.length;
-  return CALM_LINES[h];
-}
-
 export function parseCoachActions(raw: string): ParsedCoach {
   const text = ` ${raw.toLowerCase()} `;
   const actions: CoachAction[] = [];
@@ -93,17 +67,6 @@ export function parseCoachActions(raw: string): ParsedCoach {
     if (/meal|food|diet|nutrition|eating/.test(text)) return { actions: [], savePlan: 'meal' };
   }
 
-  // --- Switch the app focus (calm-only vs full wellness) ----------------
-  const focusCtx = /\b(app|focus|mode|switch|make|turn|set|only|just)\b/.test(text);
-  if (focusCtx) {
-    if (/only calm|just calm|calm only|calm mode|calm focus|no (wellness|fitness|nutrition|diet)|focus on calm|only (the )?calm|calm.only/.test(text)) {
-      return { actions: [{ type: 'focus', mode: 'calm' }] };
-    }
-    if (/wellness mode|full (app|experience)|switch to wellness|turn on wellness|wellness focus|bring back|add (fitness|nutrition|wellness|meals|workouts)/.test(text)) {
-      return { actions: [{ type: 'focus', mode: 'wellness' }] };
-    }
-  }
-
   // --- Target weight change ---------------------------------------------
   // Only when clearly about a goal/target weight, to avoid catching other numbers.
   const targetCtx =
@@ -118,12 +81,6 @@ export function parseCoachActions(raw: string): ParsedCoach {
     if (value && value >= 30 && value <= 250) {
       actions.push({ type: 'targetWeight', kg: Math.round(value) });
     }
-  }
-
-  // --- Sleep ------------------------------------------------------------
-  if (!isQuestion && /\bslept\b|\bsleep\b|\bwoke up\b|hours? of sleep/.test(text)) {
-    const h = num(text, /(\d+(?:\.\d+)?)\s*(?:hours?|hrs?|h)\b/);
-    if (h && h > 0 && h <= 16) actions.push({ type: 'sleep', hours: +h.toFixed(1) });
   }
 
   // --- Water ------------------------------------------------------------
@@ -188,10 +145,7 @@ export function parseCoachActions(raw: string): ParsedCoach {
     actions.push({ type: 'meal', calories, proteinG, label });
   }
 
-  const parsed: ParsedCoach = { actions };
-  // Only lead with calm if the user is venting rather than logging data.
-  if (actions.length === 0 && DISTRESS.test(text)) parsed.calm = calmLine(raw);
-  return parsed;
+  return { actions };
 }
 
 /** A short, natural confirmation for what was just logged. */
@@ -219,16 +173,10 @@ function phrase(a: CoachAction): string {
         : `logged a ${a.minutes}-min walk`;
     case 'workout':
       return `logged ${a.minutes} min of ${a.label}`;
-    case 'sleep':
-      return `logged ${a.hours}h of sleep`;
     case 'water':
       return `logged ${a.ml} ml of water`;
     case 'targetWeight':
       return `set your target weight to ${a.kg} kg and refreshed your plan`;
-    case 'focus':
-      return a.mode === 'calm'
-        ? 'switched the app to Calm-only — nutrition and fitness are tucked away'
-        : 'switched the app back to full Wellness';
   }
 }
 

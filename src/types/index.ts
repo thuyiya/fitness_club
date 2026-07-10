@@ -1,4 +1,4 @@
-/** Shared domain types for Solace. */
+/** Shared domain types for Nutrition + Fitness. */
 
 export type Goal = 'lose' | 'gain' | 'maintain';
 export type Gender = 'male' | 'female' | 'other';
@@ -192,33 +192,7 @@ export interface DailyLog {
   steps: number;
   /** Distance covered from walking/running, in kilometers. */
   distanceKm: number;
-  /** Hours slept last night (a nightly value, not additive). Kept in sync
-   * with bedTime/wakeTime when both are set. */
-  sleepHours: number;
-  /** Self-rated rest quality, 1 (poor) – 5 (excellent). */
-  sleepQuality?: number;
-  /** Time the user went to bed, "HH:MM" 24-hour. */
-  bedTime?: string;
-  /** Time the user woke up, "HH:MM" 24-hour. */
-  wakeTime?: string;
-  /** Optional free-text note about the night's sleep. */
-  sleepNote?: string;
 }
-
-/** The sleep-relevant slice of a DailyLog, used for history/trend views. */
-export interface SleepNight {
-  date: string; // YYYY-MM-DD
-  sleepHours: number;
-  sleepQuality?: number;
-  bedTime?: string;
-  wakeTime?: string;
-  sleepNote?: string;
-}
-
-/** Fields the sleep editor can write. sleepHours is derived when bed/wake set. */
-export type SleepDetails = Partial<
-  Pick<DailyLog, 'sleepHours' | 'sleepQuality' | 'bedTime' | 'wakeTime' | 'sleepNote'>
->;
 
 export interface ChatMessage {
   id: string;

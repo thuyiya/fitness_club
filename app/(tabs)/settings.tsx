@@ -6,7 +6,6 @@ import {
   Bell,
   ChevronRight,
   Cloud,
-  Compass,
   Download,
   FileText,
   Heart,
@@ -31,7 +30,6 @@ import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
 import {
   DataMode,
-  FocusMode,
   MAX_TABS,
   TAB_META,
   ThemePreference,
@@ -52,8 +50,6 @@ export default function Settings() {
     setTheme,
     units,
     setUnits,
-    focus,
-    setFocus,
     dataMode,
     setDataMode,
     tabBar,
@@ -145,37 +141,6 @@ export default function Settings() {
               { label: 'Glass', value: 'glass' },
             ]}
           />
-        </Card>
-      </FadeInView>
-
-      {/* Focus */}
-      <FadeInView delay={80}>
-        <SectionHeader title="Focus" subtitle="What the app is tuned around" />
-        <Card>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: theme.spacing.md,
-              marginBottom: theme.spacing.sm,
-            }}
-          >
-            <Compass size={20} color={theme.colors.primary} />
-            <Text variant="callout" style={{ flex: 1 }}>Main focus</Text>
-          </View>
-          <SegmentedControl<FocusMode>
-            value={focus}
-            onChange={setFocus}
-            options={[
-              { label: 'Calm', value: 'calm' },
-              { label: 'Wellness', value: 'wellness' },
-            ]}
-          />
-          <Text variant="caption" color="textTertiary" style={{ marginTop: theme.spacing.sm }}>
-            {focus === 'calm'
-              ? 'Calm keeps only the mind-relaxation tabs.'
-              : 'Wellness unlocks nutrition, workouts and full progress.'}
-          </Text>
         </Card>
       </FadeInView>
 
@@ -337,10 +302,10 @@ export default function Settings() {
 
       <View style={{ height: theme.spacing.xl }} />
       <Text variant="caption" color="textTertiary" center>
-        Solace · v1.0.0
+        Nutrition + Fitness · v1.0.0
       </Text>
       <Text variant="caption" color="textTertiary" center style={{ marginTop: 4 }}>
-        Made with 💙 for your health
+        Made with 🧡 for your health
       </Text>
     </Screen>
   );
