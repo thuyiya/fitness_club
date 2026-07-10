@@ -14,13 +14,18 @@
       "resizeMode": "contain",
       "backgroundColor": "#EAEED0"
     },
-    "assetBundlePatterns": ["assets/**"],
+    "assetBundlePatterns": [
+      "assets/**"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.glitchfy.solace",
+      "bundleIdentifier": "com.glitchfy.solaceapp",
       "infoPlist": {
-        "UIBackgroundModes": ["audio"],
-        "UIViewControllerBasedStatusBarAppearance": false
+        "UIBackgroundModes": [
+          "audio"
+        ],
+        "UIViewControllerBasedStatusBarAppearance": false,
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -63,6 +68,12 @@
       "eas": {
         "projectId": "54075fd3-fcf3-4fab-8af4-6aa13ab55449"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/54075fd3-fcf3-4fab-8af4-6aa13ab55449"
     }
   }
 }
