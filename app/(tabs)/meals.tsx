@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import { router } from 'expo-router';
+import { zustandStorage } from '@/store/storage';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { Check, Plus, RefreshCw, ShoppingCart } from 'lucide-react-native';
@@ -44,7 +46,16 @@ export default function Meals() {
     [plan, profile, seed],
   );
 
-  const [meals, setMeals] = useState<Meal[]>(() => generateDay(opts));
+  const planKey = JSON.stringify([opts.calories, opts.diet, opts.allergies]);
+  const [meals, setMeals] = useState<Meal[]>(() => {
+    try { const saved = JSON.parse(zustandStorage.getItem('daily-meal-plan') as string || 'null'); if (saved?.key === planKey) return saved.meals; } catch {}
+    return generateDay(opts);
+  });
+  const previousKey = React.useRef(planKey);
+  useEffect(() => {
+    if (previousKey.current !== planKey) { previousKey.current = planKey; setMeals(generateDay(opts)); setLogged({}); }
+  }, [planKey]);
+  useEffect(() => { zustandStorage.setItem('daily-meal-plan', JSON.stringify({ key: planKey, meals })); setGrocery(buildGroceryList(meals)); }, [meals]);
   const [logged, setLogged] = useState<Record<string, boolean>>({});
   const [grocery, setGrocery] = useState<GroceryItem[]>(() => buildGroceryList(meals));
 
@@ -90,6 +101,8 @@ export default function Meals() {
     return map;
   }, [grocery]);
 
+  if (!profile || !plan) return <Screen><Text variant="largeTitle">Your meal plan</Text><Text color="textSecondary" style={{ marginVertical: 20 }}>Add your health profile so meals can match your goal and preferences.</Text><PillButton label="Set up my profile" onPress={() => router.push('/onboarding')}/></Screen>;
+
   return (
     <Screen>
       <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
@@ -99,6 +112,10 @@ export default function Meals() {
         </Text>
       </View>
 
+      <PillButton label="Build with AI coach" onPress={() => router.push('/coach?intent=meal')} style={{ marginBottom: 12 }}/>
+      <PillButton label="Log a meal photo" variant="secondary" onPress={() => router.push('/photo-log?kind=meal')} style={{ marginBottom: 20 }}/>
+      <Text variant="caption" color="textSecondary" style={{ marginBottom: 16 }}>Your daily menu is assembled on this device. Use the AI coach for a custom plan.</Text>
+      {meals.length < 4 && <Text color="warning" style={{ marginBottom: 16 }}>Some meal slots have no matching recipes. Review your preferences or ask your coach for alternatives.</Text>}
       <CoachPlans kind="meal" />
 
       <SegmentedControl<Tab>

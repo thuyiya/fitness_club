@@ -1,3 +1,4 @@
+import { HealthBootstrap } from '@/components/HealthBootstrap';
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -56,6 +57,7 @@ function StackNavigator() {
       {/* Auto-start / reattach the background model download. Progress is shown
           as a ring around the Lumora tab icon and in-chat — no overlay. */}
       <AiBootstrap />
+      <HealthBootstrap />
     </>
   );
 }
@@ -67,8 +69,6 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      {/* Note: the OS "Reduce Motion" setting is neutralised in index.js so the
-          ring/chart animations always play — see the comment there. */}
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
           <ThemeProvider>

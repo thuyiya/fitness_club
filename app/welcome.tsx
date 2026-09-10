@@ -6,7 +6,6 @@ import { router } from 'expo-router';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import {
   Check,
-  Cloud,
   CloudOff,
   Moon,
   Sparkles,
@@ -29,7 +28,7 @@ import {
 /**
  * First-launch app setup — two quick choices that shape the whole experience:
  *   1. Theme (dark / light / glass), applied live so the screen previews itself.
- *   2. Data (offline vs cloud).
+ *   2. Private offline storage.
  * All of these are editable later from Settings.
  */
 
@@ -40,8 +39,8 @@ const THEME_OPTIONS: {
   colors: ThemeColors;
   icon: React.ReactNode;
 }[] = [
-  { value: 'dark', label: 'Dark', hint: 'Charcoal & ember', colors: darkColors, icon: <Moon size={18} color="#fff" /> },
-  { value: 'light', label: 'Light', hint: 'Warm stone', colors: lightColors, icon: <Sun size={18} color="#fff" /> },
+  { value: 'dark', label: 'Dark', hint: 'Midnight & violet', colors: darkColors, icon: <Moon size={18} color="#fff" /> },
+  { value: 'light', label: 'Light', hint: 'Clean & luminous', colors: lightColors, icon: <Sun size={18} color="#fff" /> },
   { value: 'glass', label: 'Glass', hint: 'Frosted & translucent', colors: glassColors, icon: <Sparkles size={18} color="#fff" /> },
 ];
 
@@ -57,12 +56,7 @@ const DATA_OPTIONS: {
     desc: 'Everything stays on this device. Private by default, no account.',
     icon: (c) => <CloudOff size={24} color={c} />,
   },
-  {
-    value: 'cloud',
-    title: 'Connect to cloud',
-    desc: 'Back up your journey and sync it across your devices.',
-    icon: (c) => <Cloud size={24} color={c} />,
-  },
+
 ];
 
 const STEPS = 2;
@@ -243,8 +237,8 @@ function DataStep({ selected, onSelect }: { selected: DataMode; onSelect: (v: Da
     <View>
       <StepHeader
         eyebrow="YOUR DATA"
-        title="Cloud or offline?"
-        subtitle="Decide where your information lives. Nothing is shared without you."
+        title="Your health stays with you"
+        subtitle="Your plans and journals live on this device. No account needed."
       />
       <View style={{ gap: theme.spacing.md }}>
         {DATA_OPTIONS.map((opt) => (

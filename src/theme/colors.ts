@@ -1,18 +1,11 @@
-/**
- * Color system for Nutrition + Fitness — the "Ember" palette: deep warm
- * charcoal neutrals with vibrant orange-amber accents.
- * Three themes share the same semantic tokens so components never touch raw hex:
- *   • light — warm stone off-white, charcoal text
- *   • dark  — near-black warm charcoal, ember accents (the default)
- *   • glass — frosted translucent surfaces over a warm charcoal backdrop
- */
+/** Violet and cyan accents over cool, quiet surfaces. */
 
 export const palette = {
-  primary: '#F97316',
-  primaryLight: '#FB923C',
-  primaryDark: '#C2410C',
-  secondary: '#F59E0B',
-  secondaryLight: '#FBBF24',
+  primary: '#8B5CF6',
+  primaryLight: '#A78BFA',
+  primaryDark: '#6D28D9',
+  secondary: '#22D3EE',
+  secondaryLight: '#67E8F9',
   success: '#4CAF6E',
   successLight: '#77D69A',
   warning: '#D99A34',
@@ -88,85 +81,85 @@ const brightAccents = {
 
 export const lightColors: ThemeColors = {
   // Darker ember shades so text/icons on white keep AA contrast.
-  primary: '#C2410C',
-  primaryLight: '#F97316',
-  primaryDark: '#9A3412',
-  secondary: '#B45309',
-  secondaryLight: '#F59E0B',
+  primary: '#6D28D9',
+  primaryLight: '#8B5CF6',
+  primaryDark: '#5B21B6',
+  secondary: '#0E7490',
+  secondaryLight: '#22D3EE',
   ...softAccents,
 
-  background: '#FAFAF9',
+  background: '#F6F7FC',
   backgroundElevated: '#FFFFFF',
   surface: '#FFFFFF',
   surfaceGlass: 'rgba(255,255,255,0.72)',
   card: '#FFFFFF',
   cardBorder: 'rgba(41,37,36,0.10)',
 
-  text: '#292524',
-  textSecondary: '#57534E',
-  textTertiary: '#78716C',
+  text: '#182039',
+  textSecondary: '#525C76',
+  textTertiary: '#68738D',
   textInverse: '#FFFFFF',
 
   separator: 'rgba(41,37,36,0.10)',
   overlay: 'rgba(28,25,23,0.40)',
 
-  gradientStart: '#F6EEE6',
-  gradientEnd: '#FAFAF9',
-  shadow: '#292524',
+  gradientStart: '#EFEBFF',
+  gradientEnd: '#F6F7FC',
+  shadow: '#182039',
 };
 
 export const darkColors: ThemeColors = {
   primary: palette.primaryLight,
-  primaryLight: '#FDBA74',
+  primaryLight: '#C4B5FD',
   primaryDark: palette.primary,
   secondary: palette.secondaryLight,
-  secondaryLight: '#FCD34D',
+  secondaryLight: '#67E8F9',
   ...brightAccents,
 
-  background: '#151312',
-  backgroundElevated: '#211D1A',
-  surface: '#211D1A',
-  surfaceGlass: 'rgba(33,29,26,0.72)',
-  card: 'rgba(33,29,26,0.90)',
+  background: '#0B1020',
+  backgroundElevated: '#151D33',
+  surface: '#151D33',
+  surfaceGlass: 'rgba(21,29,51,0.72)',
+  card: 'rgba(21,29,51,0.90)',
   cardBorder: 'rgba(255,255,255,0.12)',
 
-  text: '#F5F1EC',
-  textSecondary: '#CFC7BE',
-  textTertiary: '#968C82',
-  textInverse: '#1C1917',
+  text: '#F2F4FF',
+  textSecondary: '#B9C4DE',
+  textTertiary: '#8C9AB8',
+  textInverse: '#10172B',
 
   separator: 'rgba(255,255,255,0.10)',
   overlay: 'rgba(0,0,0,0.60)',
 
-  gradientStart: '#1C1917',
-  gradientEnd: '#120F0D',
+  gradientStart: '#10172B',
+  gradientEnd: '#090D19',
   shadow: '#000000',
 };
 
 export const glassColors: ThemeColors = {
-  primary: '#FDBA74',
-  primaryLight: '#FED7AA',
-  primaryDark: '#FB923C',
-  secondary: '#FCD34D',
-  secondaryLight: '#FDE68A',
+  primary: '#C4B5FD',
+  primaryLight: '#DDD6FE',
+  primaryDark: '#A78BFA',
+  secondary: '#67E8F9',
+  secondaryLight: '#A5F3FC',
   ...brightAccents,
 
-  background: '#201A16',
+  background: '#10172B',
   backgroundElevated: 'rgba(255,255,255,0.10)',
   surface: 'rgba(255,255,255,0.08)',
   surfaceGlass: 'rgba(255,255,255,0.12)',
   card: 'rgba(255,255,255,0.09)',
   cardBorder: 'rgba(255,255,255,0.20)',
 
-  text: '#F7F2EC',
-  textSecondary: 'rgba(247,242,236,0.82)',
-  textTertiary: 'rgba(247,242,236,0.58)',
-  textInverse: '#201510',
+  text: '#F2F4FF',
+  textSecondary: 'rgba(242,244,255,0.82)',
+  textTertiary: 'rgba(242,244,255,0.58)',
+  textInverse: '#10172B',
 
   separator: 'rgba(255,255,255,0.16)',
   overlay: 'rgba(0,0,0,0.50)',
 
-  gradientStart: '#362518',
-  gradientEnd: '#17110D',
+  gradientStart: '#231C46',
+  gradientEnd: '#0C1628',
   shadow: '#000000',
 };

@@ -1,7 +1,9 @@
+import { TodayExercise } from '@/components/TodayExercise';
+import { HealthProgress } from '@/components/HealthProgress';
 import React, { useMemo, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Href, Redirect, router } from 'expo-router';
+import { router } from 'expo-router';
 import {
   ArrowRight,
   Droplets,
@@ -36,7 +38,6 @@ export default function Dashboard() {
   const plan = useUserStore((s) => s.plan);
   const log = useLogStore((s) => s.today());
   const units = useSettingsStore((s) => s.units);
-  const tabBar = useSettingsStore((s) => s.tabBar);
 
   const headlines = useMemo(
     () => (profile && plan ? coachHeadlines(profile, plan) : []),
@@ -50,18 +51,6 @@ export default function Dashboard() {
   }, [profile, plan]);
   const [headlineIdx] = useState(() => Math.floor(Date.now() / 86400000) % 4);
 
-  // If Home isn't in the customized tab bar, hand off to the first visible tab.
-  if (!tabBar.includes('index')) {
-    const routes: Record<string, Href> = {
-      meals: '/(tabs)/meals',
-      workouts: '/(tabs)/workouts',
-      progress: '/(tabs)/progress',
-      coach: '/(tabs)/coach',
-      settings: '/(tabs)/settings',
-    };
-    return <Redirect href={routes[tabBar[0]] ?? '/(tabs)/progress'} />;
-  }
-
   // Before the health questionnaire, we don't invent numbers — the goal, rings
   // and plan sections stay hidden behind a gentle prompt to set up the profile.
   if (!profile || !plan) {
@@ -74,7 +63,7 @@ export default function Dashboard() {
             </Text>
             <Text variant="largeTitle">Welcome to Nutrition + Fitness 👋</Text>
             <Text variant="footnote" color="textTertiary" style={{ marginTop: 2 }}>
-              Eat well · train smart
+              Nutrition · Fitness · Health
             </Text>
           </View>
         </FadeInView>
@@ -219,11 +208,13 @@ export default function Dashboard() {
           </Text>
           <Text variant="largeTitle">{profile.name} 👋</Text>
           <Text variant="footnote" color="textTertiary" style={{ marginTop: 2 }}>
-            Eat well · train smart
+            Nutrition · Fitness · Health
           </Text>
         </View>
       </FadeInView>
 
+      <TodayExercise />
+      <HealthProgress compact />
       {/* Goal card */}
       <FadeInView delay={80}>
         <GoalCard
@@ -255,7 +246,7 @@ export default function Dashboard() {
           />
           <QuickAction
             label="Coach"
-            hint="Ask Lumora"
+            hint="On-device AI"
             color={theme.colors.primary}
             icon={<Sparkles size={22} color={theme.colors.primary} />}
             onPress={() => router.push('/coach')}
@@ -265,7 +256,7 @@ export default function Dashboard() {
 
       {/* Rings */}
       <FadeInView delay={160}>
-        <SectionHeader title="Today's Rings" subtitle="Tap Meals & Workouts to log" />
+        <SectionHeader title="Today's Rings" subtitle="Tap + to log your day" />
         <GlassCard>
           <View
             style={{

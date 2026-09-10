@@ -1,3 +1,6 @@
+import { TodayExercise } from '@/components/TodayExercise';
+import { HealthProgress } from '@/components/HealthProgress';
+import { router } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Activity, Flame, Heart, Lock } from 'lucide-react-native';
@@ -9,6 +12,7 @@ import {
   GlassCard,
   ProgressRing,
   Screen,
+  PillButton,
   SectionHeader,
   SegmentedControl,
   Text,
@@ -68,6 +72,9 @@ export default function Progress() {
   if (!profile || !plan) {
     return (
       <Screen>
+      <HealthProgress />
+      <TodayExercise />
+      <PillButton label="Progress photo journal" onPress={() => router.push('/photo-log?kind=progress')} style={{ marginBottom: 16 }}/>
         <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
           <Text variant="largeTitle">Progress</Text>
           <Text variant="subhead" color="textTertiary">Your journey, measured</Text>
@@ -119,6 +126,9 @@ export default function Progress() {
 
   return (
     <Screen>
+      <HealthProgress />
+      <TodayExercise />
+      <PillButton label="Progress photo journal" onPress={() => router.push('/photo-log?kind=progress')} style={{ marginBottom: 16 }}/>
       <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
         <Text variant="largeTitle">Progress</Text>
         <Text variant="subhead" color="textTertiary">Your journey, measured</Text>

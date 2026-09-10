@@ -1,3 +1,4 @@
+import { HealthProgress } from '@/components/HealthProgress';
 import React from 'react';
 import { Alert, Linking, Pressable, Switch, View } from 'react-native';
 import { router } from 'expo-router';
@@ -5,7 +6,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {
   Bell,
   ChevronRight,
-  Cloud,
   Download,
   FileText,
   Heart,
@@ -29,9 +29,6 @@ import {
 import { useTheme } from '@/theme';
 import { useUserStore } from '@/store/userStore';
 import {
-  DataMode,
-  MAX_TABS,
-  TAB_META,
   ThemePreference,
   useSettingsStore,
 } from '@/store/settingsStore';
@@ -39,7 +36,7 @@ import { useAiCoachStore } from '@/store/aiCoachStore';
 import { MeasurementUnit } from '@/types';
 import { formatHeight, formatWeight } from '@/lib/format';
 import { MODEL } from '@/lib/llm/config';
-import { LEGAL } from '@/lib/links';
+
 
 export default function Settings() {
   const theme = useTheme();
@@ -50,10 +47,6 @@ export default function Settings() {
     setTheme,
     units,
     setUnits,
-    dataMode,
-    setDataMode,
-    tabBar,
-    toggleTab,
     notifications,
     toggleNotification,
     connectedHealth,
@@ -62,8 +55,8 @@ export default function Settings() {
 
   const deleteAccount = () => {
     Alert.alert(
-      'Delete Account',
-      'This erases all data stored on this device and cannot be undone.\n\nIf you have used a cloud feature and want that data removed too, open the online deletion page.',
+      'Reset health profile',
+      'This resets your health profile and goals. Your saved logs and plans remain on this device.',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -74,7 +67,7 @@ export default function Settings() {
             router.replace('/(tabs)');
           },
         },
-        { text: 'Online request', onPress: () => Linking.openURL(LEGAL.dataDeletion) },
+
       ],
     );
   };
@@ -144,59 +137,6 @@ export default function Settings() {
         </Card>
       </FadeInView>
 
-      {/* Tab bar customization */}
-      <FadeInView delay={90}>
-        <SectionHeader
-          title="Tab bar"
-          subtitle={`Choose up to ${MAX_TABS} · ${tabBar.length}/${MAX_TABS} shown`}
-        />
-        <GlassCard padded={false}>
-          {TAB_META.map((t, i) => {
-            const on = tabBar.includes(t.key);
-            const atMax = !on && tabBar.length >= MAX_TABS;
-            return (
-              <View
-                key={t.key}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: theme.spacing.md,
-                  padding: theme.spacing.md,
-                  borderTopWidth: i === 0 ? 0 : 1,
-                  borderTopColor: theme.colors.separator,
-                }}
-              >
-                <View
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: 5,
-                    backgroundColor: on ? theme.colors.primary : theme.colors.separator,
-                  }}
-                />
-                <Text variant="callout" style={{ flex: 1 }} color={on ? 'text' : 'textTertiary'}>
-                  {t.label}
-                </Text>
-                {t.locked ? (
-                  <Text variant="caption" color="textTertiary">Always on</Text>
-                ) : (
-                  <Switch
-                    value={on}
-                    disabled={atMax}
-                    onValueChange={() => toggleTab(t.key)}
-                    trackColor={{ true: theme.colors.primary, false: theme.colors.separator }}
-                    thumbColor="#fff"
-                  />
-                )}
-              </View>
-            );
-          })}
-        </GlassCard>
-        <Text variant="caption" color="textTertiary" style={{ marginTop: theme.spacing.sm }}>
-          Home, Meals and Workouts can also be reached from Home when hidden.
-        </Text>
-      </FadeInView>
-
       {/* Units */}
       <FadeInView delay={100}>
         <SectionHeader title="Units" />
@@ -216,36 +156,8 @@ export default function Settings() {
         </Card>
       </FadeInView>
 
-      {/* Data */}
-      <FadeInView delay={120}>
-        <SectionHeader title="Data" subtitle="Where your information lives" />
-        <Card>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: theme.spacing.md,
-              marginBottom: theme.spacing.sm,
-            }}
-          >
-            <Cloud size={20} color={theme.colors.secondary} />
-            <Text variant="callout" style={{ flex: 1 }}>Sync</Text>
-          </View>
-          <SegmentedControl<DataMode>
-            value={dataMode}
-            onChange={setDataMode}
-            options={[
-              { label: 'Offline', value: 'offline' },
-              { label: 'Cloud', value: 'cloud' },
-            ]}
-          />
-          <Text variant="caption" color="textTertiary" style={{ marginTop: theme.spacing.sm }}>
-            {dataMode === 'offline'
-              ? 'Everything stays on this device.'
-              : 'Your journey is backed up and synced.'}
-          </Text>
-        </Card>
-      </FadeInView>
+      <SectionHeader title="Private by design" />
+      <Card><Text variant="headline">Stored on this device</Text><Text variant="footnote" color="textSecondary" style={{ marginTop: 8 }}>Plans, meal logs and progress photos stay offline. Download the AI model once to use your coach without internet.</Text></Card>
 
       {/* Notifications */}
       <FadeInView delay={140}>
@@ -260,15 +172,7 @@ export default function Settings() {
         </GlassCard>
       </FadeInView>
 
-      {/* Integrations */}
-      <FadeInView delay={180}>
-        <SectionHeader title="Health Integrations" />
-        <GlassCard padded={false}>
-          <ToggleRow icon={<Text style={{ fontSize: 20 }}>🍎</Text>} label="Apple Health" value={connectedHealth.apple} onToggle={() => toggleHealth('apple')} first />
-          <ToggleRow icon={<Text style={{ fontSize: 20 }}>🤖</Text>} label="Google Fit" value={connectedHealth.google} onToggle={() => toggleHealth('google')} />
-          <ToggleRow icon={<Text style={{ fontSize: 20 }}>📱</Text>} label="Samsung Health" value={connectedHealth.samsung} onToggle={() => toggleHealth('samsung')} />
-        </GlassCard>
-      </FadeInView>
+      <HealthProgress />
 
       {/* On-device coach */}
       <AIModelSection />
@@ -277,10 +181,6 @@ export default function Settings() {
       <FadeInView delay={240}>
         <SectionHeader title="Data & Privacy" />
         <GlassCard padded={false}>
-          <NavRow icon={<Shield size={20} color={theme.colors.primary} />} label="Privacy Policy" onPress={() => Linking.openURL(LEGAL.privacy)} first />
-          <NavRow icon={<FileText size={20} color={theme.colors.secondary} />} label="Terms of Service" onPress={() => Linking.openURL(LEGAL.terms)} />
-          <NavRow icon={<Download size={20} color={theme.colors.success} />} label="Export Data (PDF)" />
-          <NavRow icon={<Upload size={20} color={theme.colors.secondary} />} label="Backup & Restore" />
           <Pressable onPress={deleteAccount}>
             <View
               style={{
@@ -293,7 +193,7 @@ export default function Settings() {
               }}
             >
               <Trash2 size={20} color={theme.colors.danger} />
-              <Text variant="callout" color="danger" style={{ flex: 1 }}>Delete Account</Text>
+              <Text variant="callout" color="danger" style={{ flex: 1 }}>Reset health profile</Text>
               <ChevronRight size={18} color={theme.colors.danger} />
             </View>
           </Pressable>

@@ -1,3 +1,4 @@
+import { TodayExercise } from '@/components/TodayExercise';
 import React, { useMemo, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { Redirect } from 'expo-router';
@@ -64,10 +65,11 @@ export default function Workouts() {
       <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.md }}>
         <Text variant="largeTitle">Workouts</Text>
         <Text variant="subhead" color="textTertiary">
-          {profile?.workoutDaysPerWeek}× / week · {plan?.targets.workoutMinutes}min today
+          {profile?.workoutDaysPerWeek}× / week · {plan?.targets.workoutMinutes}min baseline
         </Text>
       </View>
 
+      <TodayExercise />
       <CoachPlans kind="workout" />
 
       <ScrollView
@@ -195,7 +197,7 @@ function WorkoutCard({
       >
         {done ? <Check size={18} color="#fff" /> : <Plus size={18} color="#fff" />}
         <Text variant="headline" color="textInverse">
-          {done ? 'Completed' : 'Start & Log'}
+          {done ? 'Completed' : 'Log completed workout'}
         </Text>
       </Pressable>
     </ExpandableCard>

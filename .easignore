@@ -1,3 +1,43 @@
-# Media assets are served from Supabase Storage (see media/README.md), not
-# bundled. Keep them out of the EAS build archive so uploads stay small.
-media/
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native (managed workflow — EAS runs prebuild, so don't commit generated projects)
+/ios/
+/android/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.keystore
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+
+# env
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# Build artifacts (regenerable; never commit — exceed GitHub size limits)
+*.aab
+*.apk
+
+# Local validation and release notes
+output/

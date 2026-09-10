@@ -17,7 +17,7 @@ import { useSettingsStore } from '@/store/settingsStore';
 
 const MARK = require('../assets/logo-mark.png');
 
-/** Ember-brand splash: gently pulsing mark on warm charcoal, then into the app
+/** Nutrition + Fitness splash: gently pulsing mark on midnight navy, then into the app
  *  (or the one-time intro on the very first launch). */
 export default function Splash() {
   const welcomeSeen = useSettingsStore((s) => s.welcomeSeen);
@@ -48,7 +48,7 @@ export default function Splash() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#25201C', '#1C1917', '#120F0D']}
+        colors={['#0B1020', '#0B1020', '#0B1020']}
         style={StyleSheet.absoluteFill}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -63,8 +63,8 @@ export default function Splash() {
       </View>
 
       <Animated.View entering={FadeIn.delay(500).duration(800)} style={styles.textWrap}>
-        <Text variant="title3" center style={{ color: '#FB923C' }}>
-          Let’s build your strength
+        <Text variant="title3" center style={{ color: '#A78BFA' }}>
+          Nutrition + Fitness
         </Text>
       </Animated.View>
     </View>
@@ -115,7 +115,7 @@ function Particle({ index }: { index: number }) {
           width: size,
           height: size,
           borderRadius: size,
-          backgroundColor: '#F97316',
+          backgroundColor: '#67E8F9',
         },
         style,
       ]}
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     width: 170,
     height: 170,
     borderRadius: 85,
-    backgroundColor: 'rgba(249,115,22,0.20)',
+    backgroundColor: 'rgba(139,92,246,0.16)',
   },
-  mark: { width: 84, height: 84 },
+  mark: { width: 144, height: 144 },
 });

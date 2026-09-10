@@ -60,8 +60,7 @@ export function generateDay(opts: GenerateOptions): Meal[] {
       const eligible = MEAL_LIBRARY.filter(
         (m) => m.type === type && matchesDiet(m, opts.diet) && !hasAllergen(m, opts.allergies),
       );
-      const fallback = MEAL_LIBRARY.filter((m) => m.type === type);
-      const chosen = pick(eligible.length ? eligible : fallback, seed + i);
+      const chosen = pick(eligible, seed + i);
       if (!chosen) return null;
       return scaleMeal(chosen, opts.calories * SPLIT[type]);
     })

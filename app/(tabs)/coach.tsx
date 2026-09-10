@@ -1,3 +1,4 @@
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
@@ -57,7 +58,9 @@ export default function Coach() {
       createdAt: Date.now(),
     },
   ]);
+  const { intent } = useLocalSearchParams<{ intent?: string }>();
   const [input, setInput] = useState('');
+  useEffect(() => { if (intent) setInput(intent === 'workout' ? 'Build an exercise plan around my goal, experience and available equipment.' : 'Build a meal plan around my goal, diet and allergies.'); }, [intent]);
   const [busy, setBusy] = useState(false);
   const [kbVisible, setKbVisible] = useState(false);
 
@@ -98,13 +101,13 @@ export default function Coach() {
     const lastCoach = [...messages].reverse().find((m) => m.role === 'coach' && m.text.length > 60);
     if (!lastCoach) {
       pushCoach(
-        `Tell me what you'd like first — e.g. "make me a 3-day ${kind} plan" — then say "add it to my ${kind} plan" and I'll save it to your ${kind === 'workout' ? 'Workouts' : 'Meals'} tab. 🙂`,
+        `Tell me what you'd like first — e.g. "make me a 3-day ${kind} plan" — then say "add it to my ${kind} plan" and I'll save it to your ${kind === 'workout' ? 'Workouts' : 'Meals'} section. 🙂`,
       );
       return;
     }
     addPlan(kind, { title: planTitle(lastCoach.text, kind), body: lastCoach.text });
     pushCoach(
-      `Saved to your ${kind === 'workout' ? 'Workouts' : 'Meals'} tab under "From your coach". You can open it there anytime. ✅`,
+      `Saved to your ${kind === 'workout' ? 'Workouts' : 'Meals'} section under "From your coach". You can open it there anytime. ✅`,
     );
   };
 

@@ -6,31 +6,39 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "solace",
+    "scheme": "nutrition-fitness",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#1C1917"
+      "backgroundColor": "#0B1020"
     },
     "assetBundlePatterns": [
       "assets/**"
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.glitchfy.solaceapp",
+      "bundleIdentifier": "com.glitchfy.nutritionfitness",
       "infoPlist": {
         "UIViewControllerBasedStatusBarAppearance": false,
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "Capture meal and progress photos for your private health journal.",
+        "NSPhotoLibraryUsageDescription": "Choose meal and progress photos for your private health journal.",
+        "UIFileSharingEnabled": false,
+        "NSHealthShareUsageDescription": "Read your steps, active calories, exercise minutes, distance, workouts and weight to show your health progress. Health data stays on your device."
+      },
+      "entitlements": {
+        "com.apple.developer.healthkit": true
       }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1C1917"
+        "backgroundColor": "#0B1020"
       },
-      "package": "com.glitchfy.solace"
+      "package": "com.glitchfy.nutritionfitness",
+      "allowBackup": false
     },
     "web": {
       "bundler": "metro",
@@ -42,7 +50,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#1C1917",
+          "backgroundColor": "#0B1020",
           "image": "./assets/splash.png",
           "resizeMode": "contain"
         }
@@ -56,7 +64,15 @@
         }
       ],
       "expo-notifications",
-      "./plugins/withBackgroundDownloader"
+      "./plugins/withBackgroundDownloader",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose photos for your private meal and progress journal.",
+          "cameraPermission": "Capture photos for your private meal and progress journal.",
+          "microphonePermission": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
