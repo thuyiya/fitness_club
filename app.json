@@ -26,7 +26,8 @@
         "NSCameraUsageDescription": "Capture meal and progress photos for your private health journal.",
         "NSPhotoLibraryUsageDescription": "Choose meal and progress photos for your private health journal.",
         "UIFileSharingEnabled": false,
-        "NSHealthShareUsageDescription": "Read your steps, active calories, exercise minutes, distance, workouts and weight to show your health progress. Health data stays on your device."
+        "NSHealthShareUsageDescription": "Read your steps, active calories, exercise minutes, distance, workouts and weight to show your health progress. Health data stays on your device.",
+    "NSHealthUpdateUsageDescription": "Nutrition + Fitness does not write any data to Apple Health. This app only reads your health data to show your progress."
       },
       "entitlements": {
         "com.apple.developer.healthkit": true
