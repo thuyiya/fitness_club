@@ -1,5 +1,7 @@
 # Nutrition + Fitness — iOS release
 
+Apple Developer account: I VIDANELAGE THUSITHA PRADEEP MADHUSANKA JAYALATH
+
 App: Nutrition + Fitness
 Bundle ID: com.glitchfy.nutritionfitness
 Expo project: @glitchfy/fitness-club
@@ -42,3 +44,7 @@ EAS Submit uploads to App Store Connect/TestFlight; public release also requires
 ## Brand asset
 
 Built-in ImageGen edit of the existing leaf/dumbbell logo. Prompt: preserve the logo silhouette, replace orange with a violet-to-cyan gradient, use midnight navy background, no text or additional objects. Saved in assets/icon.png, assets/logo-mark.png, assets/splash.png, assets/adaptive-icon.png and assets/favicon.png.
+
+## Account verification — September 11, 2026
+
+App Store Connect displays the requested individual account. The Developer portal browser session currently lists other organizational teams; do not register this app there. EAS Apple authentication is waiting for two-factor verification before its teams can be checked. No app record, certificate or provisioning profile has been created during this release attempt.

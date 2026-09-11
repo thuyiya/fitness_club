@@ -1,0 +1,72 @@
+{
+  "name": {
+    "length": 19,
+    "unit": "characters",
+    "limit": 30
+  },
+  "subtitle": {
+    "length": 27,
+    "unit": "characters",
+    "limit": 30
+  },
+  "promotional-text": {
+    "length": 153,
+    "unit": "characters",
+    "limit": 170
+  },
+  "keywords": {
+    "length": 95,
+    "unit": "UTF-8 bytes",
+    "limit": 100
+  },
+  "description": {
+    "length": 2326,
+    "unit": "characters",
+    "limit": 4000
+  },
+  "review-notes": {
+    "length": 2801,
+    "unit": "characters",
+    "limit": 4000
+  },
+  "whats-new-optional": {
+    "length": 282,
+    "unit": "characters",
+    "limit": null
+  },
+  "testflight-what-to-test": {
+    "length": 859,
+    "unit": "characters",
+    "limit": null
+  },
+  "copyright": {
+    "length": 54,
+    "unit": "characters",
+    "limit": null
+  },
+  "primary-category": {
+    "length": 16,
+    "unit": "characters",
+    "limit": null
+  },
+  "bundle-id": {
+    "length": 29,
+    "unit": "characters",
+    "limit": null
+  },
+  "sku": {
+    "length": 21,
+    "unit": "characters",
+    "limit": null
+  },
+  "primary-language": {
+    "length": 14,
+    "unit": "characters",
+    "limit": null
+  },
+  "version": {
+    "length": 5,
+    "unit": "characters",
+    "limit": null
+  }
+}

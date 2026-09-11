@@ -1,3 +1,5 @@
+import { buildExerciseDay } from '@/lib/exercisePlan';
+import { useExerciseStore } from '@/store/exerciseStore';
 import { TodayExercise } from '@/components/TodayExercise';
 import { HealthProgress } from '@/components/HealthProgress';
 import React, { useMemo, useState } from 'react';
@@ -34,6 +36,7 @@ import { formatDate, formatWeight, greeting } from '@/lib/format';
 
 export default function Dashboard() {
   const theme = useTheme();
+  const exercisePreferences = useExerciseStore(s => s.preferences);
   const profile = useUserStore((s) => s.profile);
   const plan = useUserStore((s) => s.plan);
   const log = useLogStore((s) => s.today());
@@ -154,6 +157,7 @@ export default function Dashboard() {
   }
 
   const { targets, prediction, metrics } = plan;
+  const movement = buildExerciseDay(profile, exercisePreferences);
 
   const rings = [
     {
@@ -183,15 +187,15 @@ export default function Dashboard() {
     {
       label: 'Walking',
       value: `${log.walkingMinutes}m`,
-      progress: log.walkingMinutes / targets.walkingMinutes,
+      progress: log.walkingMinutes / movement.walkMinutes,
       color: theme.colors.walking,
       to: theme.colors.success,
       icon: <Footprints size={18} color={theme.colors.walking} />,
     },
     {
-      label: 'Workout',
-      value: `${log.workoutMinutes}m`,
-      progress: log.workoutMinutes / targets.workoutMinutes,
+      label: movement.minutes ? 'Workout' : 'Recovery',
+      value: movement.minutes ? `${log.workoutMinutes}m` : 'Rest',
+      progress: movement.minutes ? log.workoutMinutes / movement.minutes : 0,
       color: theme.colors.success,
       to: theme.colors.walking,
       icon: <Dumbbell size={18} color={theme.colors.success} />,
@@ -384,7 +388,7 @@ export default function Dashboard() {
                 <View style={{ flex: 1 }}>
                   <Text variant="headline">{formatWeight(m.expectedWeightKg, units)}</Text>
                   <Text variant="caption" color="textTertiary">
-                    {m.calories} kcal · {m.workoutMinutes}m workout · {m.walkingMinutes}m walk
+                    {m.calories} kcal · Follow your weekly movement schedule
                   </Text>
                 </View>
                 <Text variant="caption" color="textTertiary">{formatDate(m.date).replace(/,.*/, '')}</Text>

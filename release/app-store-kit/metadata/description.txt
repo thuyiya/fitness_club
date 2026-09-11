@@ -1,0 +1,25 @@
+Make daily nutrition and movement easier to follow.
+
+Nutrition + Fitness brings meal planning, bodyweight routines, a photo journal, and Apple Health progress into one simple space. Set your goal, build your plan, and take the next small step.
+
+YOUR MOVEMENT TODAY
+See your scheduled session, walking target, and estimated activity calories. Understand how your estimated daily energy needs and food target fit together, without counting exercise calories twice.
+
+BUILD A WEEK THAT FITS
+Choose a 15, 25, or 40-minute session, a gentle or steady starting intensity, and your preferred number of movement days. Generate a weekly routine on your device, with strength sessions, recovery days, illustrated movement guides, sets, repetitions, and rest cues.
+
+MEALS AROUND YOUR GOAL
+Create a daily menu based on your calorie target and dietary preferences. Explore recipes, regenerate meals, view a grocery list, and log calories and protein.
+
+A PRIVATE PHOTO JOURNAL
+Save meal photos and progress photos with your own notes. Add optional calorie and protein values from your meal plan or a food label. Photos are journal entries; the app does not estimate nutrition from images.
+
+SEE YOUR APPLE HEALTH PROGRESS
+With your permission, view steps, active energy, exercise minutes, distance, workouts, and weight from Apple Health. Review recent activity and shared weight readings alongside your plan. Apple Health access is read-only and depends on compatible hardware, shared permissions, and available data.
+
+AI COACHING ON YOUR DEVICE
+Ask for meal ideas or a custom exercise routine using a downloadable language model. AI coaching requires an initial download of approximately 940 MB and available device storage. After setup, replies are generated on your device. Core meal and exercise planning and your journal can be used offline.
+
+No account is required. Your profile, logs, saved plans, and journal are stored locally; the app does not upload them for AI processing.
+
+Nutrition + Fitness provides general fitness and wellness information, not medical diagnosis or treatment. Calorie burn, body metrics, and goal timelines are estimates, not guaranteed outcomes. AI suggestions may be inaccurate. Review ingredients and adapt exercise to your needs; consult a qualified professional for individual medical or dietary advice.

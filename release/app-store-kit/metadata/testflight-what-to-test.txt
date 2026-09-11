@@ -1,0 +1,7 @@
+Please test onboarding and goal changes; generate meal plans and grocery lists; create 15/25/40-minute exercise plans; review strength and recovery days; complete and log a session; save and delete meal/progress photos; and confirm data remains after restarting.
+
+On a real compatible device, test Apple Health with all, partial, and denied read permissions, missing data, refresh, and disconnect. Check steps, active energy, exercise minutes, distance, workouts, and weight against Apple Health.
+
+Download the AI model over Wi-Fi, restart the app, then test coaching in airplane mode. Check interrupted downloads, low-storage handling, and model deletion/redownload. Core planners and journal should work offline without the model.
+
+Report the device model, OS version, app build, reproduction steps, and screenshots with personal health information removed.

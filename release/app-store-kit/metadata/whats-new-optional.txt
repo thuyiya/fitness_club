@@ -1,0 +1,7 @@
+Welcome to Nutrition + Fitness.
+
+• Daily meal plans and grocery lists
+• Weekly bodyweight exercise plans with illustrated guides
+• Activity targets and read-only Apple Health progress
+• Private meal and progress photo journals
+• On-device AI coaching after an initial model download

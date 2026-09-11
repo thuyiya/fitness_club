@@ -1,0 +1,176 @@
+[
+  {
+    "file": "screenshots/ipad-13/01-daily-movement.jpg",
+    "title": "Daily movement",
+    "width": 2064,
+    "height": 2752,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "34eb2f402db4e0517f9e7adeee099c2a0c02dc471dff6e0c45f856cc36c4d5e5",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/ipad-13/02-todays-exercises.jpg",
+    "title": "Today's exercises",
+    "width": 2064,
+    "height": 2752,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "00b71311077a990238881fb6cd0c709a86fbcdf38abd5f15f68b42e50e7e55cd",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/ipad-13/03-build-your-week.jpg",
+    "title": "Build your week",
+    "width": 2064,
+    "height": 2752,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "08324bcbea9991899ab02bca460ae47ab8ed803572e02b223d4940ed90278df6",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/ipad-13/04-one-tap-actions.jpg",
+    "title": "One-tap actions",
+    "width": 2064,
+    "height": 2752,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "61c4b2deccdc739c5c43411e2cb7a5b4c98d1537e26215c8192e388c7a407872",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/ipad-13/05-meal-plan.jpg",
+    "title": "Meal plan",
+    "width": 2064,
+    "height": 2752,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "f74bb6c54a05a04728eb20e59af90d808b8cf995b234b8430583b5cd1898fb00",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/ipad-13/06-health-progress.jpg",
+    "title": "Health progress",
+    "width": 2064,
+    "height": 2752,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "c8e06eb6191c2963aab043334384cda8aace28ee80391e7b0b823f6255fa7aea",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/iphone-6.9/01-daily-movement.jpg",
+    "title": "Daily movement",
+    "width": 1320,
+    "height": 2868,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "52f12b148955304f9ca83a828910a44360b83a10430fe257bd145b4964c4a5bf",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/iphone-6.9/02-todays-exercises.jpg",
+    "title": "Today's exercises",
+    "width": 1320,
+    "height": 2868,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "146a2a004406ae3e56e196fdc95ad4c1daa7b7ba2f32017a1fa19db289871255",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/iphone-6.9/03-build-your-week.jpg",
+    "title": "Build your week",
+    "width": 1320,
+    "height": 2868,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "83b1b7d9a92b7a4a320d5432068ca9be6f220796d36a218cb914b97c3749001b",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/iphone-6.9/04-one-tap-actions.jpg",
+    "title": "One-tap actions",
+    "width": 1320,
+    "height": 2868,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "c38118080274233f7712dfd6de65a92a2864e22d41683bfe1acfb6ccf36ef0e5",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/iphone-6.9/05-meal-plan.jpg",
+    "title": "Meal plan",
+    "width": 1320,
+    "height": 2868,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "61c10365eeafb4f657461ba9f86d3574aefa66e3ce730847ee49319156b4f957",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/iphone-6.9/06-health-progress.jpg",
+    "title": "Health progress",
+    "width": 1320,
+    "height": 2868,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "b2b378f6e31d8c572997132b490b6d8c686649a93f1305313a6d666bd5327dcb",
+    "provenance": "Native simulator capture of app UI with fictional profile and illustrative Health readings; no resizing."
+  },
+  {
+    "file": "screenshots/iphone-6.5/01-daily-movement.jpg",
+    "width": 1284,
+    "height": 2778,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "a36c6de1fd1611b186c5914799bcb3c33f1ac245a876a07a1e0e41d58d21aa45",
+    "provenance": "Existing iPhone UI capture scaled proportionally to fit, with narrow navy side padding. No content cropped."
+  },
+  {
+    "file": "screenshots/iphone-6.5/02-todays-exercises.jpg",
+    "width": 1284,
+    "height": 2778,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "40857981f906986305b981162e6f037b71176cabf84c64f754ac141000f3de5a",
+    "provenance": "Existing iPhone UI capture scaled proportionally to fit, with narrow navy side padding. No content cropped."
+  },
+  {
+    "file": "screenshots/iphone-6.5/03-build-your-week.jpg",
+    "width": 1284,
+    "height": 2778,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "42cb737dc4c0f9e3f2714b601da0f10494d6be2071b749277117be262855613e",
+    "provenance": "Existing iPhone UI capture scaled proportionally to fit, with narrow navy side padding. No content cropped."
+  },
+  {
+    "file": "screenshots/iphone-6.5/04-one-tap-actions.jpg",
+    "width": 1284,
+    "height": 2778,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "683c5b3c4b040c5c02aa94c7e99cb5d455e07c0aa97d8b8142947f49ebd9f825",
+    "provenance": "Existing iPhone UI capture scaled proportionally to fit, with narrow navy side padding. No content cropped."
+  },
+  {
+    "file": "screenshots/iphone-6.5/05-meal-plan.jpg",
+    "width": 1284,
+    "height": 2778,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "f4cd950547be06607f0ba452f34f0ad847b1cd13f4fe91dcffbd68d940ff1dd3",
+    "provenance": "Existing iPhone UI capture scaled proportionally to fit, with narrow navy side padding. No content cropped."
+  },
+  {
+    "file": "screenshots/iphone-6.5/06-health-progress.jpg",
+    "width": 1284,
+    "height": 2778,
+    "format": "JPEG",
+    "alpha": false,
+    "sha256": "2f618ff66459b8ebc091531d2426cf12b87595e100e520e59dc298b573472ba4",
+    "provenance": "Existing iPhone UI capture scaled proportionally to fit, with narrow navy side padding. No content cropped."
+  }
+]

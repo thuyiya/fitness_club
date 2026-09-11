@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license = 'MIT'
   s.author = 'Nutrition + Fitness'
   s.homepage = 'https://developer.apple.com/health-fitness/'
-  s.platforms = { :ios => '14.0' }
+  s.platforms = { :ios => '15.0' }
   s.source = { :git => '' }
   s.static_framework = true
   s.dependency 'ExpoModulesCore'

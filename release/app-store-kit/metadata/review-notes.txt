@@ -1,0 +1,18 @@
+Nutrition + Fitness is a fitness and nutrition planning app. No sign-in, account, subscription, or in-app purchase is required in this version. Sign-in required: No.
+
+Getting started:
+1. Complete the welcome/profile flow using a test adult profile and choose a goal.
+2. Home shows today's movement plan, estimated active-calorie target, food target, and estimated total daily energy needs.
+3. Tap the center + button for Workouts, Meal log, Exercise plan, Meal plan, Change goals, and Progress photo.
+4. Exercise plan > Generate / change plan offers 15/25/40-minute sessions, gentle/steady intensity, and movement days. Generate my week offline builds a local routine. Open a scheduled strength day to view diagrams, sets, repetitions and completion controls. Recovery days are intentional.
+5. Meal plan generates a local daily menu. Tap a meal to see recipe details and logging; Groceries shows the shopping list. Build with AI coach opens the downloadable local AI feature.
+6. Meal log and Progress photo support the camera or photo picker. Choose a test image, enter a note, and save it locally. Meal calories/protein are optional manual values. There is no image recognition or automatic calorie estimation.
+7. In Settings or Progress, connect Apple Health and choose categories to share. The app requests read access to steps, active energy, exercise time, walking/running distance, workouts, and body mass. It does not write HealthKit data. Existing shared Health data is needed to populate charts; unavailable readings appear as dashes rather than invented activity.
+8. AI coaching uses Qwen2.5 1.5B Instruct through llama.rn. A one-time model download of approximately 940 MB is required; the app attempts a Wi-Fi download on initial launch. You can also use Settings > Coach > Download coach. Leave enough storage and allow the download to finish. Subsequent inference is local. The built-in daily meal and exercise planners do not need this model. Generation speed depends on the device.
+
+Privacy and screenshots:
+HealthKit samples are read into memory for display. Profile, manual logs, saved plans, messages and journal photos remain in the app's local storage. Model files are fetched from Hugging Face; app updates use Expo's configured update service. No user health/photo content is sent to a remote AI service.
+
+The App Store screenshots use a fictional adult profile and illustrative activity/weight readings in an isolated screenshot build. These sample readings are not preloaded in the submitted app, and do not represent promised results. No special reviewer account or hidden feature activation is needed.
+
+The app provides general wellness information. Energy expenditure and progress projections are estimates; it does not promise targeted fat loss or offer medical diagnosis.
