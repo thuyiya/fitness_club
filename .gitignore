@@ -38,3 +38,4 @@ yarn-error.*
 # Build artifacts (regenerable; never commit — exceed GitHub size limits)
 *.aab
 *.apk
+*.ipa

@@ -30,6 +30,13 @@
       "ios": {
         "image": "latest"
       }
+    },
+    "android-first-release": {
+      "extends": "production",
+      "autoIncrement": false,
+      "android": {
+        "buildType": "app-bundle"
+      }
     }
   },
   "submit": {
@@ -38,7 +45,9 @@
         "track": "internal",
         "releaseStatus": "draft"
       },
-      "ios": {}
+      "ios": {
+        "ascAppId": "6811053153"
+      }
     }
   }
 }

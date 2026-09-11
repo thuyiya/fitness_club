@@ -8,4 +8,10 @@ if [ -f .env.local ]; then
   set +a
 fi
 
-npx eas-cli@latest submit --platform ios --latest "$@"
+if [ "$#" -eq 0 ]; then
+  # No args: submit the most recent EAS cloud build.
+  npx eas-cli@latest submit --platform ios --latest
+else
+  # Args given (e.g. --path some.ipa for a local build): pass through as-is.
+  npx eas-cli@latest submit --platform ios "$@"
+fi
