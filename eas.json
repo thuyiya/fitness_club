@@ -42,6 +42,7 @@
   "submit": {
     "production": {
       "android": {
+        "serviceAccountKeyPath": "/Users/tj/Desktop/nutrition-plus-fitness-0f9de42c86db.json",
         "track": "internal",
         "releaseStatus": "draft"
       },

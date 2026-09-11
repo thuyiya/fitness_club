@@ -12,7 +12,10 @@
     "test": "jest",
     "build:ios": "bash scripts/build-ios.sh",
     "build:ios:local": "bash scripts/build-ios-local.sh",
-    "submit:ios": "bash scripts/submit-ios.sh"
+    "submit:ios": "bash scripts/submit-ios.sh",
+    "build:android": "bash scripts/build-android.sh",
+    "build:android:local": "bash scripts/build-android-local.sh",
+    "submit:android": "bash scripts/submit-android.sh"
   },
   "dependencies": {
     "@kesha-antonov/react-native-background-downloader": "^3.2.5",

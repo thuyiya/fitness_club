@@ -126,6 +126,23 @@ Play Console → Policy → App content:
 - EAS build config reference: https://docs.expo.dev/build-reference/android-builds/
 - Google Play target API level requirements: https://support.google.com/googleplay/android-developer/answer/11926878
 
+## Credentials — set up September 11, 2026
+
+Play Console app created (package `com.glitchfy.nutritionfitness`, same Google "glitchfy" developer account as the Snaptab/Solace/Frosty Crew Arcade apps). Rather than reusing an existing service account, Play Console linked a brand-new dedicated Google Cloud project ("Nutrition Plus Fitness") for this app. Created service account `nutrition-plus-fitness@nutrition-plus-fitness.iam.gserviceaccount.com` there, generated its JSON key, and invited it into Play Console's Users and permissions with Release manager access to this app.
+
+Key file saved at `/Users/tj/Desktop/nutrition-plus-fitness-0f9de42c86db.json` (outside the repo, not committed) and wired into `eas.json` at `submit.production.android.serviceAccountKeyPath`.
+
+**Build/submit going forward:**
+
+```
+npm run build:android     # eas build --platform android --profile production
+npm run submit:android    # eas submit --platform android --latest
+```
+
+Same scripts pattern as iOS (`scripts/build-android.sh` / `scripts/submit-android.sh`), sourcing `.env.local` for consistency even though Android submit doesn't currently need anything from it.
+
+**Still true:** Google requires the very first release of a new app to be uploaded manually through the Play Console UI (Internal testing track) — `eas submit` cannot create that first release. So the first `npm run build:android` output needs to be downloaded from the EAS build page and uploaded by hand once; after that, `npm run submit:android` can be used for subsequent builds.
+
 ## Still needed before this can ship
 
 - Google Play Console developer account (separate from the Apple Developer account already on file).
