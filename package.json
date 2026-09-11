@@ -9,7 +9,9 @@
     "web": "expo start --web",
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "build:ios": "bash scripts/build-ios.sh",
+    "submit:ios": "bash scripts/submit-ios.sh"
   },
   "dependencies": {
     "@kesha-antonov/react-native-background-downloader": "^3.2.5",
