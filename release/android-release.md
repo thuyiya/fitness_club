@@ -145,8 +145,9 @@ Same scripts pattern as iOS (`scripts/build-android.sh` / `scripts/submit-androi
 
 ## Still needed before this can ship
 
-- Google Play Console developer account (separate from the Apple Developer account already on file).
-- Google Cloud service account JSON key with Play Console release permissions, referenced from `eas.json` (not committed).
-- Public privacy-policy URL and finalized store-listing copy/screenshots/feature graphic.
+- ~~Google Play Console developer account~~ — done, app created under the `glitchfy` account.
+- ~~Google Cloud service account JSON key~~ — done, `nutrition-plus-fitness@nutrition-plus-fitness.iam.gserviceaccount.com`, referenced from `eas.json`.
+- ~~Public privacy-policy URL~~ — done: `https://nutrition-fitness.glitchfy.com/privacy` (live now at `https://nutrition-fitness-glitchfy.web.app/privacy`; same site also has `/terms`, `/support`, `/data-deletion`).
+- Finalized store-listing copy/screenshots/feature graphic still needed.
 - A decision on whether the Data Safety form needs "data shared with third parties" answers (depends on any analytics/crash-reporting SDKs actually wired in — verify in code before answering).
 - Device validation of the full flow above on a physical Android device.

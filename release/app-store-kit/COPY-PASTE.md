@@ -147,9 +147,9 @@ Report the device model, OS version, app build, reproduction steps, and screensh
 
 | App Store Connect field | What to enter |
 |---|---|
-| Support URL | `[PUBLIC_SUPPORT_URL]` — a live HTTPS page with contact information; use the support-page template. |
-| Privacy Policy URL | `[PUBLIC_PRIVACY_POLICY_URL]` — a live HTTPS policy page; use the draft after reviewing it. Also make the policy accessible inside the app. |
-| Marketing URL | Optional. Leave blank until a real product website exists. |
+| Support URL | `https://nutrition-fitness.glitchfy.com/support` (live now at `https://nutrition-fitness-glitchfy.web.app/support` until the custom domain is attached). |
+| Privacy Policy URL | `https://nutrition-fitness.glitchfy.com/privacy` (live now at `https://nutrition-fitness-glitchfy.web.app/privacy`). Also make the policy accessible inside the app. |
+| Marketing URL | Optional. `https://nutrition-fitness.glitchfy.com/` (live now at `https://nutrition-fitness-glitchfy.web.app/`). |
 | Review contact | Your reachable first/last name, email, and phone number. These are not the public support page. |
 | Price and territories | Your choice. No payment system is implemented in this version. |
 | Release option | Choose manual release if you want to decide when to make the approved version public. |
