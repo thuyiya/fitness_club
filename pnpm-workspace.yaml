@@ -1,0 +1,8 @@
+packages:
+  - "apps/wellness"
+  - "apps/api"
+  - "packages/*"
+# apps/nutrition-fitness is intentionally excluded.
+# It is a shipping Expo app on npm + patch-package + EAS local builds.
+# Pulling it into the pnpm workspace changes node_modules layout and would
+# risk breaking its release pipeline. Migrate it deliberately, not by default.

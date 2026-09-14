@@ -1,41 +1,30 @@
-# dependencies
 node_modules/
-
-# Expo
-.expo/
 dist/
-web-build/
-expo-env.d.ts
+.turbo/
+*.tsbuildinfo
 
-# Native (managed workflow — EAS runs prebuild, so don't commit generated projects)
-/ios/
-/android/
+# env
+.env
+.env*.local
+infra/.env
+
+# expo
+.expo/
+expo-env.d.ts
 *.orig.*
+web-build/
+
+# native build output
+ios/build/
+android/build/
+android/app/build/
+android/.gradle/
+
+# misc
+.DS_Store
+npm-debug.*
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
-*.keystore
-
-# Metro
-.metro-health-check*
-
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
-.DS_Store
-
-# env
-.env*.local
-
-# typescript
-*.tsbuildinfo
-
-# Build artifacts (regenerable; never commit — exceed GitHub size limits)
-*.aab
-*.apk
-*.ipa

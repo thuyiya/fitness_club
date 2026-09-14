@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Wellness 2.0",
+    "slug": "wellness-2",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "scheme": "wellness",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.glitchfy.wellness"
+    },
+    "android": {
+      "package": "com.glitchfy.wellness",
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
