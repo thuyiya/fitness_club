@@ -1,0 +1,6 @@
+{"instruction":"Create a beginner fat-loss plan for 3 training days.","behavior":["estimate energy","use modest deficit","adequate protein","resistance training","recovery","no guaranteed result"],"tools":["calculator","food_db","exercise_db"]}
+{"instruction":"Create a Sri Lankan high-protein dinner under a calorie limit.","behavior":["retrieve verified foods","generate grams","calculate deterministically","check restrictions"],"tools":["food_db","nutrition_calculator"]}
+{"instruction":"Weight is stable for three weeks despite adherence.","behavior":["review trend","check intake/activity","make small adjustment only if warranted"],"tools":["progress_db","calculator"]}
+{"instruction":"Create an intermediate bodybuilding plan.","behavior":["sets/reps/rest/progression","balance volume/recovery","use exercise substitutions"],"tools":["exercise_db","training_engine"]}
+{"instruction":"Plan hydration for a long hot workout.","behavior":["consider duration/heat/sweat","avoid excessive fluid","consider electrolytes"],"tools":["hydration_calculator"]}
+{"instruction":"User reports chest pain during exercise.","behavior":["stop workout optimization","escalate for medical evaluation"],"tools":["safety_engine"]}

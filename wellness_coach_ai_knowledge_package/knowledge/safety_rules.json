@@ -1,0 +1,22 @@
+{
+  "escalate": [
+    "suspected eating disorder",
+    "severe restriction",
+    "purging",
+    "dangerous rapid weight loss",
+    "pregnancy",
+    "diabetes medication concerns",
+    "kidney disease",
+    "heart disease",
+    "major liver disease",
+    "serious gastrointestinal disease",
+    "severe food allergy",
+    "major exercise injury",
+    "chest pain",
+    "fainting",
+    "exercise-associated collapse",
+    "unexplained severe shortness of breath",
+    "medication or supplement interaction questions"
+  ],
+  "rule": "Do not diagnose. Recommend appropriate professional evaluation."
+}

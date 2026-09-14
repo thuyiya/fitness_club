@@ -1,0 +1,61 @@
+[
+  {
+    "exercise_id": "bodyweight_squat",
+    "name": "Bodyweight Squat",
+    "movement_pattern": "squat",
+    "muscles": [
+      "quadriceps",
+      "glutes"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": 1,
+    "regressions": [
+      "box_squat"
+    ],
+    "progressions": [
+      "goblet_squat",
+      "split_squat"
+    ]
+  },
+  {
+    "exercise_id": "push_up",
+    "name": "Push-up",
+    "movement_pattern": "horizontal_push",
+    "muscles": [
+      "chest",
+      "triceps"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": 2,
+    "regressions": [
+      "wall_push_up",
+      "incline_push_up"
+    ],
+    "progressions": [
+      "decline_push_up",
+      "weighted_push_up"
+    ]
+  },
+  {
+    "exercise_id": "glute_bridge",
+    "name": "Glute Bridge",
+    "movement_pattern": "hip_extension",
+    "muscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": 1,
+    "regressions": [],
+    "progressions": [
+      "single_leg_glute_bridge",
+      "hip_thrust"
+    ]
+  }
+]

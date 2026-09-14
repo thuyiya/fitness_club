@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "required": [
+    "food_id",
+    "name",
+    "serving_g"
+  ],
+  "properties": {
+    "food_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "serving_g": {
+      "type": "number"
+    },
+    "state": {
+      "type": "string"
+    },
+    "energy_kcal": {
+      "type": "number"
+    },
+    "protein_g": {
+      "type": "number"
+    },
+    "carbohydrate_g": {
+      "type": "number"
+    },
+    "fat_g": {
+      "type": "number"
+    },
+    "fiber_g": {
+      "type": "number"
+    },
+    "micronutrients": {
+      "type": "object"
+    },
+    "allergens": {
+      "type": "array"
+    },
+    "source_id": {
+      "type": "string"
+    }
+  }
+}

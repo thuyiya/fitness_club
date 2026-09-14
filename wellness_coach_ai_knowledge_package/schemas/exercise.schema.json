@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "required": [
+    "exercise_id",
+    "name",
+    "movement_pattern",
+    "difficulty"
+  ],
+  "properties": {
+    "exercise_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "movement_pattern": {
+      "type": "string"
+    },
+    "muscles": {
+      "type": "array"
+    },
+    "equipment": {
+      "type": "array"
+    },
+    "difficulty": {
+      "type": "integer"
+    },
+    "instructions": {
+      "type": "array"
+    },
+    "form_cues": {
+      "type": "array"
+    },
+    "regressions": {
+      "type": "array"
+    },
+    "progressions": {
+      "type": "array"
+    },
+    "safety_notes": {
+      "type": "array"
+    }
+  }
+}

@@ -3,6 +3,10 @@
     "supabase": {
       "type": "http",
       "url": "https://mcp.supabase.com/mcp?project_ref=nhkszwctydlsxadpbahx&read_only=true"
+    },
+    "openpencil": {
+      "command": "/Users/tj/.local/bin/openpencil-mcp",
+      "args": []
     }
   }
 }

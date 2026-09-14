@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "required": [
+    "intent",
+    "assessment",
+    "recommendations",
+    "safety"
+  ],
+  "properties": {
+    "intent": {
+      "type": "string"
+    },
+    "assessment": {
+      "type": "string"
+    },
+    "recommendations": {
+      "type": "array"
+    },
+    "calculations": {
+      "type": "object"
+    },
+    "confidence": {
+      "type": "string"
+    },
+    "safety": {
+      "type": "object"
+    }
+  }
+}

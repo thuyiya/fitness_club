@@ -1,0 +1,33 @@
+{
+  "adult_health_baseline": {
+    "moderate_aerobic_min_week": [
+      150,
+      300
+    ],
+    "vigorous_aerobic_min_week": [
+      75,
+      150
+    ],
+    "strength_days_week_min": 2
+  },
+  "program_fields": [
+    "exercise_id",
+    "sets",
+    "reps",
+    "load_or_difficulty",
+    "rest_seconds",
+    "rir_or_rpe",
+    "progression",
+    "regression"
+  ],
+  "progression_methods": [
+    "repetitions",
+    "load",
+    "sets",
+    "range_of_motion",
+    "technique",
+    "reduced_assistance",
+    "training_density"
+  ],
+  "rule": "Progress gradually and avoid changing many variables simultaneously."
+}

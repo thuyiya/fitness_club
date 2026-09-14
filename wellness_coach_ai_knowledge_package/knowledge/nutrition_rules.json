@@ -1,0 +1,54 @@
+{
+  "energy": {
+    "mifflin_st_jeor": {
+      "male": "10*weight_kg + 6.25*height_cm - 5*age + 5",
+      "female": "10*weight_kg + 6.25*height_cm - 5*age - 161"
+    },
+    "tdee": "BMR * activity_factor",
+    "rule": "Calibrate estimates against multi-week observed weight/intake trends."
+  },
+  "macro_energy_factors": {
+    "protein_kcal_per_g": 4,
+    "carbohydrate_kcal_per_g": 4,
+    "fat_kcal_per_g": 9,
+    "alcohol_kcal_per_g": 7
+  },
+  "protein": {
+    "exercising_general_g_per_kg_day": [
+      1.4,
+      2.0
+    ],
+    "rule": "Individualize; higher intake may be useful during energy restriction but avoid extreme intake."
+  },
+  "fiber": {
+    "broad_adult_reference_g_day": 25
+  },
+  "micronutrients": [
+    "vitamin_A",
+    "vitamin_C",
+    "vitamin_D",
+    "vitamin_E",
+    "vitamin_K",
+    "B1",
+    "B2",
+    "B3",
+    "B5",
+    "B6",
+    "B7",
+    "B9",
+    "B12",
+    "calcium",
+    "iron",
+    "magnesium",
+    "phosphorus",
+    "potassium",
+    "sodium",
+    "zinc",
+    "copper",
+    "manganese",
+    "selenium",
+    "iodine"
+  ],
+  "ingredient_calculation": "nutrient = grams * nutrient_per_100g / 100",
+  "weight_review": "Use rolling averages and multi-week trends; do not infer fat change from a single measurement."
+}

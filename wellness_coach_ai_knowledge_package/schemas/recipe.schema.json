@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "required": [
+    "recipe_id",
+    "name",
+    "servings",
+    "ingredients",
+    "instructions"
+  ],
+  "properties": {
+    "recipe_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "servings": {
+      "type": "integer"
+    },
+    "ingredients": {
+      "type": "array"
+    },
+    "instructions": {
+      "type": "array"
+    },
+    "diet_tags": {
+      "type": "array"
+    },
+    "allergens": {
+      "type": "array"
+    }
+  }
+}

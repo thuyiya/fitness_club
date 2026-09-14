@@ -1,0 +1,15 @@
+[
+  {
+    "food_id": "REPLACE",
+    "name": "Example only \u2014 insert verified food data",
+    "serving_g": 100,
+    "state": "cooked",
+    "energy_kcal": 0,
+    "protein_g": 0,
+    "carbohydrate_g": 0,
+    "fat_g": 0,
+    "fiber_g": 0,
+    "micronutrients": {},
+    "source_id": "REPLACE"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "inputs": [
+    "body_mass",
+    "climate",
+    "temperature",
+    "humidity",
+    "exercise_duration",
+    "exercise_intensity",
+    "sweat_rate",
+    "fluid_intake",
+    "urine_output",
+    "sodium_loss"
+  ],
+  "sweat_rate_formula": "((pre_mass_kg - post_mass_kg) + fluid_intake_L - urine_L) / exercise_hours",
+  "approximation": "1 kg body-mass change is approximately 1 L water as an estimate.",
+  "rule": "Avoid excessive drinking; prolonged/hot/high-sweat exercise may require electrolyte replacement."
+}
