@@ -1,0 +1,730 @@
+{
+  "source": "packages/db/seed/catalog/activities.json",
+  "brand": "Wellness 2.0",
+  "style": "v1 cel-shaded illustration; dark shaded background",
+  "layout": {
+    "columns": 3,
+    "rows": 2,
+    "rowOrder": [
+      "female",
+      "male"
+    ]
+  },
+  "exercises": [
+    {
+      "id": "sport_wheelchair_push",
+      "name": "Wheelchair propulsion",
+      "category": "adaptive",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_handcycling",
+      "name": "Handcycling",
+      "category": "adaptive",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_wrestling",
+      "name": "Wrestling / grappling",
+      "category": "combat",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_boxing_bag",
+      "name": "Boxing, heavy bag",
+      "category": "combat",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_boxing_sparring",
+      "name": "Boxing, sparring",
+      "category": "combat",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_kickboxing",
+      "name": "Kickboxing",
+      "category": "combat",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_martial_arts",
+      "name": "Martial arts",
+      "category": "combat",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_cycling_leisure",
+      "name": "Cycling, leisurely (<16 km/h)",
+      "category": "cycling",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_cycling_moderate",
+      "name": "Cycling (19-22 km/h)",
+      "category": "cycling",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_mountain_biking",
+      "name": "Mountain biking",
+      "category": "cycling",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_spinning",
+      "name": "Indoor cycling class",
+      "category": "cycling",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_cycling_vigorous",
+      "name": "Cycling, fast (25-30 km/h)",
+      "category": "cycling",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_dance_general",
+      "name": "Dance, general",
+      "category": "dance",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_dance_aerobic",
+      "name": "Aerobic dance class (Zumba)",
+      "category": "dance",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_stretching",
+      "name": "Stretching session",
+      "category": "mindbody",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_yoga_hatha",
+      "name": "Yoga, Hatha",
+      "category": "mindbody",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_pilates",
+      "name": "Pilates",
+      "category": "mindbody",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_tai_chi",
+      "name": "Tai chi",
+      "category": "mindbody",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_yoga_power",
+      "name": "Yoga, power / vinyasa",
+      "category": "mindbody",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_golf_walking",
+      "name": "Golf, walking with clubs",
+      "category": "outdoor",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_skateboarding",
+      "name": "Skateboarding",
+      "category": "outdoor",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_horse_riding",
+      "name": "Horse riding",
+      "category": "outdoor",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_bouldering",
+      "name": "Bouldering",
+      "category": "outdoor",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_climbing_indoor",
+      "name": "Rock climbing, indoor",
+      "category": "outdoor",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_table_tennis",
+      "name": "Table tennis",
+      "category": "racquet",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_badminton",
+      "name": "Badminton",
+      "category": "racquet",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_pickleball",
+      "name": "Pickleball",
+      "category": "racquet",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_tennis_doubles",
+      "name": "Tennis, doubles",
+      "category": "racquet",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_squash",
+      "name": "Squash",
+      "category": "racquet",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_tennis_singles",
+      "name": "Tennis, singles",
+      "category": "racquet",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_running_jog",
+      "name": "Jogging (8 km/h)",
+      "category": "running",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_trail_running",
+      "name": "Trail running",
+      "category": "running",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_running_moderate",
+      "name": "Running (10 km/h)",
+      "category": "running",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_running_fast",
+      "name": "Running (13 km/h)",
+      "category": "running",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_snowboarding",
+      "name": "Snowboarding",
+      "category": "snow",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_skiing_downhill",
+      "name": "Skiing, downhill",
+      "category": "snow",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_ice_skating",
+      "name": "Ice skating",
+      "category": "snow",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_volleyball",
+      "name": "Volleyball",
+      "category": "team",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_cricket",
+      "name": "Cricket",
+      "category": "team",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_football",
+      "name": "Football (soccer), casual",
+      "category": "team",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_hockey",
+      "name": "Field hockey",
+      "category": "team",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_basketball",
+      "name": "Basketball, game",
+      "category": "team",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_rugby",
+      "name": "Rugby",
+      "category": "team",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_football_competitive",
+      "name": "Football (soccer), competitive",
+      "category": "team",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_walking_slow",
+      "name": "Walking, slow (3.2 km/h)",
+      "category": "walking",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_walking_brisk",
+      "name": "Walking, brisk (5.6 km/h)",
+      "category": "walking",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_hiking",
+      "name": "Hiking",
+      "category": "walking",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_stair_climbing",
+      "name": "Stair climbing",
+      "category": "walking",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_surfing",
+      "name": "Surfing",
+      "category": "water",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_kayaking",
+      "name": "Kayaking",
+      "category": "water",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_water_aerobics",
+      "name": "Water aerobics",
+      "category": "water",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_swimming_leisure",
+      "name": "Swimming, leisurely",
+      "category": "water",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_rowing_water",
+      "name": "Rowing on water",
+      "category": "water",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_swimming_laps",
+      "name": "Swimming laps, moderate",
+      "category": "water",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "sport_swimming_vigorous",
+      "name": "Swimming laps, vigorous",
+      "category": "water",
+      "instructions": [],
+      "equipment": [],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    }
+  ]
+}

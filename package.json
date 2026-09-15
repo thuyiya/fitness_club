@@ -22,9 +22,10 @@
     "db:seed": "pnpm --filter @wellness/db seed",
     "db:embed": "pnpm --filter @wellness/db seed:embed",
     "demo:users": "node scripts/demo-users.mjs",
-    "smoke": "node apps/api/smoke.mjs"
+    "smoke": "node apps/api/smoke.mjs && node apps/api/smoke-domain.mjs && node apps/api/smoke-comms.mjs"
   },
   "devDependencies": {
+    "playwright-core": "^1.63.0",
     "turbo": "^2.3.3",
     "typescript": "^5.7.2"
   }

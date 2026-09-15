@@ -3845,419 +3845,419 @@
       "id": "back-to-wall-handstand",
       "name": "Back-to-wall handstand",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "back-to-wall-handstand.png"
     },
     {
       "id": "wall-handstand-toe-pull",
       "name": "Wall handstand toe pull",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "wall-handstand-toe-pull.png"
     },
     {
       "id": "wall-handstand-heel-pull",
       "name": "Wall handstand heel pull",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "wall-handstand-heel-pull.png"
     },
     {
       "id": "freestanding-handstand",
       "name": "Freestanding handstand",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "freestanding-handstand.png"
     },
     {
       "id": "tuck-handstand",
       "name": "Tuck handstand",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-handstand.png"
     },
     {
       "id": "straddle-handstand",
       "name": "Straddle handstand",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "straddle-handstand.png"
     },
     {
       "id": "handstand-weight-shift",
       "name": "Handstand weight shift",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "handstand-weight-shift.png"
     },
     {
       "id": "handstand-walk",
       "name": "Handstand walk",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "handstand-walk.png"
     },
     {
       "id": "one-arm-handstand",
       "name": "One-arm handstand",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "one-arm-handstand.png"
     },
     {
       "id": "elbow-lever",
       "name": "Elbow lever",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "elbow-lever.png"
     },
     {
       "id": "one-arm-elbow-lever",
       "name": "One-arm elbow lever",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "one-arm-elbow-lever.png"
     },
     {
       "id": "crocodile-hold",
       "name": "Crocodile hold",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "crocodile-hold.png"
     },
     {
       "id": "passive-dead-hang",
       "name": "Passive dead hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "passive-dead-hang.png"
     },
     {
       "id": "active-hang",
       "name": "Active hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "active-hang.png"
     },
     {
       "id": "mixed-grip-hang",
       "name": "Mixed-grip hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "mixed-grip-hang.png"
     },
     {
       "id": "towel-hang",
       "name": "Towel hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "towel-hang.png"
     },
     {
       "id": "false-grip-ring-hang",
       "name": "False-grip ring hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "false-grip-ring-hang.png"
     },
     {
       "id": "false-grip-bar-hang",
       "name": "False-grip bar hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "false-grip-bar-hang.png"
     },
     {
       "id": "assisted-one-arm-hang",
       "name": "Assisted one-arm hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "assisted-one-arm-hang.png"
     },
     {
       "id": "one-arm-hang",
       "name": "One-arm hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "one-arm-hang.png"
     },
     {
       "id": "hanging-scapular-depression",
       "name": "Hanging scapular depression",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hanging-scapular-depression.png"
     },
     {
       "id": "side-to-side-hanging-weight-shift",
       "name": "Side-to-side hanging weight shift",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "side-to-side-hanging-weight-shift.png"
     },
     {
       "id": "monkey-bar-traverse",
       "name": "Monkey-bar traverse",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "monkey-bar-traverse.png"
     },
     {
       "id": "brachiation-swinging-between-overhead-holds",
       "name": "Brachiation (swinging between overhead holds)",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "brachiation-swinging-between-overhead-holds.png"
     },
     {
       "id": "rope-climb-with-leg-assistance",
       "name": "Rope climb with leg assistance",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "rope-climb-with-leg-assistance.png"
     },
     {
       "id": "legless-rope-climb",
       "name": "Legless rope climb",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "legless-rope-climb.png"
     },
     {
       "id": "skin-the-cat",
       "name": "Skin the cat",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "skin-the-cat.png"
     },
     {
       "id": "german-hang",
       "name": "German hang",
       "category": "16. Hanging, Grip, and Shoulder Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "german-hang.png"
     },
     {
       "id": "squat-jump",
       "name": "Squat jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "squat-jump.png"
     },
     {
       "id": "countermovement-jump",
       "name": "Countermovement jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "countermovement-jump.png"
     },
     {
       "id": "broad-jump",
       "name": "Broad jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "broad-jump.png"
     },
     {
       "id": "tuck-jump",
       "name": "Tuck jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-jump.png"
     },
     {
       "id": "star-jump",
       "name": "Star jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "star-jump.png"
     },
     {
       "id": "split-squat-jump",
       "name": "Split squat jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "split-squat-jump.png"
     },
     {
       "id": "jumping-lunge",
       "name": "Jumping lunge",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "jumping-lunge.png"
     },
     {
       "id": "skater-hop",
       "name": "Skater hop",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "skater-hop.png"
     },
     {
       "id": "lateral-bound",
       "name": "Lateral bound",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "lateral-bound.png"
     },
     {
       "id": "single-leg-hop",
       "name": "Single-leg hop",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "single-leg-hop.png"
     },
     {
       "id": "single-leg-broad-jump",

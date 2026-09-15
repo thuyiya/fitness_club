@@ -1,0 +1,751 @@
+{
+  "source": "packages/db/seed/catalog/exercises.json",
+  "brand": "Wellness 2.0",
+  "style": "v1 cel-shaded illustration; dark shaded background",
+  "layout": {
+    "columns": 3,
+    "rows": 2,
+    "rowOrder": [
+      "female",
+      "male"
+    ]
+  },
+  "exercises": [
+    {
+      "id": "ex_goblet_squat",
+      "name": "Goblet squat",
+      "category": "squat",
+      "instructions": [
+        "Hold a dumbbell or kettlebell vertically against the chest.",
+        "Squat down keeping the elbows inside the knees.",
+        "Pause briefly at the bottom, then stand."
+      ],
+      "equipment": [
+        "dumbbell",
+        "kettlebell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_barbell_back_squat",
+      "name": "Barbell back squat",
+      "category": "squat",
+      "instructions": [
+        "Set the bar across the upper traps and unrack with braced trunk.",
+        "Take two steps back and set the feet shoulder-width.",
+        "Squat to at least parallel, keeping the bar over mid-foot.",
+        "Drive up without letting the hips shoot back first."
+      ],
+      "equipment": [
+        "barbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_barbell_front_squat",
+      "name": "Barbell front squat",
+      "category": "squat",
+      "instructions": [
+        "Rack the bar on the front delts with elbows high.",
+        "Unrack, step back and brace hard.",
+        "Squat down keeping the torso as upright as possible.",
+        "Stand without letting the elbows drop."
+      ],
+      "equipment": [
+        "barbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_smith_machine_squat",
+      "name": "Smith machine squat",
+      "category": "squat",
+      "instructions": [
+        "Set the bar at upper-trap height and position the feet slightly forward.",
+        "Unlock the bar and squat to depth.",
+        "Drive up and relock at the top."
+      ],
+      "equipment": [
+        "smith_machine"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_leg_press",
+      "name": "Leg press",
+      "category": "squat",
+      "instructions": [
+        "Sit with the back flat against the pad and feet mid-platform.",
+        "Lower until the knees reach roughly 90 degrees.",
+        "Press back without locking the knees hard."
+      ],
+      "equipment": [
+        "machine"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_hip_thrust",
+      "name": "Barbell hip thrust",
+      "category": "hinge",
+      "instructions": [
+        "Sit with the upper back against a bench and the bar over the hips.",
+        "Drive through the heels to lift the hips to full extension.",
+        "Pause at the top, then lower under control."
+      ],
+      "equipment": [
+        "barbell",
+        "bench"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_dumbbell_romanian_deadlift",
+      "name": "Dumbbell Romanian deadlift",
+      "category": "hinge",
+      "instructions": [
+        "Hold dumbbells in front of the thighs with soft knees.",
+        "Push the hips back, sliding the weights down the legs.",
+        "Stop when you feel a strong hamstring stretch, then stand."
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_romanian_deadlift",
+      "name": "Romanian deadlift",
+      "category": "hinge",
+      "instructions": [
+        "Stand holding the bar at hip height with a braced trunk.",
+        "Hinge at the hips, keeping the bar in contact with the legs.",
+        "Lower to mid-shin or the end of your hamstring range, then stand."
+      ],
+      "equipment": [
+        "barbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_barbell_deadlift",
+      "name": "Barbell deadlift",
+      "category": "hinge",
+      "instructions": [
+        "Set the bar over mid-foot and grip just outside the knees.",
+        "Drop the hips, lift the chest and take the slack out of the bar.",
+        "Push the floor away and stand tall, locking the hips.",
+        "Return the bar by hinging back, not squatting down."
+      ],
+      "equipment": [
+        "barbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_kettlebell_swing",
+      "name": "Kettlebell swing",
+      "category": "hinge",
+      "instructions": [
+        "Hike the kettlebell back between the legs.",
+        "Snap the hips forward to float the bell to chest height.",
+        "Let it fall and absorb it with another hinge."
+      ],
+      "equipment": [
+        "kettlebell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_leg_curl",
+      "name": "Machine leg curl",
+      "category": "isolation",
+      "instructions": [
+        "Set the pad just above the heels.",
+        "Curl the heels toward the glutes.",
+        "Lower slowly under control."
+      ],
+      "equipment": [
+        "machine"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_single_leg_rdl",
+      "name": "Single-leg Romanian deadlift",
+      "category": "hinge",
+      "instructions": [
+        "Hold a dumbbell in the opposite hand to the standing leg.",
+        "Hinge forward, letting the free leg extend behind as a counterbalance.",
+        "Return to standing under control."
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_dumbbell_bench_press",
+      "name": "Dumbbell bench press",
+      "category": "horizontal_push",
+      "instructions": [
+        "Lie back with the dumbbells at chest level.",
+        "Press up until the arms are extended over the chest.",
+        "Lower under control to a comfortable stretch."
+      ],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_barbell_bench_press",
+      "name": "Barbell bench press",
+      "category": "horizontal_push",
+      "instructions": [
+        "Set the eyes under the bar and pin the shoulder blades back.",
+        "Unrack and bring the bar over the lower chest.",
+        "Lower to touch the chest, then press to lockout."
+      ],
+      "equipment": [
+        "barbell",
+        "bench"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_cable_chest_fly",
+      "name": "Cable chest fly",
+      "category": "isolation",
+      "instructions": [
+        "Set the pulleys at chest height and take a staggered stance.",
+        "Bring the handles together in front of the chest with soft elbows.",
+        "Return under control to a stretch."
+      ],
+      "equipment": [
+        "cable"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_dumbbell_shoulder_press",
+      "name": "Dumbbell shoulder press",
+      "category": "vertical_push",
+      "instructions": [
+        "Start with the dumbbells at shoulder height, palms forward.",
+        "Press overhead until the arms lock out.",
+        "Lower under control to the start."
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_overhead_press",
+      "name": "Barbell overhead press",
+      "category": "vertical_push",
+      "instructions": [
+        "Take the bar at shoulder height with the elbows just in front.",
+        "Brace, then press the bar in a straight line past the face.",
+        "Lock out with the bar over mid-foot, then lower."
+      ],
+      "equipment": [
+        "barbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_lateral_raise",
+      "name": "Dumbbell lateral raise",
+      "category": "isolation",
+      "instructions": [
+        "Stand with light dumbbells at the sides, slight elbow bend.",
+        "Raise the arms out to shoulder height.",
+        "Lower slowly under control."
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_lat_pulldown",
+      "name": "Lat pulldown",
+      "category": "vertical_pull",
+      "instructions": [
+        "Secure the thighs under the pads and grip wider than the shoulders.",
+        "Pull the bar to the upper chest, driving the elbows down.",
+        "Return under control to a full stretch."
+      ],
+      "equipment": [
+        "cable",
+        "machine"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_weighted_pull_up",
+      "name": "Weighted pull-up",
+      "category": "vertical_pull",
+      "instructions": [
+        "Attach load with a dip belt or hold a dumbbell between the feet.",
+        "Perform a strict pull-up through full range.",
+        "Lower under control."
+      ],
+      "equipment": [
+        "pull_up_bar",
+        "dumbbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_face_pull",
+      "name": "Cable face pull",
+      "category": "horizontal_pull",
+      "instructions": [
+        "Set a rope at upper-chest height.",
+        "Pull toward the face, separating the hands as you go.",
+        "Return under control."
+      ],
+      "equipment": [
+        "cable"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_barbell_row",
+      "name": "Barbell bent-over row",
+      "category": "horizontal_pull",
+      "instructions": [
+        "Hinge forward to roughly 45 degrees with a braced trunk.",
+        "Row the bar to the lower ribs.",
+        "Lower under control without losing the torso angle."
+      ],
+      "equipment": [
+        "barbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_dumbbell_row",
+      "name": "Single-arm dumbbell row",
+      "category": "horizontal_pull",
+      "instructions": [
+        "Brace one hand and knee on a bench with a flat back.",
+        "Row the dumbbell to the hip, elbow close to the body.",
+        "Lower to a full stretch."
+      ],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_seated_cable_row",
+      "name": "Seated cable row",
+      "category": "horizontal_pull",
+      "instructions": [
+        "Sit tall with a slight knee bend and grip the handle.",
+        "Pull to the lower ribs, squeezing the shoulder blades.",
+        "Return to a controlled stretch."
+      ],
+      "equipment": [
+        "cable"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_walking_lunge",
+      "name": "Walking lunge",
+      "category": "lunge",
+      "instructions": [
+        "Hold dumbbells at the sides and step forward into a lunge.",
+        "Lower the back knee toward the floor.",
+        "Drive through the front foot and step straight into the next rep."
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_bulgarian_split_squat",
+      "name": "Bulgarian split squat",
+      "category": "lunge",
+      "instructions": [
+        "Place the rear foot on a bench and step the front foot forward.",
+        "Lower until the front thigh is about parallel.",
+        "Drive through the front foot to stand."
+      ],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_step_up",
+      "name": "Dumbbell step-up",
+      "category": "lunge",
+      "instructions": [
+        "Place one foot fully on a box at about knee height.",
+        "Drive through that foot to stand tall on the box.",
+        "Lower under control without pushing off the floor."
+      ],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_farmers_walk",
+      "name": "Farmer's walk",
+      "category": "carry",
+      "instructions": [
+        "Pick up a heavy weight in each hand with a flat back.",
+        "Stand tall and walk with controlled steps.",
+        "Set the weights down under control."
+      ],
+      "equipment": [
+        "dumbbell",
+        "kettlebell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_suitcase_carry",
+      "name": "Suitcase carry",
+      "category": "carry",
+      "instructions": [
+        "Hold a single heavy weight in one hand.",
+        "Walk tall, resisting the pull to one side.",
+        "Switch hands and repeat for the same distance."
+      ],
+      "equipment": [
+        "kettlebell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_pallof_press",
+      "name": "Pallof press",
+      "category": "rotation",
+      "instructions": [
+        "Stand side-on to a cable set at chest height and hold the handle at the sternum.",
+        "Press the handle straight out, resisting the pull to rotate.",
+        "Return to the chest under control."
+      ],
+      "equipment": [
+        "cable"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_cable_woodchop",
+      "name": "Cable wood chop",
+      "category": "rotation",
+      "instructions": [
+        "Set the cable high and stand side-on with straight arms.",
+        "Rotate through the hips and pull down across the body.",
+        "Return under control without letting the weight pull you back."
+      ],
+      "equipment": [
+        "cable"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_russian_twist",
+      "name": "Russian twist",
+      "category": "rotation",
+      "instructions": [
+        "Sit with the knees bent and lean back to about 45 degrees.",
+        "Rotate the ball from hip to hip under control.",
+        "Keep the chest tall throughout."
+      ],
+      "equipment": [
+        "medicine_ball"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_biceps_curl",
+      "name": "Dumbbell biceps curl",
+      "category": "isolation",
+      "instructions": [
+        "Stand with dumbbells at the sides, palms forward.",
+        "Curl the weights to shoulder height.",
+        "Lower slowly to full extension."
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_triceps_pushdown",
+      "name": "Cable triceps pushdown",
+      "category": "isolation",
+      "instructions": [
+        "Set a bar or rope at upper-chest height.",
+        "Press down until the arms are fully extended.",
+        "Return under control to about 90 degrees."
+      ],
+      "equipment": [
+        "cable"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_skull_crusher",
+      "name": "EZ-bar skull crusher",
+      "category": "isolation",
+      "instructions": [
+        "Lie on a bench holding an EZ bar over the chest.",
+        "Bend the elbows to lower the bar toward the forehead.",
+        "Extend back to the start without moving the upper arms."
+      ],
+      "equipment": [
+        "ez_bar",
+        "bench"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_barbell_shrug",
+      "name": "Barbell shrug",
+      "category": "isolation",
+      "instructions": [
+        "Hold a barbell at arm's length in front of the thighs.",
+        "Shrug the shoulders straight up toward the ears.",
+        "Lower under control to a full stretch."
+      ],
+      "equipment": [
+        "barbell"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_leg_extension",
+      "name": "Machine leg extension",
+      "category": "isolation",
+      "instructions": [
+        "Sit with the pad on the lower shins and the knees at the pivot.",
+        "Extend the knees to full lockout.",
+        "Lower under control."
+      ],
+      "equipment": [
+        "machine"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    },
+    {
+      "id": "ex_hip_abduction_machine",
+      "name": "Hip abduction machine",
+      "category": "isolation",
+      "instructions": [
+        "Sit with the pads against the outside of the knees.",
+        "Push the knees apart against resistance.",
+        "Return under control."
+      ],
+      "equipment": [
+        "machine"
+      ],
+      "status": "pending",
+      "sheet": null,
+      "variants": [
+        "female",
+        "male"
+      ]
+    }
+  ]
+}

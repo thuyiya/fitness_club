@@ -1,69 +1,80 @@
 import { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
+import { isoDate, useApi } from "../../src/api/hooks";
+import type { CoachToday } from "../../src/api/types";
 import { Card, Pill, Screen } from "../../src/components/ui";
 import { DateStrip, NotificationBell } from "../../src/components/DateStrip";
 import { useAuth } from "../../src/state/auth";
 import { radius, space, type as typo } from "../../src/theme/tokens";
 
-const MEMBERS = [
-  { name: "Amara Osei", done: true,  session: "Upper push A",   volume: "4,250 kg", kcal: 1920, protein: 128, target: 150 },
-  { name: "Tom Fischer", done: true,  session: "Zone 2 run",     volume: "8.2 km",   kcal: 2410, protein: 151, target: 150 },
-  { name: "Priya Raman", done: false, session: "Lower pull B",   volume: "—",        kcal: 1180, protein: 64,  target: 130 },
-  { name: "Ben Carter",  done: true,  session: "Full body",      volume: "3,100 kg", kcal: 2210, protein: 142, target: 140 },
-  { name: "Lena Novak",  done: false, session: "Mobility",       volume: "—",        kcal: 890,  protein: 38,  target: 120 },
-];
+type Row = CoachToday["members"][number];
 
 export default function CoachHome() {
   const { theme } = useAuth();
   const insets = useSafeAreaInsets();
   const [date, setDate] = useState(new Date());
+  const today = useApi<CoachToday>(`/v1/coach/today?date=${isoDate(date)}`);
+  const notifications = useApi<{ unreadCount: number }>("/v1/notifications");
 
-  const completed = MEMBERS.filter((m) => m.done);
-  const attention = MEMBERS.filter((m) => !m.done);
+  const members = today.data?.members ?? [];
+  const done = members.filter((m) => m.done);
+  const pending = members.filter((m) => !m.done);
 
   return (
     <Screen theme={theme}>
-      <ScrollView contentContainerStyle={{ padding: space.lg, paddingTop: insets.top + space.md, paddingBottom: 120 }}>
+      <ScrollView
+        contentContainerStyle={{ padding: space.lg, paddingTop: insets.top + space.md, paddingBottom: 120 }}
+        refreshControl={<RefreshControl refreshing={false} onRefresh={() => { today.refetch(); notifications.refetch(); }} tintColor={theme.accent} />}
+      >
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: space.lg }}>
           <DateStrip theme={theme} date={date} onChange={setDate} />
-          <NotificationBell theme={theme} count={5} />
+          <NotificationBell theme={theme} count={notifications.data?.unreadCount ?? 0} />
         </View>
 
-        <View style={{ flexDirection: "row", gap: space.md, marginBottom: space.xl }}>
-          <Card theme={theme} style={{ flex: 1 }}>
-            <Text style={{ ...typo.display, color: theme.teal }}>{completed.length}</Text>
-            <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>completed today</Text>
+        {today.loading && !today.data ? (
+          <ActivityIndicator color={theme.accent} style={{ marginTop: space.xxl }} />
+        ) : members.length === 0 ? (
+          <Card theme={theme}>
+            <Text style={{ ...typo.heading, color: theme.ink }}>No members yet</Text>
+            <Text style={{ ...typo.caption, color: theme.muted, marginTop: 6 }}>
+              Members appear here once they request to join your gym and you approve them.
+            </Text>
           </Card>
-          <Card theme={theme} style={{ flex: 1 }}>
-            <Text style={{ ...typo.display, color: theme.warning }}>{attention.length}</Text>
-            <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>need attention</Text>
-          </Card>
-        </View>
-
-        {attention.length > 0 && (
+        ) : (
           <>
-            <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginBottom: space.sm }}>Needs attention</Text>
-            {attention.map((m) => (
-              <MemberRow key={m.name} m={m} theme={theme} />
-            ))}
+            <View style={{ flexDirection: "row", gap: space.md, marginBottom: space.xl }}>
+              <Card theme={theme} style={{ flex: 1 }}>
+                <Text style={{ ...typo.display, color: theme.teal }}>{done.length}</Text>
+                <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>completed</Text>
+              </Card>
+              <Card theme={theme} style={{ flex: 1 }}>
+                <Text style={{ ...typo.display, color: pending.length ? theme.warning : theme.muted }}>{pending.length}</Text>
+                <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>need attention</Text>
+              </Card>
+            </View>
+
+            {pending.length > 0 && (
+              <>
+                <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginBottom: space.sm }}>Needs attention</Text>
+                {pending.map((m) => <MemberRow key={m.id} m={m} theme={theme} />)}
+              </>
+            )}
+            {done.length > 0 && (
+              <>
+                <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginTop: space.lg, marginBottom: space.sm }}>Completed</Text>
+                {done.map((m) => <MemberRow key={m.id} m={m} theme={theme} />)}
+              </>
+            )}
           </>
         )}
-
-        <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginTop: space.lg, marginBottom: space.sm }}>
-          Completed
-        </Text>
-        {completed.map((m) => (
-          <MemberRow key={m.name} m={m} theme={theme} />
-        ))}
       </ScrollView>
     </Screen>
   );
 }
 
-function MemberRow({ m, theme }: { m: (typeof MEMBERS)[number]; theme: ReturnType<typeof useAuth>["theme"] }) {
-  const hit = m.protein >= m.target;
+function MemberRow({ m, theme }: { m: Row; theme: ReturnType<typeof useAuth>["theme"] }) {
   return (
     <Card theme={theme} style={{ marginBottom: space.sm }}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: space.md }}>
@@ -72,15 +83,18 @@ function MemberRow({ m, theme }: { m: (typeof MEMBERS)[number]; theme: ReturnTyp
         </View>
         <View style={{ flex: 1 }}>
           <Text style={{ ...typo.heading, color: theme.ink }}>{m.name}</Text>
-          <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>{m.session}</Text>
+          <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>
+            {m.sessionTitle ? `${m.sessionTitle} · ${m.minutes} min` : "No session logged"}
+          </Text>
         </View>
         <Pill theme={theme} label={m.done ? "Done" : "Pending"} tone={m.done ? theme.teal : theme.warning} />
       </View>
       <View style={{ flexDirection: "row", marginTop: space.md, paddingTop: space.md, borderTopWidth: 1, borderTopColor: theme.line }}>
         {[
-          { k: "Volume", v: m.volume, c: theme.inkSoft },
-          { k: "Calories", v: `${m.kcal}`, c: theme.inkSoft },
-          { k: "Protein", v: `${m.protein}/${m.target}g`, c: hit ? theme.teal : theme.warning },
+          { k: "Meals", v: `${m.mealsLogged}`, c: m.mealsLogged >= 3 ? theme.teal : theme.warning },
+          { k: "Calories", v: m.kcalIn ? m.kcalIn.toLocaleString() : "—", c: theme.inkSoft },
+          { k: "Protein", v: m.proteinG ? `${m.proteinG}g` : "—", c: theme.inkSoft },
+          { k: "Water", v: m.hydrationMl ? `${(m.hydrationMl / 1000).toFixed(1)}L` : "—", c: m.hydrationMl >= 2000 ? theme.teal : theme.inkSoft },
         ].map((s) => (
           <View key={s.k} style={{ flex: 1 }}>
             <Text style={{ ...typo.caption, color: theme.muted }}>{s.k}</Text>

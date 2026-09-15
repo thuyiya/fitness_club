@@ -51,14 +51,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = useCallback(
     async (email: string, password: string) => {
-      adopt(await api<Session & { user: User }>("/v1/auth/login", { method: "POST", auth: false, body: { email, password } }));
+      // Must await: setUser triggers the redirect, and the destination screen
+      // fetches immediately --- if the token is not persisted yet that first
+      // request goes out unauthenticated.
+      await adopt(await api<Session & { user: User }>("/v1/auth/login", { method: "POST", auth: false, body: { email, password } }));
     },
     [adopt],
   );
 
   const register = useCallback(
     async (input: { name: string; email: string; password: string; role: Role }) => {
-      adopt(await api<Session & { user: User }>("/v1/auth/register", { method: "POST", auth: false, body: input }));
+      await adopt(await api<Session & { user: User }>("/v1/auth/register", { method: "POST", auth: false, body: input }));
     },
     [adopt],
   );

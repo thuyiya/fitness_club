@@ -15,6 +15,8 @@ const schema = z.object({
   ACCESS_TOKEN_TTL: z.string().default("15m"),
   REFRESH_TOKEN_TTL_DAYS: z.coerce.number().default(30),
   PG_POOL_MAX: z.coerce.number().default(10),
+  /** Requests per minute per IP. Kept low in production; raised for test runs. */
+  RATE_LIMIT_MAX: z.coerce.number().default(100),
 });
 
 const parsed = schema.safeParse(process.env);
