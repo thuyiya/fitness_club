@@ -1,0 +1,22 @@
+{
+  "$comment": "Feeds the auto-generated hydration target and the M21 quick-add buttons. Baseline is a planning estimate only -- see knowledge/hydration_rules.json for the sweat-rate method when precision matters.",
+  "baseline": {
+    "mlPerKgBodyweight": 33,
+    "minimumMl": 1500,
+    "maximumMl": 4000,
+    "rule": "target = clamp(weightKg * 33 + trainingAdd + climateAdd, 1500, 4000)"
+  },
+  "adjustments": [
+    { "id": "training_per_hour", "label": "Per hour of training", "addMl": 500 },
+    { "id": "hot_climate", "label": "Hot or humid climate", "addMl": 500 },
+    { "id": "high_altitude", "label": "High altitude", "addMl": 300 }
+  ],
+  "quickAddPresets": [
+    { "id": "glass", "label": "Glass", "amountMl": 250 },
+    { "id": "mug", "label": "Mug", "amountMl": 350 },
+    { "id": "bottle_small", "label": "Small bottle", "amountMl": 500 },
+    { "id": "bottle_large", "label": "Large bottle", "amountMl": 750 },
+    { "id": "litre", "label": "1 litre", "amountMl": 1000 }
+  ],
+  "safety": "Do not push fluid far beyond thirst and target; very high intake without electrolytes risks hyponatraemia."
+}

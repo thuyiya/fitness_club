@@ -1,0 +1,20 @@
+{
+  "$comment": "Union of the US FASTER Act 9 major allergens and the EU Annex II 14. `regions` says where declaration is mandatory. Safety-relevant: never infer these, only store what the source declares.",
+  "items": [
+    { "id": "milk", "label": "Milk", "group": "dairy", "regions": ["US", "EU", "UK"] },
+    { "id": "eggs", "label": "Eggs", "group": "eggs", "regions": ["US", "EU", "UK"] },
+    { "id": "fish", "label": "Fish", "group": "fish", "regions": ["US", "EU", "UK"] },
+    { "id": "crustacean_shellfish", "label": "Crustacean shellfish", "group": "shellfish", "regions": ["US", "EU", "UK"] },
+    { "id": "molluscs", "label": "Molluscs", "group": "shellfish", "regions": ["EU", "UK"] },
+    { "id": "tree_nuts", "label": "Tree nuts", "group": "nuts", "regions": ["US", "EU", "UK"] },
+    { "id": "peanuts", "label": "Peanuts", "group": "legumes", "regions": ["US", "EU", "UK"] },
+    { "id": "wheat", "label": "Wheat", "group": "gluten", "regions": ["US", "EU", "UK"] },
+    { "id": "soybeans", "label": "Soybeans", "group": "legumes", "regions": ["US", "EU", "UK"] },
+    { "id": "sesame", "label": "Sesame", "group": "seeds", "regions": ["US", "EU", "UK"] },
+    { "id": "cereals_gluten", "label": "Cereals containing gluten", "group": "gluten", "regions": ["EU", "UK"] },
+    { "id": "celery", "label": "Celery", "group": "vegetables", "regions": ["EU", "UK"] },
+    { "id": "mustard", "label": "Mustard", "group": "seeds", "regions": ["EU", "UK"] },
+    { "id": "lupin", "label": "Lupin", "group": "legumes", "regions": ["EU", "UK"] },
+    { "id": "sulphites", "label": "Sulphur dioxide and sulphites", "group": "additives", "regions": ["EU", "UK"], "threshold": "over 10 mg/kg" }
+  ]
+}

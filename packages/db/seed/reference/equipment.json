@@ -1,0 +1,29 @@
+{
+  "$comment": "Seeds exercises.equipment[]. `homeAvailable` powers a 'train at home' filter.",
+  "items": [
+    { "id": "bodyweight", "label": "Bodyweight", "homeAvailable": true },
+    { "id": "barbell", "label": "Barbell", "homeAvailable": false },
+    { "id": "dumbbell", "label": "Dumbbell", "homeAvailable": true },
+    { "id": "kettlebell", "label": "Kettlebell", "homeAvailable": true },
+    { "id": "machine", "label": "Machine", "homeAvailable": false },
+    { "id": "cable", "label": "Cable", "homeAvailable": false },
+    { "id": "smith_machine", "label": "Smith machine", "homeAvailable": false },
+    { "id": "resistance_band", "label": "Resistance band", "homeAvailable": true },
+    { "id": "pull_up_bar", "label": "Pull-up bar", "homeAvailable": true },
+    { "id": "dip_bars", "label": "Dip bars", "homeAvailable": false },
+    { "id": "gymnastic_rings", "label": "Gymnastic rings", "homeAvailable": true },
+    { "id": "bench", "label": "Bench", "homeAvailable": true },
+    { "id": "medicine_ball", "label": "Medicine ball", "homeAvailable": true },
+    { "id": "stability_ball", "label": "Stability ball", "homeAvailable": true },
+    { "id": "foam_roller", "label": "Foam roller", "homeAvailable": true },
+    { "id": "jump_rope", "label": "Jump rope", "homeAvailable": true },
+    { "id": "trx", "label": "Suspension trainer", "homeAvailable": true },
+    { "id": "treadmill", "label": "Treadmill", "homeAvailable": false },
+    { "id": "rowing_machine", "label": "Rowing machine", "homeAvailable": false },
+    { "id": "stationary_bike", "label": "Stationary bike", "homeAvailable": false },
+    { "id": "elliptical", "label": "Elliptical", "homeAvailable": false },
+    { "id": "sled", "label": "Sled", "homeAvailable": false },
+    { "id": "battle_ropes", "label": "Battle ropes", "homeAvailable": false },
+    { "id": "ez_bar", "label": "EZ bar", "homeAvailable": false }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$comment": "Volume units carry ml only. Converting ml to grams needs the food's density, so it is NEVER done generically -- store gramsPerUnit on the food when a household measure is offered.",
+  "mass": [
+    { "id": "g", "label": "gram", "plural": "grams", "grams": 1, "system": "metric" },
+    { "id": "kg", "label": "kilogram", "plural": "kilograms", "grams": 1000, "system": "metric" },
+    { "id": "oz", "label": "ounce", "plural": "ounces", "grams": 28.3495, "system": "imperial" },
+    { "id": "lb", "label": "pound", "plural": "pounds", "grams": 453.592, "system": "imperial" }
+  ],
+  "volume": [
+    { "id": "ml", "label": "millilitre", "plural": "millilitres", "ml": 1, "system": "metric" },
+    { "id": "l", "label": "litre", "plural": "litres", "ml": 1000, "system": "metric" },
+    { "id": "tsp", "label": "teaspoon", "plural": "teaspoons", "ml": 4.929, "system": "us" },
+    { "id": "tbsp", "label": "tablespoon", "plural": "tablespoons", "ml": 14.787, "system": "us" },
+    { "id": "fl_oz", "label": "fluid ounce", "plural": "fluid ounces", "ml": 29.574, "system": "us" },
+    { "id": "cup", "label": "cup", "plural": "cups", "ml": 236.588, "system": "us" }
+  ],
+  "count": [
+    { "id": "piece", "label": "piece", "plural": "pieces" },
+    { "id": "slice", "label": "slice", "plural": "slices" },
+    { "id": "serving", "label": "serving", "plural": "servings" },
+    { "id": "scoop", "label": "scoop", "plural": "scoops" },
+    { "id": "handful", "label": "handful", "plural": "handfuls" }
+  ]
+}

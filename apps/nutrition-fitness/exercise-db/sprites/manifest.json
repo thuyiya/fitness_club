@@ -1,0 +1,4976 @@
+{
+  "brand": "Wellness 2.0",
+  "source": "../calisthenics-exercises.md",
+  "exercises": [
+    {
+      "id": "wall-push-up",
+      "name": "Wall push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wall-push-up.png"
+    },
+    {
+      "id": "incline-push-up",
+      "name": "Incline push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "incline-push-up.png"
+    },
+    {
+      "id": "knee-push-up",
+      "name": "Knee push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "knee-push-up.png"
+    },
+    {
+      "id": "negative-push-up",
+      "name": "Negative push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "negative-push-up.png"
+    },
+    {
+      "id": "standard-push-up",
+      "name": "Standard push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "standard-push-up.png"
+    },
+    {
+      "id": "wide-push-up",
+      "name": "Wide push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wide-push-up.png"
+    },
+    {
+      "id": "close-grip-push-up",
+      "name": "Close-grip push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "close-grip-push-up.png"
+    },
+    {
+      "id": "diamond-push-up",
+      "name": "Diamond push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "diamond-push-up.png"
+    },
+    {
+      "id": "decline-push-up",
+      "name": "Decline push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "decline-push-up.png"
+    },
+    {
+      "id": "staggered-hand-push-up",
+      "name": "Staggered-hand push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "staggered-hand-push-up.png"
+    },
+    {
+      "id": "hand-release-push-up",
+      "name": "Hand-release push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "hand-release-push-up.png"
+    },
+    {
+      "id": "pause-push-up",
+      "name": "Pause push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pause-push-up.png"
+    },
+    {
+      "id": "deficit-push-up",
+      "name": "Deficit push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "deficit-push-up.png"
+    },
+    {
+      "id": "knuckle-push-up",
+      "name": "Knuckle push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "knuckle-push-up.png"
+    },
+    {
+      "id": "fingertip-push-up",
+      "name": "Fingertip push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "fingertip-push-up.png"
+    },
+    {
+      "id": "scapular-push-up",
+      "name": "Scapular push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "scapular-push-up.png"
+    },
+    {
+      "id": "push-up-plus",
+      "name": "Push-up plus",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "push-up-plus.png"
+    },
+    {
+      "id": "sphinx-push-up",
+      "name": "Sphinx push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "sphinx-push-up.png"
+    },
+    {
+      "id": "tiger-bend-push-up",
+      "name": "Tiger-bend push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "tiger-bend-push-up.png"
+    },
+    {
+      "id": "hindu-push-up",
+      "name": "Hindu push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "hindu-push-up.png"
+    },
+    {
+      "id": "dive-bomber-push-up",
+      "name": "Dive-bomber push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "dive-bomber-push-up.png"
+    },
+    {
+      "id": "spiderman-push-up",
+      "name": "Spiderman push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "spiderman-push-up.png"
+    },
+    {
+      "id": "cross-body-knee-to-elbow-push-up",
+      "name": "Cross-body knee-to-elbow push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "cross-body-knee-to-elbow-push-up.png"
+    },
+    {
+      "id": "shoulder-tap-push-up",
+      "name": "Shoulder-tap push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "shoulder-tap-push-up.png"
+    },
+    {
+      "id": "t-push-up",
+      "name": "T push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "t-push-up.png"
+    },
+    {
+      "id": "grasshopper-push-up",
+      "name": "Grasshopper push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "grasshopper-push-up.png"
+    },
+    {
+      "id": "archer-push-up",
+      "name": "Archer push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "archer-push-up.png"
+    },
+    {
+      "id": "typewriter-push-up",
+      "name": "Typewriter push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "typewriter-push-up.png"
+    },
+    {
+      "id": "assisted-one-arm-push-up",
+      "name": "Assisted one-arm push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "assisted-one-arm-push-up.png"
+    },
+    {
+      "id": "one-arm-push-up",
+      "name": "One-arm push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "one-arm-push-up.png"
+    },
+    {
+      "id": "one-arm-one-leg-push-up",
+      "name": "One-arm, one-leg push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "one-arm-one-leg-push-up.png"
+    },
+    {
+      "id": "pseudo-planche-push-up",
+      "name": "Pseudo-planche push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pseudo-planche-push-up.png"
+    },
+    {
+      "id": "tuck-planche-push-up",
+      "name": "Tuck planche push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "tuck-planche-push-up.png"
+    },
+    {
+      "id": "straddle-planche-push-up",
+      "name": "Straddle planche push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "straddle-planche-push-up.png"
+    },
+    {
+      "id": "full-planche-push-up",
+      "name": "Full planche push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "full-planche-push-up.png"
+    },
+    {
+      "id": "ring-push-up",
+      "name": "Ring push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-push-up.png"
+    },
+    {
+      "id": "ring-turnout-push-up",
+      "name": "Ring turnout push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-turnout-push-up.png"
+    },
+    {
+      "id": "ring-archer-push-up",
+      "name": "Ring archer push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-archer-push-up.png"
+    },
+    {
+      "id": "ring-fly",
+      "name": "Ring fly",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-fly.png"
+    },
+    {
+      "id": "explosive-push-up",
+      "name": "Explosive push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "explosive-push-up.png"
+    },
+    {
+      "id": "clap-push-up",
+      "name": "Clap push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "clap-push-up.png"
+    },
+    {
+      "id": "alternating-uneven-push-up",
+      "name": "Alternating uneven push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "alternating-uneven-push-up.png"
+    },
+    {
+      "id": "superman-push-up",
+      "name": "Superman push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "superman-push-up.png"
+    },
+    {
+      "id": "behind-the-back-clap-push-up",
+      "name": "Behind-the-back clap push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "behind-the-back-clap-push-up.png"
+    },
+    {
+      "id": "aztec-push-up",
+      "name": "Aztec push-up",
+      "category": "1. Horizontal Pushing \u2014 Chest, Shoulders, and Triceps",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "aztec-push-up.png"
+    },
+    {
+      "id": "pike-hold",
+      "name": "Pike hold",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pike-hold.png"
+    },
+    {
+      "id": "pike-push-up",
+      "name": "Pike push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pike-push-up.png"
+    },
+    {
+      "id": "elevated-pike-push-up",
+      "name": "Elevated pike push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "elevated-pike-push-up.png"
+    },
+    {
+      "id": "deficit-pike-push-up",
+      "name": "Deficit pike push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "deficit-pike-push-up.png"
+    },
+    {
+      "id": "wall-handstand-hold",
+      "name": "Wall handstand hold",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wall-handstand-hold.png"
+    },
+    {
+      "id": "wall-handstand-shrug",
+      "name": "Wall handstand shrug",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wall-handstand-shrug.png"
+    },
+    {
+      "id": "wall-handstand-shoulder-tap",
+      "name": "Wall handstand shoulder tap",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wall-handstand-shoulder-tap.png"
+    },
+    {
+      "id": "negative-wall-handstand-push-up",
+      "name": "Negative wall handstand push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "negative-wall-handstand-push-up.png"
+    },
+    {
+      "id": "partial-range-wall-handstand-push-up",
+      "name": "Partial-range wall handstand push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "partial-range-wall-handstand-push-up.png"
+    },
+    {
+      "id": "wall-handstand-push-up",
+      "name": "Wall handstand push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wall-handstand-push-up.png"
+    },
+    {
+      "id": "deficit-wall-handstand-push-up",
+      "name": "Deficit wall handstand push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "deficit-wall-handstand-push-up.png"
+    },
+    {
+      "id": "freestanding-handstand-push-up",
+      "name": "Freestanding handstand push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "freestanding-handstand-push-up.png"
+    },
+    {
+      "id": "freestanding-deficit-handstand-push-up",
+      "name": "Freestanding deficit handstand push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "freestanding-deficit-handstand-push-up.png"
+    },
+    {
+      "id": "bent-arm-press-to-handstand",
+      "name": "Bent-arm press to handstand",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bent-arm-press-to-handstand.png"
+    },
+    {
+      "id": "straight-arm-press-to-handstand",
+      "name": "Straight-arm press to handstand",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "straight-arm-press-to-handstand.png"
+    },
+    {
+      "id": "pike-press-to-handstand",
+      "name": "Pike press to handstand",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pike-press-to-handstand.png"
+    },
+    {
+      "id": "straddle-press-to-handstand",
+      "name": "Straddle press to handstand",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "straddle-press-to-handstand.png"
+    },
+    {
+      "id": "l-sit-press-to-handstand",
+      "name": "L-sit press to handstand",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "l-sit-press-to-handstand.png"
+    },
+    {
+      "id": "ninety-degree-push-up",
+      "name": "Ninety-degree push-up",
+      "category": "2. Vertical and Overhead Pushing",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ninety-degree-push-up.png"
+    },
+    {
+      "id": "bench-dip",
+      "name": "Bench dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bench-dip.png"
+    },
+    {
+      "id": "foot-assisted-parallel-bar-dip",
+      "name": "Foot-assisted parallel-bar dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "foot-assisted-parallel-bar-dip.png"
+    },
+    {
+      "id": "parallel-bar-support-hold",
+      "name": "Parallel-bar support hold",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "parallel-bar-support-hold.png"
+    },
+    {
+      "id": "negative-parallel-bar-dip",
+      "name": "Negative parallel-bar dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "negative-parallel-bar-dip.png"
+    },
+    {
+      "id": "parallel-bar-dip",
+      "name": "Parallel-bar dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "parallel-bar-dip.png"
+    },
+    {
+      "id": "straight-bar-dip",
+      "name": "Straight-bar dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "straight-bar-dip.png"
+    },
+    {
+      "id": "ring-support-hold",
+      "name": "Ring support hold",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-support-hold.png"
+    },
+    {
+      "id": "ring-turnout-support-hold",
+      "name": "Ring turnout support hold",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-turnout-support-hold.png"
+    },
+    {
+      "id": "foot-assisted-ring-dip",
+      "name": "Foot-assisted ring dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "foot-assisted-ring-dip.png"
+    },
+    {
+      "id": "ring-dip",
+      "name": "Ring dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-dip.png"
+    },
+    {
+      "id": "ring-turnout-dip",
+      "name": "Ring turnout dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-turnout-dip.png"
+    },
+    {
+      "id": "korean-dip",
+      "name": "Korean dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "korean-dip.png"
+    },
+    {
+      "id": "russian-dip",
+      "name": "Russian dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "russian-dip.png"
+    },
+    {
+      "id": "impossible-dip",
+      "name": "Impossible dip",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "impossible-dip.png"
+    },
+    {
+      "id": "bodyweight-triceps-extension-against-a-wall",
+      "name": "Bodyweight triceps extension against a wall",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bodyweight-triceps-extension-against-a-wall.png"
+    },
+    {
+      "id": "incline-bodyweight-triceps-extension",
+      "name": "Incline bodyweight triceps extension",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "incline-bodyweight-triceps-extension.png"
+    },
+    {
+      "id": "bar-bodyweight-triceps-extension",
+      "name": "Bar bodyweight triceps extension",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bar-bodyweight-triceps-extension.png"
+    },
+    {
+      "id": "ring-triceps-extension",
+      "name": "Ring triceps extension",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-triceps-extension.png"
+    },
+    {
+      "id": "floor-bodyweight-triceps-extension",
+      "name": "Floor bodyweight triceps extension",
+      "category": "3. Dips and Triceps Extensions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "floor-bodyweight-triceps-extension.png"
+    },
+    {
+      "id": "upright-bodyweight-row",
+      "name": "Upright bodyweight row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "upright-bodyweight-row.png"
+    },
+    {
+      "id": "bent-knee-inverted-row",
+      "name": "Bent-knee inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bent-knee-inverted-row.png"
+    },
+    {
+      "id": "straight-leg-inverted-row",
+      "name": "Straight-leg inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "straight-leg-inverted-row.png"
+    },
+    {
+      "id": "underhand-inverted-row",
+      "name": "Underhand inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "underhand-inverted-row.png"
+    },
+    {
+      "id": "neutral-grip-inverted-row",
+      "name": "Neutral-grip inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "neutral-grip-inverted-row.png"
+    },
+    {
+      "id": "wide-grip-inverted-row",
+      "name": "Wide-grip inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wide-grip-inverted-row.png"
+    },
+    {
+      "id": "close-grip-inverted-row",
+      "name": "Close-grip inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "close-grip-inverted-row.png"
+    },
+    {
+      "id": "feet-elevated-inverted-row",
+      "name": "Feet-elevated inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "feet-elevated-inverted-row.png"
+    },
+    {
+      "id": "single-leg-inverted-row",
+      "name": "Single-leg inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-inverted-row.png"
+    },
+    {
+      "id": "pause-inverted-row",
+      "name": "Pause inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pause-inverted-row.png"
+    },
+    {
+      "id": "scapular-inverted-row",
+      "name": "Scapular inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "scapular-inverted-row.png"
+    },
+    {
+      "id": "ring-row",
+      "name": "Ring row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-row.png"
+    },
+    {
+      "id": "ring-archer-row",
+      "name": "Ring archer row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-archer-row.png"
+    },
+    {
+      "id": "assisted-one-arm-row",
+      "name": "Assisted one-arm row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "assisted-one-arm-row.png"
+    },
+    {
+      "id": "one-arm-inverted-row",
+      "name": "One-arm inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "one-arm-inverted-row.png"
+    },
+    {
+      "id": "towel-inverted-row",
+      "name": "Towel inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "towel-inverted-row.png"
+    },
+    {
+      "id": "explosive-inverted-row",
+      "name": "Explosive inverted row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "explosive-inverted-row.png"
+    },
+    {
+      "id": "tuck-front-lever-row",
+      "name": "Tuck front lever row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "tuck-front-lever-row.png"
+    },
+    {
+      "id": "advanced-tuck-front-lever-row",
+      "name": "Advanced tuck front lever row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "advanced-tuck-front-lever-row.png"
+    },
+    {
+      "id": "straddle-front-lever-row",
+      "name": "Straddle front lever row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "straddle-front-lever-row.png"
+    },
+    {
+      "id": "full-front-lever-row",
+      "name": "Full front lever row",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "full-front-lever-row.png"
+    },
+    {
+      "id": "bodyweight-biceps-curl-on-a-bar",
+      "name": "Bodyweight biceps curl on a bar",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bodyweight-biceps-curl-on-a-bar.png"
+    },
+    {
+      "id": "ring-biceps-curl",
+      "name": "Ring biceps curl",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-biceps-curl.png"
+    },
+    {
+      "id": "ring-face-pull",
+      "name": "Ring face pull",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-face-pull.png"
+    },
+    {
+      "id": "ring-reverse-fly",
+      "name": "Ring reverse fly",
+      "category": "4. Horizontal Pulling \u2014 Back and Arms",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-reverse-fly.png"
+    },
+    {
+      "id": "foot-assisted-pull-up",
+      "name": "Foot-assisted pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "foot-assisted-pull-up.png"
+    },
+    {
+      "id": "band-assisted-pull-up",
+      "name": "Band-assisted pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "band-assisted-pull-up.png"
+    },
+    {
+      "id": "negative-pull-up",
+      "name": "Negative pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "negative-pull-up.png"
+    },
+    {
+      "id": "scapular-pull-up",
+      "name": "Scapular pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "scapular-pull-up.png"
+    },
+    {
+      "id": "top-position-pull-up-hold",
+      "name": "Top-position pull-up hold",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "top-position-pull-up-hold.png"
+    },
+    {
+      "id": "flexed-arm-hang",
+      "name": "Flexed-arm hang",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "flexed-arm-hang.png"
+    },
+    {
+      "id": "pull-up",
+      "name": "Pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pull-up.png"
+    },
+    {
+      "id": "chin-up",
+      "name": "Chin-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "chin-up.png"
+    },
+    {
+      "id": "neutral-grip-pull-up",
+      "name": "Neutral-grip pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "neutral-grip-pull-up.png"
+    },
+    {
+      "id": "close-grip-pull-up",
+      "name": "Close-grip pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "close-grip-pull-up.png"
+    },
+    {
+      "id": "wide-grip-pull-up",
+      "name": "Wide-grip pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wide-grip-pull-up.png"
+    },
+    {
+      "id": "mixed-grip-pull-up",
+      "name": "Mixed-grip pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "mixed-grip-pull-up.png"
+    },
+    {
+      "id": "commando-pull-up",
+      "name": "Commando pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "commando-pull-up.png"
+    },
+    {
+      "id": "ring-pull-up",
+      "name": "Ring pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-pull-up.png"
+    },
+    {
+      "id": "ring-chin-up",
+      "name": "Ring chin-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-chin-up.png"
+    },
+    {
+      "id": "towel-pull-up",
+      "name": "Towel pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "towel-pull-up.png"
+    },
+    {
+      "id": "rope-pull-up",
+      "name": "Rope pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "rope-pull-up.png"
+    },
+    {
+      "id": "chest-to-bar-pull-up",
+      "name": "Chest-to-bar pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "chest-to-bar-pull-up.png"
+    },
+    {
+      "id": "sternum-pull-up",
+      "name": "Sternum pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "sternum-pull-up.png"
+    },
+    {
+      "id": "l-sit-pull-up",
+      "name": "L-sit pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "l-sit-pull-up.png"
+    },
+    {
+      "id": "l-sit-chin-up",
+      "name": "L-sit chin-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "l-sit-chin-up.png"
+    },
+    {
+      "id": "tuck-pull-up",
+      "name": "Tuck pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "tuck-pull-up.png"
+    },
+    {
+      "id": "archer-pull-up",
+      "name": "Archer pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "archer-pull-up.png"
+    },
+    {
+      "id": "typewriter-pull-up",
+      "name": "Typewriter pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "typewriter-pull-up.png"
+    },
+    {
+      "id": "around-the-world-pull-up",
+      "name": "Around-the-world pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "around-the-world-pull-up.png"
+    },
+    {
+      "id": "assisted-one-arm-pull-up",
+      "name": "Assisted one-arm pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "assisted-one-arm-pull-up.png"
+    },
+    {
+      "id": "one-arm-negative-pull-up",
+      "name": "One-arm negative pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "one-arm-negative-pull-up.png"
+    },
+    {
+      "id": "one-arm-pull-up",
+      "name": "One-arm pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "one-arm-pull-up.png"
+    },
+    {
+      "id": "one-arm-chin-up",
+      "name": "One-arm chin-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "one-arm-chin-up.png"
+    },
+    {
+      "id": "explosive-high-pull-up",
+      "name": "Explosive high pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "explosive-high-pull-up.png"
+    },
+    {
+      "id": "clap-pull-up",
+      "name": "Clap pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "clap-pull-up.png"
+    },
+    {
+      "id": "kipping-pull-up",
+      "name": "Kipping pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "kipping-pull-up.png"
+    },
+    {
+      "id": "butterfly-pull-up",
+      "name": "Butterfly pull-up",
+      "category": "5. Vertical Pulling",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "butterfly-pull-up.png"
+    },
+    {
+      "id": "foot-assisted-low-bar-muscle-up-transition",
+      "name": "Foot-assisted low-bar muscle-up transition",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "foot-assisted-low-bar-muscle-up-transition.png"
+    },
+    {
+      "id": "foot-assisted-low-ring-muscle-up-transition",
+      "name": "Foot-assisted low-ring muscle-up transition",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "foot-assisted-low-ring-muscle-up-transition.png"
+    },
+    {
+      "id": "band-assisted-bar-muscle-up",
+      "name": "Band-assisted bar muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "band-assisted-bar-muscle-up.png"
+    },
+    {
+      "id": "negative-bar-muscle-up",
+      "name": "Negative bar muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "negative-bar-muscle-up.png"
+    },
+    {
+      "id": "kipping-bar-muscle-up",
+      "name": "Kipping bar muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "kipping-bar-muscle-up.png"
+    },
+    {
+      "id": "strict-bar-muscle-up",
+      "name": "Strict bar muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "strict-bar-muscle-up.png"
+    },
+    {
+      "id": "band-assisted-ring-muscle-up",
+      "name": "Band-assisted ring muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "band-assisted-ring-muscle-up.png"
+    },
+    {
+      "id": "negative-ring-muscle-up",
+      "name": "Negative ring muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "negative-ring-muscle-up.png"
+    },
+    {
+      "id": "ring-muscle-up",
+      "name": "Ring muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "ring-muscle-up.png"
+    },
+    {
+      "id": "strict-ring-muscle-up",
+      "name": "Strict ring muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "strict-ring-muscle-up.png"
+    },
+    {
+      "id": "slow-bar-muscle-up",
+      "name": "Slow bar muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "slow-bar-muscle-up.png"
+    },
+    {
+      "id": "wide-grip-muscle-up",
+      "name": "Wide-grip muscle-up",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wide-grip-muscle-up.png"
+    },
+    {
+      "id": "pull-over-on-a-bar",
+      "name": "Pull-over on a bar",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pull-over-on-a-bar.png"
+    },
+    {
+      "id": "backward-roll-to-support-on-rings",
+      "name": "Backward roll to support on rings",
+      "category": "6. Muscle-Ups and Transitions",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "backward-roll-to-support-on-rings.png"
+    },
+    {
+      "id": "assisted-squat",
+      "name": "Assisted squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "assisted-squat.png"
+    },
+    {
+      "id": "box-squat",
+      "name": "Box squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "box-squat.png"
+    },
+    {
+      "id": "bodyweight-squat",
+      "name": "Bodyweight squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bodyweight-squat.png"
+    },
+    {
+      "id": "narrow-stance-squat",
+      "name": "Narrow-stance squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "narrow-stance-squat.png"
+    },
+    {
+      "id": "wide-stance-squat",
+      "name": "Wide-stance squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wide-stance-squat.png"
+    },
+    {
+      "id": "sumo-squat",
+      "name": "Sumo squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "sumo-squat.png"
+    },
+    {
+      "id": "deep-squat",
+      "name": "Deep squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "deep-squat.png"
+    },
+    {
+      "id": "pause-squat",
+      "name": "Pause squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pause-squat.png"
+    },
+    {
+      "id": "squat-pulse",
+      "name": "Squat pulse",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "squat-pulse.png"
+    },
+    {
+      "id": "wall-sit",
+      "name": "Wall sit",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wall-sit.png"
+    },
+    {
+      "id": "single-leg-wall-sit",
+      "name": "Single-leg wall sit",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-wall-sit.png"
+    },
+    {
+      "id": "split-squat",
+      "name": "Split squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "split-squat.png"
+    },
+    {
+      "id": "rear-foot-elevated-split-squat-bulgarian-split-squat",
+      "name": "Rear-foot-elevated split squat (Bulgarian split squat)",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "rear-foot-elevated-split-squat-bulgarian-split-squat.png"
+    },
+    {
+      "id": "front-foot-elevated-split-squat",
+      "name": "Front-foot-elevated split squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "front-foot-elevated-split-squat.png"
+    },
+    {
+      "id": "assisted-pistol-squat",
+      "name": "Assisted pistol squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "assisted-pistol-squat.png"
+    },
+    {
+      "id": "box-pistol-squat",
+      "name": "Box pistol squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "box-pistol-squat.png"
+    },
+    {
+      "id": "negative-pistol-squat",
+      "name": "Negative pistol squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "negative-pistol-squat.png"
+    },
+    {
+      "id": "pistol-squat",
+      "name": "Pistol squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "pistol-squat.png"
+    },
+    {
+      "id": "elevated-pistol-squat",
+      "name": "Elevated pistol squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "elevated-pistol-squat.png"
+    },
+    {
+      "id": "assisted-shrimp-squat",
+      "name": "Assisted shrimp squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "assisted-shrimp-squat.png"
+    },
+    {
+      "id": "shrimp-squat",
+      "name": "Shrimp squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "shrimp-squat.png"
+    },
+    {
+      "id": "advanced-shrimp-squat",
+      "name": "Advanced shrimp squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "advanced-shrimp-squat.png"
+    },
+    {
+      "id": "skater-squat",
+      "name": "Skater squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "skater-squat.png"
+    },
+    {
+      "id": "assisted-sissy-squat",
+      "name": "Assisted sissy squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "assisted-sissy-squat.png"
+    },
+    {
+      "id": "sissy-squat",
+      "name": "Sissy squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "sissy-squat.png"
+    },
+    {
+      "id": "cossack-squat",
+      "name": "Cossack squat",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "cossack-squat.png"
+    },
+    {
+      "id": "duck-walk",
+      "name": "Duck walk",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "duck-walk.png"
+    },
+    {
+      "id": "reverse-nordic-curl",
+      "name": "Reverse Nordic curl",
+      "category": "7. Squats and Knee-Dominant Leg Exercises",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "reverse-nordic-curl.png"
+    },
+    {
+      "id": "supported-lunge",
+      "name": "Supported lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "supported-lunge.png"
+    },
+    {
+      "id": "forward-lunge",
+      "name": "Forward lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "forward-lunge.png"
+    },
+    {
+      "id": "reverse-lunge",
+      "name": "Reverse lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "reverse-lunge.png"
+    },
+    {
+      "id": "walking-lunge",
+      "name": "Walking lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "walking-lunge.png"
+    },
+    {
+      "id": "lateral-lunge",
+      "name": "Lateral lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "lateral-lunge.png"
+    },
+    {
+      "id": "curtsy-lunge",
+      "name": "Curtsy lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "curtsy-lunge.png"
+    },
+    {
+      "id": "diagonal-lunge",
+      "name": "Diagonal lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "diagonal-lunge.png"
+    },
+    {
+      "id": "clock-lunge",
+      "name": "Clock lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "clock-lunge.png"
+    },
+    {
+      "id": "deficit-reverse-lunge",
+      "name": "Deficit reverse lunge",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "deficit-reverse-lunge.png"
+    },
+    {
+      "id": "lunge-pulse",
+      "name": "Lunge pulse",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "lunge-pulse.png"
+    },
+    {
+      "id": "isometric-lunge-hold",
+      "name": "Isometric lunge hold",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "isometric-lunge-hold.png"
+    },
+    {
+      "id": "step-up",
+      "name": "Step-up",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "step-up.png"
+    },
+    {
+      "id": "high-step-up",
+      "name": "High step-up",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "high-step-up.png"
+    },
+    {
+      "id": "lateral-step-up",
+      "name": "Lateral step-up",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "lateral-step-up.png"
+    },
+    {
+      "id": "crossover-step-up",
+      "name": "Crossover step-up",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "crossover-step-up.png"
+    },
+    {
+      "id": "step-down",
+      "name": "Step-down",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "step-down.png"
+    },
+    {
+      "id": "lateral-step-down",
+      "name": "Lateral step-down",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "lateral-step-down.png"
+    },
+    {
+      "id": "single-leg-sit-to-stand",
+      "name": "Single-leg sit-to-stand",
+      "category": "8. Lunges and Step-Ups",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-sit-to-stand.png"
+    },
+    {
+      "id": "glute-bridge",
+      "name": "Glute bridge",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "glute-bridge.png"
+    },
+    {
+      "id": "glute-bridge-hold",
+      "name": "Glute bridge hold",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "glute-bridge-hold.png"
+    },
+    {
+      "id": "glute-bridge-march",
+      "name": "Glute bridge march",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "glute-bridge-march.png"
+    },
+    {
+      "id": "single-leg-glute-bridge",
+      "name": "Single-leg glute bridge",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-glute-bridge.png"
+    },
+    {
+      "id": "feet-elevated-glute-bridge",
+      "name": "Feet-elevated glute bridge",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "feet-elevated-glute-bridge.png"
+    },
+    {
+      "id": "shoulder-elevated-hip-thrust",
+      "name": "Shoulder-elevated hip thrust",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "shoulder-elevated-hip-thrust.png"
+    },
+    {
+      "id": "single-leg-hip-thrust",
+      "name": "Single-leg hip thrust",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-hip-thrust.png"
+    },
+    {
+      "id": "frog-pump",
+      "name": "Frog pump",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "frog-pump.png"
+    },
+    {
+      "id": "long-lever-glute-bridge",
+      "name": "Long-lever glute bridge",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "long-lever-glute-bridge.png"
+    },
+    {
+      "id": "hamstring-bridge-walkout",
+      "name": "Hamstring bridge walkout",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "hamstring-bridge-walkout.png"
+    },
+    {
+      "id": "sliding-hamstring-curl",
+      "name": "Sliding hamstring curl",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "sliding-hamstring-curl.png"
+    },
+    {
+      "id": "single-leg-sliding-hamstring-curl",
+      "name": "Single-leg sliding hamstring curl",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-sliding-hamstring-curl.png"
+    },
+    {
+      "id": "assisted-nordic-hamstring-curl",
+      "name": "Assisted Nordic hamstring curl",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "assisted-nordic-hamstring-curl.png"
+    },
+    {
+      "id": "negative-nordic-hamstring-curl",
+      "name": "Negative Nordic hamstring curl",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "negative-nordic-hamstring-curl.png"
+    },
+    {
+      "id": "nordic-hamstring-curl",
+      "name": "Nordic hamstring curl",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "nordic-hamstring-curl.png"
+    },
+    {
+      "id": "reverse-hyperextension-on-a-support",
+      "name": "Reverse hyperextension on a support",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "reverse-hyperextension-on-a-support.png"
+    },
+    {
+      "id": "bodyweight-good-morning",
+      "name": "Bodyweight good morning",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bodyweight-good-morning.png"
+    },
+    {
+      "id": "single-leg-hip-hinge",
+      "name": "Single-leg hip hinge",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-hip-hinge.png"
+    },
+    {
+      "id": "single-leg-romanian-deadlift-without-weights",
+      "name": "Single-leg Romanian deadlift without weights",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-romanian-deadlift-without-weights.png"
+    },
+    {
+      "id": "donkey-kick",
+      "name": "Donkey kick",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "donkey-kick.png"
+    },
+    {
+      "id": "fire-hydrant",
+      "name": "Fire hydrant",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "fire-hydrant.png"
+    },
+    {
+      "id": "side-lying-hip-abduction",
+      "name": "Side-lying hip abduction",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "side-lying-hip-abduction.png"
+    },
+    {
+      "id": "side-lying-hip-adduction",
+      "name": "Side-lying hip adduction",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "side-lying-hip-adduction.png"
+    },
+    {
+      "id": "clamshell",
+      "name": "Clamshell",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "clamshell.png"
+    },
+    {
+      "id": "bird-dog",
+      "name": "Bird dog",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bird-dog.png"
+    },
+    {
+      "id": "prone-back-extension",
+      "name": "Prone back extension",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "prone-back-extension.png"
+    },
+    {
+      "id": "superman-hold",
+      "name": "Superman hold",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "superman-hold.png"
+    },
+    {
+      "id": "alternating-superman",
+      "name": "Alternating Superman",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "alternating-superman.png"
+    },
+    {
+      "id": "prone-swimmer",
+      "name": "Prone swimmer",
+      "category": "9. Hips, Glutes, Hamstrings, and Lower Back",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "prone-swimmer.png"
+    },
+    {
+      "id": "standing-calf-raise",
+      "name": "Standing calf raise",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "standing-calf-raise.png"
+    },
+    {
+      "id": "supported-single-leg-calf-raise",
+      "name": "Supported single-leg calf raise",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "supported-single-leg-calf-raise.png"
+    },
+    {
+      "id": "single-leg-calf-raise",
+      "name": "Single-leg calf raise",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "single-leg-calf-raise.png"
+    },
+    {
+      "id": "calf-raise-on-a-step",
+      "name": "Calf raise on a step",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "calf-raise-on-a-step.png"
+    },
+    {
+      "id": "bent-knee-calf-raise",
+      "name": "Bent-knee calf raise",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "bent-knee-calf-raise.png"
+    },
+    {
+      "id": "squat-position-calf-raise",
+      "name": "Squat-position calf raise",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "squat-position-calf-raise.png"
+    },
+    {
+      "id": "isometric-calf-raise-hold",
+      "name": "Isometric calf raise hold",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "isometric-calf-raise-hold.png"
+    },
+    {
+      "id": "wall-supported-tibialis-raise",
+      "name": "Wall-supported tibialis raise",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wall-supported-tibialis-raise.png"
+    },
+    {
+      "id": "heel-walk",
+      "name": "Heel walk",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "heel-walk.png"
+    },
+    {
+      "id": "toe-walk",
+      "name": "Toe walk",
+      "category": "10. Calves, Ankles, and Shins",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "toe-walk.png"
+    },
+    {
+      "id": "wall-plank",
+      "name": "Wall plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "wall-plank.png"
+    },
+    {
+      "id": "incline-plank",
+      "name": "Incline plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "generated-unreviewed",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": "incline-plank.png"
+    },
+    {
+      "id": "knee-plank",
+      "name": "Knee plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "forearm-plank",
+      "name": "Forearm plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "high-plank",
+      "name": "High plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "long-lever-plank",
+      "name": "Long-lever plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "rkc-plank",
+      "name": "RKC plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "plank-shoulder-tap",
+      "name": "Plank shoulder tap",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "plank-up-down",
+      "name": "Plank up-down",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "plank-reach",
+      "name": "Plank reach",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "single-leg-plank",
+      "name": "Single-leg plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "single-arm-plank",
+      "name": "Single-arm plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "opposite-arm-and-leg-plank",
+      "name": "Opposite-arm-and-leg plank",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "body-saw",
+      "name": "Body saw",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "plank-walkout",
+      "name": "Plank walkout",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "inchworm",
+      "name": "Inchworm",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "dead-bug",
+      "name": "Dead bug",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hollow-body-tuck-hold",
+      "name": "Hollow-body tuck hold",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hollow-body-hold",
+      "name": "Hollow-body hold",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hollow-body-rock",
+      "name": "Hollow-body rock",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "arch-body-hold",
+      "name": "Arch-body hold",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "arch-body-rock",
+      "name": "Arch-body rock",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "kneeling-ring-rollout",
+      "name": "Kneeling ring rollout",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "standing-ring-rollout",
+      "name": "Standing ring rollout",
+      "category": "11. Core \u2014 Planks and Anti-Extension",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "crunch",
+      "name": "Crunch",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "reverse-crunch",
+      "name": "Reverse crunch",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "bicycle-crunch",
+      "name": "Bicycle crunch",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "cross-body-crunch",
+      "name": "Cross-body crunch",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "sit-up",
+      "name": "Sit-up",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "butterfly-sit-up",
+      "name": "Butterfly sit-up",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-up",
+      "name": "Tuck-up",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "v-up",
+      "name": "V-up",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "alternating-v-up",
+      "name": "Alternating V-up",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "seated-knee-tuck",
+      "name": "Seated knee tuck",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "lying-knee-raise",
+      "name": "Lying knee raise",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "lying-leg-raise",
+      "name": "Lying leg raise",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "lying-leg-lowering-drill",
+      "name": "Lying leg-lowering drill",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "flutter-kick",
+      "name": "Flutter kick",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "scissor-kick",
+      "name": "Scissor kick",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hanging-knee-raise",
+      "name": "Hanging knee raise",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hanging-leg-raise",
+      "name": "Hanging leg raise",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hanging-straight-leg-raise-to-bar-toes-to-bar",
+      "name": "Hanging straight-leg raise to bar (toes-to-bar)",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "captain-s-chair-knee-raise",
+      "name": "Captain's chair knee raise",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "captain-s-chair-leg-raise",
+      "name": "Captain's chair leg raise",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "parallel-bar-knee-raise",
+      "name": "Parallel-bar knee raise",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "parallel-bar-leg-raise",
+      "name": "Parallel-bar leg raise",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "dragon-flag-negative",
+      "name": "Dragon flag negative",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-dragon-flag",
+      "name": "Tuck dragon flag",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "straddle-dragon-flag",
+      "name": "Straddle dragon flag",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "full-dragon-flag",
+      "name": "Full dragon flag",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "seated-pike-compression-lift",
+      "name": "Seated pike compression lift",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "seated-straddle-compression-lift",
+      "name": "Seated straddle compression lift",
+      "category": "12. Core \u2014 Flexion and Leg Raises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "bent-knee-side-plank",
+      "name": "Bent-knee side plank",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "side-plank",
+      "name": "Side plank",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "side-plank-hip-lift",
+      "name": "Side plank hip lift",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "side-plank-reach-through",
+      "name": "Side plank reach-through",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "star-side-plank",
+      "name": "Star side plank",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "short-lever-copenhagen-plank",
+      "name": "Short-lever Copenhagen plank",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "long-lever-copenhagen-plank",
+      "name": "Long-lever Copenhagen plank",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "unweighted-russian-twist",
+      "name": "Unweighted Russian twist",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "seated-torso-rotation",
+      "name": "Seated torso rotation",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "windshield-wiper-on-the-floor",
+      "name": "Windshield wiper on the floor",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "bent-knee-hanging-windshield-wiper",
+      "name": "Bent-knee hanging windshield wiper",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "straight-leg-hanging-windshield-wiper",
+      "name": "Straight-leg hanging windshield wiper",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hanging-oblique-knee-raise",
+      "name": "Hanging oblique knee raise",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "cross-body-mountain-climber",
+      "name": "Cross-body mountain climber",
+      "category": "13. Core \u2014 Lateral Stability and Rotation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-support-hold",
+      "name": "Tuck support hold",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "foot-assisted-l-sit",
+      "name": "Foot-assisted L-sit",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-l-sit",
+      "name": "Tuck L-sit",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "one-leg-l-sit",
+      "name": "One-leg L-sit",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "l-sit",
+      "name": "L-sit",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "v-sit",
+      "name": "V-sit",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "manna",
+      "name": "Manna",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "planche-lean",
+      "name": "Planche lean",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "frog-stand",
+      "name": "Frog stand",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "straight-arm-frog-stand",
+      "name": "Straight-arm frog stand",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-planche",
+      "name": "Tuck planche",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "advanced-tuck-planche",
+      "name": "Advanced tuck planche",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "one-leg-planche",
+      "name": "One-leg planche",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "straddle-planche",
+      "name": "Straddle planche",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "full-planche",
+      "name": "Full planche",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-front-lever",
+      "name": "Tuck front lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "advanced-tuck-front-lever",
+      "name": "Advanced tuck front lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "one-leg-front-lever",
+      "name": "One-leg front lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "straddle-front-lever",
+      "name": "Straddle front lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "full-front-lever",
+      "name": "Full front lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "front-lever-raise",
+      "name": "Front lever raise",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "front-lever-negative",
+      "name": "Front lever negative",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-back-lever",
+      "name": "Tuck back lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "advanced-tuck-back-lever",
+      "name": "Advanced tuck back lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "one-leg-back-lever",
+      "name": "One-leg back lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "straddle-back-lever",
+      "name": "Straddle back lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "full-back-lever",
+      "name": "Full back lever",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "back-lever-negative",
+      "name": "Back lever negative",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "supported-human-flag",
+      "name": "Supported human flag",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-human-flag",
+      "name": "Tuck human flag",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "straddle-human-flag",
+      "name": "Straddle human flag",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "full-human-flag",
+      "name": "Full human flag",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "human-flag-raise",
+      "name": "Human flag raise",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "iron-cross",
+      "name": "Iron cross",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "inverted-cross",
+      "name": "Inverted cross",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "maltese",
+      "name": "Maltese",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "victorian",
+      "name": "Victorian",
+      "category": "14. Static Strength Skills",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "crow-pose",
+      "name": "Crow pose",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "crane-pose",
+      "name": "Crane pose",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "headstand",
+      "name": "Headstand",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "forearm-stand",
+      "name": "Forearm stand",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "wall-walk",
+      "name": "Wall walk",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "chest-to-wall-handstand",
+      "name": "Chest-to-wall handstand",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "back-to-wall-handstand",
+      "name": "Back-to-wall handstand",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "wall-handstand-toe-pull",
+      "name": "Wall handstand toe pull",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "wall-handstand-heel-pull",
+      "name": "Wall handstand heel pull",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "freestanding-handstand",
+      "name": "Freestanding handstand",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-handstand",
+      "name": "Tuck handstand",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "straddle-handstand",
+      "name": "Straddle handstand",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "handstand-weight-shift",
+      "name": "Handstand weight shift",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "handstand-walk",
+      "name": "Handstand walk",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "one-arm-handstand",
+      "name": "One-arm handstand",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "elbow-lever",
+      "name": "Elbow lever",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "one-arm-elbow-lever",
+      "name": "One-arm elbow lever",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "crocodile-hold",
+      "name": "Crocodile hold",
+      "category": "15. Hand Balancing and Body Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "passive-dead-hang",
+      "name": "Passive dead hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "active-hang",
+      "name": "Active hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "mixed-grip-hang",
+      "name": "Mixed-grip hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "towel-hang",
+      "name": "Towel hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "false-grip-ring-hang",
+      "name": "False-grip ring hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "false-grip-bar-hang",
+      "name": "False-grip bar hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "assisted-one-arm-hang",
+      "name": "Assisted one-arm hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "one-arm-hang",
+      "name": "One-arm hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hanging-scapular-depression",
+      "name": "Hanging scapular depression",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "side-to-side-hanging-weight-shift",
+      "name": "Side-to-side hanging weight shift",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "monkey-bar-traverse",
+      "name": "Monkey-bar traverse",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "brachiation-swinging-between-overhead-holds",
+      "name": "Brachiation (swinging between overhead holds)",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "rope-climb-with-leg-assistance",
+      "name": "Rope climb with leg assistance",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "legless-rope-climb",
+      "name": "Legless rope climb",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "skin-the-cat",
+      "name": "Skin the cat",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "german-hang",
+      "name": "German hang",
+      "category": "16. Hanging, Grip, and Shoulder Control",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "squat-jump",
+      "name": "Squat jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "countermovement-jump",
+      "name": "Countermovement jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "broad-jump",
+      "name": "Broad jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "tuck-jump",
+      "name": "Tuck jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "star-jump",
+      "name": "Star jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "split-squat-jump",
+      "name": "Split squat jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "jumping-lunge",
+      "name": "Jumping lunge",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "skater-hop",
+      "name": "Skater hop",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "lateral-bound",
+      "name": "Lateral bound",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "single-leg-hop",
+      "name": "Single-leg hop",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "single-leg-broad-jump",
+      "name": "Single-leg broad jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "pogo-jump",
+      "name": "Pogo jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "single-leg-pogo-jump",
+      "name": "Single-leg pogo jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "line-hop",
+      "name": "Line hop",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "lateral-line-hop",
+      "name": "Lateral line hop",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "box-jump",
+      "name": "Box jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "depth-drop",
+      "name": "Depth drop",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "depth-jump",
+      "name": "Depth jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "drop-jump",
+      "name": "Drop jump",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "jumping-step-up",
+      "name": "Jumping step-up",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "kneeling-jump-to-squat",
+      "name": "Kneeling jump to squat",
+      "category": "17. Jumps and Explosive Lower-Body Exercises",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "march-in-place",
+      "name": "March in place",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "high-knees",
+      "name": "High knees",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "butt-kicks",
+      "name": "Butt kicks",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "jumping-jack",
+      "name": "Jumping jack",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "seal-jack",
+      "name": "Seal jack",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "cross-jack",
+      "name": "Cross jack",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "step-jack",
+      "name": "Step jack",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "mountain-climber",
+      "name": "Mountain climber",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "slow-mountain-climber",
+      "name": "Slow mountain climber",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "spiderman-mountain-climber",
+      "name": "Spiderman mountain climber",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "squat-thrust",
+      "name": "Squat thrust",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "step-back-burpee",
+      "name": "Step-back burpee",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "burpee-without-push-up",
+      "name": "Burpee without push-up",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "burpee-with-push-up",
+      "name": "Burpee with push-up",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "chest-to-floor-burpee",
+      "name": "Chest-to-floor burpee",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "broad-jump-burpee",
+      "name": "Broad-jump burpee",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "single-leg-burpee",
+      "name": "Single-leg burpee",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "bear-crawl",
+      "name": "Bear crawl",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "reverse-bear-crawl",
+      "name": "Reverse bear crawl",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "lateral-bear-crawl",
+      "name": "Lateral bear crawl",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "leopard-crawl",
+      "name": "Leopard crawl",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "crab-walk",
+      "name": "Crab walk",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "crab-reach",
+      "name": "Crab reach",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "spiderman-crawl",
+      "name": "Spiderman crawl",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "army-crawl",
+      "name": "Army crawl",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "ape-travel",
+      "name": "Ape travel",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "frog-jump",
+      "name": "Frog jump",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "bunny-hop",
+      "name": "Bunny hop",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "lateral-shoot-through",
+      "name": "Lateral shoot-through",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "sit-through",
+      "name": "Sit-through",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "kick-through",
+      "name": "Kick-through",
+      "category": "18. Full-Body Conditioning and Locomotion",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "wrist-rock",
+      "name": "Wrist rock",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "quadruped-wrist-lean",
+      "name": "Quadruped wrist lean",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "wrist-circles",
+      "name": "Wrist circles",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "shoulder-circles",
+      "name": "Shoulder circles",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "wall-slide",
+      "name": "Wall slide",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "scapular-wall-push-up",
+      "name": "Scapular wall push-up",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "prone-y-raise",
+      "name": "Prone Y raise",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "prone-t-raise",
+      "name": "Prone T raise",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "prone-w-raise",
+      "name": "Prone W raise",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "reverse-snow-angel",
+      "name": "Reverse snow angel",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "cat-cow",
+      "name": "Cat\u2013cow",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "thoracic-rotation",
+      "name": "Thoracic rotation",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "deep-squat-hold",
+      "name": "Deep squat hold",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "ninety-ninety-hip-switch",
+      "name": "Ninety-ninety hip switch",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "hip-circle",
+      "name": "Hip circle",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "ankle-rock",
+      "name": "Ankle rock",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "world-s-greatest-stretch",
+      "name": "World's greatest stretch",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "downward-dog-to-plank",
+      "name": "Downward dog to plank",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "prone-press-up",
+      "name": "Prone press-up",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "supine-bridge-gymnastic-bridge",
+      "name": "Supine bridge (gymnastic bridge)",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "bridge-weight-shift",
+      "name": "Bridge weight shift",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    },
+    {
+      "id": "bridge-push-up",
+      "name": "Bridge push-up",
+      "category": "19. Bodyweight Mobility and Preparation",
+      "status": "pending",
+      "variants": [
+        "female",
+        "male"
+      ],
+      "sheet": null
+    }
+  ],
+  "style": "v1 cel-shaded illustration; dark shaded background",
+  "layout": {
+    "columns": 3,
+    "rows": 2,
+    "rowOrder": [
+      "female",
+      "male"
+    ]
+  }
+}

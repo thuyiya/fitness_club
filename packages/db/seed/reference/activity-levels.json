@@ -1,0 +1,45 @@
+{
+  "$comment": "PAL multipliers applied to BMR (Mifflin-St Jeor) to get TDEE. Consistent with knowledge/nutrition_rules.json: tdee = BMR * activity_factor.",
+  "items": [
+    {
+      "id": "sedentary",
+      "label": "Sedentary",
+      "description": "Desk job, little or no deliberate exercise.",
+      "palMultiplier": 1.2,
+      "weeklySessionsHint": "0",
+      "stepsPerDayHint": "under 5000"
+    },
+    {
+      "id": "lightly_active",
+      "label": "Lightly active",
+      "description": "Light exercise or sport 1-3 days a week.",
+      "palMultiplier": 1.375,
+      "weeklySessionsHint": "1-3",
+      "stepsPerDayHint": "5000-7500"
+    },
+    {
+      "id": "moderately_active",
+      "label": "Moderately active",
+      "description": "Moderate exercise or sport 3-5 days a week.",
+      "palMultiplier": 1.55,
+      "weeklySessionsHint": "3-5",
+      "stepsPerDayHint": "7500-10000"
+    },
+    {
+      "id": "very_active",
+      "label": "Very active",
+      "description": "Hard exercise 6-7 days a week.",
+      "palMultiplier": 1.725,
+      "weeklySessionsHint": "6-7",
+      "stepsPerDayHint": "10000-12500"
+    },
+    {
+      "id": "extra_active",
+      "label": "Extra active",
+      "description": "Physical job plus hard daily training, or twice-daily sessions.",
+      "palMultiplier": 1.9,
+      "weeklySessionsHint": "7+ or two-a-day",
+      "stepsPerDayHint": "over 12500"
+    }
+  ]
+}

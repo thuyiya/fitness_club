@@ -1,0 +1,17 @@
+{
+  "$comment": "Catalog for goals.metric. `source` tells the evaluator which table to aggregate; `comparator` whether hitting the target means >= or <=. This is what makes goal evaluation one generic job instead of a branch per goal type.",
+  "items": [
+    { "id": "hydration_ml", "label": "Water intake", "unit": "ml", "source": "hydration_logs", "aggregate": "sum", "comparator": "gte", "period": "daily" },
+    { "id": "calories_kcal", "label": "Calorie intake", "unit": "kcal", "source": "meal_logs", "aggregate": "sum", "comparator": "lte", "period": "daily" },
+    { "id": "protein_g", "label": "Protein intake", "unit": "g", "source": "meal_logs", "aggregate": "sum", "comparator": "gte", "period": "daily" },
+    { "id": "meals_logged", "label": "Meals logged", "unit": "count", "source": "meal_logs", "aggregate": "count", "comparator": "gte", "period": "daily" },
+    { "id": "workouts_completed", "label": "Workouts completed", "unit": "count", "source": "workout_logs", "aggregate": "count", "comparator": "gte", "period": "weekly" },
+    { "id": "active_minutes", "label": "Active minutes", "unit": "min", "source": "health_summaries", "aggregate": "sum", "comparator": "gte", "period": "daily" },
+    { "id": "steps", "label": "Steps", "unit": "count", "source": "health_summaries", "aggregate": "sum", "comparator": "gte", "period": "daily" },
+    { "id": "active_energy_kcal", "label": "Calories burned", "unit": "kcal", "source": "health_summaries", "aggregate": "sum", "comparator": "gte", "period": "daily" },
+    { "id": "sleep_minutes", "label": "Sleep", "unit": "min", "source": "health_summaries", "aggregate": "sum", "comparator": "gte", "period": "daily" },
+    { "id": "body_weight_kg", "label": "Body weight", "unit": "kg", "source": "body_metrics", "aggregate": "latest", "comparator": "lte", "period": "weekly" },
+    { "id": "body_fat_pct", "label": "Body fat", "unit": "%", "source": "body_metrics", "aggregate": "latest", "comparator": "lte", "period": "monthly" },
+    { "id": "weigh_ins", "label": "Weigh-ins logged", "unit": "count", "source": "body_metrics", "aggregate": "count", "comparator": "gte", "period": "weekly" }
+  ]
+}

@@ -1,0 +1,4587 @@
+{
+  "$comment": "Ingredient database seeding the `foods` table. Values are per 100 g of the EDIBLE PORTION, raw unless the name says otherwise -- the app converts with nutrient = grams * per100g / 100. NOTE the `foods` table stores macros PER SERVING, so the seeder must scale each per100g block by defaultServing.grams / 100 on insert. Sources: USDA FoodData Central and McCance & Widdowson. `source: curated` distinguishes these from rows later imported from Open Food Facts, which arrive with an externalId (barcode) and an imageUrl.",
+  "disclaimer": "dietaryTags are derived from the ingredient's composition alone. halal and kosher in particular depend on sourcing, slaughter and certification, none of which this data captures -- never present them to a member as a guarantee.",
+  "groups": [
+    "meat_poultry",
+    "fish_seafood",
+    "eggs",
+    "dairy",
+    "plant_protein",
+    "legumes",
+    "grains",
+    "starchy_veg",
+    "vegetables",
+    "fruits",
+    "nuts_seeds",
+    "fats_oils",
+    "condiments",
+    "supplements",
+    "beverages"
+  ],
+  "items": [
+    {
+      "id": "food_chicken_breast",
+      "name": "Chicken breast, skinless, raw",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 120,
+        "proteinG": 22.5,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 2.6,
+        "saturatedFatG": 0.7,
+        "fiberG": 0,
+        "sodiumMg": 45
+      },
+      "defaultServing": {
+        "label": "1 breast",
+        "grams": 174
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_chicken_thigh",
+      "name": "Chicken thigh, skinless, raw",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 143,
+        "proteinG": 19.7,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 6.6,
+        "saturatedFatG": 1.8,
+        "fiberG": 0,
+        "sodiumMg": 84
+      },
+      "defaultServing": {
+        "label": "1 thigh",
+        "grams": 95
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_turkey_breast",
+      "name": "Turkey breast, skinless, raw",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 111,
+        "proteinG": 24.6,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 0.7,
+        "saturatedFatG": 0.2,
+        "fiberG": 0,
+        "sodiumMg": 57
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 120
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_beef_mince_5",
+      "name": "Beef mince, 5% fat, raw",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 137,
+        "proteinG": 21.4,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 5.0,
+        "saturatedFatG": 2.2,
+        "fiberG": 0,
+        "sodiumMg": 66
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 125
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_beef_mince_20",
+      "name": "Beef mince, 20% fat, raw",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 254,
+        "proteinG": 17.2,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 20.0,
+        "saturatedFatG": 7.7,
+        "fiberG": 0,
+        "sodiumMg": 67
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 125
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_beef_sirloin",
+      "name": "Beef sirloin steak, raw",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 150,
+        "proteinG": 22.0,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 6.5,
+        "saturatedFatG": 2.5,
+        "fiberG": 0,
+        "sodiumMg": 54
+      },
+      "defaultServing": {
+        "label": "1 steak",
+        "grams": 200
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_pork_loin",
+      "name": "Pork loin, raw",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 143,
+        "proteinG": 21.0,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 5.9,
+        "saturatedFatG": 2.0,
+        "fiberG": 0,
+        "sodiumMg": 51
+      },
+      "defaultServing": {
+        "label": "1 chop",
+        "grams": 140
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "high_protein",
+        "keto",
+        "low_carb",
+        "nut_free",
+        "paleo"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_lamb_leg",
+      "name": "Lamb leg, raw",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 180,
+        "proteinG": 20.0,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 11.0,
+        "saturatedFatG": 4.7,
+        "fiberG": 0,
+        "sodiumMg": 66
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_bacon",
+      "name": "Bacon, cooked",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 541,
+        "proteinG": 37.0,
+        "carbsG": 1.4,
+        "sugarG": 0,
+        "fatG": 42.0,
+        "saturatedFatG": 13.7,
+        "fiberG": 0,
+        "sodiumMg": 1717
+      },
+      "defaultServing": {
+        "label": "2 rashers",
+        "grams": 30
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "keto",
+        "low_carb",
+        "nut_free"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_ham_sliced",
+      "name": "Ham, sliced",
+      "group": "meat_poultry",
+      "per100g": {
+        "energyKcal": 107,
+        "proteinG": 16.6,
+        "carbsG": 1.5,
+        "sugarG": 1.5,
+        "fatG": 3.8,
+        "saturatedFatG": 1.2,
+        "fiberG": 0,
+        "sodiumMg": 1203
+      },
+      "defaultServing": {
+        "label": "2 slices",
+        "grams": 56
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "high_protein",
+        "keto",
+        "low_carb",
+        "nut_free"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_salmon",
+      "name": "Salmon, Atlantic, raw",
+      "group": "fish_seafood",
+      "per100g": {
+        "energyKcal": 208,
+        "proteinG": 20.4,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 13.4,
+        "saturatedFatG": 3.1,
+        "fiberG": 0,
+        "sodiumMg": 59
+      },
+      "defaultServing": {
+        "label": "1 fillet",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian"
+      ],
+      "allergens": [
+        "fish"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_tuna_canned",
+      "name": "Tuna, canned in water, drained",
+      "group": "fish_seafood",
+      "per100g": {
+        "energyKcal": 116,
+        "proteinG": 25.5,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 0.8,
+        "saturatedFatG": 0.2,
+        "fiberG": 0,
+        "sodiumMg": 247
+      },
+      "defaultServing": {
+        "label": "1 can",
+        "grams": 120
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian"
+      ],
+      "allergens": [
+        "fish"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cod",
+      "name": "Cod, raw",
+      "group": "fish_seafood",
+      "per100g": {
+        "energyKcal": 82,
+        "proteinG": 17.8,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 0.7,
+        "saturatedFatG": 0.1,
+        "fiberG": 0,
+        "sodiumMg": 54
+      },
+      "defaultServing": {
+        "label": "1 fillet",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian"
+      ],
+      "allergens": [
+        "fish"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_tilapia",
+      "name": "Tilapia, raw",
+      "group": "fish_seafood",
+      "per100g": {
+        "energyKcal": 96,
+        "proteinG": 20.1,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 1.7,
+        "saturatedFatG": 0.6,
+        "fiberG": 0,
+        "sodiumMg": 52
+      },
+      "defaultServing": {
+        "label": "1 fillet",
+        "grams": 120
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian"
+      ],
+      "allergens": [
+        "fish"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_prawns",
+      "name": "Prawns, raw",
+      "group": "fish_seafood",
+      "per100g": {
+        "energyKcal": 85,
+        "proteinG": 20.1,
+        "carbsG": 0.2,
+        "sugarG": 0,
+        "fatG": 0.5,
+        "saturatedFatG": 0.1,
+        "fiberG": 0,
+        "sodiumMg": 119
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian"
+      ],
+      "allergens": [
+        "crustacean_shellfish"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_sardines_canned",
+      "name": "Sardines, canned in oil, drained",
+      "group": "fish_seafood",
+      "per100g": {
+        "energyKcal": 208,
+        "proteinG": 24.6,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 11.5,
+        "saturatedFatG": 1.5,
+        "fiberG": 0,
+        "sodiumMg": 307
+      },
+      "defaultServing": {
+        "label": "1 can",
+        "grams": 90
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian"
+      ],
+      "allergens": [
+        "fish"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_mackerel",
+      "name": "Mackerel, raw",
+      "group": "fish_seafood",
+      "per100g": {
+        "energyKcal": 205,
+        "proteinG": 18.6,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 13.9,
+        "saturatedFatG": 3.3,
+        "fiberG": 0,
+        "sodiumMg": 90
+      },
+      "defaultServing": {
+        "label": "1 fillet",
+        "grams": 110
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian"
+      ],
+      "allergens": [
+        "fish"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_egg_whole",
+      "name": "Egg, whole, raw",
+      "group": "eggs",
+      "per100g": {
+        "energyKcal": 143,
+        "proteinG": 12.6,
+        "carbsG": 0.7,
+        "sugarG": 0.4,
+        "fatG": 9.5,
+        "saturatedFatG": 3.1,
+        "fiberG": 0,
+        "sodiumMg": 142
+      },
+      "defaultServing": {
+        "label": "1 large egg",
+        "grams": 50
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "eggs"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_egg_white",
+      "name": "Egg white, raw",
+      "group": "eggs",
+      "per100g": {
+        "energyKcal": 52,
+        "proteinG": 10.9,
+        "carbsG": 0.7,
+        "sugarG": 0.7,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 0,
+        "sodiumMg": 166
+      },
+      "defaultServing": {
+        "label": "1 large white",
+        "grams": 33
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "eggs"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_milk_whole",
+      "name": "Milk, whole",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 61,
+        "proteinG": 3.2,
+        "carbsG": 4.8,
+        "sugarG": 4.8,
+        "fatG": 3.3,
+        "saturatedFatG": 1.9,
+        "fiberG": 0,
+        "sodiumMg": 43
+      },
+      "defaultServing": {
+        "label": "1 glass",
+        "grams": 250
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_milk_skim",
+      "name": "Milk, skimmed",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 34,
+        "proteinG": 3.4,
+        "carbsG": 5.0,
+        "sugarG": 5.0,
+        "fatG": 0.1,
+        "saturatedFatG": 0.1,
+        "fiberG": 0,
+        "sodiumMg": 42
+      },
+      "defaultServing": {
+        "label": "1 glass",
+        "grams": 250
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_greek_yogurt_0",
+      "name": "Greek yogurt, 0% fat",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 59,
+        "proteinG": 10.2,
+        "carbsG": 3.6,
+        "sugarG": 3.2,
+        "fatG": 0.4,
+        "saturatedFatG": 0.1,
+        "fiberG": 0,
+        "sodiumMg": 36
+      },
+      "defaultServing": {
+        "label": "1 pot",
+        "grams": 170
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_greek_yogurt_full",
+      "name": "Greek yogurt, full fat",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 97,
+        "proteinG": 9.0,
+        "carbsG": 4.0,
+        "sugarG": 4.0,
+        "fatG": 5.0,
+        "saturatedFatG": 3.3,
+        "fiberG": 0,
+        "sodiumMg": 35
+      },
+      "defaultServing": {
+        "label": "1 pot",
+        "grams": 170
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cottage_cheese",
+      "name": "Cottage cheese, low fat",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 81,
+        "proteinG": 11.1,
+        "carbsG": 3.4,
+        "sugarG": 2.7,
+        "fatG": 2.3,
+        "saturatedFatG": 1.0,
+        "fiberG": 0,
+        "sodiumMg": 308
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 120
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cheddar",
+      "name": "Cheddar cheese",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 403,
+        "proteinG": 24.9,
+        "carbsG": 1.3,
+        "sugarG": 0.5,
+        "fatG": 33.1,
+        "saturatedFatG": 21.1,
+        "fiberG": 0,
+        "sodiumMg": 653
+      },
+      "defaultServing": {
+        "label": "1 slice",
+        "grams": 30
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_mozzarella",
+      "name": "Mozzarella cheese",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 280,
+        "proteinG": 22.2,
+        "carbsG": 2.2,
+        "sugarG": 1.0,
+        "fatG": 20.0,
+        "saturatedFatG": 12.1,
+        "fiberG": 0,
+        "sodiumMg": 486
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 60
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_feta",
+      "name": "Feta cheese",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 264,
+        "proteinG": 14.2,
+        "carbsG": 4.1,
+        "sugarG": 4.1,
+        "fatG": 21.3,
+        "saturatedFatG": 14.9,
+        "fiberG": 0,
+        "sodiumMg": 917
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 40
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_parmesan",
+      "name": "Parmesan cheese",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 392,
+        "proteinG": 35.8,
+        "carbsG": 3.2,
+        "sugarG": 0.8,
+        "fatG": 25.8,
+        "saturatedFatG": 16.4,
+        "fiberG": 0,
+        "sodiumMg": 1529
+      },
+      "defaultServing": {
+        "label": "2 tbsp",
+        "grams": 20
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_butter",
+      "name": "Butter",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 717,
+        "proteinG": 0.9,
+        "carbsG": 0.1,
+        "sugarG": 0.1,
+        "fatG": 81.1,
+        "saturatedFatG": 51.4,
+        "fiberG": 0,
+        "sodiumMg": 11
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 14
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cream_cheese",
+      "name": "Cream cheese",
+      "group": "dairy",
+      "per100g": {
+        "energyKcal": 342,
+        "proteinG": 6.2,
+        "carbsG": 4.1,
+        "sugarG": 3.8,
+        "fatG": 34.2,
+        "saturatedFatG": 19.3,
+        "fiberG": 0,
+        "sodiumMg": 314
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 15
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_tofu_firm",
+      "name": "Tofu, firm",
+      "group": "plant_protein",
+      "per100g": {
+        "energyKcal": 144,
+        "proteinG": 17.3,
+        "carbsG": 2.8,
+        "sugarG": 0.6,
+        "fatG": 8.7,
+        "saturatedFatG": 1.3,
+        "fiberG": 2.3,
+        "sodiumMg": 14
+      },
+      "defaultServing": {
+        "label": "1 block",
+        "grams": 120
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "soybeans"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_tempeh",
+      "name": "Tempeh",
+      "group": "plant_protein",
+      "per100g": {
+        "energyKcal": 192,
+        "proteinG": 20.3,
+        "carbsG": 7.6,
+        "sugarG": 0,
+        "fatG": 10.8,
+        "saturatedFatG": 2.2,
+        "fiberG": 0,
+        "sodiumMg": 9
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "soybeans"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_edamame",
+      "name": "Edamame, shelled, cooked",
+      "group": "plant_protein",
+      "per100g": {
+        "energyKcal": 121,
+        "proteinG": 11.9,
+        "carbsG": 8.9,
+        "sugarG": 2.2,
+        "fatG": 5.2,
+        "saturatedFatG": 0.6,
+        "fiberG": 5.2,
+        "sodiumMg": 6
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "soybeans"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_seitan",
+      "name": "Seitan",
+      "group": "plant_protein",
+      "per100g": {
+        "energyKcal": 370,
+        "proteinG": 75.0,
+        "carbsG": 14.0,
+        "sugarG": 0,
+        "fatG": 1.9,
+        "saturatedFatG": 0.3,
+        "fiberG": 0.6,
+        "sodiumMg": 29
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "high_protein",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_lentils_cooked",
+      "name": "Lentils, cooked",
+      "group": "legumes",
+      "per100g": {
+        "energyKcal": 116,
+        "proteinG": 9.0,
+        "carbsG": 20.1,
+        "sugarG": 1.8,
+        "fatG": 0.4,
+        "saturatedFatG": 0.1,
+        "fiberG": 7.9,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_chickpeas_cooked",
+      "name": "Chickpeas, cooked",
+      "group": "legumes",
+      "per100g": {
+        "energyKcal": 164,
+        "proteinG": 8.9,
+        "carbsG": 27.4,
+        "sugarG": 4.8,
+        "fatG": 2.6,
+        "saturatedFatG": 0.3,
+        "fiberG": 7.6,
+        "sodiumMg": 7
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_black_beans_cooked",
+      "name": "Black beans, cooked",
+      "group": "legumes",
+      "per100g": {
+        "energyKcal": 132,
+        "proteinG": 8.9,
+        "carbsG": 23.7,
+        "sugarG": 0.3,
+        "fatG": 0.5,
+        "saturatedFatG": 0.1,
+        "fiberG": 8.7,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_kidney_beans_cooked",
+      "name": "Kidney beans, cooked",
+      "group": "legumes",
+      "per100g": {
+        "energyKcal": 127,
+        "proteinG": 8.7,
+        "carbsG": 22.8,
+        "sugarG": 0.3,
+        "fatG": 0.5,
+        "saturatedFatG": 0.1,
+        "fiberG": 6.4,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_peanut_butter",
+      "name": "Peanut butter, natural",
+      "group": "legumes",
+      "per100g": {
+        "energyKcal": 588,
+        "proteinG": 25.1,
+        "carbsG": 20.0,
+        "sugarG": 9.2,
+        "fatG": 50.4,
+        "saturatedFatG": 10.3,
+        "fiberG": 6.0,
+        "sodiumMg": 17
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 16
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "peanuts"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_white_rice_cooked",
+      "name": "White rice, cooked",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 130,
+        "proteinG": 2.7,
+        "carbsG": 28.2,
+        "sugarG": 0.1,
+        "fatG": 0.3,
+        "saturatedFatG": 0.1,
+        "fiberG": 0.4,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 180
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_brown_rice_cooked",
+      "name": "Brown rice, cooked",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 123,
+        "proteinG": 2.7,
+        "carbsG": 25.6,
+        "sugarG": 0.2,
+        "fatG": 1.0,
+        "saturatedFatG": 0.2,
+        "fiberG": 1.6,
+        "sodiumMg": 4
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 180
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_basmati_rice_cooked",
+      "name": "Basmati rice, cooked",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 121,
+        "proteinG": 3.5,
+        "carbsG": 25.2,
+        "sugarG": 0.1,
+        "fatG": 0.4,
+        "saturatedFatG": 0.1,
+        "fiberG": 0.6,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 180
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_quinoa_cooked",
+      "name": "Quinoa, cooked",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 120,
+        "proteinG": 4.4,
+        "carbsG": 21.3,
+        "sugarG": 0.9,
+        "fatG": 1.9,
+        "saturatedFatG": 0.2,
+        "fiberG": 2.8,
+        "sodiumMg": 7
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 185
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_oats_rolled",
+      "name": "Oats, rolled, dry",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 389,
+        "proteinG": 16.9,
+        "carbsG": 66.3,
+        "sugarG": 0.0,
+        "fatG": 6.9,
+        "saturatedFatG": 1.2,
+        "fiberG": 10.6,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 50
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_pasta_cooked",
+      "name": "Pasta, white, cooked",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 158,
+        "proteinG": 5.8,
+        "carbsG": 30.9,
+        "sugarG": 0.6,
+        "fatG": 0.9,
+        "saturatedFatG": 0.2,
+        "fiberG": 1.8,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 180
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_wholewheat_pasta_cooked",
+      "name": "Pasta, wholewheat, cooked",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 124,
+        "proteinG": 5.3,
+        "carbsG": 26.5,
+        "sugarG": 0.8,
+        "fatG": 0.5,
+        "saturatedFatG": 0.1,
+        "fiberG": 4.5,
+        "sodiumMg": 3
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 180
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_bread_white",
+      "name": "Bread, white",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 266,
+        "proteinG": 9.0,
+        "carbsG": 49.0,
+        "sugarG": 5.0,
+        "fatG": 3.3,
+        "saturatedFatG": 0.7,
+        "fiberG": 2.7,
+        "sodiumMg": 490
+      },
+      "defaultServing": {
+        "label": "1 slice",
+        "grams": 36
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_bread_wholemeal",
+      "name": "Bread, wholemeal",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 247,
+        "proteinG": 13.0,
+        "carbsG": 41.0,
+        "sugarG": 6.0,
+        "fatG": 3.4,
+        "saturatedFatG": 0.7,
+        "fiberG": 7.0,
+        "sodiumMg": 455
+      },
+      "defaultServing": {
+        "label": "1 slice",
+        "grams": 36
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_bagel",
+      "name": "Bagel, plain",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 250,
+        "proteinG": 10.0,
+        "carbsG": 49.0,
+        "sugarG": 6.0,
+        "fatG": 1.5,
+        "saturatedFatG": 0.3,
+        "fiberG": 2.1,
+        "sodiumMg": 439
+      },
+      "defaultServing": {
+        "label": "1 bagel",
+        "grams": 95
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_tortilla_wheat",
+      "name": "Tortilla, wheat",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 306,
+        "proteinG": 8.2,
+        "carbsG": 51.4,
+        "sugarG": 2.5,
+        "fatG": 7.0,
+        "saturatedFatG": 2.0,
+        "fiberG": 3.0,
+        "sodiumMg": 594
+      },
+      "defaultServing": {
+        "label": "1 tortilla",
+        "grams": 45
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_couscous_cooked",
+      "name": "Couscous, cooked",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 112,
+        "proteinG": 3.8,
+        "carbsG": 23.2,
+        "sugarG": 0.1,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 1.4,
+        "sodiumMg": 5
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 160
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_buckwheat_cooked",
+      "name": "Buckwheat, cooked",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 92,
+        "proteinG": 3.4,
+        "carbsG": 19.9,
+        "sugarG": 0.9,
+        "fatG": 0.6,
+        "saturatedFatG": 0.1,
+        "fiberG": 2.7,
+        "sodiumMg": 4
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 170
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cornflakes",
+      "name": "Cornflakes",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 357,
+        "proteinG": 7.5,
+        "carbsG": 84.0,
+        "sugarG": 8.4,
+        "fatG": 0.4,
+        "saturatedFatG": 0.1,
+        "fiberG": 3.3,
+        "sodiumMg": 729
+      },
+      "defaultServing": {
+        "label": "1 bowl",
+        "grams": 30
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_granola",
+      "name": "Granola",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 471,
+        "proteinG": 10.0,
+        "carbsG": 64.0,
+        "sugarG": 22.0,
+        "fatG": 20.0,
+        "saturatedFatG": 3.0,
+        "fiberG": 7.0,
+        "sodiumMg": 26
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 50
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "cereals_gluten",
+        "tree_nuts"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_rice_cake",
+      "name": "Rice cake, plain",
+      "group": "grains",
+      "per100g": {
+        "energyKcal": 387,
+        "proteinG": 8.2,
+        "carbsG": 81.5,
+        "sugarG": 0.5,
+        "fatG": 2.8,
+        "saturatedFatG": 0.6,
+        "fiberG": 4.2,
+        "sodiumMg": 26
+      },
+      "defaultServing": {
+        "label": "1 cake",
+        "grams": 9
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_potato_boiled",
+      "name": "Potato, boiled",
+      "group": "starchy_veg",
+      "per100g": {
+        "energyKcal": 87,
+        "proteinG": 1.9,
+        "carbsG": 20.1,
+        "sugarG": 0.9,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 1.8,
+        "sodiumMg": 4
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 170
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_sweet_potato_baked",
+      "name": "Sweet potato, baked",
+      "group": "starchy_veg",
+      "per100g": {
+        "energyKcal": 90,
+        "proteinG": 2.0,
+        "carbsG": 20.7,
+        "sugarG": 6.5,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 3.3,
+        "sodiumMg": 36
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_corn_kernels",
+      "name": "Sweetcorn kernels",
+      "group": "starchy_veg",
+      "per100g": {
+        "energyKcal": 96,
+        "proteinG": 3.4,
+        "carbsG": 21.0,
+        "sugarG": 4.5,
+        "fatG": 1.5,
+        "saturatedFatG": 0.2,
+        "fiberG": 2.4,
+        "sodiumMg": 15
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_broccoli",
+      "name": "Broccoli, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 34,
+        "proteinG": 2.8,
+        "carbsG": 6.6,
+        "sugarG": 1.7,
+        "fatG": 0.4,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.6,
+        "sodiumMg": 33
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 85
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_spinach",
+      "name": "Spinach, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 23,
+        "proteinG": 2.9,
+        "carbsG": 3.6,
+        "sugarG": 0.4,
+        "fatG": 0.4,
+        "saturatedFatG": 0.1,
+        "fiberG": 2.2,
+        "sodiumMg": 79
+      },
+      "defaultServing": {
+        "label": "1 handful",
+        "grams": 30
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_kale",
+      "name": "Kale, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 49,
+        "proteinG": 4.3,
+        "carbsG": 8.8,
+        "sugarG": 2.3,
+        "fatG": 0.9,
+        "saturatedFatG": 0.1,
+        "fiberG": 3.6,
+        "sodiumMg": 38
+      },
+      "defaultServing": {
+        "label": "1 handful",
+        "grams": 30
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_carrot",
+      "name": "Carrot, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 41,
+        "proteinG": 0.9,
+        "carbsG": 9.6,
+        "sugarG": 4.7,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.8,
+        "sodiumMg": 69
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 61
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_tomato",
+      "name": "Tomato, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 18,
+        "proteinG": 0.9,
+        "carbsG": 3.9,
+        "sugarG": 2.6,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 1.2,
+        "sodiumMg": 5
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 123
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cucumber",
+      "name": "Cucumber, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 15,
+        "proteinG": 0.7,
+        "carbsG": 3.6,
+        "sugarG": 1.7,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.5,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1/2 cucumber",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_bell_pepper_red",
+      "name": "Bell pepper, red, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 31,
+        "proteinG": 1.0,
+        "carbsG": 6.0,
+        "sugarG": 4.2,
+        "fatG": 0.3,
+        "saturatedFatG": 0.1,
+        "fiberG": 2.1,
+        "sodiumMg": 4
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 119
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_onion",
+      "name": "Onion, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 40,
+        "proteinG": 1.1,
+        "carbsG": 9.3,
+        "sugarG": 4.2,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 1.7,
+        "sodiumMg": 4
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 110
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_garlic",
+      "name": "Garlic, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 149,
+        "proteinG": 6.4,
+        "carbsG": 33.1,
+        "sugarG": 1.0,
+        "fatG": 0.5,
+        "saturatedFatG": 0.1,
+        "fiberG": 2.1,
+        "sodiumMg": 17
+      },
+      "defaultServing": {
+        "label": "1 clove",
+        "grams": 3
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_mushroom_white",
+      "name": "Mushrooms, white, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 22,
+        "proteinG": 3.1,
+        "carbsG": 3.3,
+        "sugarG": 2.0,
+        "fatG": 0.3,
+        "saturatedFatG": 0.1,
+        "fiberG": 1.0,
+        "sodiumMg": 5
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 80
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_zucchini",
+      "name": "Courgette, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 17,
+        "proteinG": 1.2,
+        "carbsG": 3.1,
+        "sugarG": 2.5,
+        "fatG": 0.3,
+        "saturatedFatG": 0.1,
+        "fiberG": 1.0,
+        "sodiumMg": 8
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 196
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cauliflower",
+      "name": "Cauliflower, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 25,
+        "proteinG": 1.9,
+        "carbsG": 5.0,
+        "sugarG": 1.9,
+        "fatG": 0.3,
+        "saturatedFatG": 0.1,
+        "fiberG": 2.0,
+        "sodiumMg": 30
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_green_beans",
+      "name": "Green beans, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 31,
+        "proteinG": 1.8,
+        "carbsG": 7.0,
+        "sugarG": 3.3,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.7,
+        "sodiumMg": 6
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_asparagus",
+      "name": "Asparagus, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 20,
+        "proteinG": 2.2,
+        "carbsG": 3.9,
+        "sugarG": 1.9,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.1,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_lettuce_romaine",
+      "name": "Lettuce, romaine",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 17,
+        "proteinG": 1.2,
+        "carbsG": 3.3,
+        "sugarG": 1.2,
+        "fatG": 0.3,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.1,
+        "sodiumMg": 8
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 70
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cabbage",
+      "name": "Cabbage, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 25,
+        "proteinG": 1.3,
+        "carbsG": 5.8,
+        "sugarG": 3.2,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.5,
+        "sodiumMg": 18
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_beetroot",
+      "name": "Beetroot, raw",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 43,
+        "proteinG": 1.6,
+        "carbsG": 9.6,
+        "sugarG": 6.8,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.8,
+        "sodiumMg": 78
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 82
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_peas_green",
+      "name": "Peas, green, cooked",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 81,
+        "proteinG": 5.4,
+        "carbsG": 14.5,
+        "sugarG": 5.7,
+        "fatG": 0.4,
+        "saturatedFatG": 0.1,
+        "fiberG": 5.1,
+        "sodiumMg": 5
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 120
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_avocado",
+      "name": "Avocado",
+      "group": "vegetables",
+      "per100g": {
+        "energyKcal": 160,
+        "proteinG": 2.0,
+        "carbsG": 8.5,
+        "sugarG": 0.7,
+        "fatG": 14.7,
+        "saturatedFatG": 2.1,
+        "fiberG": 6.7,
+        "sodiumMg": 7
+      },
+      "defaultServing": {
+        "label": "1/2 avocado",
+        "grams": 70
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_banana",
+      "name": "Banana",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 89,
+        "proteinG": 1.1,
+        "carbsG": 22.8,
+        "sugarG": 12.2,
+        "fatG": 0.3,
+        "saturatedFatG": 0.1,
+        "fiberG": 2.6,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 118
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_apple",
+      "name": "Apple",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 52,
+        "proteinG": 0.3,
+        "carbsG": 13.8,
+        "sugarG": 10.4,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.4,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 182
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_orange",
+      "name": "Orange",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 47,
+        "proteinG": 0.9,
+        "carbsG": 11.8,
+        "sugarG": 9.4,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.4,
+        "sodiumMg": 0
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 131
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_strawberry",
+      "name": "Strawberries",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 32,
+        "proteinG": 0.7,
+        "carbsG": 7.7,
+        "sugarG": 4.9,
+        "fatG": 0.3,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.0,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_blueberry",
+      "name": "Blueberries",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 57,
+        "proteinG": 0.7,
+        "carbsG": 14.5,
+        "sugarG": 10.0,
+        "fatG": 0.3,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.4,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_raspberry",
+      "name": "Raspberries",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 52,
+        "proteinG": 1.2,
+        "carbsG": 11.9,
+        "sugarG": 4.4,
+        "fatG": 0.7,
+        "saturatedFatG": 0.0,
+        "fiberG": 6.5,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_mango",
+      "name": "Mango",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 60,
+        "proteinG": 0.8,
+        "carbsG": 15.0,
+        "sugarG": 13.7,
+        "fatG": 0.4,
+        "saturatedFatG": 0.1,
+        "fiberG": 1.6,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1/2 mango",
+        "grams": 165
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_pineapple",
+      "name": "Pineapple",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 50,
+        "proteinG": 0.5,
+        "carbsG": 13.1,
+        "sugarG": 9.9,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 1.4,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 165
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_grapes",
+      "name": "Grapes",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 69,
+        "proteinG": 0.7,
+        "carbsG": 18.1,
+        "sugarG": 15.5,
+        "fatG": 0.2,
+        "saturatedFatG": 0.1,
+        "fiberG": 0.9,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 150
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_watermelon",
+      "name": "Watermelon",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 30,
+        "proteinG": 0.6,
+        "carbsG": 7.6,
+        "sugarG": 6.2,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.4,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 280
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_kiwi",
+      "name": "Kiwi fruit",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 61,
+        "proteinG": 1.1,
+        "carbsG": 14.7,
+        "sugarG": 9.0,
+        "fatG": 0.5,
+        "saturatedFatG": 0.0,
+        "fiberG": 3.0,
+        "sodiumMg": 3
+      },
+      "defaultServing": {
+        "label": "1 fruit",
+        "grams": 76
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_pear",
+      "name": "Pear",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 57,
+        "proteinG": 0.4,
+        "carbsG": 15.2,
+        "sugarG": 9.8,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 3.1,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 medium",
+        "grams": 178
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_dates_medjool",
+      "name": "Dates, Medjool",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 277,
+        "proteinG": 1.8,
+        "carbsG": 75.0,
+        "sugarG": 66.5,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 6.7,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "2 dates",
+        "grams": 48
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_raisins",
+      "name": "Raisins",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 299,
+        "proteinG": 3.1,
+        "carbsG": 79.2,
+        "sugarG": 59.2,
+        "fatG": 0.5,
+        "saturatedFatG": 0.1,
+        "fiberG": 3.7,
+        "sodiumMg": 11
+      },
+      "defaultServing": {
+        "label": "1 small box",
+        "grams": 43
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_lemon",
+      "name": "Lemon",
+      "group": "fruits",
+      "per100g": {
+        "energyKcal": 29,
+        "proteinG": 1.1,
+        "carbsG": 9.3,
+        "sugarG": 2.5,
+        "fatG": 0.3,
+        "saturatedFatG": 0.0,
+        "fiberG": 2.8,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1 fruit",
+        "grams": 58
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_almonds",
+      "name": "Almonds",
+      "group": "nuts_seeds",
+      "per100g": {
+        "energyKcal": 579,
+        "proteinG": 21.2,
+        "carbsG": 21.6,
+        "sugarG": 4.4,
+        "fatG": 49.9,
+        "saturatedFatG": 3.8,
+        "fiberG": 12.5,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 handful",
+        "grams": 28
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "tree_nuts"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_walnuts",
+      "name": "Walnuts",
+      "group": "nuts_seeds",
+      "per100g": {
+        "energyKcal": 654,
+        "proteinG": 15.2,
+        "carbsG": 13.7,
+        "sugarG": 2.6,
+        "fatG": 65.2,
+        "saturatedFatG": 6.1,
+        "fiberG": 6.7,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1 handful",
+        "grams": 28
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "tree_nuts"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_cashews",
+      "name": "Cashews",
+      "group": "nuts_seeds",
+      "per100g": {
+        "energyKcal": 553,
+        "proteinG": 18.2,
+        "carbsG": 30.2,
+        "sugarG": 5.9,
+        "fatG": 43.9,
+        "saturatedFatG": 7.8,
+        "fiberG": 3.3,
+        "sodiumMg": 12
+      },
+      "defaultServing": {
+        "label": "1 handful",
+        "grams": 28
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "tree_nuts"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_peanuts",
+      "name": "Peanuts",
+      "group": "nuts_seeds",
+      "per100g": {
+        "energyKcal": 567,
+        "proteinG": 25.8,
+        "carbsG": 16.1,
+        "sugarG": 4.7,
+        "fatG": 49.2,
+        "saturatedFatG": 6.3,
+        "fiberG": 8.5,
+        "sodiumMg": 18
+      },
+      "defaultServing": {
+        "label": "1 handful",
+        "grams": 28
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "peanuts"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_chia_seeds",
+      "name": "Chia seeds",
+      "group": "nuts_seeds",
+      "per100g": {
+        "energyKcal": 486,
+        "proteinG": 16.5,
+        "carbsG": 42.1,
+        "sugarG": 0.0,
+        "fatG": 30.7,
+        "saturatedFatG": 3.3,
+        "fiberG": 34.4,
+        "sodiumMg": 16
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 12
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_flax_seeds",
+      "name": "Flaxseed, ground",
+      "group": "nuts_seeds",
+      "per100g": {
+        "energyKcal": 534,
+        "proteinG": 18.3,
+        "carbsG": 28.9,
+        "sugarG": 1.6,
+        "fatG": 42.2,
+        "saturatedFatG": 3.7,
+        "fiberG": 27.3,
+        "sodiumMg": 30
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 10
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_pumpkin_seeds",
+      "name": "Pumpkin seeds",
+      "group": "nuts_seeds",
+      "per100g": {
+        "energyKcal": 559,
+        "proteinG": 30.2,
+        "carbsG": 10.7,
+        "sugarG": 1.4,
+        "fatG": 49.1,
+        "saturatedFatG": 8.7,
+        "fiberG": 6.0,
+        "sodiumMg": 7
+      },
+      "defaultServing": {
+        "label": "1 handful",
+        "grams": 28
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_sunflower_seeds",
+      "name": "Sunflower seeds",
+      "group": "nuts_seeds",
+      "per100g": {
+        "energyKcal": 584,
+        "proteinG": 20.8,
+        "carbsG": 20.0,
+        "sugarG": 2.6,
+        "fatG": 51.5,
+        "saturatedFatG": 4.5,
+        "fiberG": 8.6,
+        "sodiumMg": 9
+      },
+      "defaultServing": {
+        "label": "1 handful",
+        "grams": 28
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "mediterranean",
+        "nut_free",
+        "paleo",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_olive_oil",
+      "name": "Olive oil, extra virgin",
+      "group": "fats_oils",
+      "per100g": {
+        "energyKcal": 884,
+        "proteinG": 0.0,
+        "carbsG": 0.0,
+        "sugarG": 0.0,
+        "fatG": 100.0,
+        "saturatedFatG": 13.8,
+        "fiberG": 0.0,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 14
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "mediterranean",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_coconut_oil",
+      "name": "Coconut oil",
+      "group": "fats_oils",
+      "per100g": {
+        "energyKcal": 892,
+        "proteinG": 0.0,
+        "carbsG": 0.0,
+        "sugarG": 0.0,
+        "fatG": 99.1,
+        "saturatedFatG": 82.5,
+        "fiberG": 0.0,
+        "sodiumMg": 0
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 14
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_rapeseed_oil",
+      "name": "Rapeseed oil",
+      "group": "fats_oils",
+      "per100g": {
+        "energyKcal": 884,
+        "proteinG": 0.0,
+        "carbsG": 0.0,
+        "sugarG": 0.0,
+        "fatG": 100.0,
+        "saturatedFatG": 7.4,
+        "fiberG": 0.0,
+        "sodiumMg": 0
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 14
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_coconut_milk",
+      "name": "Coconut milk, canned",
+      "group": "fats_oils",
+      "per100g": {
+        "energyKcal": 230,
+        "proteinG": 2.3,
+        "carbsG": 5.5,
+        "sugarG": 3.3,
+        "fatG": 23.8,
+        "saturatedFatG": 21.1,
+        "fiberG": 2.2,
+        "sodiumMg": 15
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_honey",
+      "name": "Honey",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 304,
+        "proteinG": 0.3,
+        "carbsG": 82.4,
+        "sugarG": 82.1,
+        "fatG": 0.0,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.2,
+        "sodiumMg": 4
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 21
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_maple_syrup",
+      "name": "Maple syrup",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 260,
+        "proteinG": 0.0,
+        "carbsG": 67.0,
+        "sugarG": 60.4,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.0,
+        "sodiumMg": 12
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 20
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_soy_sauce",
+      "name": "Soy sauce",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 53,
+        "proteinG": 8.1,
+        "carbsG": 4.9,
+        "sugarG": 0.4,
+        "fatG": 0.6,
+        "saturatedFatG": 0.1,
+        "fiberG": 0.8,
+        "sodiumMg": 5493
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 16
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "soybeans",
+        "wheat",
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_tomato_passata",
+      "name": "Tomato passata",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 30,
+        "proteinG": 1.4,
+        "carbsG": 6.0,
+        "sugarG": 4.5,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 1.3,
+        "sodiumMg": 11
+      },
+      "defaultServing": {
+        "label": "1 portion",
+        "grams": 100
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_hummus",
+      "name": "Hummus",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 166,
+        "proteinG": 7.9,
+        "carbsG": 14.3,
+        "sugarG": 0.3,
+        "fatG": 9.6,
+        "saturatedFatG": 1.4,
+        "fiberG": 6.0,
+        "sodiumMg": 379
+      },
+      "defaultServing": {
+        "label": "2 tbsp",
+        "grams": 30
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "sesame"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_mayonnaise",
+      "name": "Mayonnaise",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 680,
+        "proteinG": 1.0,
+        "carbsG": 0.6,
+        "sugarG": 0.6,
+        "fatG": 75.0,
+        "saturatedFatG": 11.7,
+        "fiberG": 0.0,
+        "sodiumMg": 635
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 14
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "eggs"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_ketchup",
+      "name": "Tomato ketchup",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 101,
+        "proteinG": 1.3,
+        "carbsG": 25.8,
+        "sugarG": 21.8,
+        "fatG": 0.1,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.3,
+        "sodiumMg": 907
+      },
+      "defaultServing": {
+        "label": "1 tbsp",
+        "grams": 17
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_mustard",
+      "name": "Mustard",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 66,
+        "proteinG": 4.4,
+        "carbsG": 5.8,
+        "sugarG": 1.1,
+        "fatG": 3.3,
+        "saturatedFatG": 0.2,
+        "fiberG": 4.0,
+        "sodiumMg": 1104
+      },
+      "defaultServing": {
+        "label": "1 tsp",
+        "grams": 5
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "mustard"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_dark_chocolate_70",
+      "name": "Dark chocolate, 70%",
+      "group": "condiments",
+      "per100g": {
+        "energyKcal": 598,
+        "proteinG": 7.8,
+        "carbsG": 45.9,
+        "sugarG": 24.0,
+        "fatG": 42.6,
+        "saturatedFatG": 24.5,
+        "fiberG": 10.9,
+        "sodiumMg": 20
+      },
+      "defaultServing": {
+        "label": "2 squares",
+        "grams": 20
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk",
+        "soybeans"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_whey_protein",
+      "name": "Whey protein powder",
+      "group": "supplements",
+      "per100g": {
+        "energyKcal": 400,
+        "proteinG": 80.0,
+        "carbsG": 8.0,
+        "sugarG": 4.0,
+        "fatG": 6.0,
+        "saturatedFatG": 3.0,
+        "fiberG": 0.0,
+        "sodiumMg": 300
+      },
+      "defaultServing": {
+        "label": "1 scoop",
+        "grams": 30
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_pea_protein",
+      "name": "Pea protein powder",
+      "group": "supplements",
+      "per100g": {
+        "energyKcal": 390,
+        "proteinG": 80.0,
+        "carbsG": 3.0,
+        "sugarG": 0.5,
+        "fatG": 6.0,
+        "saturatedFatG": 0.8,
+        "fiberG": 3.0,
+        "sodiumMg": 900
+      },
+      "defaultServing": {
+        "label": "1 scoop",
+        "grams": 30
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "keto",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_protein_bar",
+      "name": "Protein bar",
+      "group": "supplements",
+      "per100g": {
+        "energyKcal": 380,
+        "proteinG": 30.0,
+        "carbsG": 38.0,
+        "sugarG": 6.0,
+        "fatG": 11.0,
+        "saturatedFatG": 4.5,
+        "fiberG": 8.0,
+        "sodiumMg": 250
+      },
+      "defaultServing": {
+        "label": "1 bar",
+        "grams": 60
+      },
+      "dietaryTags": [
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "kosher",
+        "pescatarian",
+        "vegetarian"
+      ],
+      "allergens": [
+        "milk",
+        "soybeans",
+        "tree_nuts"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_creatine",
+      "name": "Creatine monohydrate",
+      "group": "supplements",
+      "per100g": {
+        "energyKcal": 0,
+        "proteinG": 0.0,
+        "carbsG": 0.0,
+        "sugarG": 0.0,
+        "fatG": 0.0,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.0,
+        "sodiumMg": 0
+      },
+      "defaultServing": {
+        "label": "1 scoop",
+        "grams": 5
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_coffee_black",
+      "name": "Coffee, black",
+      "group": "beverages",
+      "per100g": {
+        "energyKcal": 1,
+        "proteinG": 0.1,
+        "carbsG": 0.0,
+        "sugarG": 0.0,
+        "fatG": 0.0,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.0,
+        "sodiumMg": 2
+      },
+      "defaultServing": {
+        "label": "1 mug",
+        "grams": 240
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "high_protein",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_orange_juice",
+      "name": "Orange juice",
+      "group": "beverages",
+      "per100g": {
+        "energyKcal": 45,
+        "proteinG": 0.7,
+        "carbsG": 10.4,
+        "sugarG": 8.4,
+        "fatG": 0.2,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.2,
+        "sodiumMg": 1
+      },
+      "defaultServing": {
+        "label": "1 glass",
+        "grams": 250
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_almond_milk",
+      "name": "Almond milk, unsweetened",
+      "group": "beverages",
+      "per100g": {
+        "energyKcal": 15,
+        "proteinG": 0.6,
+        "carbsG": 0.6,
+        "sugarG": 0.0,
+        "fatG": 1.1,
+        "saturatedFatG": 0.1,
+        "fiberG": 0.3,
+        "sodiumMg": 72
+      },
+      "defaultServing": {
+        "label": "1 glass",
+        "grams": 250
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "keto",
+        "kosher",
+        "low_carb",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "tree_nuts"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_oat_milk",
+      "name": "Oat milk",
+      "group": "beverages",
+      "per100g": {
+        "energyKcal": 47,
+        "proteinG": 1.0,
+        "carbsG": 7.0,
+        "sugarG": 4.0,
+        "fatG": 1.5,
+        "saturatedFatG": 0.2,
+        "fiberG": 0.8,
+        "sodiumMg": 45
+      },
+      "defaultServing": {
+        "label": "1 glass",
+        "grams": 250
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [
+        "cereals_gluten"
+      ],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    },
+    {
+      "id": "food_sports_drink",
+      "name": "Sports drink, isotonic",
+      "group": "beverages",
+      "per100g": {
+        "energyKcal": 26,
+        "proteinG": 0.0,
+        "carbsG": 6.5,
+        "sugarG": 6.0,
+        "fatG": 0.0,
+        "saturatedFatG": 0.0,
+        "fiberG": 0.0,
+        "sodiumMg": 41
+      },
+      "defaultServing": {
+        "label": "1 bottle",
+        "grams": 500
+      },
+      "dietaryTags": [
+        "dairy_free",
+        "egg_free",
+        "gluten_free",
+        "halal",
+        "kosher",
+        "low_carb",
+        "nut_free",
+        "pescatarian",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": [],
+      "source": "curated",
+      "externalId": null,
+      "imageUrl": null,
+      "verified": true
+    }
+  ]
+}

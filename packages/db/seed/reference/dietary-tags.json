@@ -1,0 +1,37 @@
+{
+  "$comment": "Applied to foods and meals. `excludes` lists foodClasses ids (declared below) that must NOT be present for the tag to hold. Every food in catalog/ingredients.json carries `foodClasses`, so the filter is computed rather than hand-typed -- a meal cannot be mislabelled vegan while containing butter. Allergens are tracked separately in allergens.json: a food class is a dietary choice, an allergen is a safety declaration.",
+  "foodClasses": [
+    { "id": "meat", "label": "Red meat", "note": "Beef, lamb, game." },
+    { "id": "poultry", "label": "Poultry", "note": "Chicken, turkey, duck." },
+    { "id": "pork", "label": "Pork", "note": "A subset of meat; broken out for halal and kosher." },
+    { "id": "fish", "label": "Fish", "note": "Finfish of any kind." },
+    { "id": "shellfish", "label": "Shellfish", "note": "Crustaceans and molluscs." },
+    { "id": "dairy", "label": "Dairy", "note": "Anything from milk, including whey and casein." },
+    { "id": "eggs", "label": "Eggs", "note": "Whole egg or any egg fraction." },
+    { "id": "honey", "label": "Honey", "note": "Excluded by vegan, not by vegetarian." },
+    { "id": "wheat", "label": "Wheat", "note": "Includes spelt, couscous, seitan." },
+    { "id": "barley", "label": "Barley", "note": "Includes malt." },
+    { "id": "rye", "label": "Rye", "note": "" },
+    { "id": "legumes", "label": "Legumes", "note": "Beans, lentils, peas, soy and peanuts." },
+    { "id": "tree_nuts", "label": "Tree nuts", "note": "" },
+    { "id": "peanuts", "label": "Peanuts", "note": "Botanically a legume; carried as both." },
+    { "id": "alcohol", "label": "Alcohol", "note": "" }
+  ],
+  "items": [
+    { "id": "vegetarian", "label": "Vegetarian", "excludes": ["meat", "poultry", "fish", "shellfish"] },
+    { "id": "vegan", "label": "Vegan", "excludes": ["meat", "poultry", "fish", "shellfish", "dairy", "eggs", "honey"] },
+    { "id": "pescatarian", "label": "Pescatarian", "excludes": ["meat", "poultry"] },
+    { "id": "halal", "label": "Halal", "excludes": ["pork", "alcohol"] },
+    { "id": "kosher", "label": "Kosher", "excludes": ["pork", "shellfish"] },
+    { "id": "gluten_free", "label": "Gluten free", "excludes": ["wheat", "barley", "rye"] },
+    { "id": "dairy_free", "label": "Dairy free", "excludes": ["dairy"] },
+    { "id": "nut_free", "label": "Nut free", "excludes": ["tree_nuts", "peanuts"] },
+    { "id": "egg_free", "label": "Egg free", "excludes": ["eggs"] },
+    { "id": "low_carb", "label": "Low carb", "excludes": [], "rule": "carbs under 25% of energy" },
+    { "id": "keto", "label": "Keto", "excludes": [], "rule": "carbs under 10% of energy" },
+    { "id": "high_protein", "label": "High protein", "excludes": [], "rule": "protein at or above 30% of energy" },
+    { "id": "low_fodmap", "label": "Low FODMAP", "excludes": [] },
+    { "id": "paleo", "label": "Paleo", "excludes": ["dairy", "wheat", "barley", "rye", "legumes"] },
+    { "id": "mediterranean", "label": "Mediterranean", "excludes": [] }
+  ]
+}

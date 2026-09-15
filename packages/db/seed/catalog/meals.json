@@ -1,0 +1,212 @@
+{
+  "$comment": "Composed meals seeding `meals` + `meal_ingredients`. Every `foodId` resolves to an id in catalog/ingredients.json. The macro block on each meal is the DERIVED sum over its ingredients (nutrient = grams * per_100g / 100), stored because the schema caches it on `meals` -- the seeder should recompute rather than trust these, and the validator in seed/validate.mjs checks they agree.",
+  "items": [
+    {
+      "id": "meal_high_protein_oats", "name": "High-protein oats", "defaultMealType": "breakfast", "servings": 1,
+      "tags": ["high_protein", "vegetarian"], "prepMinutes": 5,
+      "ingredients": [
+        { "foodId": "food_oats_rolled_dry", "quantity": 60, "unit": "g" },
+        { "foodId": "food_whey_protein_isolate", "quantity": 30, "unit": "g" },
+        { "foodId": "food_blueberries", "quantity": 80, "unit": "g" },
+        { "foodId": "food_almond_milk_unsweetened", "quantity": 200, "unit": "ml" }
+      ],
+      "calories": 421, "proteinG": 37.4, "carbsG": 53.6, "fatG": 7.2
+    },
+    {
+      "id": "meal_greek_yogurt_parfait", "name": "Greek yogurt parfait", "defaultMealType": "breakfast", "servings": 1,
+      "tags": ["high_protein", "vegetarian", "gluten_free"], "prepMinutes": 3,
+      "ingredients": [
+        { "foodId": "food_greek_yogurt_0", "quantity": 200, "unit": "g" },
+        { "foodId": "food_strawberries", "quantity": 100, "unit": "g" },
+        { "foodId": "food_almonds", "quantity": 20, "unit": "g" },
+        { "foodId": "food_honey", "quantity": 15, "unit": "g" }
+      ],
+      "calories": 311, "proteinG": 25.6, "carbsG": 31.5, "fatG": 11.1
+    },
+    {
+      "id": "meal_veggie_omelette", "name": "Vegetable and feta omelette", "defaultMealType": "breakfast", "servings": 1,
+      "tags": ["high_protein", "low_carb", "vegetarian", "gluten_free"], "prepMinutes": 10,
+      "ingredients": [
+        { "foodId": "food_egg_whole", "quantity": 150, "unit": "g" },
+        { "foodId": "food_spinach_raw", "quantity": 50, "unit": "g" },
+        { "foodId": "food_mushrooms_white_raw", "quantity": 50, "unit": "g" },
+        { "foodId": "food_bell_pepper_red", "quantity": 50, "unit": "g" },
+        { "foodId": "food_olive_oil", "quantity": 5, "unit": "g" },
+        { "foodId": "food_feta", "quantity": 30, "unit": "g" }
+      ],
+      "calories": 376, "proteinG": 26.6, "carbsG": 8.7, "fatG": 26.1
+    },
+    {
+      "id": "meal_overnight_oats_chia", "name": "Overnight oats with chia", "defaultMealType": "breakfast", "servings": 1,
+      "tags": ["vegetarian"], "prepMinutes": 5,
+      "ingredients": [
+        { "foodId": "food_oats_rolled_dry", "quantity": 50, "unit": "g" },
+        { "foodId": "food_chia_seeds", "quantity": 15, "unit": "g" },
+        { "foodId": "food_greek_yogurt_0", "quantity": 100, "unit": "g" },
+        { "foodId": "food_almond_milk_unsweetened", "quantity": 150, "unit": "ml" },
+        { "foodId": "food_blueberries", "quantity": 60, "unit": "g" }
+      ],
+      "calories": 383, "proteinG": 22.6, "carbsG": 52.5, "fatG": 10.5
+    },
+    {
+      "id": "meal_chicken_rice_bowl", "name": "Grilled chicken and rice bowl", "defaultMealType": "lunch", "servings": 1,
+      "tags": ["high_protein", "gluten_free", "dairy_free"], "prepMinutes": 25,
+      "ingredients": [
+        { "foodId": "food_chicken_breast_cooked", "quantity": 180, "unit": "g" },
+        { "foodId": "food_brown_rice_cooked", "quantity": 150, "unit": "g" },
+        { "foodId": "food_broccoli_cooked", "quantity": 100, "unit": "g" },
+        { "foodId": "food_olive_oil", "quantity": 10, "unit": "g" }
+      ],
+      "calories": 588, "proteinG": 62.1, "carbsG": 43.2, "fatG": 18.2
+    },
+    {
+      "id": "meal_chicken_caesar_salad", "name": "Chicken caesar-style salad", "defaultMealType": "lunch", "servings": 1,
+      "tags": ["high_protein", "low_carb", "gluten_free"], "prepMinutes": 15,
+      "ingredients": [
+        { "foodId": "food_chicken_breast_cooked", "quantity": 150, "unit": "g" },
+        { "foodId": "food_romaine_lettuce", "quantity": 100, "unit": "g" },
+        { "foodId": "food_parmesan", "quantity": 20, "unit": "g" },
+        { "foodId": "food_mayonnaise", "quantity": 20, "unit": "g" },
+        { "foodId": "food_tomato_raw", "quantity": 80, "unit": "g" }
+      ],
+      "calories": 501, "proteinG": 56.2, "carbsG": 7.4, "fatG": 26.7
+    },
+    {
+      "id": "meal_beef_burrito_bowl", "name": "Beef and black bean burrito bowl", "defaultMealType": "dinner", "servings": 1,
+      "tags": ["high_protein", "gluten_free", "dairy_free"], "prepMinutes": 25,
+      "ingredients": [
+        { "foodId": "food_beef_mince_90_cooked", "quantity": 150, "unit": "g" },
+        { "foodId": "food_white_rice_cooked", "quantity": 150, "unit": "g" },
+        { "foodId": "food_black_beans_cooked", "quantity": 100, "unit": "g" },
+        { "foodId": "food_avocado", "quantity": 50, "unit": "g" },
+        { "foodId": "food_tomato_raw", "quantity": 50, "unit": "g" }
+      ],
+      "calories": 680, "proteinG": 44.4, "carbsG": 72.2, "fatG": 23.4
+    },
+    {
+      "id": "meal_tuna_egg_salad", "name": "Tuna and egg salad", "defaultMealType": "lunch", "servings": 1,
+      "tags": ["high_protein", "low_carb", "gluten_free", "dairy_free"], "prepMinutes": 10,
+      "ingredients": [
+        { "foodId": "food_tuna_canned_water", "quantity": 120, "unit": "g" },
+        { "foodId": "food_egg_whole", "quantity": 100, "unit": "g" },
+        { "foodId": "food_romaine_lettuce", "quantity": 80, "unit": "g" },
+        { "foodId": "food_cucumber_raw", "quantity": 80, "unit": "g" },
+        { "foodId": "food_mayonnaise", "quantity": 15, "unit": "g" }
+      ],
+      "calories": 410, "proteinG": 45.5, "carbsG": 6.3, "fatG": 22.0
+    },
+    {
+      "id": "meal_turkey_avocado_sandwich", "name": "Turkey and avocado sandwich", "defaultMealType": "lunch", "servings": 1,
+      "tags": ["high_protein", "dairy_free"], "prepMinutes": 7,
+      "ingredients": [
+        { "foodId": "food_bread_wholewheat", "quantity": 56, "unit": "g" },
+        { "foodId": "food_turkey_breast_roasted", "quantity": 100, "unit": "g" },
+        { "foodId": "food_avocado", "quantity": 50, "unit": "g" },
+        { "foodId": "food_tomato_raw", "quantity": 40, "unit": "g" },
+        { "foodId": "food_romaine_lettuce", "quantity": 20, "unit": "g" }
+      ],
+      "calories": 364, "proteinG": 38.9, "carbsG": 29.4, "fatG": 10.4
+    },
+    {
+      "id": "meal_chickpea_feta_salad", "name": "Chickpea and feta salad", "defaultMealType": "lunch", "servings": 1,
+      "tags": ["vegetarian", "gluten_free", "mediterranean"], "prepMinutes": 10,
+      "ingredients": [
+        { "foodId": "food_chickpeas_cooked", "quantity": 150, "unit": "g" },
+        { "foodId": "food_feta", "quantity": 40, "unit": "g" },
+        { "foodId": "food_cucumber_raw", "quantity": 100, "unit": "g" },
+        { "foodId": "food_tomato_raw", "quantity": 100, "unit": "g" },
+        { "foodId": "food_olive_oil", "quantity": 10, "unit": "g" }
+      ],
+      "calories": 473, "proteinG": 20.6, "carbsG": 49.6, "fatG": 22.6
+    },
+    {
+      "id": "meal_salmon_sweet_potato", "name": "Salmon, sweet potato and asparagus", "defaultMealType": "dinner", "servings": 1,
+      "tags": ["high_protein", "gluten_free", "dairy_free", "pescatarian"], "prepMinutes": 30,
+      "ingredients": [
+        { "foodId": "food_salmon_cooked", "quantity": 150, "unit": "g" },
+        { "foodId": "food_sweet_potato_baked", "quantity": 200, "unit": "g" },
+        { "foodId": "food_asparagus_cooked", "quantity": 100, "unit": "g" },
+        { "foodId": "food_olive_oil", "quantity": 8, "unit": "g" }
+      ],
+      "calories": 585, "proteinG": 36.4, "carbsG": 46.1, "fatG": 27.9
+    },
+    {
+      "id": "meal_tofu_stir_fry", "name": "Tofu and vegetable stir-fry", "defaultMealType": "dinner", "servings": 1,
+      "tags": ["high_protein", "vegan", "vegetarian", "dairy_free"], "prepMinutes": 20,
+      "ingredients": [
+        { "foodId": "food_tofu_firm", "quantity": 200, "unit": "g" },
+        { "foodId": "food_brown_rice_cooked", "quantity": 150, "unit": "g" },
+        { "foodId": "food_broccoli_cooked", "quantity": 100, "unit": "g" },
+        { "foodId": "food_bell_pepper_red", "quantity": 80, "unit": "g" },
+        { "foodId": "food_soy_sauce", "quantity": 15, "unit": "ml" },
+        { "foodId": "food_olive_oil", "quantity": 10, "unit": "g" }
+      ],
+      "calories": 612, "proteinG": 42.3, "carbsG": 54.3, "fatG": 29.5
+    },
+    {
+      "id": "meal_shrimp_quinoa_bowl", "name": "Shrimp and quinoa bowl", "defaultMealType": "dinner", "servings": 1,
+      "tags": ["high_protein", "gluten_free", "dairy_free", "pescatarian"], "prepMinutes": 20,
+      "ingredients": [
+        { "foodId": "food_shrimp_cooked", "quantity": 180, "unit": "g" },
+        { "foodId": "food_quinoa_cooked", "quantity": 150, "unit": "g" },
+        { "foodId": "food_spinach_raw", "quantity": 60, "unit": "g" },
+        { "foodId": "food_avocado", "quantity": 40, "unit": "g" },
+        { "foodId": "food_olive_oil", "quantity": 8, "unit": "g" }
+      ],
+      "calories": 507, "proteinG": 52.3, "carbsG": 37.4, "fatG": 17.5
+    },
+    {
+      "id": "meal_lentil_soup", "name": "Lentil and vegetable soup", "defaultMealType": "lunch", "servings": 1,
+      "tags": ["vegan", "vegetarian", "gluten_free", "dairy_free"], "prepMinutes": 35,
+      "ingredients": [
+        { "foodId": "food_lentils_cooked", "quantity": 200, "unit": "g" },
+        { "foodId": "food_carrot_raw", "quantity": 80, "unit": "g" },
+        { "foodId": "food_onion_raw", "quantity": 50, "unit": "g" },
+        { "foodId": "food_tomato_raw", "quantity": 100, "unit": "g" },
+        { "foodId": "food_olive_oil", "quantity": 10, "unit": "g" }
+      ],
+      "calories": 391, "proteinG": 20.2, "carbsG": 56.2, "fatG": 11.2
+    },
+    {
+      "id": "meal_post_workout_shake", "name": "Post-workout shake", "defaultMealType": "snack", "servings": 1,
+      "tags": ["post_workout", "high_protein", "vegetarian"], "prepMinutes": 2,
+      "ingredients": [
+        { "foodId": "food_whey_protein_isolate", "quantity": 30, "unit": "g" },
+        { "foodId": "food_banana", "quantity": 118, "unit": "g" },
+        { "foodId": "food_oat_milk", "quantity": 250, "unit": "ml" },
+        { "foodId": "food_peanut_butter", "quantity": 16, "unit": "g" }
+      ],
+      "calories": 424, "proteinG": 33.3, "carbsG": 48.8, "fatG": 12.6
+    },
+    {
+      "id": "meal_pre_workout_snack", "name": "Pre-workout rice cakes and peanut butter", "defaultMealType": "snack", "servings": 1,
+      "tags": ["pre_workout", "vegan", "vegetarian", "dairy_free"], "prepMinutes": 2,
+      "ingredients": [
+        { "foodId": "food_rice_cakes", "quantity": 18, "unit": "g" },
+        { "foodId": "food_peanut_butter", "quantity": 20, "unit": "g" },
+        { "foodId": "food_banana", "quantity": 118, "unit": "g" }
+      ],
+      "calories": 292, "proteinG": 7.8, "carbsG": 45.7, "fatG": 10.9
+    },
+    {
+      "id": "meal_cottage_cheese_bowl", "name": "Cottage cheese and fruit bowl", "defaultMealType": "snack", "servings": 1,
+      "tags": ["high_protein", "vegetarian", "gluten_free"], "prepMinutes": 3,
+      "ingredients": [
+        { "foodId": "food_cottage_cheese_2", "quantity": 200, "unit": "g" },
+        { "foodId": "food_pineapple", "quantity": 100, "unit": "g" },
+        { "foodId": "food_walnuts", "quantity": 15, "unit": "g" }
+      ],
+      "calories": 316, "proteinG": 24.8, "carbsG": 23.7, "fatG": 14.5
+    },
+    {
+      "id": "meal_casein_berries", "name": "Casein and berries before bed", "defaultMealType": "snack", "servings": 1,
+      "tags": ["high_protein", "vegetarian", "gluten_free"], "prepMinutes": 2,
+      "ingredients": [
+        { "foodId": "food_casein_protein", "quantity": 33, "unit": "g" },
+        { "foodId": "food_milk_skim", "quantity": 200, "unit": "ml" },
+        { "foodId": "food_strawberries", "quantity": 80, "unit": "g" }
+      ],
+      "calories": 212, "proteinG": 33.1, "carbsG": 18.8, "fatG": 1.3
+    }
+  ]
+}

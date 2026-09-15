@@ -1,0 +1,15 @@
+{
+  "$comment": "The first four ids match the meal_type enum in the database. The remaining entries are UI-level tags on top of a base type -- do NOT add them to the enum without a migration.",
+  "enumBacked": [
+    { "id": "breakfast", "label": "Breakfast", "defaultTime": "07:30", "typicalEnergySharePct": 25 },
+    { "id": "lunch", "label": "Lunch", "defaultTime": "12:30", "typicalEnergySharePct": 30 },
+    { "id": "dinner", "label": "Dinner", "defaultTime": "19:00", "typicalEnergySharePct": 30 },
+    { "id": "snack", "label": "Snack", "defaultTime": "16:00", "typicalEnergySharePct": 15 }
+  ],
+  "tags": [
+    { "id": "pre_workout", "label": "Pre-workout", "baseType": "snack", "timingHint": "1-3 h before training" },
+    { "id": "post_workout", "label": "Post-workout", "baseType": "snack", "timingHint": "within 2 h after training" },
+    { "id": "brunch", "label": "Brunch", "baseType": "breakfast", "timingHint": "late morning" },
+    { "id": "supper", "label": "Supper", "baseType": "snack", "timingHint": "before bed" }
+  ]
+}

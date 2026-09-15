@@ -1,0 +1,25 @@
+{
+  "$comment": "Seeds the values used in exercises.muscleGroups[]. `region` drives the body-map filter on the exercise picker.",
+  "items": [
+    { "id": "chest", "label": "Chest", "region": "upper_front", "aliases": ["pectorals", "pecs"] },
+    { "id": "upper_back", "label": "Upper back", "region": "upper_back", "aliases": ["rhomboids", "rear delts"] },
+    { "id": "lats", "label": "Lats", "region": "upper_back", "aliases": ["latissimus dorsi"] },
+    { "id": "traps", "label": "Traps", "region": "upper_back", "aliases": ["trapezius"] },
+    { "id": "shoulders", "label": "Shoulders", "region": "upper_front", "aliases": ["deltoids", "delts"] },
+    { "id": "biceps", "label": "Biceps", "region": "arms", "aliases": ["biceps brachii"] },
+    { "id": "triceps", "label": "Triceps", "region": "arms", "aliases": ["triceps brachii"] },
+    { "id": "forearms", "label": "Forearms", "region": "arms", "aliases": ["grip"] },
+    { "id": "core", "label": "Core", "region": "midsection", "aliases": ["abs", "abdominals"] },
+    { "id": "obliques", "label": "Obliques", "region": "midsection", "aliases": [] },
+    { "id": "lower_back", "label": "Lower back", "region": "midsection", "aliases": ["erector spinae", "spinal erectors"] },
+    { "id": "glutes", "label": "Glutes", "region": "lower", "aliases": ["gluteus maximus"] },
+    { "id": "quads", "label": "Quads", "region": "lower", "aliases": ["quadriceps"] },
+    { "id": "hamstrings", "label": "Hamstrings", "region": "lower", "aliases": ["hams"] },
+    { "id": "calves", "label": "Calves", "region": "lower", "aliases": ["gastrocnemius", "soleus"] },
+    { "id": "adductors", "label": "Adductors", "region": "lower", "aliases": ["inner thigh"] },
+    { "id": "abductors", "label": "Abductors", "region": "lower", "aliases": ["outer thigh", "glute medius"] },
+    { "id": "hip_flexors", "label": "Hip flexors", "region": "lower", "aliases": ["psoas"] },
+    { "id": "full_body", "label": "Full body", "region": "full_body", "aliases": ["compound"] },
+    { "id": "cardiovascular", "label": "Cardiovascular", "region": "systemic", "aliases": ["aerobic", "conditioning"] }
+  ]
+}

@@ -1,0 +1,508 @@
+{
+  "$comment": "Ready-made survey templates a coach can assign (C28 build, C29 assign, C30 analytics, M22 member response). Seeds `surveys` plus `survey_questions`. `type` values match the question_type enum; `repeats` values match the recurrence enum. options is null for short_text, long_text, date and boolean.",
+  "items": [
+    {
+      "id": "survey_weekly_checkin",
+      "title": "Weekly check-in",
+      "description": "A short pulse on energy, recovery and adherence over the past week.",
+      "repeats": "weekly",
+      "questions": [
+        {
+          "position": 0,
+          "type": "scale",
+          "prompt": "Rate your energy this week",
+          "options": { "min": 1, "max": 5, "minLabel": "Drained", "maxLabel": "Great" },
+          "required": true
+        },
+        {
+          "position": 1,
+          "type": "scale",
+          "prompt": "How well did you recover between sessions?",
+          "options": { "min": 1, "max": 5, "minLabel": "Very poorly", "maxLabel": "Fully recovered" },
+          "required": true
+        },
+        {
+          "position": 2,
+          "type": "single_choice",
+          "prompt": "How many planned sessions did you complete?",
+          "options": { "choices": ["All of them", "Most of them", "About half", "Only one or two", "None"] },
+          "required": true
+        },
+        {
+          "position": 3,
+          "type": "scale",
+          "prompt": "How closely did you follow your nutrition plan?",
+          "options": { "min": 1, "max": 5, "minLabel": "Not at all", "maxLabel": "Exactly" },
+          "required": true
+        },
+        {
+          "position": 4,
+          "type": "multi_choice",
+          "prompt": "What got in the way this week?",
+          "options": {
+            "choices": [
+              "Nothing, good week",
+              "Work schedule",
+              "Family commitments",
+              "Travel",
+              "Illness",
+              "Injury or pain",
+              "Low motivation",
+              "Poor sleep"
+            ]
+          },
+          "required": false
+        },
+        {
+          "position": 5,
+          "type": "long_text",
+          "prompt": "Anything you want your coach to know?",
+          "options": null,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "survey_onboarding_health_history",
+      "title": "Health history",
+      "description": "Collected once at sign-up so your coach can programme safely.",
+      "repeats": "once",
+      "questions": [
+        {
+          "position": 0,
+          "type": "date",
+          "prompt": "Date of birth",
+          "options": null,
+          "required": true
+        },
+        {
+          "position": 1,
+          "type": "boolean",
+          "prompt": "Has a doctor ever told you to avoid certain physical activity?",
+          "options": null,
+          "required": true
+        },
+        {
+          "position": 2,
+          "type": "multi_choice",
+          "prompt": "Do any of these apply to you?",
+          "options": {
+            "choices": [
+              "None of these",
+              "High blood pressure",
+              "Heart condition",
+              "Diabetes",
+              "Asthma or breathing condition",
+              "Joint or back problems",
+              "Pregnancy or postpartum",
+              "Prefer not to say"
+            ]
+          },
+          "required": true
+        },
+        {
+          "position": 3,
+          "type": "long_text",
+          "prompt": "List any current or past injuries and when they occurred",
+          "options": null,
+          "required": false
+        },
+        {
+          "position": 4,
+          "type": "long_text",
+          "prompt": "List any medications or supplements you take regularly",
+          "options": null,
+          "required": false
+        },
+        {
+          "position": 5,
+          "type": "multi_choice",
+          "prompt": "Do you have any dietary requirements?",
+          "options": {
+            "choices": [
+              "None",
+              "Vegetarian",
+              "Vegan",
+              "Halal",
+              "Kosher",
+              "Gluten free",
+              "Dairy free",
+              "Nut allergy",
+              "Other allergy"
+            ]
+          },
+          "required": true
+        },
+        {
+          "position": 6,
+          "type": "single_choice",
+          "prompt": "How would you describe your training experience?",
+          "options": { "choices": ["Complete beginner", "Returning after a break", "1-2 years", "3-5 years", "5+ years"] },
+          "required": true
+        },
+        {
+          "position": 7,
+          "type": "single_choice",
+          "prompt": "What is your main goal right now?",
+          "options": {
+            "choices": ["Lose fat", "Build muscle", "Recomposition", "Endurance performance", "General health", "Maintain"]
+          },
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "survey_training_readiness",
+      "title": "Daily readiness",
+      "description": "A 30-second check before today's session so load can be adjusted.",
+      "repeats": "daily",
+      "questions": [
+        {
+          "position": 0,
+          "type": "scale",
+          "prompt": "How ready do you feel to train today?",
+          "options": { "min": 1, "max": 10, "minLabel": "Not at all", "maxLabel": "Fully ready" },
+          "required": true
+        },
+        {
+          "position": 1,
+          "type": "scale",
+          "prompt": "Muscle soreness right now",
+          "options": { "min": 1, "max": 5, "minLabel": "None", "maxLabel": "Severe" },
+          "required": true
+        },
+        {
+          "position": 2,
+          "type": "scale",
+          "prompt": "Stress level today",
+          "options": { "min": 1, "max": 5, "minLabel": "Very calm", "maxLabel": "Very stressed" },
+          "required": true
+        },
+        {
+          "position": 3,
+          "type": "boolean",
+          "prompt": "Are you feeling unwell or carrying an illness?",
+          "options": null,
+          "required": true
+        },
+        {
+          "position": 4,
+          "type": "short_text",
+          "prompt": "Anything to flag before the session?",
+          "options": null,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "survey_nutrition_habits",
+      "title": "Nutrition habits",
+      "description": "A picture of how you currently eat, so the plan fits your life.",
+      "repeats": "monthly",
+      "questions": [
+        {
+          "position": 0,
+          "type": "single_choice",
+          "prompt": "How many meals do you usually eat per day?",
+          "options": { "choices": ["1", "2", "3", "4", "5 or more"] },
+          "required": true
+        },
+        {
+          "position": 1,
+          "type": "single_choice",
+          "prompt": "How often do you cook at home?",
+          "options": { "choices": ["Almost every meal", "Most meals", "About half", "Rarely", "Almost never"] },
+          "required": true
+        },
+        {
+          "position": 2,
+          "type": "single_choice",
+          "prompt": "How many portions of vegetables do you eat on a typical day?",
+          "options": { "choices": ["0", "1", "2", "3", "4", "5 or more"] },
+          "required": true
+        },
+        {
+          "position": 3,
+          "type": "scale",
+          "prompt": "How consistent is your protein intake across the day?",
+          "options": { "min": 1, "max": 5, "minLabel": "Very inconsistent", "maxLabel": "Very consistent" },
+          "required": true
+        },
+        {
+          "position": 4,
+          "type": "multi_choice",
+          "prompt": "Which of these do you find hardest?",
+          "options": {
+            "choices": [
+              "Hitting protein",
+              "Portion sizes",
+              "Evening snacking",
+              "Eating enough vegetables",
+              "Drinking enough water",
+              "Alcohol",
+              "Eating out",
+              "Meal prep time"
+            ]
+          },
+          "required": false
+        },
+        {
+          "position": 5,
+          "type": "single_choice",
+          "prompt": "How many alcoholic drinks do you have in a typical week?",
+          "options": { "choices": ["None", "1-3", "4-7", "8-14", "More than 14"] },
+          "required": false
+        },
+        {
+          "position": 6,
+          "type": "long_text",
+          "prompt": "Any foods you strongly dislike or want to avoid?",
+          "options": null,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "survey_sleep_quality",
+      "title": "Sleep quality",
+      "description": "Sleep drives recovery. This helps spot patterns week to week.",
+      "repeats": "weekly",
+      "questions": [
+        {
+          "position": 0,
+          "type": "single_choice",
+          "prompt": "On average, how many hours did you sleep per night this week?",
+          "options": { "choices": ["Under 5", "5-6", "6-7", "7-8", "8-9", "Over 9"] },
+          "required": true
+        },
+        {
+          "position": 1,
+          "type": "scale",
+          "prompt": "How would you rate your sleep quality?",
+          "options": { "min": 1, "max": 5, "minLabel": "Very poor", "maxLabel": "Excellent" },
+          "required": true
+        },
+        {
+          "position": 2,
+          "type": "single_choice",
+          "prompt": "How long did it usually take you to fall asleep?",
+          "options": { "choices": ["Under 10 minutes", "10-20 minutes", "20-40 minutes", "Over 40 minutes"] },
+          "required": true
+        },
+        {
+          "position": 3,
+          "type": "single_choice",
+          "prompt": "How often did you wake during the night?",
+          "options": { "choices": ["Not at all", "Once", "Twice", "Three or more times"] },
+          "required": true
+        },
+        {
+          "position": 4,
+          "type": "scale",
+          "prompt": "How rested did you feel on waking?",
+          "options": { "min": 1, "max": 5, "minLabel": "Exhausted", "maxLabel": "Fully refreshed" },
+          "required": true
+        },
+        {
+          "position": 5,
+          "type": "multi_choice",
+          "prompt": "What disrupted your sleep?",
+          "options": {
+            "choices": [
+              "Nothing",
+              "Screen time late",
+              "Caffeine",
+              "Alcohol",
+              "Stress or racing thoughts",
+              "Noise or light",
+              "Children or pets",
+              "Shift work",
+              "Pain or discomfort"
+            ]
+          },
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "survey_motivation_adherence",
+      "title": "Motivation and adherence",
+      "description": "Where you are with the plan, and what support would help most.",
+      "repeats": "biweekly",
+      "questions": [
+        {
+          "position": 0,
+          "type": "scale",
+          "prompt": "How motivated do you feel right now?",
+          "options": { "min": 1, "max": 10, "minLabel": "Not at all", "maxLabel": "Extremely" },
+          "required": true
+        },
+        {
+          "position": 1,
+          "type": "scale",
+          "prompt": "How confident are you that you can stick to the plan for the next two weeks?",
+          "options": { "min": 1, "max": 10, "minLabel": "Not confident", "maxLabel": "Very confident" },
+          "required": true
+        },
+        {
+          "position": 2,
+          "type": "single_choice",
+          "prompt": "Does the current plan feel manageable?",
+          "options": { "choices": ["Too easy", "About right", "Slightly too much", "Far too much"] },
+          "required": true
+        },
+        {
+          "position": 3,
+          "type": "multi_choice",
+          "prompt": "What would help you most right now?",
+          "options": {
+            "choices": [
+              "More check-ins",
+              "Simpler sessions",
+              "Shorter sessions",
+              "More variety",
+              "Clearer nutrition targets",
+              "Meal ideas",
+              "Accountability reminders",
+              "Nothing, all good"
+            ]
+          },
+          "required": false
+        },
+        {
+          "position": 4,
+          "type": "long_text",
+          "prompt": "What is your biggest obstacle at the moment?",
+          "options": null,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "survey_monthly_satisfaction",
+      "title": "Monthly satisfaction",
+      "description": "How the coaching is landing, including a recommendation score.",
+      "repeats": "monthly",
+      "questions": [
+        {
+          "position": 0,
+          "type": "scale",
+          "prompt": "How likely are you to recommend your coach to a friend?",
+          "options": { "min": 0, "max": 10, "minLabel": "Not at all likely", "maxLabel": "Extremely likely" },
+          "required": true
+        },
+        {
+          "position": 1,
+          "type": "scale",
+          "prompt": "How satisfied are you with your progress this month?",
+          "options": { "min": 1, "max": 5, "minLabel": "Very dissatisfied", "maxLabel": "Very satisfied" },
+          "required": true
+        },
+        {
+          "position": 2,
+          "type": "scale",
+          "prompt": "How satisfied are you with communication from your coach?",
+          "options": { "min": 1, "max": 5, "minLabel": "Very dissatisfied", "maxLabel": "Very satisfied" },
+          "required": true
+        },
+        {
+          "position": 3,
+          "type": "single_choice",
+          "prompt": "Are your goals still the right ones?",
+          "options": { "choices": ["Yes, unchanged", "Mostly, minor tweaks", "No, I want to change them"] },
+          "required": true
+        },
+        {
+          "position": 4,
+          "type": "long_text",
+          "prompt": "What should your coach start, stop or keep doing?",
+          "options": null,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "survey_injury_pain_report",
+      "title": "Injury and pain report",
+      "description": "Report pain or an injury so training can be adjusted straight away.",
+      "repeats": "once",
+      "questions": [
+        {
+          "position": 0,
+          "type": "single_choice",
+          "prompt": "Where is the pain?",
+          "options": {
+            "choices": [
+              "Neck",
+              "Shoulder",
+              "Elbow",
+              "Wrist or hand",
+              "Upper back",
+              "Lower back",
+              "Hip",
+              "Knee",
+              "Ankle or foot",
+              "Other"
+            ]
+          },
+          "required": true
+        },
+        {
+          "position": 1,
+          "type": "scale",
+          "prompt": "How bad is the pain at its worst?",
+          "options": { "min": 0, "max": 10, "minLabel": "No pain", "maxLabel": "Worst imaginable" },
+          "required": true
+        },
+        {
+          "position": 2,
+          "type": "date",
+          "prompt": "When did it start?",
+          "options": null,
+          "required": true
+        },
+        {
+          "position": 3,
+          "type": "single_choice",
+          "prompt": "When does it hurt?",
+          "options": {
+            "choices": ["Only during training", "During and after training", "All the time", "Only at rest or at night"]
+          },
+          "required": true
+        },
+        {
+          "position": 4,
+          "type": "boolean",
+          "prompt": "Have you seen a medical professional about this?",
+          "options": null,
+          "required": true
+        },
+        {
+          "position": 5,
+          "type": "multi_choice",
+          "prompt": "Which movements make it worse?",
+          "options": {
+            "choices": [
+              "Squatting",
+              "Hinging or deadlifting",
+              "Pressing overhead",
+              "Pushing horizontally",
+              "Pulling",
+              "Running or impact",
+              "Sitting for long periods",
+              "Not sure"
+            ]
+          },
+          "required": false
+        },
+        {
+          "position": 6,
+          "type": "long_text",
+          "prompt": "Describe what happened and anything else your coach should know",
+          "options": null,
+          "required": false
+        }
+      ]
+    }
+  ]
+}

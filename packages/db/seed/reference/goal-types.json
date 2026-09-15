@@ -1,0 +1,53 @@
+{
+  "$comment": "calorieAdjustmentPct is applied to TDEE. Ranges are deliberately conservative; a coach can override per member.",
+  "items": [
+    {
+      "id": "fat_loss",
+      "label": "Lose fat",
+      "description": "Reduce body fat while holding on to lean mass.",
+      "calorieAdjustmentPct": -20,
+      "proteinGPerKg": [1.8, 2.4],
+      "typicalWeeklyWeightChangeKg": [-0.75, -0.25]
+    },
+    {
+      "id": "maintain",
+      "label": "Maintain",
+      "description": "Hold current weight and improve performance or habits.",
+      "calorieAdjustmentPct": 0,
+      "proteinGPerKg": [1.4, 2.0],
+      "typicalWeeklyWeightChangeKg": [-0.15, 0.15]
+    },
+    {
+      "id": "muscle_gain",
+      "label": "Build muscle",
+      "description": "Gain lean mass with a controlled calorie surplus.",
+      "calorieAdjustmentPct": 10,
+      "proteinGPerKg": [1.6, 2.2],
+      "typicalWeeklyWeightChangeKg": [0.1, 0.4]
+    },
+    {
+      "id": "recomposition",
+      "label": "Recomposition",
+      "description": "Add muscle and lose fat at roughly stable body weight.",
+      "calorieAdjustmentPct": -5,
+      "proteinGPerKg": [1.8, 2.4],
+      "typicalWeeklyWeightChangeKg": [-0.2, 0.1]
+    },
+    {
+      "id": "endurance",
+      "label": "Endurance performance",
+      "description": "Support high training volume; carbohydrate intake is the priority.",
+      "calorieAdjustmentPct": 5,
+      "proteinGPerKg": [1.4, 1.8],
+      "typicalWeeklyWeightChangeKg": [-0.2, 0.2]
+    },
+    {
+      "id": "general_health",
+      "label": "General health",
+      "description": "Move more, eat better, no specific body-composition target.",
+      "calorieAdjustmentPct": 0,
+      "proteinGPerKg": [1.2, 1.6],
+      "typicalWeeklyWeightChangeKg": [-0.2, 0.2]
+    }
+  ]
+}

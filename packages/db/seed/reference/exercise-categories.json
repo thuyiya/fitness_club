@@ -1,0 +1,28 @@
+{
+  "$comment": "Two independent axes. `categories` = training intent. `movementPatterns` = biomechanics, used to balance a programme so a plan is not all push.",
+  "categories": [
+    { "id": "strength", "label": "Strength", "description": "Resistance work aimed at force production or hypertrophy." },
+    { "id": "cardio", "label": "Cardio", "description": "Sustained aerobic or anaerobic conditioning." },
+    { "id": "hiit", "label": "HIIT", "description": "Alternating hard efforts and recovery." },
+    { "id": "mobility", "label": "Mobility", "description": "Active range of motion and joint control." },
+    { "id": "flexibility", "label": "Flexibility", "description": "Static or dynamic stretching." },
+    { "id": "plyometric", "label": "Plyometric", "description": "Explosive jump and throw work." },
+    { "id": "balance", "label": "Balance", "description": "Stability and proprioception." },
+    { "id": "core", "label": "Core", "description": "Trunk bracing, anti-rotation and flexion work." },
+    { "id": "warmup", "label": "Warm-up", "description": "Preparation before the main session." },
+    { "id": "cooldown", "label": "Cool-down", "description": "Down-regulation after training." }
+  ],
+  "movementPatterns": [
+    { "id": "horizontal_push", "label": "Horizontal push", "example": "Bench press, push-up" },
+    { "id": "vertical_push", "label": "Vertical push", "example": "Overhead press" },
+    { "id": "horizontal_pull", "label": "Horizontal pull", "example": "Barbell row" },
+    { "id": "vertical_pull", "label": "Vertical pull", "example": "Pull-up, lat pulldown" },
+    { "id": "squat", "label": "Squat", "example": "Back squat, goblet squat" },
+    { "id": "hinge", "label": "Hip hinge", "example": "Deadlift, RDL" },
+    { "id": "lunge", "label": "Lunge", "example": "Split squat, walking lunge" },
+    { "id": "carry", "label": "Loaded carry", "example": "Farmer's walk" },
+    { "id": "rotation", "label": "Rotation / anti-rotation", "example": "Pallof press, wood chop" },
+    { "id": "isolation", "label": "Isolation", "example": "Biceps curl, calf raise" },
+    { "id": "locomotion", "label": "Locomotion", "example": "Running, rowing, cycling" }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$comment": "Keys for body_metrics.measurements (jsonb). Stored in cm.",
+  "items": [
+    { "id": "neck", "label": "Neck", "unit": "cm", "instruction": "Just below the larynx, tape level." },
+    { "id": "chest", "label": "Chest", "unit": "cm", "instruction": "Across the nipple line, relaxed exhale." },
+    { "id": "waist", "label": "Waist", "unit": "cm", "instruction": "At the navel, relaxed, do not suck in." },
+    { "id": "hips", "label": "Hips", "unit": "cm", "instruction": "Around the widest part of the glutes." },
+    { "id": "thigh_left", "label": "Left thigh", "unit": "cm", "instruction": "Midway between hip and knee." },
+    { "id": "thigh_right", "label": "Right thigh", "unit": "cm", "instruction": "Midway between hip and knee." },
+    { "id": "arm_left", "label": "Left arm", "unit": "cm", "instruction": "Mid-bicep, arm relaxed at side." },
+    { "id": "arm_right", "label": "Right arm", "unit": "cm", "instruction": "Mid-bicep, arm relaxed at side." },
+    { "id": "calf_left", "label": "Left calf", "unit": "cm", "instruction": "Widest point." },
+    { "id": "calf_right", "label": "Right calf", "unit": "cm", "instruction": "Widest point." }
+  ],
+  "guidance": "Measure at the same time of day under the same conditions. Compare multi-week trends, never single readings."
+}

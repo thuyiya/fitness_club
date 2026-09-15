@@ -1,0 +1,23 @@
+{
+  "$comment": "Offered as checkboxes during onboarding (C27 form builder) and stored against the member. `avoidPatterns` lets plan generation automatically skip contraindicated movement patterns.",
+  "disclaimer": "This is programming guidance for a fitness app, NOT medical advice. Anyone with pain, a recent injury or a medical diagnosis should be cleared by a clinician before training. The app must surface this wording wherever these are selected.",
+  "items": [
+    { "id": "lower_back_pain", "label": "Lower back pain or sensitivity", "region": "spine", "avoidPatterns": ["hinge"], "preferPatterns": ["carry"], "note": "Often tolerates loaded carries and supported hinge variants; avoid heavy spinal loading until assessed." },
+    { "id": "disc_injury", "label": "Disc injury (current or past)", "region": "spine", "avoidPatterns": ["hinge", "rotation"], "preferPatterns": [], "note": "Requires clinical clearance. Avoid loaded spinal flexion and rotation." },
+    { "id": "neck_pain", "label": "Neck pain", "region": "spine", "avoidPatterns": ["vertical_push"], "preferPatterns": [], "note": "Overhead loading and neck-flexed core work often aggravate." },
+    { "id": "shoulder_impingement", "label": "Shoulder impingement", "region": "shoulder", "avoidPatterns": ["vertical_push"], "preferPatterns": ["horizontal_pull"], "note": "Prefer neutral-grip and landmine pressing; build scapular control." },
+    { "id": "rotator_cuff", "label": "Rotator cuff injury", "region": "shoulder", "avoidPatterns": ["vertical_push"], "preferPatterns": [], "note": "Requires clinical clearance before loaded overhead work." },
+    { "id": "elbow_tendinopathy", "label": "Tennis or golfer's elbow", "region": "elbow", "avoidPatterns": ["isolation"], "preferPatterns": [], "note": "Reduce gripping volume; isometrics are usually better tolerated." },
+    { "id": "wrist_pain", "label": "Wrist pain", "region": "wrist", "avoidPatterns": ["horizontal_push"], "preferPatterns": [], "note": "Use dumbbells or push-up handles to keep the wrist neutral." },
+    { "id": "knee_pain", "label": "Knee pain", "region": "knee", "avoidPatterns": ["lunge"], "preferPatterns": ["hinge"], "note": "Often tolerates reduced depth and posterior-chain work." },
+    { "id": "acl_injury", "label": "ACL injury or reconstruction", "region": "knee", "avoidPatterns": ["plyometric", "lunge"], "preferPatterns": [], "note": "Requires clinical clearance; return to jumping is staged." },
+    { "id": "hip_impingement", "label": "Hip impingement", "region": "hip", "avoidPatterns": ["squat"], "preferPatterns": [], "note": "Limit depth and wide stances; find the pain-free range." },
+    { "id": "ankle_instability", "label": "Ankle instability", "region": "ankle", "avoidPatterns": ["plyometric"], "preferPatterns": ["balance"], "note": "Build single-leg balance before impact work." },
+    { "id": "plantar_fasciitis", "label": "Plantar fasciitis", "region": "foot", "avoidPatterns": ["plyometric", "locomotion"], "preferPatterns": ["cardio"], "note": "Reduce impact volume; low-impact cardio instead of running." },
+    { "id": "pregnancy", "label": "Pregnant or postpartum", "region": "systemic", "avoidPatterns": ["rotation"], "preferPatterns": [], "note": "Requires clinical guidance. Avoid supine work later in pregnancy and heavy intra-abdominal pressure." },
+    { "id": "hypertension", "label": "High blood pressure", "region": "systemic", "avoidPatterns": ["carry"], "preferPatterns": [], "note": "Requires clinical clearance. Avoid breath-holding and maximal isometrics." },
+    { "id": "asthma", "label": "Asthma", "region": "systemic", "avoidPatterns": [], "preferPatterns": [], "note": "Longer warm-up; keep reliever inhaler accessible." },
+    { "id": "diabetes", "label": "Diabetes", "region": "systemic", "avoidPatterns": [], "preferPatterns": [], "note": "Requires clinical guidance around fuelling and glucose monitoring." },
+    { "id": "recent_surgery", "label": "Recent surgery", "region": "systemic", "avoidPatterns": [], "preferPatterns": [], "note": "Must have written clearance before any programme is assigned." }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$comment": "Shared by exercises and plans. `ordinal` is for sorting and for filtering 'at or below my level'.",
+  "items": [
+    {
+      "id": "beginner",
+      "label": "Beginner",
+      "ordinal": 1,
+      "description": "New to structured training, or returning after a long break.",
+      "guidance": "Prioritise movement quality and consistency over load."
+    },
+    {
+      "id": "intermediate",
+      "label": "Intermediate",
+      "ordinal": 2,
+      "description": "Six months or more of consistent training, competent in the main lifts.",
+      "guidance": "Progressive overload with planned variation."
+    },
+    {
+      "id": "advanced",
+      "label": "Advanced",
+      "ordinal": 3,
+      "description": "Years of consistent training, near their practical ceiling.",
+      "guidance": "Periodised blocks; small gains need specific targeting."
+    }
+  ]
+}
