@@ -15,8 +15,8 @@ import {
   subscriptionAudience,
   subscriptionInterval,
   subscriptionStatus,
-} from "./enums";
-import { users } from "./identity";
+} from "./enums.js";
+import { users } from "./identity.js";
 
 /**
  * Billing runs through App Store / Play in-app purchase, so this schema is a

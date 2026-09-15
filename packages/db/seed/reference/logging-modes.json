@@ -1,0 +1,40 @@
+{
+  "$comment": "Determines which fields the logging UI shows and which columns a set row fills. Every exercise declares one. Getting this wrong is what makes an app ask for 'reps' on a plank.",
+  "items": [
+    {
+      "id": "reps",
+      "label": "Sets and reps",
+      "capture": ["reps", "weightKg"],
+      "example": "Bench press, 3 x 8 at 80 kg",
+      "progressBy": "load or reps"
+    },
+    {
+      "id": "hold",
+      "label": "Timed hold",
+      "capture": ["durationSeconds", "weightKg"],
+      "example": "Plank, 3 x 45 s. Also every calisthenics static: L-sit, front lever, planche.",
+      "progressBy": "duration or a harder leverage"
+    },
+    {
+      "id": "distance",
+      "label": "Distance and time",
+      "capture": ["distanceMetres", "durationSeconds"],
+      "example": "Row 500 m, run 5 km",
+      "progressBy": "pace"
+    },
+    {
+      "id": "duration",
+      "label": "Duration only",
+      "capture": ["durationSeconds"],
+      "example": "Cycle 20 minutes, mobility flow 10 minutes",
+      "progressBy": "duration"
+    },
+    {
+      "id": "rounds",
+      "label": "Rounds",
+      "capture": ["rounds", "durationSeconds"],
+      "example": "AMRAP circuits, EMOM work",
+      "progressBy": "rounds completed"
+    }
+  ]
+}

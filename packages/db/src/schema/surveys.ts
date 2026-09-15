@@ -10,25 +10,29 @@ import {
   uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
-import { questionType, recurrence, surveyStatus } from "./enums";
-import { gyms, teams } from "./gyms";
-import { users } from "./identity";
+import { questionType, recurrence, surveyStatus } from "./enums.js";
+import { gyms, teams } from "./gyms.js";
+import { users } from "./identity.js";
 
 /** C28 create survey / C29 assign / C30 analytics / M22 member answering. */
 export const surveys = pgTable(
   "surveys",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    ownerCoachId: uuid("owner_coach_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+    /** NULL means a platform template, matching foods/exercises/meals. */
+    ownerCoachId: uuid("owner_coach_id").references(() => users.id, { onDelete: "cascade" }),
+    slug: text("slug"),
+    isTemplate: boolean("is_template").notNull().default(false),
     title: text("title").notNull(),
     description: text("description"),
     status: surveyStatus("status").notNull().default("draft"),
     repeats: recurrence("repeats").notNull().default("once"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index("surveys_owner_idx").on(t.ownerCoachId)],
+  (t) => [
+    index("surveys_owner_idx").on(t.ownerCoachId),
+    uniqueIndex("surveys_slug_unique").on(t.slug),
+  ],
 );
 
 export const surveyQuestions = pgTable(

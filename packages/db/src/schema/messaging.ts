@@ -8,9 +8,9 @@ import {
   uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
-import { messageKind, notificationKind, threadKind } from "./enums";
-import { gyms, teams } from "./gyms";
-import { users } from "./identity";
+import { messageKind, notificationKind, threadKind } from "./enums.js";
+import { gyms, teams } from "./gyms.js";
+import { users } from "./identity.js";
 
 /**
  * Chat lives in Postgres, not a separate realtime database. Delivery is a

@@ -8,6 +8,34 @@
       "when": 1789379097008,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789451229498,
+      "tag": "0001_adorable_silver_fox",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789452029840,
+      "tag": "0002_blushing_sir_ram",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789452687313,
+      "tag": "0003_pgvector",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789453145209,
+      "tag": "0004_trgm_threshold",
+      "breakpoints": true
     }
   ]
 }

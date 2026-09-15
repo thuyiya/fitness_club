@@ -10,11 +10,23 @@ import {
   timestamp,
   uniqueIndex,
   uuid,
+  vector,
 } from "drizzle-orm/pg-core";
-import { assignmentStatus, mealType, planStatus, planType, recurrence } from "./enums";
-import { gyms, teams } from "./gyms";
-import { users } from "./identity";
-import { meals } from "./nutrition";
+import {
+  assignmentStatus,
+  difficultyLevel,
+  discipline,
+  exerciseCategory,
+  loggingMode,
+  mealType,
+  movementPattern,
+  planStatus,
+  planType,
+  recurrence,
+} from "./enums.js";
+import { gyms, teams } from "./gyms.js";
+import { users } from "./identity.js";
+import { meals } from "./nutrition.js";
 
 /**
  * Exercise library. ownerCoachId NULL means it is a global/seed exercise;
@@ -24,28 +36,52 @@ export const exercises = pgTable(
   "exercises",
   {
     id: uuid("id").defaultRandom().primaryKey(),
+    slug: text("slug"),
     ownerCoachId: uuid("owner_coach_id").references(() => users.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
     description: text("description"),
+    /** The four independent taxonomy axes. See seed/README.md. */
+    discipline: discipline("discipline"),
+    category: exerciseCategory("category"),
+    movementPattern: movementPattern("movement_pattern"),
     muscleGroups: text("muscle_groups").array().notNull().default([]),
+    primaryMuscle: text("primary_muscle"),
     equipment: text("equipment").array().notNull().default([]),
-    difficulty: text("difficulty"),
+    difficulty: difficultyLevel("difficulty"),
+    /** Decides which columns workout_log_sets fills for this exercise. */
+    loggingMode: loggingMode("logging_mode").notNull().default("reps"),
+    tags: text("tags").array().notNull().default([]),
+    /** Compendium MET value; drives the calorie estimate for a set-based session. */
+    met: numeric("met", { precision: 4, scale: 1 }),
+    isUnilateral: boolean("is_unilateral").notNull().default(false),
+    isCompound: boolean("is_compound").notNull().default(false),
     imageUrl: text("image_url"),
     videoUrl: text("video_url"),
     instructions: text("instructions").array().notNull().default([]),
+    formCues: text("form_cues").array().notNull().default([]),
+    commonMistakes: text("common_mistakes").array().notNull().default([]),
+    safetyNotes: text("safety_notes"),
+    /**
+     * Beginner-to-advanced chains, stored as slugs rather than FKs so a seed
+     * re-run cannot break them. The seeder enforces that both directions agree.
+     */
+    regressions: text("regressions").array().notNull().default([]),
+    progressions: text("progressions").array().notNull().default([]),
     isCustom: boolean("is_custom").notNull().default(false),
+    /** all-MiniLM-L6-v2 embedding of name + description + tags. */
+    embedding: vector("embedding", { dimensions: 384 }),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
+    uniqueIndex("exercises_slug_unique").on(t.slug),
     index("exercises_owner_idx").on(t.ownerCoachId),
     index("exercises_name_idx").on(t.name),
+    // The library browse query filters on these three together.
+    index("exercises_browse_idx").on(t.discipline, t.category, t.difficulty),
+    index("exercises_pattern_idx").on(t.movementPattern),
   ],
 );
 
-/**
- * A plan is both a workout plan and a meal plan (discriminated by `type`).
- * isTemplate marks the reusable library entries behind C14 "Plan templates".
- */
 export const plans = pgTable(
   "plans",
   {

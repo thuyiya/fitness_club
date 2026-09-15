@@ -1,5 +1,5 @@
 {
-  "$comment": "Shared by exercises and plans. `ordinal` is for sorting and for filtering 'at or below my level'.",
+  "$comment": "Shared by exercises and plans. `ordinal` is for sorting and for filtering \"at or below my level\". Four levels rather than three because calisthenics skills (planche, front lever, one-arm pull-up) sit well beyond what \"advanced\" means for a barbell lift, and collapsing them hides the gap from the member.",
   "items": [
     {
       "id": "beginner",
@@ -21,6 +21,13 @@
       "ordinal": 3,
       "description": "Years of consistent training, near their practical ceiling.",
       "guidance": "Periodised blocks; small gains need specific targeting."
+    },
+    {
+      "id": "elite",
+      "label": "Elite",
+      "ordinal": 4,
+      "description": "Skills that take years of dedicated practice and that most trainees never reach.",
+      "guidance": "Practise fresh and far from failure. Almost exclusively calisthenics statics and one-arm work."
     }
   ]
 }

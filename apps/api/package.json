@@ -17,7 +17,13 @@
     "@wellness/shared": "workspace:*",
     "fastify": "^5.2.0",
     "ioredis": "^5.4.1",
-    "pino": "^9.5.0"
+    "pino": "^9.5.0",
+    "@node-rs/argon2": "^2.0.2",
+    "jose": "^5.9.6",
+    "zod": "^3.24.1",
+    "drizzle-orm": "^0.38.2",
+    "postgres": "^3.4.5",
+    "@wellness/embeddings": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.19.2",

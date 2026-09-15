@@ -1,29 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
+import { router } from "expo-router";
+import { useAuth } from "../src/state/auth";
 
-export default function Index() {
+/**
+ * The only routing decision in the app: one binary, three destinations.
+ * Admin screens are designed at 390x844 like the others, so admin is a mobile
+ * persona too --- a role-based tab set, not a separate web build.
+ */
+export default function Gate() {
+  const { user, loading, theme } = useAuth();
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) router.replace("/sign-in");
+    else router.replace(`/${user.role}`);
+  }, [user, loading]);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Wellness 2.0</Text>
-      <Text style={styles.subtitle}>Scaffold ready. Screens come next.</Text>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: theme.bg }}>
+      <ActivityIndicator color={theme.accent} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#F6F5F1",
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "#14161C",
-  },
-  subtitle: {
-    marginTop: 8,
-    fontSize: 14,
-    color: "#8A8D9E",
-  },
-});

@@ -1,5 +1,6 @@
 import { boolean, index, numeric, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
-import { devicePlatform, userRole, userStatus } from "./enums";
+import { sportProfiles } from "./reference.js";
+import { activityLevel, biologicalSex, devicePlatform, goalType, userRole, userStatus } from "./enums.js";
 
 export const users = pgTable(
   "users",
@@ -16,6 +17,17 @@ export const users = pgTable(
     /** Logs are stored UTC; this renders "today" correctly for the member. */
     timezone: text("timezone").notNull().default("UTC"),
     heightCm: numeric("height_cm", { precision: 5, scale: 1 }),
+    /** Mifflin-St Jeor needs this; BMR is not computable without it. */
+    sex: biologicalSex("sex"),
+    /** PAL multiplier for TDEE. Vocabulary in seed/reference/activity-levels.json. */
+    activityLevel: activityLevel("activity_level"),
+    goalType: goalType("goal_type"),
+    /**
+     * Sport of focus. When set, its g/kg targets REPLACE the generic percentage
+     * split from the goal type --- a cricketer eats to a cricket profile even
+     * on a day they only cycled.
+     */
+    sportProfileId: uuid("sport_profile_id").references(() => sportProfiles.id, { onDelete: "set null" }),
     dateOfBirth: timestamp("date_of_birth", { withTimezone: false, mode: "date" }),
     /** Free-text injuries/limitations from onboarding, shown on M20 and C07. */
     bio: text("bio"),

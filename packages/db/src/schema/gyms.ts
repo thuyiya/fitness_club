@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm";
 import { boolean, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
-import { membershipStatus, requestStatus, userStatus } from "./enums";
-import { users } from "./identity";
+import { membershipStatus, requestStatus, userStatus } from "./enums.js";
+import { users } from "./identity.js";
 
 export const gyms = pgTable(
   "gyms",

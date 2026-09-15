@@ -37,6 +37,9 @@
         "label": "1 breast",
         "grams": 174
       },
+      "foodClasses": [
+        "poultry"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -73,6 +76,9 @@
         "label": "1 thigh",
         "grams": 95
       },
+      "foodClasses": [
+        "poultry"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -109,6 +115,9 @@
         "label": "1 portion",
         "grams": 120
       },
+      "foodClasses": [
+        "poultry"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -136,7 +145,7 @@
         "proteinG": 21.4,
         "carbsG": 0,
         "sugarG": 0,
-        "fatG": 5.0,
+        "fatG": 5,
         "saturatedFatG": 2.2,
         "fiberG": 0,
         "sodiumMg": 66
@@ -145,6 +154,9 @@
         "label": "1 portion",
         "grams": 125
       },
+      "foodClasses": [
+        "meat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -172,7 +184,7 @@
         "proteinG": 17.2,
         "carbsG": 0,
         "sugarG": 0,
-        "fatG": 20.0,
+        "fatG": 20,
         "saturatedFatG": 7.7,
         "fiberG": 0,
         "sodiumMg": 67
@@ -181,6 +193,9 @@
         "label": "1 portion",
         "grams": 125
       },
+      "foodClasses": [
+        "meat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -204,7 +219,7 @@
       "group": "meat_poultry",
       "per100g": {
         "energyKcal": 150,
-        "proteinG": 22.0,
+        "proteinG": 22,
         "carbsG": 0,
         "sugarG": 0,
         "fatG": 6.5,
@@ -216,6 +231,9 @@
         "label": "1 steak",
         "grams": 200
       },
+      "foodClasses": [
+        "meat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -240,11 +258,11 @@
       "group": "meat_poultry",
       "per100g": {
         "energyKcal": 143,
-        "proteinG": 21.0,
+        "proteinG": 21,
         "carbsG": 0,
         "sugarG": 0,
         "fatG": 5.9,
-        "saturatedFatG": 2.0,
+        "saturatedFatG": 2,
         "fiberG": 0,
         "sodiumMg": 51
       },
@@ -252,6 +270,10 @@
         "label": "1 chop",
         "grams": 140
       },
+      "foodClasses": [
+        "meat",
+        "pork"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -274,10 +296,10 @@
       "group": "meat_poultry",
       "per100g": {
         "energyKcal": 180,
-        "proteinG": 20.0,
+        "proteinG": 20,
         "carbsG": 0,
         "sugarG": 0,
-        "fatG": 11.0,
+        "fatG": 11,
         "saturatedFatG": 4.7,
         "fiberG": 0,
         "sodiumMg": 66
@@ -286,6 +308,9 @@
         "label": "1 portion",
         "grams": 150
       },
+      "foodClasses": [
+        "meat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -310,10 +335,10 @@
       "group": "meat_poultry",
       "per100g": {
         "energyKcal": 541,
-        "proteinG": 37.0,
+        "proteinG": 37,
         "carbsG": 1.4,
         "sugarG": 0,
-        "fatG": 42.0,
+        "fatG": 42,
         "saturatedFatG": 13.7,
         "fiberG": 0,
         "sodiumMg": 1717
@@ -322,6 +347,10 @@
         "label": "2 rashers",
         "grams": 30
       },
+      "foodClasses": [
+        "meat",
+        "pork"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -354,6 +383,10 @@
         "label": "2 slices",
         "grams": 56
       },
+      "foodClasses": [
+        "meat",
+        "pork"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -387,6 +420,9 @@
         "label": "1 fillet",
         "grams": 150
       },
+      "foodClasses": [
+        "fish"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -427,6 +463,9 @@
         "label": "1 can",
         "grams": 120
       },
+      "foodClasses": [
+        "fish"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -467,6 +506,9 @@
         "label": "1 fillet",
         "grams": 150
       },
+      "foodClasses": [
+        "fish"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -507,6 +549,9 @@
         "label": "1 fillet",
         "grams": 120
       },
+      "foodClasses": [
+        "fish"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -547,6 +592,9 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [
+        "shellfish"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -586,6 +634,9 @@
         "label": "1 can",
         "grams": 90
       },
+      "foodClasses": [
+        "fish"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -626,6 +677,9 @@
         "label": "1 fillet",
         "grams": 110
       },
+      "foodClasses": [
+        "fish"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -666,6 +720,9 @@
         "label": "1 large egg",
         "grams": 50
       },
+      "foodClasses": [
+        "eggs"
+      ],
       "dietaryTags": [
         "dairy_free",
         "gluten_free",
@@ -697,7 +754,7 @@
         "carbsG": 0.7,
         "sugarG": 0.7,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 0,
         "sodiumMg": 166
       },
@@ -705,6 +762,9 @@
         "label": "1 large white",
         "grams": 33
       },
+      "foodClasses": [
+        "eggs"
+      ],
       "dietaryTags": [
         "dairy_free",
         "gluten_free",
@@ -744,6 +804,9 @@
         "label": "1 glass",
         "grams": 250
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -770,8 +833,8 @@
       "per100g": {
         "energyKcal": 34,
         "proteinG": 3.4,
-        "carbsG": 5.0,
-        "sugarG": 5.0,
+        "carbsG": 5,
+        "sugarG": 5,
         "fatG": 0.1,
         "saturatedFatG": 0.1,
         "fiberG": 0,
@@ -781,6 +844,9 @@
         "label": "1 glass",
         "grams": 250
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -819,6 +885,9 @@
         "label": "1 pot",
         "grams": 170
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -845,10 +914,10 @@
       "group": "dairy",
       "per100g": {
         "energyKcal": 97,
-        "proteinG": 9.0,
-        "carbsG": 4.0,
-        "sugarG": 4.0,
-        "fatG": 5.0,
+        "proteinG": 9,
+        "carbsG": 4,
+        "sugarG": 4,
+        "fatG": 5,
         "saturatedFatG": 3.3,
         "fiberG": 0,
         "sodiumMg": 35
@@ -857,6 +926,9 @@
         "label": "1 pot",
         "grams": 170
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -887,7 +959,7 @@
         "carbsG": 3.4,
         "sugarG": 2.7,
         "fatG": 2.3,
-        "saturatedFatG": 1.0,
+        "saturatedFatG": 1,
         "fiberG": 0,
         "sodiumMg": 308
       },
@@ -895,6 +967,9 @@
         "label": "1 portion",
         "grams": 120
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -933,6 +1008,9 @@
         "label": "1 slice",
         "grams": 30
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -960,8 +1038,8 @@
         "energyKcal": 280,
         "proteinG": 22.2,
         "carbsG": 2.2,
-        "sugarG": 1.0,
-        "fatG": 20.0,
+        "sugarG": 1,
+        "fatG": 20,
         "saturatedFatG": 12.1,
         "fiberG": 0,
         "sodiumMg": 486
@@ -970,6 +1048,9 @@
         "label": "1 portion",
         "grams": 60
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -1008,6 +1089,9 @@
         "label": "1 portion",
         "grams": 40
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -1045,6 +1129,9 @@
         "label": "2 tbsp",
         "grams": 20
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -1083,6 +1170,9 @@
         "label": "1 tbsp",
         "grams": 14
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -1120,6 +1210,9 @@
         "label": "1 tbsp",
         "grams": 15
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -1157,6 +1250,9 @@
         "label": "1 block",
         "grams": 120
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1197,6 +1293,9 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1236,6 +1335,9 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1264,8 +1366,8 @@
       "group": "plant_protein",
       "per100g": {
         "energyKcal": 370,
-        "proteinG": 75.0,
-        "carbsG": 14.0,
+        "proteinG": 75,
+        "carbsG": 14,
         "sugarG": 0,
         "fatG": 1.9,
         "saturatedFatG": 0.3,
@@ -1276,6 +1378,9 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1302,7 +1407,7 @@
       "group": "legumes",
       "per100g": {
         "energyKcal": 116,
-        "proteinG": 9.0,
+        "proteinG": 9,
         "carbsG": 20.1,
         "sugarG": 1.8,
         "fatG": 0.4,
@@ -1314,6 +1419,9 @@
         "label": "1 portion",
         "grams": 150
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1351,6 +1459,9 @@
         "label": "1 portion",
         "grams": 150
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1387,6 +1498,9 @@
         "label": "1 portion",
         "grams": 150
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1423,6 +1537,9 @@
         "label": "1 portion",
         "grams": 150
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1448,17 +1565,21 @@
       "per100g": {
         "energyKcal": 588,
         "proteinG": 25.1,
-        "carbsG": 20.0,
+        "carbsG": 20,
         "sugarG": 9.2,
         "fatG": 50.4,
         "saturatedFatG": 10.3,
-        "fiberG": 6.0,
+        "fiberG": 6,
         "sodiumMg": 17
       },
       "defaultServing": {
         "label": "1 tbsp",
         "grams": 16
       },
+      "foodClasses": [
+        "peanuts",
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1496,6 +1617,7 @@
         "label": "1 portion",
         "grams": 180
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1522,7 +1644,7 @@
         "proteinG": 2.7,
         "carbsG": 25.6,
         "sugarG": 0.2,
-        "fatG": 1.0,
+        "fatG": 1,
         "saturatedFatG": 0.2,
         "fiberG": 1.6,
         "sodiumMg": 4
@@ -1531,6 +1653,7 @@
         "label": "1 portion",
         "grams": 180
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1566,6 +1689,7 @@
         "label": "1 portion",
         "grams": 180
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1601,6 +1725,7 @@
         "label": "1 portion",
         "grams": 185
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1626,7 +1751,7 @@
         "energyKcal": 389,
         "proteinG": 16.9,
         "carbsG": 66.3,
-        "sugarG": 0.0,
+        "sugarG": 0,
         "fatG": 6.9,
         "saturatedFatG": 1.2,
         "fiberG": 10.6,
@@ -1636,6 +1761,7 @@
         "label": "1 portion",
         "grams": 50
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1672,6 +1798,9 @@
         "label": "1 portion",
         "grams": 180
       },
+      "foodClasses": [
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1709,6 +1838,9 @@
         "label": "1 portion",
         "grams": 180
       },
+      "foodClasses": [
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1734,9 +1866,9 @@
       "group": "grains",
       "per100g": {
         "energyKcal": 266,
-        "proteinG": 9.0,
-        "carbsG": 49.0,
-        "sugarG": 5.0,
+        "proteinG": 9,
+        "carbsG": 49,
+        "sugarG": 5,
         "fatG": 3.3,
         "saturatedFatG": 0.7,
         "fiberG": 2.7,
@@ -1746,6 +1878,9 @@
         "label": "1 slice",
         "grams": 36
       },
+      "foodClasses": [
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1771,18 +1906,21 @@
       "group": "grains",
       "per100g": {
         "energyKcal": 247,
-        "proteinG": 13.0,
-        "carbsG": 41.0,
-        "sugarG": 6.0,
+        "proteinG": 13,
+        "carbsG": 41,
+        "sugarG": 6,
         "fatG": 3.4,
         "saturatedFatG": 0.7,
-        "fiberG": 7.0,
+        "fiberG": 7,
         "sodiumMg": 455
       },
       "defaultServing": {
         "label": "1 slice",
         "grams": 36
       },
+      "foodClasses": [
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1808,9 +1946,9 @@
       "group": "grains",
       "per100g": {
         "energyKcal": 250,
-        "proteinG": 10.0,
-        "carbsG": 49.0,
-        "sugarG": 6.0,
+        "proteinG": 10,
+        "carbsG": 49,
+        "sugarG": 6,
         "fatG": 1.5,
         "saturatedFatG": 0.3,
         "fiberG": 2.1,
@@ -1820,6 +1958,9 @@
         "label": "1 bagel",
         "grams": 95
       },
+      "foodClasses": [
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1848,15 +1989,18 @@
         "proteinG": 8.2,
         "carbsG": 51.4,
         "sugarG": 2.5,
-        "fatG": 7.0,
-        "saturatedFatG": 2.0,
-        "fiberG": 3.0,
+        "fatG": 7,
+        "saturatedFatG": 2,
+        "fiberG": 3,
         "sodiumMg": 594
       },
       "defaultServing": {
         "label": "1 tortilla",
         "grams": 45
       },
+      "foodClasses": [
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1886,7 +2030,7 @@
         "carbsG": 23.2,
         "sugarG": 0.1,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 1.4,
         "sodiumMg": 5
       },
@@ -1894,6 +2038,9 @@
         "label": "1 portion",
         "grams": 160
       },
+      "foodClasses": [
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1931,6 +2078,7 @@
         "label": "1 portion",
         "grams": 170
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1955,7 +2103,7 @@
       "per100g": {
         "energyKcal": 357,
         "proteinG": 7.5,
-        "carbsG": 84.0,
+        "carbsG": 84,
         "sugarG": 8.4,
         "fatG": 0.4,
         "saturatedFatG": 0.1,
@@ -1966,6 +2114,7 @@
         "label": "1 bowl",
         "grams": 30
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -1989,18 +2138,21 @@
       "group": "grains",
       "per100g": {
         "energyKcal": 471,
-        "proteinG": 10.0,
-        "carbsG": 64.0,
-        "sugarG": 22.0,
-        "fatG": 20.0,
-        "saturatedFatG": 3.0,
-        "fiberG": 7.0,
+        "proteinG": 10,
+        "carbsG": 64,
+        "sugarG": 22,
+        "fatG": 20,
+        "saturatedFatG": 3,
+        "fiberG": 7,
         "sodiumMg": 26
       },
       "defaultServing": {
         "label": "1 portion",
         "grams": 50
       },
+      "foodClasses": [
+        "tree_nuts"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2037,6 +2189,7 @@
         "label": "1 cake",
         "grams": 9
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2064,7 +2217,7 @@
         "carbsG": 20.1,
         "sugarG": 0.9,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 1.8,
         "sodiumMg": 4
       },
@@ -2072,6 +2225,7 @@
         "label": "1 medium",
         "grams": 170
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2096,11 +2250,11 @@
       "group": "starchy_veg",
       "per100g": {
         "energyKcal": 90,
-        "proteinG": 2.0,
+        "proteinG": 2,
         "carbsG": 20.7,
         "sugarG": 6.5,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 3.3,
         "sodiumMg": 36
       },
@@ -2108,6 +2262,7 @@
         "label": "1 medium",
         "grams": 150
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2133,7 +2288,7 @@
       "per100g": {
         "energyKcal": 96,
         "proteinG": 3.4,
-        "carbsG": 21.0,
+        "carbsG": 21,
         "sugarG": 4.5,
         "fatG": 1.5,
         "saturatedFatG": 0.2,
@@ -2144,6 +2299,7 @@
         "label": "1 portion",
         "grams": 150
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2172,7 +2328,7 @@
         "carbsG": 6.6,
         "sugarG": 1.7,
         "fatG": 0.4,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.6,
         "sodiumMg": 33
       },
@@ -2180,6 +2336,7 @@
         "label": "1 portion",
         "grams": 85
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2220,6 +2377,7 @@
         "label": "1 handful",
         "grams": 30
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2260,6 +2418,7 @@
         "label": "1 handful",
         "grams": 30
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2291,7 +2450,7 @@
         "carbsG": 9.6,
         "sugarG": 4.7,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.8,
         "sodiumMg": 69
       },
@@ -2299,6 +2458,7 @@
         "label": "1 medium",
         "grams": 61
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2329,7 +2489,7 @@
         "carbsG": 3.9,
         "sugarG": 2.6,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 1.2,
         "sodiumMg": 5
       },
@@ -2337,6 +2497,7 @@
         "label": "1 medium",
         "grams": 123
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2368,7 +2529,7 @@
         "carbsG": 3.6,
         "sugarG": 1.7,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 0.5,
         "sodiumMg": 2
       },
@@ -2376,6 +2537,7 @@
         "label": "1/2 cucumber",
         "grams": 150
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2403,8 +2565,8 @@
       "group": "vegetables",
       "per100g": {
         "energyKcal": 31,
-        "proteinG": 1.0,
-        "carbsG": 6.0,
+        "proteinG": 1,
+        "carbsG": 6,
         "sugarG": 4.2,
         "fatG": 0.3,
         "saturatedFatG": 0.1,
@@ -2415,6 +2577,7 @@
         "label": "1 medium",
         "grams": 119
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2446,7 +2609,7 @@
         "carbsG": 9.3,
         "sugarG": 4.2,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 1.7,
         "sodiumMg": 4
       },
@@ -2454,6 +2617,7 @@
         "label": "1 medium",
         "grams": 110
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2482,7 +2646,7 @@
         "energyKcal": 149,
         "proteinG": 6.4,
         "carbsG": 33.1,
-        "sugarG": 1.0,
+        "sugarG": 1,
         "fatG": 0.5,
         "saturatedFatG": 0.1,
         "fiberG": 2.1,
@@ -2492,6 +2656,7 @@
         "label": "1 clove",
         "grams": 3
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2519,16 +2684,17 @@
         "energyKcal": 22,
         "proteinG": 3.1,
         "carbsG": 3.3,
-        "sugarG": 2.0,
+        "sugarG": 2,
         "fatG": 0.3,
         "saturatedFatG": 0.1,
-        "fiberG": 1.0,
+        "fiberG": 1,
         "sodiumMg": 5
       },
       "defaultServing": {
         "label": "1 portion",
         "grams": 80
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2562,13 +2728,14 @@
         "sugarG": 2.5,
         "fatG": 0.3,
         "saturatedFatG": 0.1,
-        "fiberG": 1.0,
+        "fiberG": 1,
         "sodiumMg": 8
       },
       "defaultServing": {
         "label": "1 medium",
         "grams": 196
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2597,17 +2764,18 @@
       "per100g": {
         "energyKcal": 25,
         "proteinG": 1.9,
-        "carbsG": 5.0,
+        "carbsG": 5,
         "sugarG": 1.9,
         "fatG": 0.3,
         "saturatedFatG": 0.1,
-        "fiberG": 2.0,
+        "fiberG": 2,
         "sodiumMg": 30
       },
       "defaultServing": {
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2637,10 +2805,10 @@
       "per100g": {
         "energyKcal": 31,
         "proteinG": 1.8,
-        "carbsG": 7.0,
+        "carbsG": 7,
         "sugarG": 3.3,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.7,
         "sodiumMg": 6
       },
@@ -2648,6 +2816,7 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2679,7 +2848,7 @@
         "carbsG": 3.9,
         "sugarG": 1.9,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.1,
         "sodiumMg": 2
       },
@@ -2687,6 +2856,7 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2719,7 +2889,7 @@
         "carbsG": 3.3,
         "sugarG": 1.2,
         "fatG": 0.3,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.1,
         "sodiumMg": 8
       },
@@ -2727,6 +2897,7 @@
         "label": "1 portion",
         "grams": 70
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2758,7 +2929,7 @@
         "carbsG": 5.8,
         "sugarG": 3.2,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.5,
         "sodiumMg": 18
       },
@@ -2766,6 +2937,7 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2797,7 +2969,7 @@
         "carbsG": 9.6,
         "sugarG": 6.8,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.8,
         "sodiumMg": 78
       },
@@ -2805,6 +2977,7 @@
         "label": "1 medium",
         "grams": 82
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2843,6 +3016,7 @@
         "label": "1 portion",
         "grams": 120
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2869,7 +3043,7 @@
       "group": "vegetables",
       "per100g": {
         "energyKcal": 160,
-        "proteinG": 2.0,
+        "proteinG": 2,
         "carbsG": 8.5,
         "sugarG": 0.7,
         "fatG": 14.7,
@@ -2881,6 +3055,7 @@
         "label": "1/2 avocado",
         "grams": 70
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2920,6 +3095,7 @@
         "label": "1 medium",
         "grams": 118
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2949,7 +3125,7 @@
         "carbsG": 13.8,
         "sugarG": 10.4,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.4,
         "sodiumMg": 1
       },
@@ -2957,6 +3133,7 @@
         "label": "1 medium",
         "grams": 182
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -2986,7 +3163,7 @@
         "carbsG": 11.8,
         "sugarG": 9.4,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.4,
         "sodiumMg": 0
       },
@@ -2994,6 +3171,7 @@
         "label": "1 medium",
         "grams": 131
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3024,14 +3202,15 @@
         "carbsG": 7.7,
         "sugarG": 4.9,
         "fatG": 0.3,
-        "saturatedFatG": 0.0,
-        "fiberG": 2.0,
+        "saturatedFatG": 0,
+        "fiberG": 2,
         "sodiumMg": 1
       },
       "defaultServing": {
         "label": "1 portion",
         "grams": 150
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3060,9 +3239,9 @@
         "energyKcal": 57,
         "proteinG": 0.7,
         "carbsG": 14.5,
-        "sugarG": 10.0,
+        "sugarG": 10,
         "fatG": 0.3,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.4,
         "sodiumMg": 1
       },
@@ -3070,6 +3249,7 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3099,7 +3279,7 @@
         "carbsG": 11.9,
         "sugarG": 4.4,
         "fatG": 0.7,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 6.5,
         "sodiumMg": 1
       },
@@ -3107,6 +3287,7 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3134,7 +3315,7 @@
       "per100g": {
         "energyKcal": 60,
         "proteinG": 0.8,
-        "carbsG": 15.0,
+        "carbsG": 15,
         "sugarG": 13.7,
         "fatG": 0.4,
         "saturatedFatG": 0.1,
@@ -3145,6 +3326,7 @@
         "label": "1/2 mango",
         "grams": 165
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3174,7 +3356,7 @@
         "carbsG": 13.1,
         "sugarG": 9.9,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 1.4,
         "sodiumMg": 1
       },
@@ -3182,6 +3364,7 @@
         "label": "1 portion",
         "grams": 165
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3219,6 +3402,7 @@
         "label": "1 portion",
         "grams": 150
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3248,7 +3432,7 @@
         "carbsG": 7.6,
         "sugarG": 6.2,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 0.4,
         "sodiumMg": 1
       },
@@ -3256,6 +3440,7 @@
         "label": "1 portion",
         "grams": 280
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3284,16 +3469,17 @@
         "energyKcal": 61,
         "proteinG": 1.1,
         "carbsG": 14.7,
-        "sugarG": 9.0,
+        "sugarG": 9,
         "fatG": 0.5,
-        "saturatedFatG": 0.0,
-        "fiberG": 3.0,
+        "saturatedFatG": 0,
+        "fiberG": 3,
         "sodiumMg": 3
       },
       "defaultServing": {
         "label": "1 fruit",
         "grams": 76
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3323,7 +3509,7 @@
         "carbsG": 15.2,
         "sugarG": 9.8,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 3.1,
         "sodiumMg": 1
       },
@@ -3331,6 +3517,7 @@
         "label": "1 medium",
         "grams": 178
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3357,10 +3544,10 @@
       "per100g": {
         "energyKcal": 277,
         "proteinG": 1.8,
-        "carbsG": 75.0,
+        "carbsG": 75,
         "sugarG": 66.5,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 6.7,
         "sodiumMg": 1
       },
@@ -3368,6 +3555,7 @@
         "label": "2 dates",
         "grams": 48
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3405,6 +3593,7 @@
         "label": "1 small box",
         "grams": 43
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3434,7 +3623,7 @@
         "carbsG": 9.3,
         "sugarG": 2.5,
         "fatG": 0.3,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 2.8,
         "sodiumMg": 2
       },
@@ -3442,6 +3631,7 @@
         "label": "1 fruit",
         "grams": 58
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3480,6 +3670,9 @@
         "label": "1 handful",
         "grams": 28
       },
+      "foodClasses": [
+        "tree_nuts"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3519,6 +3712,9 @@
         "label": "1 handful",
         "grams": 28
       },
+      "foodClasses": [
+        "tree_nuts"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3558,6 +3754,9 @@
         "label": "1 handful",
         "grams": 28
       },
+      "foodClasses": [
+        "tree_nuts"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3596,6 +3795,10 @@
         "label": "1 handful",
         "grams": 28
       },
+      "foodClasses": [
+        "peanuts",
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3604,7 +3807,6 @@
         "kosher",
         "low_carb",
         "mediterranean",
-        "paleo",
         "pescatarian",
         "vegan",
         "vegetarian"
@@ -3625,7 +3827,7 @@
         "energyKcal": 486,
         "proteinG": 16.5,
         "carbsG": 42.1,
-        "sugarG": 0.0,
+        "sugarG": 0,
         "fatG": 30.7,
         "saturatedFatG": 3.3,
         "fiberG": 34.4,
@@ -3635,6 +3837,7 @@
         "label": "1 tbsp",
         "grams": 12
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3673,6 +3876,7 @@
         "label": "1 tbsp",
         "grams": 10
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3705,13 +3909,14 @@
         "sugarG": 1.4,
         "fatG": 49.1,
         "saturatedFatG": 8.7,
-        "fiberG": 6.0,
+        "fiberG": 6,
         "sodiumMg": 7
       },
       "defaultServing": {
         "label": "1 handful",
         "grams": 28
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3740,7 +3945,7 @@
       "per100g": {
         "energyKcal": 584,
         "proteinG": 20.8,
-        "carbsG": 20.0,
+        "carbsG": 20,
         "sugarG": 2.6,
         "fatG": 51.5,
         "saturatedFatG": 4.5,
@@ -3751,6 +3956,7 @@
         "label": "1 handful",
         "grams": 28
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3776,18 +3982,19 @@
       "group": "fats_oils",
       "per100g": {
         "energyKcal": 884,
-        "proteinG": 0.0,
-        "carbsG": 0.0,
-        "sugarG": 0.0,
-        "fatG": 100.0,
+        "proteinG": 0,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 100,
         "saturatedFatG": 13.8,
-        "fiberG": 0.0,
+        "fiberG": 0,
         "sodiumMg": 2
       },
       "defaultServing": {
         "label": "1 tbsp",
         "grams": 14
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3814,18 +4021,21 @@
       "group": "fats_oils",
       "per100g": {
         "energyKcal": 892,
-        "proteinG": 0.0,
-        "carbsG": 0.0,
-        "sugarG": 0.0,
+        "proteinG": 0,
+        "carbsG": 0,
+        "sugarG": 0,
         "fatG": 99.1,
         "saturatedFatG": 82.5,
-        "fiberG": 0.0,
+        "fiberG": 0,
         "sodiumMg": 0
       },
       "defaultServing": {
         "label": "1 tbsp",
         "grams": 14
       },
+      "foodClasses": [
+        "tree_nuts"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3834,12 +4044,13 @@
         "keto",
         "kosher",
         "low_carb",
-        "nut_free",
         "pescatarian",
         "vegan",
         "vegetarian"
       ],
-      "allergens": [],
+      "allergens": [
+        "tree_nuts"
+      ],
       "source": "curated",
       "externalId": null,
       "imageUrl": null,
@@ -3851,18 +4062,19 @@
       "group": "fats_oils",
       "per100g": {
         "energyKcal": 884,
-        "proteinG": 0.0,
-        "carbsG": 0.0,
-        "sugarG": 0.0,
-        "fatG": 100.0,
+        "proteinG": 0,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 100,
         "saturatedFatG": 7.4,
-        "fiberG": 0.0,
+        "fiberG": 0,
         "sodiumMg": 0
       },
       "defaultServing": {
         "label": "1 tbsp",
         "grams": 14
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3900,6 +4112,9 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [
+        "tree_nuts"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3908,12 +4123,13 @@
         "keto",
         "kosher",
         "low_carb",
-        "nut_free",
         "pescatarian",
         "vegan",
         "vegetarian"
       ],
-      "allergens": [],
+      "allergens": [
+        "tree_nuts"
+      ],
       "source": "curated",
       "externalId": null,
       "imageUrl": null,
@@ -3928,8 +4144,8 @@
         "proteinG": 0.3,
         "carbsG": 82.4,
         "sugarG": 82.1,
-        "fatG": 0.0,
-        "saturatedFatG": 0.0,
+        "fatG": 0,
+        "saturatedFatG": 0,
         "fiberG": 0.2,
         "sodiumMg": 4
       },
@@ -3937,6 +4153,9 @@
         "label": "1 tbsp",
         "grams": 21
       },
+      "foodClasses": [
+        "honey"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -3945,7 +4164,6 @@
         "kosher",
         "nut_free",
         "pescatarian",
-        "vegan",
         "vegetarian"
       ],
       "allergens": [],
@@ -3960,18 +4178,19 @@
       "group": "condiments",
       "per100g": {
         "energyKcal": 260,
-        "proteinG": 0.0,
-        "carbsG": 67.0,
+        "proteinG": 0,
+        "carbsG": 67,
         "sugarG": 60.4,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
-        "fiberG": 0.0,
+        "saturatedFatG": 0,
+        "fiberG": 0,
         "sodiumMg": 12
       },
       "defaultServing": {
         "label": "1 tbsp",
         "grams": 20
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4007,6 +4226,10 @@
         "label": "1 tbsp",
         "grams": 16
       },
+      "foodClasses": [
+        "legumes",
+        "wheat"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4037,10 +4260,10 @@
       "per100g": {
         "energyKcal": 30,
         "proteinG": 1.4,
-        "carbsG": 6.0,
+        "carbsG": 6,
         "sugarG": 4.5,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 1.3,
         "sodiumMg": 11
       },
@@ -4048,6 +4271,7 @@
         "label": "1 portion",
         "grams": 100
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4078,13 +4302,16 @@
         "sugarG": 0.3,
         "fatG": 9.6,
         "saturatedFatG": 1.4,
-        "fiberG": 6.0,
+        "fiberG": 6,
         "sodiumMg": 379
       },
       "defaultServing": {
         "label": "2 tbsp",
         "grams": 30
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4111,18 +4338,21 @@
       "group": "condiments",
       "per100g": {
         "energyKcal": 680,
-        "proteinG": 1.0,
+        "proteinG": 1,
         "carbsG": 0.6,
         "sugarG": 0.6,
-        "fatG": 75.0,
+        "fatG": 75,
         "saturatedFatG": 11.7,
-        "fiberG": 0.0,
+        "fiberG": 0,
         "sodiumMg": 635
       },
       "defaultServing": {
         "label": "1 tbsp",
         "grams": 14
       },
+      "foodClasses": [
+        "eggs"
+      ],
       "dietaryTags": [
         "dairy_free",
         "gluten_free",
@@ -4152,7 +4382,7 @@
         "carbsG": 25.8,
         "sugarG": 21.8,
         "fatG": 0.1,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 0.3,
         "sodiumMg": 907
       },
@@ -4160,6 +4390,7 @@
         "label": "1 tbsp",
         "grams": 17
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4188,13 +4419,14 @@
         "sugarG": 1.1,
         "fatG": 3.3,
         "saturatedFatG": 0.2,
-        "fiberG": 4.0,
+        "fiberG": 4,
         "sodiumMg": 1104
       },
       "defaultServing": {
         "label": "1 tsp",
         "grams": 5
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4224,7 +4456,7 @@
         "energyKcal": 598,
         "proteinG": 7.8,
         "carbsG": 45.9,
-        "sugarG": 24.0,
+        "sugarG": 24,
         "fatG": 42.6,
         "saturatedFatG": 24.5,
         "fiberG": 10.9,
@@ -4234,6 +4466,10 @@
         "label": "2 squares",
         "grams": 20
       },
+      "foodClasses": [
+        "dairy",
+        "legumes"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -4258,18 +4494,21 @@
       "group": "supplements",
       "per100g": {
         "energyKcal": 400,
-        "proteinG": 80.0,
-        "carbsG": 8.0,
-        "sugarG": 4.0,
-        "fatG": 6.0,
-        "saturatedFatG": 3.0,
-        "fiberG": 0.0,
+        "proteinG": 80,
+        "carbsG": 8,
+        "sugarG": 4,
+        "fatG": 6,
+        "saturatedFatG": 3,
+        "fiberG": 0,
         "sodiumMg": 300
       },
       "defaultServing": {
         "label": "1 scoop",
         "grams": 30
       },
+      "foodClasses": [
+        "dairy"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -4295,18 +4534,21 @@
       "group": "supplements",
       "per100g": {
         "energyKcal": 390,
-        "proteinG": 80.0,
-        "carbsG": 3.0,
+        "proteinG": 80,
+        "carbsG": 3,
         "sugarG": 0.5,
-        "fatG": 6.0,
+        "fatG": 6,
         "saturatedFatG": 0.8,
-        "fiberG": 3.0,
+        "fiberG": 3,
         "sodiumMg": 900
       },
       "defaultServing": {
         "label": "1 scoop",
         "grams": 30
       },
+      "foodClasses": [
+        "legumes"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4333,18 +4575,23 @@
       "group": "supplements",
       "per100g": {
         "energyKcal": 380,
-        "proteinG": 30.0,
-        "carbsG": 38.0,
-        "sugarG": 6.0,
-        "fatG": 11.0,
+        "proteinG": 30,
+        "carbsG": 38,
+        "sugarG": 6,
+        "fatG": 11,
         "saturatedFatG": 4.5,
-        "fiberG": 8.0,
+        "fiberG": 8,
         "sodiumMg": 250
       },
       "defaultServing": {
         "label": "1 bar",
         "grams": 60
       },
+      "foodClasses": [
+        "dairy",
+        "legumes",
+        "tree_nuts"
+      ],
       "dietaryTags": [
         "egg_free",
         "gluten_free",
@@ -4370,18 +4617,19 @@
       "group": "supplements",
       "per100g": {
         "energyKcal": 0,
-        "proteinG": 0.0,
-        "carbsG": 0.0,
-        "sugarG": 0.0,
-        "fatG": 0.0,
-        "saturatedFatG": 0.0,
-        "fiberG": 0.0,
+        "proteinG": 0,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 0,
+        "saturatedFatG": 0,
+        "fiberG": 0,
         "sodiumMg": 0
       },
       "defaultServing": {
         "label": "1 scoop",
         "grams": 5
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4407,17 +4655,18 @@
       "per100g": {
         "energyKcal": 1,
         "proteinG": 0.1,
-        "carbsG": 0.0,
-        "sugarG": 0.0,
-        "fatG": 0.0,
-        "saturatedFatG": 0.0,
-        "fiberG": 0.0,
+        "carbsG": 0,
+        "sugarG": 0,
+        "fatG": 0,
+        "saturatedFatG": 0,
+        "fiberG": 0,
         "sodiumMg": 2
       },
       "defaultServing": {
         "label": "1 mug",
         "grams": 240
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4447,7 +4696,7 @@
         "carbsG": 10.4,
         "sugarG": 8.4,
         "fatG": 0.2,
-        "saturatedFatG": 0.0,
+        "saturatedFatG": 0,
         "fiberG": 0.2,
         "sodiumMg": 1
       },
@@ -4455,6 +4704,7 @@
         "label": "1 glass",
         "grams": 250
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4480,7 +4730,7 @@
         "energyKcal": 15,
         "proteinG": 0.6,
         "carbsG": 0.6,
-        "sugarG": 0.0,
+        "sugarG": 0,
         "fatG": 1.1,
         "saturatedFatG": 0.1,
         "fiberG": 0.3,
@@ -4490,6 +4740,9 @@
         "label": "1 glass",
         "grams": 250
       },
+      "foodClasses": [
+        "tree_nuts"
+      ],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4516,9 +4769,9 @@
       "group": "beverages",
       "per100g": {
         "energyKcal": 47,
-        "proteinG": 1.0,
-        "carbsG": 7.0,
-        "sugarG": 4.0,
+        "proteinG": 1,
+        "carbsG": 7,
+        "sugarG": 4,
         "fatG": 1.5,
         "saturatedFatG": 0.2,
         "fiberG": 0.8,
@@ -4528,6 +4781,7 @@
         "label": "1 glass",
         "grams": 250
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",
@@ -4553,18 +4807,19 @@
       "group": "beverages",
       "per100g": {
         "energyKcal": 26,
-        "proteinG": 0.0,
+        "proteinG": 0,
         "carbsG": 6.5,
-        "sugarG": 6.0,
-        "fatG": 0.0,
-        "saturatedFatG": 0.0,
-        "fiberG": 0.0,
+        "sugarG": 6,
+        "fatG": 0,
+        "saturatedFatG": 0,
+        "fiberG": 0,
         "sodiumMg": 41
       },
       "defaultServing": {
         "label": "1 bottle",
         "grams": 500
       },
+      "foodClasses": [],
       "dietaryTags": [
         "dairy_free",
         "egg_free",

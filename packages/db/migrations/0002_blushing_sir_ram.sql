@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "surveys_slug_unique" ON "surveys" USING btree ("slug");

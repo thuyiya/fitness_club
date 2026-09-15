@@ -9,8 +9,8 @@ import {
   uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
-import { goalPeriod, goalSource, goalStatus } from "./enums";
-import { users } from "./identity";
+import { goalPeriod, goalSource, goalStatus } from "./enums.js";
+import { users } from "./identity.js";
 
 /**
  * M12 goals. `source` distinguishes a coach-assigned goal from one the member

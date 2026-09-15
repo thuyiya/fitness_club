@@ -16,7 +16,13 @@
     "db:studio": "pnpm --filter @wellness/db studio",
     "infra:up": "docker compose -f infra/docker-compose.yml up -d",
     "infra:down": "docker compose -f infra/docker-compose.yml down",
-    "infra:logs": "docker compose -f infra/docker-compose.yml logs -f"
+    "infra:logs": "docker compose -f infra/docker-compose.yml logs -f",
+    "dev:api": "pnpm --filter @wellness/api dev",
+    "dev:app": "pnpm --filter @wellness/mobile web",
+    "db:seed": "pnpm --filter @wellness/db seed",
+    "db:embed": "pnpm --filter @wellness/db seed:embed",
+    "demo:users": "node scripts/demo-users.mjs",
+    "smoke": "node apps/api/smoke.mjs"
   },
   "devDependencies": {
     "turbo": "^2.3.3",

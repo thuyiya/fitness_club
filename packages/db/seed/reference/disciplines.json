@@ -1,0 +1,34 @@
+{
+  "$comment": "The primary browse axis for the exercise library -- what KIND of training a movement belongs to. This is deliberately separate from `category` (what it trains), `movementPattern` (how the body moves) and `equipment` (what it needs), because a coach filters on all four independently: 'calisthenics pull exercises for someone who only has a bar' is discipline + pattern + equipment. Single-valued on each exercise.",
+  "items": [
+    {
+      "id": "calisthenics",
+      "label": "Calisthenics",
+      "description": "Bodyweight as the resistance. Progression comes from leverage, range and unilateral loading rather than added plates.",
+      "equipmentHint": "Nothing, or a bar, rings, parallettes, a bench or a band.",
+      "progressesBy": "leverage"
+    },
+    {
+      "id": "gym",
+      "label": "Gym",
+      "description": "Externally loaded resistance work: barbells, dumbbells, kettlebells, machines and cables.",
+      "equipmentHint": "Loadable equipment in a gym.",
+      "progressesBy": "load"
+    },
+    {
+      "id": "cardio",
+      "label": "Cardio",
+      "description": "Continuous or interval conditioning, on a machine or on foot.",
+      "equipmentHint": "A machine, or open ground.",
+      "progressesBy": "duration"
+    },
+    {
+      "id": "mobility",
+      "label": "Mobility",
+      "description": "Range-of-motion, stretching and preparation work. Prescribed for quality, not intensity.",
+      "equipmentHint": "Floor space, sometimes a band or roller.",
+      "progressesBy": "range"
+    }
+  ],
+  "note": "Sports are NOT a discipline here. A sport is an activity (catalog/activities.json) logged by duration and intensity, not a prescribable exercise. See the README."
+}

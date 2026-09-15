@@ -1,0 +1,19 @@
+{
+  "$comment": "Free multi-valued labels on exercises. Unlike discipline/category/movementPattern -- each of which is single-valued and structural -- tags are additive and exist to power search and automatic substitution. An exercise may carry none.",
+  "items": [
+    { "id": "unilateral", "label": "Unilateral", "use": "One limb at a time; surfaces imbalances and halves the load needed." },
+    { "id": "isometric", "label": "Isometric", "use": "Held rather than moved. Pairs with the `hold` logging mode." },
+    { "id": "explosive", "label": "Explosive", "use": "Intent is speed. Keep volume low and place it early in a session." },
+    { "id": "skill", "label": "Skill", "use": "Needs practice as much as strength. Program it fresh, not to failure." },
+    { "id": "compound", "label": "Compound", "use": "Crosses more than one joint; the main drivers of a session." },
+    { "id": "isolation", "label": "Isolation", "use": "One joint. Accessory volume." },
+    { "id": "low_impact", "label": "Low impact", "use": "No jumping or landing. Safe default for joint limitations." },
+    { "id": "no_equipment", "label": "No equipment", "use": "Needs nothing at all -- the true home-workout filter." },
+    { "id": "beginner_friendly", "label": "Beginner friendly", "use": "Safe to prescribe without supervision." },
+    { "id": "core_stability", "label": "Core stability", "use": "Resists movement of the spine rather than producing it." },
+    { "id": "grip_intensive", "label": "Grip intensive", "use": "Grip fails before the target muscle; watch it in pulling blocks." },
+    { "id": "rehab_friendly", "label": "Rehab friendly", "use": "Commonly tolerated in return-to-training work. Not a clinical clearance." },
+    { "id": "warmup", "label": "Warm-up", "use": "Prepares tissue and pattern before the working sets." },
+    { "id": "finisher", "label": "Finisher", "use": "Ends a session; high fatigue, low technical demand." }
+  ]
+}

@@ -14,11 +14,14 @@
     "migrate": "drizzle-kit migrate",
     "push": "drizzle-kit push",
     "studio": "drizzle-kit studio",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed": "node seed/seed.mjs",
+    "seed:embed": "node seed/embed.mjs"
   },
   "dependencies": {
     "drizzle-orm": "^0.38.2",
-    "postgres": "^3.4.5"
+    "postgres": "^3.4.5",
+    "@wellness/embeddings": "workspace:*"
   },
   "devDependencies": {
     "drizzle-kit": "^0.30.1",

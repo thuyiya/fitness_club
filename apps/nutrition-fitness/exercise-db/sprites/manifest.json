@@ -2668,1178 +2668,1178 @@
       "id": "knee-plank",
       "name": "Knee plank",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "knee-plank.png"
     },
     {
       "id": "forearm-plank",
       "name": "Forearm plank",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "forearm-plank.png"
     },
     {
       "id": "high-plank",
       "name": "High plank",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "high-plank.png"
     },
     {
       "id": "long-lever-plank",
       "name": "Long-lever plank",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "long-lever-plank.png"
     },
     {
       "id": "rkc-plank",
       "name": "RKC plank",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "rkc-plank.png"
     },
     {
       "id": "plank-shoulder-tap",
       "name": "Plank shoulder tap",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "plank-shoulder-tap.png"
     },
     {
       "id": "plank-up-down",
       "name": "Plank up-down",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "plank-up-down.png"
     },
     {
       "id": "plank-reach",
       "name": "Plank reach",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "plank-reach.png"
     },
     {
       "id": "single-leg-plank",
       "name": "Single-leg plank",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "single-leg-plank.png"
     },
     {
       "id": "single-arm-plank",
       "name": "Single-arm plank",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "single-arm-plank.png"
     },
     {
       "id": "opposite-arm-and-leg-plank",
       "name": "Opposite-arm-and-leg plank",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "opposite-arm-and-leg-plank.png"
     },
     {
       "id": "body-saw",
       "name": "Body saw",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "body-saw.png"
     },
     {
       "id": "plank-walkout",
       "name": "Plank walkout",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "plank-walkout.png"
     },
     {
       "id": "inchworm",
       "name": "Inchworm",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "inchworm.png"
     },
     {
       "id": "dead-bug",
       "name": "Dead bug",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "dead-bug.png"
     },
     {
       "id": "hollow-body-tuck-hold",
       "name": "Hollow-body tuck hold",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hollow-body-tuck-hold.png"
     },
     {
       "id": "hollow-body-hold",
       "name": "Hollow-body hold",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hollow-body-hold.png"
     },
     {
       "id": "hollow-body-rock",
       "name": "Hollow-body rock",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hollow-body-rock.png"
     },
     {
       "id": "arch-body-hold",
       "name": "Arch-body hold",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "arch-body-hold.png"
     },
     {
       "id": "arch-body-rock",
       "name": "Arch-body rock",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "arch-body-rock.png"
     },
     {
       "id": "kneeling-ring-rollout",
       "name": "Kneeling ring rollout",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "kneeling-ring-rollout.png"
     },
     {
       "id": "standing-ring-rollout",
       "name": "Standing ring rollout",
       "category": "11. Core \u2014 Planks and Anti-Extension",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "standing-ring-rollout.png"
     },
     {
       "id": "crunch",
       "name": "Crunch",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "crunch.png"
     },
     {
       "id": "reverse-crunch",
       "name": "Reverse crunch",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "reverse-crunch.png"
     },
     {
       "id": "bicycle-crunch",
       "name": "Bicycle crunch",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "bicycle-crunch.png"
     },
     {
       "id": "cross-body-crunch",
       "name": "Cross-body crunch",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "cross-body-crunch.png"
     },
     {
       "id": "sit-up",
       "name": "Sit-up",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "sit-up.png"
     },
     {
       "id": "butterfly-sit-up",
       "name": "Butterfly sit-up",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "butterfly-sit-up.png"
     },
     {
       "id": "tuck-up",
       "name": "Tuck-up",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-up.png"
     },
     {
       "id": "v-up",
       "name": "V-up",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "v-up.png"
     },
     {
       "id": "alternating-v-up",
       "name": "Alternating V-up",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "alternating-v-up.png"
     },
     {
       "id": "seated-knee-tuck",
       "name": "Seated knee tuck",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "seated-knee-tuck.png"
     },
     {
       "id": "lying-knee-raise",
       "name": "Lying knee raise",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "lying-knee-raise.png"
     },
     {
       "id": "lying-leg-raise",
       "name": "Lying leg raise",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "lying-leg-raise.png"
     },
     {
       "id": "lying-leg-lowering-drill",
       "name": "Lying leg-lowering drill",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "lying-leg-lowering-drill.png"
     },
     {
       "id": "flutter-kick",
       "name": "Flutter kick",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "flutter-kick.png"
     },
     {
       "id": "scissor-kick",
       "name": "Scissor kick",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "scissor-kick.png"
     },
     {
       "id": "hanging-knee-raise",
       "name": "Hanging knee raise",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hanging-knee-raise.png"
     },
     {
       "id": "hanging-leg-raise",
       "name": "Hanging leg raise",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hanging-leg-raise.png"
     },
     {
       "id": "hanging-straight-leg-raise-to-bar-toes-to-bar",
       "name": "Hanging straight-leg raise to bar (toes-to-bar)",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hanging-straight-leg-raise-to-bar-toes-to-bar.png"
     },
     {
       "id": "captain-s-chair-knee-raise",
       "name": "Captain's chair knee raise",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "captain-s-chair-knee-raise.png"
     },
     {
       "id": "captain-s-chair-leg-raise",
       "name": "Captain's chair leg raise",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "captain-s-chair-leg-raise.png"
     },
     {
       "id": "parallel-bar-knee-raise",
       "name": "Parallel-bar knee raise",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "parallel-bar-knee-raise.png"
     },
     {
       "id": "parallel-bar-leg-raise",
       "name": "Parallel-bar leg raise",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "parallel-bar-leg-raise.png"
     },
     {
       "id": "dragon-flag-negative",
       "name": "Dragon flag negative",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "dragon-flag-negative.png"
     },
     {
       "id": "tuck-dragon-flag",
       "name": "Tuck dragon flag",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-dragon-flag.png"
     },
     {
       "id": "straddle-dragon-flag",
       "name": "Straddle dragon flag",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "straddle-dragon-flag.png"
     },
     {
       "id": "full-dragon-flag",
       "name": "Full dragon flag",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "full-dragon-flag.png"
     },
     {
       "id": "seated-pike-compression-lift",
       "name": "Seated pike compression lift",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "seated-pike-compression-lift.png"
     },
     {
       "id": "seated-straddle-compression-lift",
       "name": "Seated straddle compression lift",
       "category": "12. Core \u2014 Flexion and Leg Raises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "seated-straddle-compression-lift.png"
     },
     {
       "id": "bent-knee-side-plank",
       "name": "Bent-knee side plank",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "bent-knee-side-plank.png"
     },
     {
       "id": "side-plank",
       "name": "Side plank",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "side-plank.png"
     },
     {
       "id": "side-plank-hip-lift",
       "name": "Side plank hip lift",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "side-plank-hip-lift.png"
     },
     {
       "id": "side-plank-reach-through",
       "name": "Side plank reach-through",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "side-plank-reach-through.png"
     },
     {
       "id": "star-side-plank",
       "name": "Star side plank",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "star-side-plank.png"
     },
     {
       "id": "short-lever-copenhagen-plank",
       "name": "Short-lever Copenhagen plank",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "short-lever-copenhagen-plank.png"
     },
     {
       "id": "long-lever-copenhagen-plank",
       "name": "Long-lever Copenhagen plank",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "long-lever-copenhagen-plank.png"
     },
     {
       "id": "unweighted-russian-twist",
       "name": "Unweighted Russian twist",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "unweighted-russian-twist.png"
     },
     {
       "id": "seated-torso-rotation",
       "name": "Seated torso rotation",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "seated-torso-rotation.png"
     },
     {
       "id": "windshield-wiper-on-the-floor",
       "name": "Windshield wiper on the floor",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "windshield-wiper-on-the-floor.png"
     },
     {
       "id": "bent-knee-hanging-windshield-wiper",
       "name": "Bent-knee hanging windshield wiper",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "bent-knee-hanging-windshield-wiper.png"
     },
     {
       "id": "straight-leg-hanging-windshield-wiper",
       "name": "Straight-leg hanging windshield wiper",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "straight-leg-hanging-windshield-wiper.png"
     },
     {
       "id": "hanging-oblique-knee-raise",
       "name": "Hanging oblique knee raise",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hanging-oblique-knee-raise.png"
     },
     {
       "id": "cross-body-mountain-climber",
       "name": "Cross-body mountain climber",
       "category": "13. Core \u2014 Lateral Stability and Rotation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "cross-body-mountain-climber.png"
     },
     {
       "id": "tuck-support-hold",
       "name": "Tuck support hold",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-support-hold.png"
     },
     {
       "id": "foot-assisted-l-sit",
       "name": "Foot-assisted L-sit",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "foot-assisted-l-sit.png"
     },
     {
       "id": "tuck-l-sit",
       "name": "Tuck L-sit",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-l-sit.png"
     },
     {
       "id": "one-leg-l-sit",
       "name": "One-leg L-sit",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "one-leg-l-sit.png"
     },
     {
       "id": "l-sit",
       "name": "L-sit",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "l-sit.png"
     },
     {
       "id": "v-sit",
       "name": "V-sit",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "v-sit.png"
     },
     {
       "id": "manna",
       "name": "Manna",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "manna.png"
     },
     {
       "id": "planche-lean",
       "name": "Planche lean",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "planche-lean.png"
     },
     {
       "id": "frog-stand",
       "name": "Frog stand",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "frog-stand.png"
     },
     {
       "id": "straight-arm-frog-stand",
       "name": "Straight-arm frog stand",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "straight-arm-frog-stand.png"
     },
     {
       "id": "tuck-planche",
       "name": "Tuck planche",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-planche.png"
     },
     {
       "id": "advanced-tuck-planche",
       "name": "Advanced tuck planche",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "advanced-tuck-planche.png"
     },
     {
       "id": "one-leg-planche",
       "name": "One-leg planche",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "one-leg-planche.png"
     },
     {
       "id": "straddle-planche",
       "name": "Straddle planche",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "straddle-planche.png"
     },
     {
       "id": "full-planche",
       "name": "Full planche",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "full-planche.png"
     },
     {
       "id": "tuck-front-lever",
       "name": "Tuck front lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-front-lever.png"
     },
     {
       "id": "advanced-tuck-front-lever",
       "name": "Advanced tuck front lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "advanced-tuck-front-lever.png"
     },
     {
       "id": "one-leg-front-lever",
       "name": "One-leg front lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "one-leg-front-lever.png"
     },
     {
       "id": "straddle-front-lever",
       "name": "Straddle front lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "straddle-front-lever.png"
     },
     {
       "id": "full-front-lever",
       "name": "Full front lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "full-front-lever.png"
     },
     {
       "id": "front-lever-raise",
       "name": "Front lever raise",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "front-lever-raise.png"
     },
     {
       "id": "front-lever-negative",
       "name": "Front lever negative",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "front-lever-negative.png"
     },
     {
       "id": "tuck-back-lever",
       "name": "Tuck back lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-back-lever.png"
     },
     {
       "id": "advanced-tuck-back-lever",
       "name": "Advanced tuck back lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "advanced-tuck-back-lever.png"
     },
     {
       "id": "one-leg-back-lever",
       "name": "One-leg back lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "one-leg-back-lever.png"
     },
     {
       "id": "straddle-back-lever",
       "name": "Straddle back lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "straddle-back-lever.png"
     },
     {
       "id": "full-back-lever",
       "name": "Full back lever",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "full-back-lever.png"
     },
     {
       "id": "back-lever-negative",
       "name": "Back lever negative",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "back-lever-negative.png"
     },
     {
       "id": "supported-human-flag",
       "name": "Supported human flag",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "supported-human-flag.png"
     },
     {
       "id": "tuck-human-flag",
       "name": "Tuck human flag",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "tuck-human-flag.png"
     },
     {
       "id": "straddle-human-flag",
       "name": "Straddle human flag",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "straddle-human-flag.png"
     },
     {
       "id": "full-human-flag",
       "name": "Full human flag",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "full-human-flag.png"
     },
     {
       "id": "human-flag-raise",
       "name": "Human flag raise",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "human-flag-raise.png"
     },
     {
       "id": "iron-cross",
       "name": "Iron cross",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "iron-cross.png"
     },
     {
       "id": "inverted-cross",
       "name": "Inverted cross",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "inverted-cross.png"
     },
     {
       "id": "maltese",
       "name": "Maltese",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "maltese.png"
     },
     {
       "id": "victorian",
       "name": "Victorian",
       "category": "14. Static Strength Skills",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "victorian.png"
     },
     {
       "id": "crow-pose",
       "name": "Crow pose",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "crow-pose.png"
     },
     {
       "id": "crane-pose",
       "name": "Crane pose",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "crane-pose.png"
     },
     {
       "id": "headstand",
       "name": "Headstand",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "headstand.png"
     },
     {
       "id": "forearm-stand",
       "name": "Forearm stand",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "forearm-stand.png"
     },
     {
       "id": "wall-walk",
       "name": "Wall walk",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "wall-walk.png"
     },
     {
       "id": "chest-to-wall-handstand",
       "name": "Chest-to-wall handstand",
       "category": "15. Hand Balancing and Body Control",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "chest-to-wall-handstand.png"
     },
     {
       "id": "back-to-wall-handstand",

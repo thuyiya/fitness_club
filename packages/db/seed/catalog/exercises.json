@@ -1,5 +1,5 @@
 {
-  "$comment": "Seeds the `exercises` table. muscleGroups/primaryMuscle use ids from reference/muscle-groups.json; equipment from reference/equipment.json; category and movementPattern from reference/exercise-categories.json. `met` is the Compendium of Physical Activities value and drives calorie-burn estimates. `regressions`/`progressions` reference ids within this file, forming beginner-to-advanced chains for each major pattern.",
+  "$comment": "Seeds the `exercises` table. muscleGroups/primaryMuscle use ids from reference/muscle-groups.json; equipment from reference/equipment.json; category and movementPattern from reference/exercise-categories.json. `met` is the Compendium of Physical Activities value and drives calorie-burn estimates. `discipline` is the primary browse axis (calisthenics / gym / cardio / mobility) and is orthogonal to `category`, `movementPattern` and `equipment`. `loggingMode` decides which fields the log UI shows -- a plank captures seconds, not reps. `tags` are additive search labels. `regressions`/`progressions` reference ids within this file, forming beginner-to-advanced chains for each major pattern.",
   "items": [
     {
       "id": "ex_bodyweight_squat",
@@ -7,9 +7,15 @@
       "description": "The entry point to every squat pattern, teaching depth and knee tracking before load is added.",
       "category": "strength",
       "movementPattern": "squat",
-      "muscleGroups": ["quads", "glutes", "core"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "core"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -20,13 +26,30 @@
         "Descend until the thighs are at least parallel to the floor.",
         "Drive through the whole foot to stand."
       ],
-      "formCues": ["Spread the floor with your feet", "Keep the ribcage stacked over the pelvis"],
-      "commonMistakes": ["Heels lifting off the floor", "Rounding the lower back at the bottom"],
+      "formCues": [
+        "Spread the floor with your feet",
+        "Keep the ribcage stacked over the pelvis"
+      ],
+      "commonMistakes": [
+        "Heels lifting off the floor",
+        "Rounding the lower back at the bottom"
+      ],
       "regressions": [],
-      "progressions": ["ex_goblet_squat", "ex_box_jump"],
+      "progressions": [
+        "ex_goblet_squat",
+        "ex_box_jump"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_goblet_squat",
@@ -34,11 +57,18 @@
       "description": "A front-loaded squat that self-corrects posture, making it the best bridge to barbell work.",
       "category": "strength",
       "movementPattern": "squat",
-      "muscleGroups": ["quads", "glutes", "core"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "core"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["dumbbell", "kettlebell"],
+      "equipment": [
+        "dumbbell",
+        "kettlebell"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -46,13 +76,30 @@
         "Squat down keeping the elbows inside the knees.",
         "Pause briefly at the bottom, then stand."
       ],
-      "formCues": ["Keep the weight glued to your sternum", "Elbows point down, not out"],
-      "commonMistakes": ["Letting the load drift away from the body", "Cutting depth short"],
-      "regressions": ["ex_bodyweight_squat"],
-      "progressions": ["ex_barbell_back_squat"],
+      "formCues": [
+        "Keep the weight glued to your sternum",
+        "Elbows point down, not out"
+      ],
+      "commonMistakes": [
+        "Letting the load drift away from the body",
+        "Cutting depth short"
+      ],
+      "regressions": [
+        "ex_bodyweight_squat"
+      ],
+      "progressions": [
+        "ex_barbell_back_squat"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_barbell_back_squat",
@@ -60,11 +107,19 @@
       "description": "The primary lower-body strength builder and the anchor of most leg sessions.",
       "category": "strength",
       "movementPattern": "squat",
-      "muscleGroups": ["quads", "glutes", "hamstrings", "core", "lower_back"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "hamstrings",
+        "core",
+        "lower_back"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["barbell"],
+      "equipment": [
+        "barbell"
+      ],
       "difficulty": "intermediate",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -73,13 +128,34 @@
         "Squat to at least parallel, keeping the bar over mid-foot.",
         "Drive up without letting the hips shoot back first."
       ],
-      "formCues": ["Big breath and brace before each rep", "Push the floor away"],
-      "commonMistakes": ["Knees caving inward", "Hips rising faster than the chest"],
-      "regressions": ["ex_goblet_squat", "ex_smith_machine_squat", "ex_leg_press"],
-      "progressions": ["ex_barbell_front_squat"],
-      "safetyNotes": ["Set safety pins at depth when training near failure", "Never train to failure without a spotter or pins"],
+      "formCues": [
+        "Big breath and brace before each rep",
+        "Push the floor away"
+      ],
+      "commonMistakes": [
+        "Knees caving inward",
+        "Hips rising faster than the chest"
+      ],
+      "regressions": [
+        "ex_goblet_squat",
+        "ex_smith_machine_squat",
+        "ex_leg_press"
+      ],
+      "progressions": [
+        "ex_barbell_front_squat"
+      ],
+      "safetyNotes": [
+        "Set safety pins at depth when training near failure",
+        "Never train to failure without a spotter or pins"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_barbell_front_squat",
@@ -87,11 +163,18 @@
       "description": "Shifts load to the quads and demands far more trunk and upper-back control than the back squat.",
       "category": "strength",
       "movementPattern": "squat",
-      "muscleGroups": ["quads", "glutes", "core", "upper_back"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "core",
+        "upper_back"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["barbell"],
+      "equipment": [
+        "barbell"
+      ],
       "difficulty": "advanced",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -100,13 +183,29 @@
         "Squat down keeping the torso as upright as possible.",
         "Stand without letting the elbows drop."
       ],
-      "formCues": ["Elbows up throughout", "Stay tall through the chest"],
-      "commonMistakes": ["Elbows dropping and the bar rolling forward", "Losing the upper-back brace"],
-      "regressions": ["ex_barbell_back_squat"],
+      "formCues": [
+        "Elbows up throughout",
+        "Stay tall through the chest"
+      ],
+      "commonMistakes": [
+        "Elbows dropping and the bar rolling forward",
+        "Losing the upper-back brace"
+      ],
+      "regressions": [
+        "ex_barbell_back_squat"
+      ],
       "progressions": [],
-      "safetyNotes": ["Practise dumping the bar forward safely before loading heavy"],
+      "safetyNotes": [
+        "Practise dumping the bar forward safely before loading heavy"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_smith_machine_squat",
@@ -114,11 +213,16 @@
       "description": "A fixed-path squat useful for beginners or for training close to failure without a spotter.",
       "category": "strength",
       "movementPattern": "squat",
-      "muscleGroups": ["quads", "glutes"],
+      "muscleGroups": [
+        "quads",
+        "glutes"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["smith_machine"],
+      "equipment": [
+        "smith_machine"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -126,13 +230,26 @@
         "Unlock the bar and squat to depth.",
         "Drive up and relock at the top."
       ],
-      "formCues": ["Let the machine guide the path, not your posture"],
-      "commonMistakes": ["Feet placed too far forward, straining the knees"],
+      "formCues": [
+        "Let the machine guide the path, not your posture"
+      ],
+      "commonMistakes": [
+        "Feet placed too far forward, straining the knees"
+      ],
       "regressions": [],
-      "progressions": ["ex_barbell_back_squat"],
+      "progressions": [
+        "ex_barbell_back_squat"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_leg_press",
@@ -140,11 +257,16 @@
       "description": "Loads the quads heavily with minimal trunk demand, useful when the lower back needs a break.",
       "category": "strength",
       "movementPattern": "squat",
-      "muscleGroups": ["quads", "glutes"],
+      "muscleGroups": [
+        "quads",
+        "glutes"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["machine"],
+      "equipment": [
+        "machine"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -152,13 +274,29 @@
         "Lower until the knees reach roughly 90 degrees.",
         "Press back without locking the knees hard."
       ],
-      "formCues": ["Keep the lower back in contact with the pad"],
-      "commonMistakes": ["Letting the pelvis tuck at the bottom", "Slamming into full lockout"],
+      "formCues": [
+        "Keep the lower back in contact with the pad"
+      ],
+      "commonMistakes": [
+        "Letting the pelvis tuck at the bottom",
+        "Slamming into full lockout"
+      ],
       "regressions": [],
-      "progressions": ["ex_barbell_back_squat"],
-      "safetyNotes": ["Engage the safety catches before stepping out"],
+      "progressions": [
+        "ex_barbell_back_squat"
+      ],
+      "safetyNotes": [
+        "Engage the safety catches before stepping out"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_pistol_squat",
@@ -166,11 +304,17 @@
       "description": "A single-leg squat to full depth demanding strength, balance and ankle mobility together.",
       "category": "strength",
       "movementPattern": "squat",
-      "muscleGroups": ["quads", "glutes", "core"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "core"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "advanced",
-      "met": 6.0,
+      "met": 6,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -178,13 +322,30 @@
         "Sit back and down under control to full depth.",
         "Drive through the heel to stand without touching down."
       ],
-      "formCues": ["Reach the arms forward as a counterbalance"],
-      "commonMistakes": ["Collapsing at the bottom", "Knee caving inward"],
-      "regressions": ["ex_bulgarian_split_squat"],
+      "formCues": [
+        "Reach the arms forward as a counterbalance"
+      ],
+      "commonMistakes": [
+        "Collapsing at the bottom",
+        "Knee caving inward"
+      ],
+      "regressions": [
+        "ex_bulgarian_split_squat"
+      ],
       "progressions": [],
-      "safetyNotes": ["Build up with a box or counterweight before the full range"],
+      "safetyNotes": [
+        "Build up with a box or counterweight before the full range"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "no_equipment",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_glute_bridge",
@@ -192,9 +353,15 @@
       "description": "Teaches hip extension without spinal load, the first step in any posterior-chain progression.",
       "category": "strength",
       "movementPattern": "hinge",
-      "muscleGroups": ["glutes", "hamstrings", "core"],
+      "muscleGroups": [
+        "glutes",
+        "hamstrings",
+        "core"
+      ],
       "primaryMuscle": "glutes",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -204,13 +371,28 @@
         "Press through the heels and lift the hips until the body forms a straight line.",
         "Squeeze the glutes at the top, then lower under control."
       ],
-      "formCues": ["Tuck the ribs down before lifting", "Finish with the glutes, not the lower back"],
-      "commonMistakes": ["Over-arching the lower back at the top"],
+      "formCues": [
+        "Tuck the ribs down before lifting",
+        "Finish with the glutes, not the lower back"
+      ],
+      "commonMistakes": [
+        "Over-arching the lower back at the top"
+      ],
       "regressions": [],
-      "progressions": ["ex_hip_thrust"],
+      "progressions": [
+        "ex_hip_thrust"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_hip_thrust",
@@ -218,11 +400,17 @@
       "description": "The highest-tension glute exercise available, loaded through a full range at the top.",
       "category": "strength",
       "movementPattern": "hinge",
-      "muscleGroups": ["glutes", "hamstrings"],
+      "muscleGroups": [
+        "glutes",
+        "hamstrings"
+      ],
       "primaryMuscle": "glutes",
-      "equipment": ["barbell", "bench"],
+      "equipment": [
+        "barbell",
+        "bench"
+      ],
       "difficulty": "intermediate",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -230,13 +418,29 @@
         "Drive through the heels to lift the hips to full extension.",
         "Pause at the top, then lower under control."
       ],
-      "formCues": ["Chin tucked, ribs down", "Finish hips level, not hyperextended"],
-      "commonMistakes": ["Arching the lower back to fake range", "Pushing through the toes"],
-      "regressions": ["ex_glute_bridge"],
+      "formCues": [
+        "Chin tucked, ribs down",
+        "Finish hips level, not hyperextended"
+      ],
+      "commonMistakes": [
+        "Arching the lower back to fake range",
+        "Pushing through the toes"
+      ],
+      "regressions": [
+        "ex_glute_bridge"
+      ],
       "progressions": [],
-      "safetyNotes": ["Use a bar pad to protect the hips"],
+      "safetyNotes": [
+        "Use a bar pad to protect the hips"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_dumbbell_romanian_deadlift",
@@ -244,11 +448,17 @@
       "description": "Teaches the hinge with a light, forgiving load before the barbell version.",
       "category": "strength",
       "movementPattern": "hinge",
-      "muscleGroups": ["hamstrings", "glutes", "lower_back"],
+      "muscleGroups": [
+        "hamstrings",
+        "glutes",
+        "lower_back"
+      ],
       "primaryMuscle": "hamstrings",
-      "equipment": ["dumbbell"],
+      "equipment": [
+        "dumbbell"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -256,13 +466,30 @@
         "Push the hips back, sliding the weights down the legs.",
         "Stop when you feel a strong hamstring stretch, then stand."
       ],
-      "formCues": ["Hips travel back, not down", "Keep the weights close to the legs"],
-      "commonMistakes": ["Turning it into a squat", "Rounding the upper back"],
+      "formCues": [
+        "Hips travel back, not down",
+        "Keep the weights close to the legs"
+      ],
+      "commonMistakes": [
+        "Turning it into a squat",
+        "Rounding the upper back"
+      ],
       "regressions": [],
-      "progressions": ["ex_romanian_deadlift", "ex_kettlebell_swing", "ex_single_leg_rdl"],
+      "progressions": [
+        "ex_romanian_deadlift",
+        "ex_kettlebell_swing",
+        "ex_single_leg_rdl"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_romanian_deadlift",
@@ -270,11 +497,17 @@
       "description": "Builds hamstring and glute strength through a loaded stretch without a floor reset.",
       "category": "strength",
       "movementPattern": "hinge",
-      "muscleGroups": ["hamstrings", "glutes", "lower_back"],
+      "muscleGroups": [
+        "hamstrings",
+        "glutes",
+        "lower_back"
+      ],
       "primaryMuscle": "hamstrings",
-      "equipment": ["barbell"],
+      "equipment": [
+        "barbell"
+      ],
       "difficulty": "intermediate",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -282,13 +515,31 @@
         "Hinge at the hips, keeping the bar in contact with the legs.",
         "Lower to mid-shin or the end of your hamstring range, then stand."
       ],
-      "formCues": ["Lats on, bar dragging the thighs", "Neutral spine from head to pelvis"],
-      "commonMistakes": ["Letting the bar drift forward", "Bending the knees to reach lower"],
-      "regressions": ["ex_dumbbell_romanian_deadlift"],
-      "progressions": ["ex_barbell_deadlift"],
-      "safetyNotes": ["Stop the descent when the back would round, not at a fixed height"],
+      "formCues": [
+        "Lats on, bar dragging the thighs",
+        "Neutral spine from head to pelvis"
+      ],
+      "commonMistakes": [
+        "Letting the bar drift forward",
+        "Bending the knees to reach lower"
+      ],
+      "regressions": [
+        "ex_dumbbell_romanian_deadlift"
+      ],
+      "progressions": [
+        "ex_barbell_deadlift"
+      ],
+      "safetyNotes": [
+        "Stop the descent when the back would round, not at a fixed height"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_barbell_deadlift",
@@ -296,11 +547,19 @@
       "description": "The heaviest full-body pull available and the benchmark posterior-chain lift.",
       "category": "strength",
       "movementPattern": "hinge",
-      "muscleGroups": ["hamstrings", "glutes", "lower_back", "traps", "forearms"],
+      "muscleGroups": [
+        "hamstrings",
+        "glutes",
+        "lower_back",
+        "traps",
+        "forearms"
+      ],
       "primaryMuscle": "hamstrings",
-      "equipment": ["barbell"],
+      "equipment": [
+        "barbell"
+      ],
       "difficulty": "intermediate",
-      "met": 6.0,
+      "met": 6,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -309,13 +568,29 @@
         "Push the floor away and stand tall, locking the hips.",
         "Return the bar by hinging back, not squatting down."
       ],
-      "formCues": ["Take the slack out before you pull", "Finish with glutes, not a lean-back"],
-      "commonMistakes": ["Jerking the bar off the floor", "Hips shooting up first"],
-      "regressions": ["ex_romanian_deadlift"],
+      "formCues": [
+        "Take the slack out before you pull",
+        "Finish with glutes, not a lean-back"
+      ],
+      "commonMistakes": [
+        "Jerking the bar off the floor",
+        "Hips shooting up first"
+      ],
+      "regressions": [
+        "ex_romanian_deadlift"
+      ],
       "progressions": [],
-      "safetyNotes": ["Stop the set when spinal position degrades, not when reps run out"],
+      "safetyNotes": [
+        "Stop the set when spinal position degrades, not when reps run out"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_kettlebell_swing",
@@ -323,9 +598,16 @@
       "description": "A ballistic hinge that builds hip power and conditioning at the same time.",
       "category": "hiit",
       "movementPattern": "hinge",
-      "muscleGroups": ["glutes", "hamstrings", "core", "cardiovascular"],
+      "muscleGroups": [
+        "glutes",
+        "hamstrings",
+        "core",
+        "cardiovascular"
+      ],
       "primaryMuscle": "glutes",
-      "equipment": ["kettlebell"],
+      "equipment": [
+        "kettlebell"
+      ],
       "difficulty": "intermediate",
       "met": 9.8,
       "isUnilateral": false,
@@ -335,13 +617,30 @@
         "Snap the hips forward to float the bell to chest height.",
         "Let it fall and absorb it with another hinge."
       ],
-      "formCues": ["The arms are ropes, the hips are the engine", "Stand tall and squeeze at the top"],
-      "commonMistakes": ["Lifting the bell with the arms", "Squatting instead of hinging"],
-      "regressions": ["ex_dumbbell_romanian_deadlift"],
+      "formCues": [
+        "The arms are ropes, the hips are the engine",
+        "Stand tall and squeeze at the top"
+      ],
+      "commonMistakes": [
+        "Lifting the bell with the arms",
+        "Squatting instead of hinging"
+      ],
+      "regressions": [
+        "ex_dumbbell_romanian_deadlift"
+      ],
       "progressions": [],
-      "safetyNotes": ["Clear the space behind and in front before starting"],
+      "safetyNotes": [
+        "Clear the space behind and in front before starting"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "explosive",
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_back_extension",
@@ -349,9 +648,16 @@
       "description": "Strengthens the spinal erectors and glutes directly, useful for lower-back resilience.",
       "category": "strength",
       "movementPattern": "hinge",
-      "muscleGroups": ["lower_back", "glutes", "hamstrings"],
+      "muscleGroups": [
+        "lower_back",
+        "glutes",
+        "hamstrings"
+      ],
       "primaryMuscle": "lower_back",
-      "equipment": ["bench", "bodyweight"],
+      "equipment": [
+        "bench",
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -361,13 +667,25 @@
         "Hinge down under control.",
         "Extend back to a straight line, no further."
       ],
-      "formCues": ["Stop at neutral, do not arch past it"],
-      "commonMistakes": ["Hyperextending at the top", "Swinging through reps"],
+      "formCues": [
+        "Stop at neutral, do not arch past it"
+      ],
+      "commonMistakes": [
+        "Hyperextending at the top",
+        "Swinging through reps"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_leg_curl",
@@ -375,9 +693,13 @@
       "description": "Isolates knee flexion, the half of hamstring function that hinges do not train.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["hamstrings"],
+      "muscleGroups": [
+        "hamstrings"
+      ],
       "primaryMuscle": "hamstrings",
-      "equipment": ["machine"],
+      "equipment": [
+        "machine"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -387,13 +709,26 @@
         "Curl the heels toward the glutes.",
         "Lower slowly under control."
       ],
-      "formCues": ["Keep the hips pinned to the pad"],
-      "commonMistakes": ["Lifting the hips to gain range"],
+      "formCues": [
+        "Keep the hips pinned to the pad"
+      ],
+      "commonMistakes": [
+        "Lifting the hips to gain range"
+      ],
       "regressions": [],
-      "progressions": ["ex_nordic_curl"],
+      "progressions": [
+        "ex_nordic_curl"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_nordic_curl",
@@ -401,11 +736,17 @@
       "description": "A brutally hard eccentric knee-flexion exercise with strong evidence for hamstring injury reduction.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["hamstrings", "glutes", "core"],
+      "muscleGroups": [
+        "hamstrings",
+        "glutes",
+        "core"
+      ],
       "primaryMuscle": "hamstrings",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "ankle_anchor"
+      ],
       "difficulty": "advanced",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": false,
       "instructions": [
@@ -413,13 +754,28 @@
         "Lower the torso forward as slowly as possible, staying rigid.",
         "Catch with the hands and push back to the start."
       ],
-      "formCues": ["Hips stay extended, body in one line"],
-      "commonMistakes": ["Hinging at the hips to cheat the range"],
-      "regressions": ["ex_leg_curl"],
+      "formCues": [
+        "Hips stay extended, body in one line"
+      ],
+      "commonMistakes": [
+        "Hinging at the hips to cheat the range"
+      ],
+      "regressions": [
+        "ex_leg_curl"
+      ],
       "progressions": [],
-      "safetyNotes": ["Always be ready to catch yourself with the hands", "Expect severe soreness after the first sessions"],
+      "safetyNotes": [
+        "Always be ready to catch yourself with the hands",
+        "Expect severe soreness after the first sessions"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_single_leg_rdl",
@@ -427,11 +783,17 @@
       "description": "Trains the hinge, balance and hip stability on one leg at a time.",
       "category": "balance",
       "movementPattern": "hinge",
-      "muscleGroups": ["hamstrings", "glutes", "core"],
+      "muscleGroups": [
+        "hamstrings",
+        "glutes",
+        "core"
+      ],
       "primaryMuscle": "hamstrings",
-      "equipment": ["dumbbell"],
+      "equipment": [
+        "dumbbell"
+      ],
       "difficulty": "intermediate",
-      "met": 4.0,
+      "met": 4,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -439,13 +801,28 @@
         "Hinge forward, letting the free leg extend behind as a counterbalance.",
         "Return to standing under control."
       ],
-      "formCues": ["Keep the hips square to the floor"],
-      "commonMistakes": ["Opening the hip of the trailing leg", "Rushing and losing balance"],
-      "regressions": ["ex_dumbbell_romanian_deadlift", "ex_single_leg_balance"],
+      "formCues": [
+        "Keep the hips square to the floor"
+      ],
+      "commonMistakes": [
+        "Opening the hip of the trailing leg",
+        "Rushing and losing balance"
+      ],
+      "regressions": [
+        "ex_dumbbell_romanian_deadlift",
+        "ex_single_leg_balance"
+      ],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_wall_push_up",
@@ -453,9 +830,15 @@
       "description": "The lowest-load pressing variation, appropriate for true beginners or return from injury.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "triceps", "shoulders"],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "shoulders"
+      ],
       "primaryMuscle": "chest",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -465,13 +848,27 @@
         "Lower the chest toward the wall keeping the body straight.",
         "Press back to the start."
       ],
-      "formCues": ["Body in one line from head to heels"],
-      "commonMistakes": ["Letting the hips sag or pike"],
+      "formCues": [
+        "Body in one line from head to heels"
+      ],
+      "commonMistakes": [
+        "Letting the hips sag or pike"
+      ],
       "regressions": [],
-      "progressions": ["ex_incline_push_up"],
+      "progressions": [
+        "ex_incline_push_up"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_incline_push_up",
@@ -479,9 +876,17 @@
       "description": "Reduces the load of a push-up by raising the hands, the natural step before the floor version.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "triceps", "shoulders", "core"],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "shoulders",
+        "core"
+      ],
       "primaryMuscle": "chest",
-      "equipment": ["bodyweight", "bench"],
+      "equipment": [
+        "bodyweight",
+        "bench"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -491,13 +896,28 @@
         "Lower the chest to the surface with the body rigid.",
         "Press back up."
       ],
-      "formCues": ["Squeeze the glutes to stop the hips sagging"],
-      "commonMistakes": ["Flaring the elbows to ninety degrees"],
-      "regressions": ["ex_wall_push_up"],
-      "progressions": ["ex_push_up"],
+      "formCues": [
+        "Squeeze the glutes to stop the hips sagging"
+      ],
+      "commonMistakes": [
+        "Flaring the elbows to ninety degrees"
+      ],
+      "regressions": [
+        "ex_wall_push_up"
+      ],
+      "progressions": [
+        "ex_push_up"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_push_up",
@@ -505,9 +925,16 @@
       "description": "The standard bodyweight press, trainable anywhere and scalable in both directions.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "triceps", "shoulders", "core"],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "shoulders",
+        "core"
+      ],
       "primaryMuscle": "chest",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 3.8,
       "isUnilateral": false,
@@ -517,13 +944,33 @@
         "Lower until the chest is just off the floor, elbows at about 45 degrees.",
         "Press back to full lockout."
       ],
-      "formCues": ["Brace the trunk like a moving plank", "Push the floor away at the top"],
-      "commonMistakes": ["Hips sagging", "Head poking forward to fake depth"],
-      "regressions": ["ex_incline_push_up"],
-      "progressions": ["ex_decline_push_up", "ex_dips", "ex_pike_push_up"],
+      "formCues": [
+        "Brace the trunk like a moving plank",
+        "Push the floor away at the top"
+      ],
+      "commonMistakes": [
+        "Hips sagging",
+        "Head poking forward to fake depth"
+      ],
+      "regressions": [
+        "ex_incline_push_up"
+      ],
+      "progressions": [
+        "ex_decline_push_up",
+        "ex_dips",
+        "ex_pike_push_up"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_decline_push_up",
@@ -531,9 +978,17 @@
       "description": "Raising the feet shifts load onto the upper chest and shoulders and increases difficulty.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "shoulders", "triceps", "core"],
+      "muscleGroups": [
+        "chest",
+        "shoulders",
+        "triceps",
+        "core"
+      ],
       "primaryMuscle": "chest",
-      "equipment": ["bodyweight", "bench"],
+      "equipment": [
+        "bodyweight",
+        "bench"
+      ],
       "difficulty": "intermediate",
       "met": 3.8,
       "isUnilateral": false,
@@ -543,13 +998,27 @@
         "Lower the chest under control.",
         "Press back up without letting the hips drop."
       ],
-      "formCues": ["Keep the ribs down as the load shifts forward"],
-      "commonMistakes": ["Losing the trunk brace as the incline increases"],
-      "regressions": ["ex_push_up"],
-      "progressions": ["ex_archer_push_up"],
+      "formCues": [
+        "Keep the ribs down as the load shifts forward"
+      ],
+      "commonMistakes": [
+        "Losing the trunk brace as the incline increases"
+      ],
+      "regressions": [
+        "ex_push_up"
+      ],
+      "progressions": [
+        "ex_archer_push_up"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_archer_push_up",
@@ -557,11 +1026,18 @@
       "description": "Loads one arm at a time, the practical route toward a one-arm push-up.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "triceps", "shoulders", "core"],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "shoulders",
+        "core"
+      ],
       "primaryMuscle": "chest",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "advanced",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -569,13 +1045,27 @@
         "Lower toward one hand, keeping the other arm straight.",
         "Press back and alternate sides."
       ],
-      "formCues": ["Keep the hips square as you shift"],
-      "commonMistakes": ["Rotating the torso to reduce the load"],
-      "regressions": ["ex_decline_push_up"],
+      "formCues": [
+        "Keep the hips square as you shift"
+      ],
+      "commonMistakes": [
+        "Rotating the torso to reduce the load"
+      ],
+      "regressions": [
+        "ex_decline_push_up"
+      ],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "no_equipment",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_dumbbell_bench_press",
@@ -583,11 +1073,18 @@
       "description": "Allows a natural pressing path and a deeper stretch than the barbell, with easier bailouts.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "triceps", "shoulders"],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "shoulders"
+      ],
       "primaryMuscle": "chest",
-      "equipment": ["dumbbell", "bench"],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -595,13 +1092,29 @@
         "Press up until the arms are extended over the chest.",
         "Lower under control to a comfortable stretch."
       ],
-      "formCues": ["Keep the shoulder blades pinned back and down"],
-      "commonMistakes": ["Pressing the dumbbells together at the top", "Bouncing out of the bottom"],
+      "formCues": [
+        "Keep the shoulder blades pinned back and down"
+      ],
+      "commonMistakes": [
+        "Pressing the dumbbells together at the top",
+        "Bouncing out of the bottom"
+      ],
       "regressions": [],
-      "progressions": ["ex_barbell_bench_press"],
-      "safetyNotes": ["Learn to set the dumbbells down safely from the bottom"],
+      "progressions": [
+        "ex_barbell_bench_press"
+      ],
+      "safetyNotes": [
+        "Learn to set the dumbbells down safely from the bottom"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_barbell_bench_press",
@@ -609,11 +1122,18 @@
       "description": "The main upper-body pressing strength lift and the standard benchmark for pushing power.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "triceps", "shoulders"],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "shoulders"
+      ],
       "primaryMuscle": "chest",
-      "equipment": ["barbell", "bench"],
+      "equipment": [
+        "barbell",
+        "bench"
+      ],
       "difficulty": "intermediate",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -621,13 +1141,30 @@
         "Unrack and bring the bar over the lower chest.",
         "Lower to touch the chest, then press to lockout."
       ],
-      "formCues": ["Drive the feet into the floor", "Bend the bar apart as you press"],
-      "commonMistakes": ["Elbows flared to ninety degrees", "Bouncing the bar off the chest"],
-      "regressions": ["ex_dumbbell_bench_press"],
+      "formCues": [
+        "Drive the feet into the floor",
+        "Bend the bar apart as you press"
+      ],
+      "commonMistakes": [
+        "Elbows flared to ninety degrees",
+        "Bouncing the bar off the chest"
+      ],
+      "regressions": [
+        "ex_dumbbell_bench_press"
+      ],
       "progressions": [],
-      "safetyNotes": ["Use a spotter or safety arms", "Never bench with collarless plates on a sloped bar"],
+      "safetyNotes": [
+        "Use a spotter or safety arms",
+        "Never bench with collarless plates on a sloped bar"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_cable_chest_fly",
@@ -635,9 +1172,13 @@
       "description": "Isolates the chest with constant tension through a long adduction range.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["chest"],
+      "muscleGroups": [
+        "chest"
+      ],
       "primaryMuscle": "chest",
-      "equipment": ["cable"],
+      "equipment": [
+        "cable"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -647,13 +1188,25 @@
         "Bring the handles together in front of the chest with soft elbows.",
         "Return under control to a stretch."
       ],
-      "formCues": ["Think of hugging a barrel", "Fixed elbow angle throughout"],
-      "commonMistakes": ["Turning it into a press by bending the elbows"],
+      "formCues": [
+        "Think of hugging a barrel",
+        "Fixed elbow angle throughout"
+      ],
+      "commonMistakes": [
+        "Turning it into a press by bending the elbows"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_dips",
@@ -661,11 +1214,17 @@
       "description": "A heavy bodyweight press for the lower chest and triceps with a large range of motion.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "triceps", "shoulders"],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "shoulders"
+      ],
       "primaryMuscle": "triceps",
-      "equipment": ["dip_bars"],
+      "equipment": [
+        "dip_bars"
+      ],
       "difficulty": "advanced",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -673,13 +1232,30 @@
         "Lower until the upper arms are roughly parallel to the floor.",
         "Press back to lockout."
       ],
-      "formCues": ["Lean forward slightly for chest, stay upright for triceps"],
-      "commonMistakes": ["Dropping too deep and stressing the shoulder", "Shrugging at the bottom"],
-      "regressions": ["ex_push_up"],
-      "progressions": ["ex_ring_dip"],
-      "safetyNotes": ["Stop the descent at the point of shoulder discomfort"],
+      "formCues": [
+        "Lean forward slightly for chest, stay upright for triceps"
+      ],
+      "commonMistakes": [
+        "Dropping too deep and stressing the shoulder",
+        "Shrugging at the bottom"
+      ],
+      "regressions": [
+        "ex_push_up"
+      ],
+      "progressions": [
+        "ex_ring_dip"
+      ],
+      "safetyNotes": [
+        "Stop the descent at the point of shoulder discomfort"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_ring_dip",
@@ -687,11 +1263,18 @@
       "description": "An unstable dip that adds significant shoulder and trunk stabilisation demand.",
       "category": "strength",
       "movementPattern": "horizontal_push",
-      "muscleGroups": ["chest", "triceps", "shoulders", "core"],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "shoulders",
+        "core"
+      ],
       "primaryMuscle": "triceps",
-      "equipment": ["gymnastic_rings"],
+      "equipment": [
+        "gymnastic_rings"
+      ],
       "difficulty": "advanced",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -699,13 +1282,27 @@
         "Lower under control keeping the rings close to the body.",
         "Press back up and turn the rings out again."
       ],
-      "formCues": ["Keep the rings pressed against the ribs"],
-      "commonMistakes": ["Letting the rings drift wide"],
-      "regressions": ["ex_dips"],
+      "formCues": [
+        "Keep the rings pressed against the ribs"
+      ],
+      "commonMistakes": [
+        "Letting the rings drift wide"
+      ],
+      "regressions": [
+        "ex_dips"
+      ],
       "progressions": [],
-      "safetyNotes": ["Master parallel bar dips before attempting rings"],
+      "safetyNotes": [
+        "Master parallel bar dips before attempting rings"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_pike_push_up",
@@ -713,9 +1310,15 @@
       "description": "A bodyweight vertical press that builds toward the handstand push-up.",
       "category": "strength",
       "movementPattern": "vertical_push",
-      "muscleGroups": ["shoulders", "triceps", "core"],
+      "muscleGroups": [
+        "shoulders",
+        "triceps",
+        "core"
+      ],
       "primaryMuscle": "shoulders",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "intermediate",
       "met": 3.8,
       "isUnilateral": false,
@@ -725,13 +1328,28 @@
         "Lower the crown of the head toward the floor.",
         "Press back up to the piked start."
       ],
-      "formCues": ["Keep the hips stacked over the shoulders"],
-      "commonMistakes": ["Flattening into a normal push-up"],
-      "regressions": ["ex_push_up"],
-      "progressions": ["ex_handstand_push_up"],
+      "formCues": [
+        "Keep the hips stacked over the shoulders"
+      ],
+      "commonMistakes": [
+        "Flattening into a normal push-up"
+      ],
+      "regressions": [
+        "ex_push_up"
+      ],
+      "progressions": [
+        "ex_handstand_push_up"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "no_equipment",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_handstand_push_up",
@@ -739,11 +1357,17 @@
       "description": "The hardest bodyweight vertical press, requiring full overhead strength and balance.",
       "category": "strength",
       "movementPattern": "vertical_push",
-      "muscleGroups": ["shoulders", "triceps", "core"],
+      "muscleGroups": [
+        "shoulders",
+        "triceps",
+        "core"
+      ],
       "primaryMuscle": "shoulders",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "advanced",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -751,13 +1375,28 @@
         "Lower the head toward the floor under control.",
         "Press back to full lockout."
       ],
-      "formCues": ["Ribs down, body in one line"],
-      "commonMistakes": ["Arching the lower back to compensate"],
-      "regressions": ["ex_pike_push_up"],
+      "formCues": [
+        "Ribs down, body in one line"
+      ],
+      "commonMistakes": [
+        "Arching the lower back to compensate"
+      ],
+      "regressions": [
+        "ex_pike_push_up"
+      ],
       "progressions": [],
-      "safetyNotes": ["Learn to bail sideways safely before training this"],
+      "safetyNotes": [
+        "Learn to bail sideways safely before training this"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "no_equipment",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_dumbbell_shoulder_press",
@@ -765,11 +1404,17 @@
       "description": "Builds overhead pressing strength with independent arms and a friendly joint path.",
       "category": "strength",
       "movementPattern": "vertical_push",
-      "muscleGroups": ["shoulders", "triceps", "core"],
+      "muscleGroups": [
+        "shoulders",
+        "triceps",
+        "core"
+      ],
       "primaryMuscle": "shoulders",
-      "equipment": ["dumbbell"],
+      "equipment": [
+        "dumbbell"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -777,13 +1422,26 @@
         "Press overhead until the arms lock out.",
         "Lower under control to the start."
       ],
-      "formCues": ["Squeeze the glutes to stop the ribs flaring"],
-      "commonMistakes": ["Leaning back into an incline press"],
+      "formCues": [
+        "Squeeze the glutes to stop the ribs flaring"
+      ],
+      "commonMistakes": [
+        "Leaning back into an incline press"
+      ],
       "regressions": [],
-      "progressions": ["ex_overhead_press"],
+      "progressions": [
+        "ex_overhead_press"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_overhead_press",
@@ -791,11 +1449,18 @@
       "description": "The primary standing vertical press, demanding full-body tension to stay rigid.",
       "category": "strength",
       "movementPattern": "vertical_push",
-      "muscleGroups": ["shoulders", "triceps", "core", "upper_back"],
+      "muscleGroups": [
+        "shoulders",
+        "triceps",
+        "core",
+        "upper_back"
+      ],
       "primaryMuscle": "shoulders",
-      "equipment": ["barbell"],
+      "equipment": [
+        "barbell"
+      ],
       "difficulty": "intermediate",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -803,13 +1468,29 @@
         "Brace, then press the bar in a straight line past the face.",
         "Lock out with the bar over mid-foot, then lower."
       ],
-      "formCues": ["Move the head back, not the bar forward", "Shrug up at lockout"],
-      "commonMistakes": ["Excessive lower-back arch", "Pressing around the face instead of past it"],
-      "regressions": ["ex_dumbbell_shoulder_press"],
+      "formCues": [
+        "Move the head back, not the bar forward",
+        "Shrug up at lockout"
+      ],
+      "commonMistakes": [
+        "Excessive lower-back arch",
+        "Pressing around the face instead of past it"
+      ],
+      "regressions": [
+        "ex_dumbbell_shoulder_press"
+      ],
       "progressions": [],
-      "safetyNotes": ["Press inside a rack when working heavy"],
+      "safetyNotes": [
+        "Press inside a rack when working heavy"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_lateral_raise",
@@ -817,9 +1498,13 @@
       "description": "Isolates the side delts, which compound pressing alone does not fully develop.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["shoulders"],
+      "muscleGroups": [
+        "shoulders"
+      ],
       "primaryMuscle": "shoulders",
-      "equipment": ["dumbbell"],
+      "equipment": [
+        "dumbbell"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -829,13 +1514,25 @@
         "Raise the arms out to shoulder height.",
         "Lower slowly under control."
       ],
-      "formCues": ["Lead with the elbows, not the hands"],
-      "commonMistakes": ["Swinging with the hips", "Going far above shoulder height"],
+      "formCues": [
+        "Lead with the elbows, not the hands"
+      ],
+      "commonMistakes": [
+        "Swinging with the hips",
+        "Going far above shoulder height"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_lat_pulldown",
@@ -843,9 +1540,16 @@
       "description": "A scalable vertical pull that builds the strength needed for pull-ups.",
       "category": "strength",
       "movementPattern": "vertical_pull",
-      "muscleGroups": ["lats", "biceps", "upper_back"],
+      "muscleGroups": [
+        "lats",
+        "biceps",
+        "upper_back"
+      ],
       "primaryMuscle": "lats",
-      "equipment": ["cable", "machine"],
+      "equipment": [
+        "cable",
+        "machine"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -855,13 +1559,27 @@
         "Pull the bar to the upper chest, driving the elbows down.",
         "Return under control to a full stretch."
       ],
-      "formCues": ["Chest up, pull the elbows into your back pockets"],
-      "commonMistakes": ["Leaning far back and turning it into a row", "Pulling behind the neck"],
+      "formCues": [
+        "Chest up, pull the elbows into your back pockets"
+      ],
+      "commonMistakes": [
+        "Leaning far back and turning it into a row",
+        "Pulling behind the neck"
+      ],
       "regressions": [],
-      "progressions": ["ex_assisted_pull_up"],
+      "progressions": [
+        "ex_assisted_pull_up"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_assisted_pull_up",
@@ -869,9 +1587,16 @@
       "description": "Removes part of bodyweight so the full pull-up pattern can be trained with real range.",
       "category": "strength",
       "movementPattern": "vertical_pull",
-      "muscleGroups": ["lats", "biceps", "upper_back"],
+      "muscleGroups": [
+        "lats",
+        "biceps",
+        "upper_back"
+      ],
       "primaryMuscle": "lats",
-      "equipment": ["pull_up_bar", "resistance_band"],
+      "equipment": [
+        "pull_up_bar",
+        "resistance_band"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -881,13 +1606,30 @@
         "Hang at full stretch, then pull the chin over the bar.",
         "Lower under control to a straight-arm hang."
       ],
-      "formCues": ["Start each rep from a dead hang"],
-      "commonMistakes": ["Using a band so strong it removes all effort"],
-      "regressions": ["ex_lat_pulldown"],
-      "progressions": ["ex_pull_up"],
-      "safetyNotes": ["Check the band for wear before loading it"],
+      "formCues": [
+        "Start each rep from a dead hang"
+      ],
+      "commonMistakes": [
+        "Using a band so strong it removes all effort"
+      ],
+      "regressions": [
+        "ex_lat_pulldown"
+      ],
+      "progressions": [
+        "ex_pull_up"
+      ],
+      "safetyNotes": [
+        "Check the band for wear before loading it"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_pull_up",
@@ -895,11 +1637,19 @@
       "description": "The benchmark upper-body pull, building the lats and the whole grip-to-back chain.",
       "category": "strength",
       "movementPattern": "vertical_pull",
-      "muscleGroups": ["lats", "biceps", "upper_back", "forearms", "core"],
+      "muscleGroups": [
+        "lats",
+        "biceps",
+        "upper_back",
+        "forearms",
+        "core"
+      ],
       "primaryMuscle": "lats",
-      "equipment": ["pull_up_bar"],
+      "equipment": [
+        "pull_up_bar"
+      ],
       "difficulty": "intermediate",
-      "met": 8.0,
+      "met": 8,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -907,13 +1657,29 @@
         "Pull until the chin clears the bar.",
         "Lower under control to a full hang."
       ],
-      "formCues": ["Pull the bar to you, not just yourself to it", "Keep the ribs down"],
-      "commonMistakes": ["Kipping unintentionally", "Cutting the bottom range short"],
-      "regressions": ["ex_assisted_pull_up"],
-      "progressions": ["ex_weighted_pull_up"],
+      "formCues": [
+        "Pull the bar to you, not just yourself to it",
+        "Keep the ribs down"
+      ],
+      "commonMistakes": [
+        "Kipping unintentionally",
+        "Cutting the bottom range short"
+      ],
+      "regressions": [
+        "ex_assisted_pull_up"
+      ],
+      "progressions": [
+        "ex_weighted_pull_up"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_weighted_pull_up",
@@ -921,11 +1687,19 @@
       "description": "Adds external load once bodyweight pull-ups are comfortable for sets of eight or more.",
       "category": "strength",
       "movementPattern": "vertical_pull",
-      "muscleGroups": ["lats", "biceps", "upper_back", "forearms"],
+      "muscleGroups": [
+        "lats",
+        "biceps",
+        "upper_back",
+        "forearms"
+      ],
       "primaryMuscle": "lats",
-      "equipment": ["pull_up_bar", "dumbbell"],
+      "equipment": [
+        "pull_up_bar",
+        "dumbbell"
+      ],
       "difficulty": "advanced",
-      "met": 8.0,
+      "met": 8,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -933,13 +1707,27 @@
         "Perform a strict pull-up through full range.",
         "Lower under control."
       ],
-      "formCues": ["Do not let added load shorten the range"],
-      "commonMistakes": ["Adding weight before strict form is solid"],
-      "regressions": ["ex_pull_up"],
+      "formCues": [
+        "Do not let added load shorten the range"
+      ],
+      "commonMistakes": [
+        "Adding weight before strict form is solid"
+      ],
+      "regressions": [
+        "ex_pull_up"
+      ],
       "progressions": [],
-      "safetyNotes": ["Ensure the load cannot slip free mid-set"],
+      "safetyNotes": [
+        "Ensure the load cannot slip free mid-set"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_face_pull",
@@ -947,9 +1735,15 @@
       "description": "Trains the rear delts and upper back, balancing heavy pressing volume.",
       "category": "strength",
       "movementPattern": "horizontal_pull",
-      "muscleGroups": ["upper_back", "shoulders", "traps"],
+      "muscleGroups": [
+        "upper_back",
+        "shoulders",
+        "traps"
+      ],
       "primaryMuscle": "upper_back",
-      "equipment": ["cable"],
+      "equipment": [
+        "cable"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -959,13 +1753,24 @@
         "Pull toward the face, separating the hands as you go.",
         "Return under control."
       ],
-      "formCues": ["Lead with the elbows high and wide"],
-      "commonMistakes": ["Using too much weight and rowing instead"],
+      "formCues": [
+        "Lead with the elbows high and wide"
+      ],
+      "commonMistakes": [
+        "Using too much weight and rowing instead"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_inverted_row",
@@ -973,9 +1778,17 @@
       "description": "A scalable bodyweight horizontal pull; raising or lowering the bar changes difficulty instantly.",
       "category": "strength",
       "movementPattern": "horizontal_pull",
-      "muscleGroups": ["upper_back", "lats", "biceps", "core"],
+      "muscleGroups": [
+        "upper_back",
+        "lats",
+        "biceps",
+        "core"
+      ],
       "primaryMuscle": "upper_back",
-      "equipment": ["bodyweight", "pull_up_bar"],
+      "equipment": [
+        "bodyweight",
+        "pull_up_bar"
+      ],
       "difficulty": "beginner",
       "met": 3.8,
       "isUnilateral": false,
@@ -985,13 +1798,29 @@
         "Keep the body rigid and pull the chest to the bar.",
         "Lower under control to straight arms."
       ],
-      "formCues": ["Squeeze the glutes, body in one line"],
-      "commonMistakes": ["Hips sagging", "Shrugging instead of retracting"],
-      "regressions": ["ex_trx_row"],
-      "progressions": ["ex_barbell_row"],
+      "formCues": [
+        "Squeeze the glutes, body in one line"
+      ],
+      "commonMistakes": [
+        "Hips sagging",
+        "Shrugging instead of retracting"
+      ],
+      "regressions": [
+        "ex_trx_row"
+      ],
+      "progressions": [
+        "ex_barbell_row"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_trx_row",
@@ -999,9 +1828,16 @@
       "description": "An easily adjusted horizontal pull; changing foot position scales the load continuously.",
       "category": "strength",
       "movementPattern": "horizontal_pull",
-      "muscleGroups": ["upper_back", "lats", "biceps", "core"],
+      "muscleGroups": [
+        "upper_back",
+        "lats",
+        "biceps",
+        "core"
+      ],
       "primaryMuscle": "upper_back",
-      "equipment": ["trx"],
+      "equipment": [
+        "trx"
+      ],
       "difficulty": "beginner",
       "met": 3.8,
       "isUnilateral": false,
@@ -1011,13 +1847,28 @@
         "Pull the chest to the hands, elbows close to the ribs.",
         "Lower under control."
       ],
-      "formCues": ["Stay rigid from head to heels"],
-      "commonMistakes": ["Piking at the hips as fatigue sets in"],
+      "formCues": [
+        "Stay rigid from head to heels"
+      ],
+      "commonMistakes": [
+        "Piking at the hips as fatigue sets in"
+      ],
       "regressions": [],
-      "progressions": ["ex_inverted_row"],
-      "safetyNotes": ["Check the anchor point before each session"],
+      "progressions": [
+        "ex_inverted_row"
+      ],
+      "safetyNotes": [
+        "Check the anchor point before each session"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_barbell_row",
@@ -1025,11 +1876,18 @@
       "description": "The heaviest horizontal pull, building thickness across the whole upper back.",
       "category": "strength",
       "movementPattern": "horizontal_pull",
-      "muscleGroups": ["upper_back", "lats", "biceps", "lower_back"],
+      "muscleGroups": [
+        "upper_back",
+        "lats",
+        "biceps",
+        "lower_back"
+      ],
       "primaryMuscle": "upper_back",
-      "equipment": ["barbell"],
+      "equipment": [
+        "barbell"
+      ],
       "difficulty": "intermediate",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -1037,13 +1895,29 @@
         "Row the bar to the lower ribs.",
         "Lower under control without losing the torso angle."
       ],
-      "formCues": ["Torso angle stays fixed for the whole set"],
-      "commonMistakes": ["Standing up as the set gets hard", "Jerking the bar with the hips"],
-      "regressions": ["ex_inverted_row", "ex_dumbbell_row"],
+      "formCues": [
+        "Torso angle stays fixed for the whole set"
+      ],
+      "commonMistakes": [
+        "Standing up as the set gets hard",
+        "Jerking the bar with the hips"
+      ],
+      "regressions": [
+        "ex_inverted_row",
+        "ex_dumbbell_row"
+      ],
       "progressions": [],
-      "safetyNotes": ["Stop if the lower back rounds"],
+      "safetyNotes": [
+        "Stop if the lower back rounds"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_dumbbell_row",
@@ -1051,11 +1925,18 @@
       "description": "A supported unilateral row that lets each side be trained through a long range.",
       "category": "strength",
       "movementPattern": "horizontal_pull",
-      "muscleGroups": ["lats", "upper_back", "biceps"],
+      "muscleGroups": [
+        "lats",
+        "upper_back",
+        "biceps"
+      ],
       "primaryMuscle": "lats",
-      "equipment": ["dumbbell", "bench"],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -1063,13 +1944,27 @@
         "Row the dumbbell to the hip, elbow close to the body.",
         "Lower to a full stretch."
       ],
-      "formCues": ["Keep the shoulders level, do not twist"],
-      "commonMistakes": ["Rotating the torso to lift more weight"],
+      "formCues": [
+        "Keep the shoulders level, do not twist"
+      ],
+      "commonMistakes": [
+        "Rotating the torso to lift more weight"
+      ],
       "regressions": [],
-      "progressions": ["ex_barbell_row"],
+      "progressions": [
+        "ex_barbell_row"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_seated_cable_row",
@@ -1077,9 +1972,15 @@
       "description": "Constant-tension horizontal pull that is easy to load progressively and safe on the lower back.",
       "category": "strength",
       "movementPattern": "horizontal_pull",
-      "muscleGroups": ["upper_back", "lats", "biceps"],
+      "muscleGroups": [
+        "upper_back",
+        "lats",
+        "biceps"
+      ],
       "primaryMuscle": "upper_back",
-      "equipment": ["cable"],
+      "equipment": [
+        "cable"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -1089,13 +1990,24 @@
         "Pull to the lower ribs, squeezing the shoulder blades.",
         "Return to a controlled stretch."
       ],
-      "formCues": ["Chest proud, minimal torso swing"],
-      "commonMistakes": ["Rocking back and forth to move the stack"],
+      "formCues": [
+        "Chest proud, minimal torso swing"
+      ],
+      "commonMistakes": [
+        "Rocking back and forth to move the stack"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_reverse_lunge",
@@ -1103,11 +2015,18 @@
       "description": "The most knee-friendly lunge variation and the standard starting point for single-leg work.",
       "category": "strength",
       "movementPattern": "lunge",
-      "muscleGroups": ["quads", "glutes", "hamstrings", "core"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "hamstrings",
+        "core"
+      ],
       "primaryMuscle": "glutes",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
-      "met": 4.0,
+      "met": 4,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -1115,13 +2034,29 @@
         "Keep the front shin close to vertical.",
         "Drive through the front foot to return."
       ],
-      "formCues": ["Most of the weight stays on the front leg"],
-      "commonMistakes": ["Front knee travelling far past the toes", "Torso collapsing forward"],
+      "formCues": [
+        "Most of the weight stays on the front leg"
+      ],
+      "commonMistakes": [
+        "Front knee travelling far past the toes",
+        "Torso collapsing forward"
+      ],
       "regressions": [],
-      "progressions": ["ex_walking_lunge"],
+      "progressions": [
+        "ex_walking_lunge"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_walking_lunge",
@@ -1129,11 +2064,18 @@
       "description": "Adds a dynamic, loaded component to the lunge and challenges balance between steps.",
       "category": "strength",
       "movementPattern": "lunge",
-      "muscleGroups": ["quads", "glutes", "hamstrings", "core"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "hamstrings",
+        "core"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["dumbbell"],
+      "equipment": [
+        "dumbbell"
+      ],
       "difficulty": "intermediate",
-      "met": 4.0,
+      "met": 4,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -1141,13 +2083,29 @@
         "Lower the back knee toward the floor.",
         "Drive through the front foot and step straight into the next rep."
       ],
-      "formCues": ["Stay tall, step long enough to keep the shin vertical"],
-      "commonMistakes": ["Short steps that push the knee forward", "Rushing and losing balance"],
-      "regressions": ["ex_reverse_lunge"],
-      "progressions": ["ex_bulgarian_split_squat"],
+      "formCues": [
+        "Stay tall, step long enough to keep the shin vertical"
+      ],
+      "commonMistakes": [
+        "Short steps that push the knee forward",
+        "Rushing and losing balance"
+      ],
+      "regressions": [
+        "ex_reverse_lunge"
+      ],
+      "progressions": [
+        "ex_bulgarian_split_squat"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_bulgarian_split_squat",
@@ -1155,11 +2113,19 @@
       "description": "A rear-foot-elevated split squat that loads one leg hard with modest external weight.",
       "category": "strength",
       "movementPattern": "lunge",
-      "muscleGroups": ["quads", "glutes", "hamstrings", "core"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "hamstrings",
+        "core"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["dumbbell", "bench"],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
       "difficulty": "intermediate",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -1167,13 +2133,30 @@
         "Lower until the front thigh is about parallel.",
         "Drive through the front foot to stand."
       ],
-      "formCues": ["Set the stance long enough that the front knee stays stacked"],
-      "commonMistakes": ["Stance too short, overloading the front knee", "Pushing off the back foot"],
-      "regressions": ["ex_walking_lunge", "ex_step_up"],
-      "progressions": ["ex_pistol_squat"],
+      "formCues": [
+        "Set the stance long enough that the front knee stays stacked"
+      ],
+      "commonMistakes": [
+        "Stance too short, overloading the front knee",
+        "Pushing off the back foot"
+      ],
+      "regressions": [
+        "ex_walking_lunge",
+        "ex_step_up"
+      ],
+      "progressions": [
+        "ex_pistol_squat"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_step_up",
@@ -1181,11 +2164,18 @@
       "description": "A single-leg push with a concentric emphasis, easy to scale by box height.",
       "category": "strength",
       "movementPattern": "lunge",
-      "muscleGroups": ["quads", "glutes", "hamstrings"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "hamstrings"
+      ],
       "primaryMuscle": "glutes",
-      "equipment": ["dumbbell", "bench"],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -1193,13 +2183,30 @@
         "Drive through that foot to stand tall on the box.",
         "Lower under control without pushing off the floor."
       ],
-      "formCues": ["Do not push off the trailing leg"],
-      "commonMistakes": ["Bouncing off the bottom foot", "Box set too high for control"],
+      "formCues": [
+        "Do not push off the trailing leg"
+      ],
+      "commonMistakes": [
+        "Bouncing off the bottom foot",
+        "Box set too high for control"
+      ],
       "regressions": [],
-      "progressions": ["ex_bulgarian_split_squat"],
-      "safetyNotes": ["Use a stable surface that will not tip"],
+      "progressions": [
+        "ex_bulgarian_split_squat"
+      ],
+      "safetyNotes": [
+        "Use a stable surface that will not tip"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_lateral_lunge",
@@ -1207,11 +2214,17 @@
       "description": "Trains the frontal plane and the adductors, which forward-only training neglects.",
       "category": "strength",
       "movementPattern": "lunge",
-      "muscleGroups": ["adductors", "quads", "glutes"],
+      "muscleGroups": [
+        "adductors",
+        "quads",
+        "glutes"
+      ],
       "primaryMuscle": "adductors",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
-      "met": 4.0,
+      "met": 4,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -1219,13 +2232,27 @@
         "Sit back into the stepping hip while the other leg stays straight.",
         "Push back to the centre."
       ],
-      "formCues": ["Hinge the hip of the bent leg back"],
-      "commonMistakes": ["Letting the trailing foot roll", "Turning it into a rotation"],
+      "formCues": [
+        "Hinge the hip of the bent leg back"
+      ],
+      "commonMistakes": [
+        "Letting the trailing foot roll",
+        "Turning it into a rotation"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_farmers_walk",
@@ -1233,11 +2260,19 @@
       "description": "Builds grip, trap and trunk endurance under heavy load with almost no technique barrier.",
       "category": "strength",
       "movementPattern": "carry",
-      "muscleGroups": ["forearms", "traps", "core", "glutes"],
+      "muscleGroups": [
+        "forearms",
+        "traps",
+        "core",
+        "glutes"
+      ],
       "primaryMuscle": "forearms",
-      "equipment": ["dumbbell", "kettlebell"],
+      "equipment": [
+        "dumbbell",
+        "kettlebell"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -1245,13 +2280,30 @@
         "Stand tall and walk with controlled steps.",
         "Set the weights down under control."
       ],
-      "formCues": ["Shoulders back and down, do not let them round forward"],
-      "commonMistakes": ["Leaning back", "Dropping the weights from height"],
+      "formCues": [
+        "Shoulders back and down, do not let them round forward"
+      ],
+      "commonMistakes": [
+        "Leaning back",
+        "Dropping the weights from height"
+      ],
       "regressions": [],
-      "progressions": ["ex_suitcase_carry"],
-      "safetyNotes": ["Clear the walking path first"],
+      "progressions": [
+        "ex_suitcase_carry"
+      ],
+      "safetyNotes": [
+        "Clear the walking path first"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "distance",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "grip_intensive",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_suitcase_carry",
@@ -1259,11 +2311,18 @@
       "description": "A one-sided carry that forces the obliques to resist side bending the whole way.",
       "category": "core",
       "movementPattern": "carry",
-      "muscleGroups": ["obliques", "core", "forearms", "traps"],
+      "muscleGroups": [
+        "obliques",
+        "core",
+        "forearms",
+        "traps"
+      ],
       "primaryMuscle": "obliques",
-      "equipment": ["kettlebell"],
+      "equipment": [
+        "kettlebell"
+      ],
       "difficulty": "intermediate",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": true,
       "isCompound": true,
       "instructions": [
@@ -1271,13 +2330,28 @@
         "Walk tall, resisting the pull to one side.",
         "Switch hands and repeat for the same distance."
       ],
-      "formCues": ["Stay perfectly upright, shoulders level"],
-      "commonMistakes": ["Leaning away from the load"],
-      "regressions": ["ex_farmers_walk"],
+      "formCues": [
+        "Stay perfectly upright, shoulders level"
+      ],
+      "commonMistakes": [
+        "Leaning away from the load"
+      ],
+      "regressions": [
+        "ex_farmers_walk"
+      ],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "distance",
+      "tags": [
+        "unilateral",
+        "compound",
+        "core_stability",
+        "grip_intensive",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_pallof_press",
@@ -1285,11 +2359,16 @@
       "description": "The core anti-rotation exercise, training the trunk to resist twisting rather than create it.",
       "category": "core",
       "movementPattern": "rotation",
-      "muscleGroups": ["core", "obliques"],
+      "muscleGroups": [
+        "core",
+        "obliques"
+      ],
       "primaryMuscle": "core",
-      "equipment": ["cable"],
+      "equipment": [
+        "cable"
+      ],
       "difficulty": "beginner",
-      "met": 3.0,
+      "met": 3,
       "isUnilateral": true,
       "isCompound": false,
       "instructions": [
@@ -1297,13 +2376,28 @@
         "Press the handle straight out, resisting the pull to rotate.",
         "Return to the chest under control."
       ],
-      "formCues": ["Squeeze the glutes and stay square to the front"],
-      "commonMistakes": ["Letting the torso rotate toward the machine"],
+      "formCues": [
+        "Squeeze the glutes and stay square to the front"
+      ],
+      "commonMistakes": [
+        "Letting the torso rotate toward the machine"
+      ],
       "regressions": [],
-      "progressions": ["ex_cable_woodchop"],
+      "progressions": [
+        "ex_cable_woodchop"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "isolation",
+        "beginner_friendly",
+        "core_stability",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_cable_woodchop",
@@ -1311,9 +2405,15 @@
       "description": "Trains rotational power through the hips and trunk in a diagonal pattern.",
       "category": "core",
       "movementPattern": "rotation",
-      "muscleGroups": ["obliques", "core", "shoulders"],
+      "muscleGroups": [
+        "obliques",
+        "core",
+        "shoulders"
+      ],
       "primaryMuscle": "obliques",
-      "equipment": ["cable"],
+      "equipment": [
+        "cable"
+      ],
       "difficulty": "intermediate",
       "met": 3.5,
       "isUnilateral": true,
@@ -1323,13 +2423,27 @@
         "Rotate through the hips and pull down across the body.",
         "Return under control without letting the weight pull you back."
       ],
-      "formCues": ["Turn from the hips, not just the arms"],
-      "commonMistakes": ["Rotating only at the lower back"],
-      "regressions": ["ex_pallof_press"],
+      "formCues": [
+        "Turn from the hips, not just the arms"
+      ],
+      "commonMistakes": [
+        "Rotating only at the lower back"
+      ],
+      "regressions": [
+        "ex_pallof_press"
+      ],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "compound",
+        "core_stability",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_russian_twist",
@@ -1337,9 +2451,15 @@
       "description": "A seated rotational core exercise that is simple to load and easy to program anywhere.",
       "category": "core",
       "movementPattern": "rotation",
-      "muscleGroups": ["obliques", "core", "hip_flexors"],
+      "muscleGroups": [
+        "obliques",
+        "core",
+        "hip_flexors"
+      ],
       "primaryMuscle": "obliques",
-      "equipment": ["medicine_ball"],
+      "equipment": [
+        "medicine_ball"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -1349,13 +2469,25 @@
         "Rotate the ball from hip to hip under control.",
         "Keep the chest tall throughout."
       ],
-      "formCues": ["Move the ribcage, not just the arms"],
-      "commonMistakes": ["Rounding the back and swinging fast"],
+      "formCues": [
+        "Move the ribcage, not just the arms"
+      ],
+      "commonMistakes": [
+        "Rounding the back and swinging fast"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "core_stability",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_plank",
@@ -1363,9 +2495,15 @@
       "description": "The baseline anti-extension hold, teaching the trunk to stay rigid under load.",
       "category": "core",
       "movementPattern": "isolation",
-      "muscleGroups": ["core", "shoulders", "glutes"],
+      "muscleGroups": [
+        "core",
+        "shoulders",
+        "glutes"
+      ],
       "primaryMuscle": "core",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 3.3,
       "isUnilateral": false,
@@ -1375,13 +2513,31 @@
         "Squeeze the glutes and tuck the ribs down.",
         "Hold, breathing normally."
       ],
-      "formCues": ["Push the floor away and round the upper back slightly"],
-      "commonMistakes": ["Hips sagging", "Holding the breath"],
+      "formCues": [
+        "Push the floor away and round the upper back slightly"
+      ],
+      "commonMistakes": [
+        "Hips sagging",
+        "Holding the breath"
+      ],
       "regressions": [],
-      "progressions": ["ex_ab_wheel_rollout", "ex_mountain_climber"],
+      "progressions": [
+        "ex_ab_wheel_rollout",
+        "ex_mountain_climber"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "hold",
+      "tags": [
+        "isometric",
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "core_stability",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_side_plank",
@@ -1389,9 +2545,15 @@
       "description": "A lateral hold that trains the obliques and hip stabilisers to resist side bending.",
       "category": "core",
       "movementPattern": "isolation",
-      "muscleGroups": ["obliques", "core", "abductors"],
+      "muscleGroups": [
+        "obliques",
+        "core",
+        "abductors"
+      ],
       "primaryMuscle": "obliques",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 3.3,
       "isUnilateral": true,
@@ -1401,13 +2563,29 @@
         "Lift the hips so the body forms a straight line.",
         "Hold, then switch sides."
       ],
-      "formCues": ["Stack the hips and shoulders"],
-      "commonMistakes": ["Hips dropping", "Rotating toward the floor"],
+      "formCues": [
+        "Stack the hips and shoulders"
+      ],
+      "commonMistakes": [
+        "Hips dropping",
+        "Rotating toward the floor"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "hold",
+      "tags": [
+        "unilateral",
+        "isometric",
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "core_stability",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_dead_bug",
@@ -1415,9 +2593,14 @@
       "description": "Trains trunk control against moving limbs with almost no spinal load.",
       "category": "core",
       "movementPattern": "isolation",
-      "muscleGroups": ["core", "hip_flexors"],
+      "muscleGroups": [
+        "core",
+        "hip_flexors"
+      ],
       "primaryMuscle": "core",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 2.8,
       "isUnilateral": false,
@@ -1427,13 +2610,28 @@
         "Press the lower back gently into the floor.",
         "Extend the opposite arm and leg, then return and switch."
       ],
-      "formCues": ["Keep the lower back flat the entire time"],
-      "commonMistakes": ["Lower back arching as the limbs extend"],
+      "formCues": [
+        "Keep the lower back flat the entire time"
+      ],
+      "commonMistakes": [
+        "Lower back arching as the limbs extend"
+      ],
       "regressions": [],
-      "progressions": ["ex_hollow_body_hold"],
+      "progressions": [
+        "ex_hollow_body_hold"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "core_stability",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_hollow_body_hold",
@@ -1441,9 +2639,14 @@
       "description": "A gymnastics staple that builds the rigid midline position used in most bodyweight skills.",
       "category": "core",
       "movementPattern": "isolation",
-      "muscleGroups": ["core", "hip_flexors"],
+      "muscleGroups": [
+        "core",
+        "hip_flexors"
+      ],
       "primaryMuscle": "core",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "intermediate",
       "met": 3.3,
       "isUnilateral": false,
@@ -1453,13 +2656,28 @@
         "Lift the shoulders and legs to form a shallow banana shape.",
         "Hold while breathing steadily."
       ],
-      "formCues": ["Lower back stays glued down; raise the limbs if it lifts"],
-      "commonMistakes": ["Letting the lower back arch to go lower"],
-      "regressions": ["ex_dead_bug"],
+      "formCues": [
+        "Lower back stays glued down; raise the limbs if it lifts"
+      ],
+      "commonMistakes": [
+        "Letting the lower back arch to go lower"
+      ],
+      "regressions": [
+        "ex_dead_bug"
+      ],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "hold",
+      "tags": [
+        "isometric",
+        "isolation",
+        "no_equipment",
+        "core_stability",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_hanging_knee_raise",
@@ -1467,11 +2685,17 @@
       "description": "Trains the lower abs and hip flexors while adding grip and shoulder hang time.",
       "category": "core",
       "movementPattern": "isolation",
-      "muscleGroups": ["core", "hip_flexors", "forearms"],
+      "muscleGroups": [
+        "core",
+        "hip_flexors",
+        "forearms"
+      ],
       "primaryMuscle": "core",
-      "equipment": ["pull_up_bar"],
+      "equipment": [
+        "pull_up_bar"
+      ],
       "difficulty": "intermediate",
-      "met": 4.0,
+      "met": 4,
       "isUnilateral": false,
       "isCompound": false,
       "instructions": [
@@ -1479,13 +2703,29 @@
         "Raise the knees toward the chest, curling the pelvis up.",
         "Lower under control without swinging."
       ],
-      "formCues": ["Finish the rep by tilting the pelvis, not just lifting the thighs"],
-      "commonMistakes": ["Swinging between reps", "Only moving at the hip"],
+      "formCues": [
+        "Finish the rep by tilting the pelvis, not just lifting the thighs"
+      ],
+      "commonMistakes": [
+        "Swinging between reps",
+        "Only moving at the hip"
+      ],
       "regressions": [],
-      "progressions": ["ex_hanging_leg_raise"],
+      "progressions": [
+        "ex_hanging_leg_raise"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "hold",
+      "tags": [
+        "isometric",
+        "isolation",
+        "core_stability",
+        "grip_intensive",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_hanging_leg_raise",
@@ -1493,11 +2733,17 @@
       "description": "The straight-leg progression, substantially harder through the whole range.",
       "category": "core",
       "movementPattern": "isolation",
-      "muscleGroups": ["core", "hip_flexors", "forearms"],
+      "muscleGroups": [
+        "core",
+        "hip_flexors",
+        "forearms"
+      ],
       "primaryMuscle": "core",
-      "equipment": ["pull_up_bar"],
+      "equipment": [
+        "pull_up_bar"
+      ],
       "difficulty": "advanced",
-      "met": 4.0,
+      "met": 4,
       "isUnilateral": false,
       "isCompound": false,
       "instructions": [
@@ -1505,13 +2751,28 @@
         "Raise the legs to at least hip height, curling the pelvis.",
         "Lower slowly without swinging."
       ],
-      "formCues": ["Control the lowering; that is where the work is"],
-      "commonMistakes": ["Using momentum from the previous rep"],
-      "regressions": ["ex_hanging_knee_raise"],
+      "formCues": [
+        "Control the lowering; that is where the work is"
+      ],
+      "commonMistakes": [
+        "Using momentum from the previous rep"
+      ],
+      "regressions": [
+        "ex_hanging_knee_raise"
+      ],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "hold",
+      "tags": [
+        "isometric",
+        "isolation",
+        "core_stability",
+        "grip_intensive",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_ab_wheel_rollout",
@@ -1519,11 +2780,17 @@
       "description": "The hardest common anti-extension exercise, loading the trunk through a long lever.",
       "category": "core",
       "movementPattern": "isolation",
-      "muscleGroups": ["core", "lats", "shoulders"],
+      "muscleGroups": [
+        "core",
+        "lats",
+        "shoulders"
+      ],
       "primaryMuscle": "core",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "ab_wheel"
+      ],
       "difficulty": "advanced",
-      "met": 4.0,
+      "met": 4,
       "isUnilateral": false,
       "isCompound": false,
       "instructions": [
@@ -1531,13 +2798,29 @@
         "Roll forward as far as you can without the hips dropping.",
         "Pull back to the start using the trunk and lats."
       ],
-      "formCues": ["Tuck the ribs and keep a slight rounding of the back"],
-      "commonMistakes": ["Lower back arching at full extension", "Rolling further than the trunk can control"],
-      "regressions": ["ex_plank"],
+      "formCues": [
+        "Tuck the ribs and keep a slight rounding of the back"
+      ],
+      "commonMistakes": [
+        "Lower back arching at full extension",
+        "Rolling further than the trunk can control"
+      ],
+      "regressions": [
+        "ex_plank"
+      ],
       "progressions": [],
-      "safetyNotes": ["Extend the range gradually; this exercise commonly aggravates the lower back if rushed"],
+      "safetyNotes": [
+        "Extend the range gradually; this exercise commonly aggravates the lower back if rushed"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "core_stability",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_mountain_climber",
@@ -1545,11 +2828,18 @@
       "description": "A fast-paced plank variation that doubles as core work and conditioning.",
       "category": "hiit",
       "movementPattern": "isolation",
-      "muscleGroups": ["core", "hip_flexors", "shoulders", "cardiovascular"],
+      "muscleGroups": [
+        "core",
+        "hip_flexors",
+        "shoulders",
+        "cardiovascular"
+      ],
       "primaryMuscle": "core",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
-      "met": 8.0,
+      "met": 8,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -1557,13 +2847,30 @@
         "Drive one knee toward the chest, then switch quickly.",
         "Keep the hips low throughout."
       ],
-      "formCues": ["Hips stay level; do not bounce them up"],
-      "commonMistakes": ["Hips rising with speed", "Hands creeping forward"],
-      "regressions": ["ex_plank"],
-      "progressions": ["ex_burpee"],
+      "formCues": [
+        "Hips stay level; do not bounce them up"
+      ],
+      "commonMistakes": [
+        "Hips rising with speed",
+        "Hands creeping forward"
+      ],
+      "regressions": [
+        "ex_plank"
+      ],
+      "progressions": [
+        "ex_burpee"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_biceps_curl",
@@ -1571,9 +2878,14 @@
       "description": "Direct elbow-flexion work that pulling compounds alone will not maximise.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["biceps", "forearms"],
+      "muscleGroups": [
+        "biceps",
+        "forearms"
+      ],
       "primaryMuscle": "biceps",
-      "equipment": ["dumbbell"],
+      "equipment": [
+        "dumbbell"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -1583,13 +2895,25 @@
         "Curl the weights to shoulder height.",
         "Lower slowly to full extension."
       ],
-      "formCues": ["Keep the elbows pinned to the ribs"],
-      "commonMistakes": ["Swinging the torso", "Cutting the bottom range short"],
+      "formCues": [
+        "Keep the elbows pinned to the ribs"
+      ],
+      "commonMistakes": [
+        "Swinging the torso",
+        "Cutting the bottom range short"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_triceps_pushdown",
@@ -1597,9 +2921,13 @@
       "description": "Isolates the triceps with constant tension and a very low technique barrier.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["triceps"],
+      "muscleGroups": [
+        "triceps"
+      ],
       "primaryMuscle": "triceps",
-      "equipment": ["cable"],
+      "equipment": [
+        "cable"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -1609,13 +2937,26 @@
         "Press down until the arms are fully extended.",
         "Return under control to about 90 degrees."
       ],
-      "formCues": ["Elbows stay fixed at the sides"],
-      "commonMistakes": ["Leaning over the bar to add bodyweight"],
+      "formCues": [
+        "Elbows stay fixed at the sides"
+      ],
+      "commonMistakes": [
+        "Leaning over the bar to add bodyweight"
+      ],
       "regressions": [],
-      "progressions": ["ex_skull_crusher"],
+      "progressions": [
+        "ex_skull_crusher"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_skull_crusher",
@@ -1623,9 +2964,14 @@
       "description": "Loads the triceps in a stretched position, which pushdowns do not reach.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["triceps"],
+      "muscleGroups": [
+        "triceps"
+      ],
       "primaryMuscle": "triceps",
-      "equipment": ["ez_bar", "bench"],
+      "equipment": [
+        "ez_bar",
+        "bench"
+      ],
       "difficulty": "intermediate",
       "met": 3.5,
       "isUnilateral": false,
@@ -1635,13 +2981,28 @@
         "Bend the elbows to lower the bar toward the forehead.",
         "Extend back to the start without moving the upper arms."
       ],
-      "formCues": ["Upper arms stay still; only the forearms move"],
-      "commonMistakes": ["Turning it into a press", "Flaring the elbows wide"],
-      "regressions": ["ex_triceps_pushdown"],
+      "formCues": [
+        "Upper arms stay still; only the forearms move"
+      ],
+      "commonMistakes": [
+        "Turning it into a press",
+        "Flaring the elbows wide"
+      ],
+      "regressions": [
+        "ex_triceps_pushdown"
+      ],
       "progressions": [],
-      "safetyNotes": ["Use a controlled tempo; this loads the elbow joint directly"],
+      "safetyNotes": [
+        "Use a controlled tempo; this loads the elbow joint directly"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_barbell_shrug",
@@ -1649,9 +3010,14 @@
       "description": "Direct upper-trap work, useful for posture and for carrying heavy loads.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["traps", "forearms"],
+      "muscleGroups": [
+        "traps",
+        "forearms"
+      ],
       "primaryMuscle": "traps",
-      "equipment": ["barbell"],
+      "equipment": [
+        "barbell"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -1661,13 +3027,25 @@
         "Shrug the shoulders straight up toward the ears.",
         "Lower under control to a full stretch."
       ],
-      "formCues": ["Straight up and down, no rolling"],
-      "commonMistakes": ["Rolling the shoulders", "Bending the elbows to help"],
+      "formCues": [
+        "Straight up and down, no rolling"
+      ],
+      "commonMistakes": [
+        "Rolling the shoulders",
+        "Bending the elbows to help"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_standing_calf_raise",
@@ -1675,9 +3053,13 @@
       "description": "Trains the gastrocnemius through a full range, important for running and jumping.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["calves"],
+      "muscleGroups": [
+        "calves"
+      ],
       "primaryMuscle": "calves",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -1687,13 +3069,25 @@
         "Rise as high as possible onto the toes.",
         "Lower slowly to a deep stretch."
       ],
-      "formCues": ["Pause at the top and at the stretch"],
-      "commonMistakes": ["Bouncing through a short range"],
+      "formCues": [
+        "Pause at the top and at the stretch"
+      ],
+      "commonMistakes": [
+        "Bouncing through a short range"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_leg_extension",
@@ -1701,9 +3095,13 @@
       "description": "Isolates the quads, useful for adding volume without loading the spine.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["quads"],
+      "muscleGroups": [
+        "quads"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["machine"],
+      "equipment": [
+        "machine"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -1713,13 +3111,24 @@
         "Extend the knees to full lockout.",
         "Lower under control."
       ],
-      "formCues": ["Pause briefly at full extension"],
-      "commonMistakes": ["Swinging the weight up with momentum"],
+      "formCues": [
+        "Pause briefly at full extension"
+      ],
+      "commonMistakes": [
+        "Swinging the weight up with momentum"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_hip_abduction_machine",
@@ -1727,9 +3136,14 @@
       "description": "Targets the glute medius and abductors, which most compound work under-trains.",
       "category": "strength",
       "movementPattern": "isolation",
-      "muscleGroups": ["abductors", "glutes"],
+      "muscleGroups": [
+        "abductors",
+        "glutes"
+      ],
       "primaryMuscle": "abductors",
-      "equipment": ["machine"],
+      "equipment": [
+        "machine"
+      ],
       "difficulty": "beginner",
       "met": 3.5,
       "isUnilateral": false,
@@ -1739,13 +3153,24 @@
         "Push the knees apart against resistance.",
         "Return under control."
       ],
-      "formCues": ["Lean forward slightly to bias the glutes"],
-      "commonMistakes": ["Slamming the pads back together"],
+      "formCues": [
+        "Lean forward slightly to bias the glutes"
+      ],
+      "commonMistakes": [
+        "Slamming the pads back together"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "gym",
+      "loggingMode": "reps",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_outdoor_run_easy",
@@ -1753,9 +3178,17 @@
       "description": "Conversational-pace running, the aerobic base of most conditioning programmes.",
       "category": "cardio",
       "movementPattern": "locomotion",
-      "muscleGroups": ["cardiovascular", "quads", "hamstrings", "calves", "glutes"],
+      "muscleGroups": [
+        "cardiovascular",
+        "quads",
+        "hamstrings",
+        "calves",
+        "glutes"
+      ],
       "primaryMuscle": "cardiovascular",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 8.3,
       "isUnilateral": false,
@@ -1765,13 +3198,31 @@
         "Settle into a pace where you can still hold a conversation.",
         "Finish with a few minutes of walking."
       ],
-      "formCues": ["Land under the hips, not out in front", "Relax the shoulders and hands"],
-      "commonMistakes": ["Running easy days too hard", "Increasing weekly volume too quickly"],
+      "formCues": [
+        "Land under the hips, not out in front",
+        "Relax the shoulders and hands"
+      ],
+      "commonMistakes": [
+        "Running easy days too hard",
+        "Increasing weekly volume too quickly"
+      ],
       "regressions": [],
-      "progressions": ["ex_treadmill_run"],
-      "safetyNotes": ["Increase weekly mileage gradually to protect the shins and knees"],
+      "progressions": [
+        "ex_treadmill_run"
+      ],
+      "safetyNotes": [
+        "Increase weekly mileage gradually to protect the shins and knees"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "cardio",
+      "loggingMode": "distance",
+      "tags": [
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_treadmill_run",
@@ -1779,9 +3230,16 @@
       "description": "Controlled-pace running indoors, useful for precise interval and tempo work.",
       "category": "cardio",
       "movementPattern": "locomotion",
-      "muscleGroups": ["cardiovascular", "quads", "hamstrings", "calves"],
+      "muscleGroups": [
+        "cardiovascular",
+        "quads",
+        "hamstrings",
+        "calves"
+      ],
       "primaryMuscle": "cardiovascular",
-      "equipment": ["treadmill"],
+      "equipment": [
+        "treadmill"
+      ],
       "difficulty": "intermediate",
       "met": 9.8,
       "isUnilateral": false,
@@ -1791,13 +3249,28 @@
         "Build to the target pace and hold it for the prescribed time.",
         "Cool down at an easy walk."
       ],
-      "formCues": ["Keep a slight incline to better match outdoor effort"],
-      "commonMistakes": ["Holding the handrails", "Running at zero incline exclusively"],
-      "regressions": ["ex_outdoor_run_easy"],
+      "formCues": [
+        "Keep a slight incline to better match outdoor effort"
+      ],
+      "commonMistakes": [
+        "Holding the handrails",
+        "Running at zero incline exclusively"
+      ],
+      "regressions": [
+        "ex_outdoor_run_easy"
+      ],
       "progressions": [],
-      "safetyNotes": ["Clip the safety key to your clothing"],
+      "safetyNotes": [
+        "Clip the safety key to your clothing"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "cardio",
+      "loggingMode": "distance",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_rowing_erg",
@@ -1805,11 +3278,19 @@
       "description": "Full-body, low-impact conditioning that loads the posterior chain as well as the lungs.",
       "category": "cardio",
       "movementPattern": "locomotion",
-      "muscleGroups": ["cardiovascular", "lats", "quads", "glutes", "upper_back"],
+      "muscleGroups": [
+        "cardiovascular",
+        "lats",
+        "quads",
+        "glutes",
+        "upper_back"
+      ],
       "primaryMuscle": "cardiovascular",
-      "equipment": ["rowing_machine"],
+      "equipment": [
+        "rowing_machine"
+      ],
       "difficulty": "intermediate",
-      "met": 7.0,
+      "met": 7,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -1817,13 +3298,24 @@
         "Reverse the order on the recovery: arms, torso, legs.",
         "Keep a steady stroke rate."
       ],
-      "formCues": ["Legs, body, arms out; arms, body, legs back"],
-      "commonMistakes": ["Pulling with the arms first", "Rounding the lower back at the catch"],
+      "formCues": [
+        "Legs, body, arms out; arms, body, legs back"
+      ],
+      "commonMistakes": [
+        "Pulling with the arms first",
+        "Rounding the lower back at the catch"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "cardio",
+      "loggingMode": "distance",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_stationary_bike",
@@ -1831,9 +3323,16 @@
       "description": "Low-impact cardio that spares the joints, ideal for recovery days or high volume.",
       "category": "cardio",
       "movementPattern": "locomotion",
-      "muscleGroups": ["cardiovascular", "quads", "glutes", "calves"],
+      "muscleGroups": [
+        "cardiovascular",
+        "quads",
+        "glutes",
+        "calves"
+      ],
       "primaryMuscle": "cardiovascular",
-      "equipment": ["stationary_bike"],
+      "equipment": [
+        "stationary_bike"
+      ],
       "difficulty": "beginner",
       "met": 6.8,
       "isUnilateral": false,
@@ -1843,13 +3342,24 @@
         "Ride at the prescribed resistance and cadence.",
         "Spin easy to finish."
       ],
-      "formCues": ["Keep the cadence smooth rather than grinding"],
-      "commonMistakes": ["Saddle set too low, straining the knees"],
+      "formCues": [
+        "Keep the cadence smooth rather than grinding"
+      ],
+      "commonMistakes": [
+        "Saddle set too low, straining the knees"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "cardio",
+      "loggingMode": "distance",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_elliptical",
@@ -1857,11 +3367,17 @@
       "description": "Very low-impact steady-state cardio, useful when running is not tolerated.",
       "category": "cardio",
       "movementPattern": "locomotion",
-      "muscleGroups": ["cardiovascular", "quads", "glutes"],
+      "muscleGroups": [
+        "cardiovascular",
+        "quads",
+        "glutes"
+      ],
       "primaryMuscle": "cardiovascular",
-      "equipment": ["elliptical"],
+      "equipment": [
+        "elliptical"
+      ],
       "difficulty": "beginner",
-      "met": 5.0,
+      "met": 5,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -1869,13 +3385,24 @@
         "Hold the moving handles and keep an upright posture.",
         "Maintain effort for the prescribed duration."
       ],
-      "formCues": ["Stand tall rather than leaning on the console"],
-      "commonMistakes": ["Leaning heavily on the fixed rails"],
+      "formCues": [
+        "Stand tall rather than leaning on the console"
+      ],
+      "commonMistakes": [
+        "Leaning heavily on the fixed rails"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "cardio",
+      "loggingMode": "duration",
+      "tags": [
+        "compound",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_jump_rope",
@@ -1883,9 +3410,16 @@
       "description": "Extremely high calorie cost per minute plus calf and coordination work in a tiny footprint.",
       "category": "hiit",
       "movementPattern": "locomotion",
-      "muscleGroups": ["cardiovascular", "calves", "shoulders", "forearms"],
+      "muscleGroups": [
+        "cardiovascular",
+        "calves",
+        "shoulders",
+        "forearms"
+      ],
       "primaryMuscle": "cardiovascular",
-      "equipment": ["jump_rope"],
+      "equipment": [
+        "jump_rope"
+      ],
       "difficulty": "intermediate",
       "met": 12.3,
       "isUnilateral": false,
@@ -1895,13 +3429,27 @@
         "Turn the rope with the wrists and make small, quick hops.",
         "Land softly on the balls of the feet."
       ],
-      "formCues": ["Wrists turn the rope, not the arms", "Jump just high enough to clear"],
-      "commonMistakes": ["Jumping far too high", "Swinging from the shoulders"],
+      "formCues": [
+        "Wrists turn the rope, not the arms",
+        "Jump just high enough to clear"
+      ],
+      "commonMistakes": [
+        "Jumping far too high",
+        "Swinging from the shoulders"
+      ],
       "regressions": [],
       "progressions": [],
-      "safetyNotes": ["High calf and Achilles load; build volume gradually"],
+      "safetyNotes": [
+        "High calf and Achilles load; build volume gradually"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "cardio",
+      "loggingMode": "duration",
+      "tags": [
+        "explosive",
+        "compound"
+      ]
     },
     {
       "id": "ex_battle_ropes",
@@ -1909,11 +3457,18 @@
       "description": "Upper-body dominant conditioning with almost no eccentric load, easy on recovery.",
       "category": "hiit",
       "movementPattern": "locomotion",
-      "muscleGroups": ["cardiovascular", "shoulders", "core", "forearms"],
+      "muscleGroups": [
+        "cardiovascular",
+        "shoulders",
+        "core",
+        "forearms"
+      ],
       "primaryMuscle": "cardiovascular",
-      "equipment": ["battle_ropes"],
+      "equipment": [
+        "battle_ropes"
+      ],
       "difficulty": "intermediate",
-      "met": 8.0,
+      "met": 8,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -1921,13 +3476,23 @@
         "Drive alternating waves down the rope.",
         "Keep the hips loaded and the trunk braced."
       ],
-      "formCues": ["Stay low and let the hips absorb the effort"],
-      "commonMistakes": ["Standing upright and using only the arms"],
+      "formCues": [
+        "Stay low and let the hips absorb the effort"
+      ],
+      "commonMistakes": [
+        "Standing upright and using only the arms"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "cardio",
+      "loggingMode": "duration",
+      "tags": [
+        "compound",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_burpee",
@@ -1935,11 +3500,18 @@
       "description": "A full-body conditioning staple requiring no equipment and driving heart rate up fast.",
       "category": "hiit",
       "movementPattern": "locomotion",
-      "muscleGroups": ["full_body", "cardiovascular", "chest", "quads"],
+      "muscleGroups": [
+        "full_body",
+        "cardiovascular",
+        "chest",
+        "quads"
+      ],
       "primaryMuscle": "full_body",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "intermediate",
-      "met": 8.0,
+      "met": 8,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -1947,13 +3519,27 @@
         "Jump the feet back to a plank and perform a push-up.",
         "Jump the feet in and stand or jump at the top."
       ],
-      "formCues": ["Keep the trunk braced when the feet land in the plank"],
-      "commonMistakes": ["Hips sagging in the plank", "Letting form collapse as fatigue builds"],
-      "regressions": ["ex_mountain_climber"],
+      "formCues": [
+        "Keep the trunk braced when the feet land in the plank"
+      ],
+      "commonMistakes": [
+        "Hips sagging in the plank",
+        "Letting form collapse as fatigue builds"
+      ],
+      "regressions": [
+        "ex_mountain_climber"
+      ],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "explosive",
+        "compound",
+        "no_equipment"
+      ]
     },
     {
       "id": "ex_box_jump",
@@ -1961,11 +3547,18 @@
       "description": "Trains explosive hip extension with a soft landing, the entry point to plyometrics.",
       "category": "plyometric",
       "movementPattern": "squat",
-      "muscleGroups": ["quads", "glutes", "calves", "hamstrings"],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "calves",
+        "hamstrings"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "plyo_box"
+      ],
       "difficulty": "intermediate",
-      "met": 8.0,
+      "met": 8,
       "isUnilateral": false,
       "isCompound": true,
       "instructions": [
@@ -1973,13 +3566,30 @@
         "Dip and swing the arms, then jump and land softly on top.",
         "Step down, do not jump down."
       ],
-      "formCues": ["Land quietly with the hips back", "Step down every rep"],
-      "commonMistakes": ["Jumping down and pounding the joints", "Choosing a box too tall to land upright on"],
-      "regressions": ["ex_bodyweight_squat"],
+      "formCues": [
+        "Land quietly with the hips back",
+        "Step down every rep"
+      ],
+      "commonMistakes": [
+        "Jumping down and pounding the joints",
+        "Choosing a box too tall to land upright on"
+      ],
+      "regressions": [
+        "ex_bodyweight_squat"
+      ],
       "progressions": [],
-      "safetyNotes": ["Use a box that will not slide or tip", "Always step down between reps"],
+      "safetyNotes": [
+        "Use a box that will not slide or tip",
+        "Always step down between reps"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "explosive",
+        "compound"
+      ]
     },
     {
       "id": "ex_single_leg_balance",
@@ -1987,9 +3597,15 @@
       "description": "Builds ankle and hip stability, valuable in warm-ups and in return-from-injury work.",
       "category": "balance",
       "movementPattern": "isolation",
-      "muscleGroups": ["calves", "glutes", "core"],
+      "muscleGroups": [
+        "calves",
+        "glutes",
+        "core"
+      ],
       "primaryMuscle": "glutes",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 2.5,
       "isUnilateral": true,
@@ -1999,13 +3615,28 @@
         "Hold steady, keeping the hips level.",
         "Progress by closing the eyes or adding reaches."
       ],
-      "formCues": ["Grip the floor gently with the toes"],
-      "commonMistakes": ["Letting the hip of the free leg drop"],
+      "formCues": [
+        "Grip the floor gently with the toes"
+      ],
+      "commonMistakes": [
+        "Letting the hip of the free leg drop"
+      ],
       "regressions": [],
-      "progressions": ["ex_single_leg_rdl"],
+      "progressions": [
+        "ex_single_leg_rdl"
+      ],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "calisthenics",
+      "loggingMode": "reps",
+      "tags": [
+        "unilateral",
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_leg_swings",
@@ -2013,9 +3644,15 @@
       "description": "A dynamic warm-up drill that opens the hips before squatting, hinging or running.",
       "category": "warmup",
       "movementPattern": "isolation",
-      "muscleGroups": ["hip_flexors", "hamstrings", "glutes"],
+      "muscleGroups": [
+        "hip_flexors",
+        "hamstrings",
+        "glutes"
+      ],
       "primaryMuscle": "hip_flexors",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 2.8,
       "isUnilateral": true,
@@ -2025,13 +3662,28 @@
         "Keep the trunk still and let the hip do the work.",
         "Repeat side to side, then switch legs."
       ],
-      "formCues": ["Build range gradually rather than forcing it"],
-      "commonMistakes": ["Arching the lower back to swing higher"],
+      "formCues": [
+        "Build range gradually rather than forcing it"
+      ],
+      "commonMistakes": [
+        "Arching the lower back to swing higher"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "mobility",
+      "loggingMode": "duration",
+      "tags": [
+        "unilateral",
+        "explosive",
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact",
+        "warmup"
+      ]
     },
     {
       "id": "ex_worlds_greatest_stretch",
@@ -2039,9 +3691,16 @@
       "description": "A single drill covering hip flexors, hamstrings and thoracic rotation, ideal before training.",
       "category": "warmup",
       "movementPattern": "lunge",
-      "muscleGroups": ["hip_flexors", "hamstrings", "obliques", "shoulders"],
+      "muscleGroups": [
+        "hip_flexors",
+        "hamstrings",
+        "obliques",
+        "shoulders"
+      ],
       "primaryMuscle": "hip_flexors",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 2.8,
       "isUnilateral": true,
@@ -2051,13 +3710,27 @@
         "Drop the back hip toward the floor, then rotate the inside arm to the ceiling.",
         "Straighten the front leg to stretch the hamstring, then switch sides."
       ],
-      "formCues": ["Move slowly and breathe into each position"],
-      "commonMistakes": ["Rushing through without reaching end range"],
+      "formCues": [
+        "Move slowly and breathe into each position"
+      ],
+      "commonMistakes": [
+        "Rushing through without reaching end range"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "mobility",
+      "loggingMode": "duration",
+      "tags": [
+        "unilateral",
+        "compound",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact",
+        "warmup"
+      ]
     },
     {
       "id": "ex_cat_cow",
@@ -2065,9 +3738,15 @@
       "description": "Gentle segmental spine mobility, useful before lifting or as part of a cool-down.",
       "category": "mobility",
       "movementPattern": "isolation",
-      "muscleGroups": ["lower_back", "core", "upper_back"],
+      "muscleGroups": [
+        "lower_back",
+        "core",
+        "upper_back"
+      ],
       "primaryMuscle": "lower_back",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 2.3,
       "isUnilateral": false,
@@ -2077,13 +3756,25 @@
         "Exhale and round the back toward the ceiling.",
         "Inhale and arch, lifting the chest and tailbone."
       ],
-      "formCues": ["Move one vertebra at a time"],
-      "commonMistakes": ["Moving only at the lower back"],
+      "formCues": [
+        "Move one vertebra at a time"
+      ],
+      "commonMistakes": [
+        "Moving only at the lower back"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "mobility",
+      "loggingMode": "duration",
+      "tags": [
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_thoracic_rotation",
@@ -2091,9 +3782,14 @@
       "description": "Restores upper-back rotation, which improves overhead pressing and squat bar position.",
       "category": "mobility",
       "movementPattern": "rotation",
-      "muscleGroups": ["upper_back", "obliques"],
+      "muscleGroups": [
+        "upper_back",
+        "obliques"
+      ],
       "primaryMuscle": "upper_back",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 2.3,
       "isUnilateral": true,
@@ -2103,13 +3799,26 @@
         "Rotate the elbow up and open toward the ceiling.",
         "Return and repeat, then switch sides."
       ],
-      "formCues": ["Rotate through the ribcage, keep the hips still"],
-      "commonMistakes": ["Twisting from the lower back instead"],
+      "formCues": [
+        "Rotate through the ribcage, keep the hips still"
+      ],
+      "commonMistakes": [
+        "Twisting from the lower back instead"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "mobility",
+      "loggingMode": "duration",
+      "tags": [
+        "unilateral",
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_shoulder_dislocate",
@@ -2117,9 +3826,14 @@
       "description": "Opens the shoulders through a full overhead arc; standard preparation for pressing.",
       "category": "mobility",
       "movementPattern": "isolation",
-      "muscleGroups": ["shoulders", "upper_back"],
+      "muscleGroups": [
+        "shoulders",
+        "upper_back"
+      ],
       "primaryMuscle": "shoulders",
-      "equipment": ["resistance_band"],
+      "equipment": [
+        "resistance_band"
+      ],
       "difficulty": "beginner",
       "met": 2.3,
       "isUnilateral": false,
@@ -2129,13 +3843,26 @@
         "Raise it overhead and behind the body, keeping the arms straight.",
         "Reverse the path under control."
       ],
-      "formCues": ["Start wider than feels necessary and narrow over time"],
-      "commonMistakes": ["Bending the elbows to force the range"],
+      "formCues": [
+        "Start wider than feels necessary and narrow over time"
+      ],
+      "commonMistakes": [
+        "Bending the elbows to force the range"
+      ],
       "regressions": [],
       "progressions": [],
-      "safetyNotes": ["Never force past a painful range"],
+      "safetyNotes": [
+        "Never force past a painful range"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "mobility",
+      "loggingMode": "duration",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_hip_flexor_stretch",
@@ -2143,9 +3870,14 @@
       "description": "Targets hip flexors shortened by prolonged sitting, improving hip extension for hinging.",
       "category": "flexibility",
       "movementPattern": "isolation",
-      "muscleGroups": ["hip_flexors", "quads"],
+      "muscleGroups": [
+        "hip_flexors",
+        "quads"
+      ],
       "primaryMuscle": "hip_flexors",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 2.3,
       "isUnilateral": true,
@@ -2155,13 +3887,26 @@
         "Tuck the pelvis under and squeeze the rear glute.",
         "Shift forward gently and hold, then switch sides."
       ],
-      "formCues": ["The stretch comes from the pelvic tuck, not leaning forward"],
-      "commonMistakes": ["Arching the lower back and feeling nothing"],
+      "formCues": [
+        "The stretch comes from the pelvic tuck, not leaning forward"
+      ],
+      "commonMistakes": [
+        "Arching the lower back and feeling nothing"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "mobility",
+      "loggingMode": "duration",
+      "tags": [
+        "unilateral",
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_hamstring_stretch",
@@ -2169,9 +3914,14 @@
       "description": "Lengthens the hamstrings after lower-body work; a cool-down staple.",
       "category": "flexibility",
       "movementPattern": "isolation",
-      "muscleGroups": ["hamstrings", "calves"],
+      "muscleGroups": [
+        "hamstrings",
+        "calves"
+      ],
       "primaryMuscle": "hamstrings",
-      "equipment": ["bodyweight"],
+      "equipment": [
+        "bodyweight"
+      ],
       "difficulty": "beginner",
       "met": 2.3,
       "isUnilateral": true,
@@ -2181,13 +3931,26 @@
         "Hinge forward from the hips over the straight leg.",
         "Hold, breathing steadily, then switch sides."
       ],
-      "formCues": ["Lead with the chest, not the head"],
-      "commonMistakes": ["Rounding the back to reach further"],
+      "formCues": [
+        "Lead with the chest, not the head"
+      ],
+      "commonMistakes": [
+        "Rounding the back to reach further"
+      ],
       "regressions": [],
       "progressions": [],
       "safetyNotes": [],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "mobility",
+      "loggingMode": "duration",
+      "tags": [
+        "unilateral",
+        "isolation",
+        "no_equipment",
+        "beginner_friendly",
+        "low_impact"
+      ]
     },
     {
       "id": "ex_foam_roll_quads",
@@ -2195,9 +3958,14 @@
       "description": "Self-massage of the quads after training; helps perceived recovery and tissue tolerance.",
       "category": "cooldown",
       "movementPattern": "isolation",
-      "muscleGroups": ["quads", "hip_flexors"],
+      "muscleGroups": [
+        "quads",
+        "hip_flexors"
+      ],
       "primaryMuscle": "quads",
-      "equipment": ["foam_roller"],
+      "equipment": [
+        "foam_roller"
+      ],
       "difficulty": "beginner",
       "met": 2.3,
       "isUnilateral": false,
@@ -2207,13 +3975,26 @@
         "Roll slowly from above the knee to the hip.",
         "Pause and breathe on tender spots."
       ],
-      "formCues": ["Move slowly; speed defeats the purpose"],
-      "commonMistakes": ["Rolling directly over the kneecap"],
+      "formCues": [
+        "Move slowly; speed defeats the purpose"
+      ],
+      "commonMistakes": [
+        "Rolling directly over the kneecap"
+      ],
       "regressions": [],
       "progressions": [],
-      "safetyNotes": ["Avoid rolling directly over joints or bone"],
+      "safetyNotes": [
+        "Avoid rolling directly over joints or bone"
+      ],
       "imageUrl": null,
-      "videoUrl": null
+      "videoUrl": null,
+      "discipline": "mobility",
+      "loggingMode": "duration",
+      "tags": [
+        "isolation",
+        "beginner_friendly",
+        "low_impact"
+      ]
     }
   ]
 }

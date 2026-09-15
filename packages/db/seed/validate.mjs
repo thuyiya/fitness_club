@@ -79,6 +79,11 @@ const goalMetrics = load("reference/goal-metrics.json");
 const measurementSites = load("reference/measurement-sites.json");
 const difficulties = load("reference/difficulty-levels.json");
 const injuries = load("reference/injury-limitations.json");
+const disciplines = load("reference/disciplines.json");
+const loggingModes = load("reference/logging-modes.json");
+const exerciseTags = load("reference/exercise-tags.json");
+const sportProfileDoc = read("reference/sport-nutrition-profiles.json");
+const sportProfiles = load("reference/sport-nutrition-profiles.json");
 const hydration = read("reference/hydration.json");
 const units = read("reference/units.json");
 
@@ -90,6 +95,9 @@ const foodClassIds = new Set((dietaryDoc.foodClasses ?? []).map((c) => c.id));
 const dietaryIds = idsOf(dietaryTags);
 const allergenIds = idsOf(allergens);
 const difficultyIds = idsOf(difficulties);
+const disciplineIds = idsOf(disciplines);
+const loggingModeIds = idsOf(loggingModes);
+const exerciseTagIds = idsOf(exerciseTags);
 
 // `mealType` is a Postgres enum, so only the four enumBacked values may be
 // stored in the column; the tags are free-form labels on top of it.
@@ -131,10 +139,12 @@ for (const metric of goalMetrics) {
 }
 
 // ------------------------------------------------------------------ catalog
+const ingredientDoc = read("catalog/ingredients.json");
 const ingredients = load("catalog/ingredients.json");
+const foodGroups = new Set(ingredientDoc.groups ?? []);
 const meals = load("catalog/meals.json");
 const exercises = load("catalog/exercises.json");
-const sports = load("catalog/sports.json");
+const activities = load("catalog/activities.json");
 const surveys = load("catalog/survey-templates.json");
 
 refs("catalog/ingredients.json", ingredients, "allergens", allergenIds, "allergens");
@@ -144,14 +154,24 @@ refs("catalog/ingredients.json", ingredients, "foodClasses", foodClassIds, "food
 const tagExcludes = new Map(dietaryTags.map((t) => [t.id, t.excludes ?? []]));
 
 for (const food of ingredients) {
+  const n = food.per100g;
+  if (!n) { err("catalog/ingredients.json", `${food.id} has no per100g block`); continue; }
+  if (!foodGroups.has(food.group)) err("catalog/ingredients.json", `${food.id}.group "${food.group}" is not a declared group`);
+  if (!food.defaultServing?.grams) err("catalog/ingredients.json", `${food.id} has no defaultServing.grams`);
   // Macros must be energetically plausible under the 4/4/9 factors.
-  const derived = food.proteinG * 4 + food.carbsG * 4 + food.fatG * 9;
-  if (food.calories > 5 && Math.abs(derived - food.calories) > Math.max(20, food.calories * 0.15)) {
-    warn("catalog/ingredients.json", `${food.id}: ${food.calories} kcal stated but macros imply ${Math.round(derived)}`);
+  const derived = n.proteinG * 4 + n.carbsG * 4 + n.fatG * 9;
+  if (n.energyKcal > 5 && Math.abs(derived - n.energyKcal) > Math.max(20, n.energyKcal * 0.15)) {
+    warn("catalog/ingredients.json", `${food.id}: ${n.energyKcal} kcal stated but macros imply ${Math.round(derived)}`);
   }
-  if (food.saturatedFatG > food.fatG + 0.05) err("catalog/ingredients.json", `${food.id}: saturated fat exceeds total fat`);
-  if (food.sugarG != null && food.sugarG > food.carbsG + 0.05) err("catalog/ingredients.json", `${food.id}: sugar exceeds total carbs`);
-  if (food.fiberG != null && food.fiberG > food.carbsG + 0.05) err("catalog/ingredients.json", `${food.id}: fibre exceeds total carbs`);
+  if (n.saturatedFatG > n.fatG + 0.05) err("catalog/ingredients.json", `${food.id}: saturated fat exceeds total fat`);
+  if (n.sugarG != null && n.sugarG > n.carbsG + 0.05) err("catalog/ingredients.json", `${food.id}: sugar exceeds total carbs`);
+  if (n.fiberG != null && n.fiberG > n.carbsG + 0.05) err("catalog/ingredients.json", `${food.id}: fibre exceeds total carbs`);
+  // An allergen declaration and a "free of" tag must never both be present.
+  for (const [allergen, tag] of [["milk", "dairy_free"], ["eggs", "egg_free"], ["tree_nuts", "nut_free"], ["peanuts", "nut_free"], ["wheat", "gluten_free"], ["cereals_gluten", "gluten_free"]]) {
+    if (food.allergens?.includes(allergen) && food.dietaryTags?.includes(tag)) {
+      err("catalog/ingredients.json", `${food.id} declares the "${allergen}" allergen but claims "${tag}"`);
+    }
+  }
   // A food may not claim a tag whose excluded classes it contains.
   for (const tag of food.dietaryTags ?? []) {
     const clash = (tagExcludes.get(tag) ?? []).filter((c) => (food.foodClasses ?? []).includes(c));
@@ -181,10 +201,10 @@ for (const meal of meals) {
       continue;
     }
     const factor = line.quantity / 100; // every catalog food is per 100 g / 100 ml
-    sum.calories += food.calories * factor;
-    sum.proteinG += food.proteinG * factor;
-    sum.carbsG += food.carbsG * factor;
-    sum.fatG += food.fatG * factor;
+    sum.calories += food.per100g.energyKcal * factor;
+    sum.proteinG += food.per100g.proteinG * factor;
+    sum.carbsG += food.per100g.carbsG * factor;
+    sum.fatG += food.per100g.fatG * factor;
     for (const c of food.foodClasses ?? []) classes.add(c);
   }
   // The dietary claim on the meal must survive its actual ingredients.
@@ -210,6 +230,9 @@ refs("catalog/exercises.json", exercises, "equipment", equipmentIds, "equipment"
 refs("catalog/exercises.json", exercises, "category", categoryIds, "exercise categories");
 refs("catalog/exercises.json", exercises, "movementPattern", patternIds, "movement patterns");
 refs("catalog/exercises.json", exercises, "difficulty", difficultyIds, "difficulty levels");
+refs("catalog/exercises.json", exercises, "discipline", disciplineIds, "disciplines");
+refs("catalog/exercises.json", exercises, "loggingMode", loggingModeIds, "logging modes");
+refs("catalog/exercises.json", exercises, "tags", exerciseTagIds, "exercise tags");
 refs("catalog/exercises.json", exercises, "regressions", exerciseIds, "exercises.json");
 refs("catalog/exercises.json", exercises, "progressions", exerciseIds, "exercises.json");
 
@@ -233,24 +256,89 @@ for (const ex of exercises) {
   if (ex.id === ex.regressions?.[0] || (ex.progressions ?? []).includes(ex.id)) {
     err("catalog/exercises.json", `${ex.id} links to itself`);
   }
+  // The two facets have to agree: a held movement is logged in seconds.
+  if (ex.loggingMode === "hold" && !(ex.tags ?? []).includes("isometric")) {
+    err("catalog/exercises.json", `${ex.id}: logged as a hold but not tagged isometric`);
+  }
+  if ((ex.tags ?? []).includes("no_equipment") && (ex.equipment ?? []).some((k) => k !== "bodyweight")) {
+    err("catalog/exercises.json", `${ex.id}: tagged no_equipment but requires ${ex.equipment.join(", ")}`);
+  }
+  if (ex.discipline === "gym" && (ex.tags ?? []).includes("no_equipment")) {
+    err("catalog/exercises.json", `${ex.id}: a gym exercise cannot be tagged no_equipment`);
+  }
   if (ex.met != null && (ex.met < 1 || ex.met > 23)) {
     err("catalog/exercises.json", `${ex.id}: MET ${ex.met} outside the Compendium range 1-23`);
   }
 }
 
-// Sports carry the MET used by kcal = MET * 3.5 * kg / 200 * minutes, and the
-// stated intensity band has to agree with that MET or the two UIs disagree.
+
+// An exercise whose NAME names a piece of equipment must list it. This catches
+// the class of bug where "Ab wheel rollout" claims to need only bodyweight,
+// which silently corrupts the "what can I train with only this kit?" filter.
+const NAME_IMPLIES_KIT = [
+  [/\bab wheel\b/i, "ab_wheel"],
+  [/\bbarbell\b/i, "barbell"],
+  [/\bdumbbell\b/i, "dumbbell"],
+  [/\bkettlebell\b/i, "kettlebell"],
+  [/\bcable\b/i, "cable"],
+  [/\bsmith machine\b/i, "smith_machine"],
+  [/\bring\b/i, "gymnastic_rings"],
+  [/\btrx\b/i, "trx"],
+  [/\bfoam roll/i, "foam_roller"],
+  [/\bbattle rope/i, "battle_ropes"],
+  [/\bjump rope\b/i, "jump_rope"],
+  [/\btreadmill\b/i, "treadmill"],
+  [/\bbox jump\b/i, "plyo_box"],
+  [/\bnordic\b/i, "ankle_anchor"],
+  [/\belliptical\b/i, "elliptical"],
+];
+for (const ex of exercises) {
+  for (const [pattern, kit] of NAME_IMPLIES_KIT) {
+    if (pattern.test(ex.name) && !(ex.equipment ?? []).includes(kit)) {
+      err("catalog/exercises.json", `${ex.id}: "${ex.name}" implies ${kit} but equipment is ${JSON.stringify(ex.equipment)}`);
+    }
+  }
+}
+
+// Activities carry the MET used by kcal = MET * 3.5 * kg / 200 * minutes, and
+// the stated intensity band has to agree with that MET or the two UIs disagree.
 // Standard ACSM bands: light below 3 METs, moderate 3 to 6 inclusive, vigorous above 6.
 const BANDS = { light: [1, 3], moderate: [3, 6.0001], vigorous: [6.0001, 23.0001] };
-for (const sport of sports) {
-  if (typeof sport.met !== "number") { err("catalog/sports.json", `${sport.id} has no MET value`); continue; }
-  if (sport.met < 1 || sport.met > 23) err("catalog/sports.json", `${sport.id}: MET ${sport.met} outside 1-23`);
-  const band = BANDS[sport.intensity];
-  if (!band) err("catalog/sports.json", `${sport.id}: unknown intensity "${sport.intensity}"`);
-  else if (sport.met < band[0] || sport.met >= band[1]) {
-    err("catalog/sports.json", `${sport.id}: MET ${sport.met} does not sit in the "${sport.intensity}" band ${band[0]}-${band[1]}`);
+const ACTIVITY_KINDS = new Set(["sport", "training_session", "daily_living"]);
+for (const a of activities) {
+  if (typeof a.met !== "number") { err("catalog/activities.json", `${a.id} has no MET value`); continue; }
+  if (a.met < 1 || a.met > 23) err("catalog/activities.json", `${a.id}: MET ${a.met} outside 1-23`);
+  const band = BANDS[a.intensity];
+  if (!band) err("catalog/activities.json", `${a.id}: unknown intensity "${a.intensity}"`);
+  else if (a.met < band[0] || a.met >= band[1]) {
+    err("catalog/activities.json", `${a.id}: MET ${a.met} does not sit in the "${a.intensity}" band`);
   }
-  if (!sport.group) err("catalog/sports.json", `${sport.id} has no group`);
+  if (!a.group) err("catalog/activities.json", `${a.id} has no group`);
+  if (!ACTIVITY_KINDS.has(a.kind)) err("catalog/activities.json", `${a.id}: unknown kind "${a.kind}"`);
+  // An activity is logged as a bout, so it must never carry set-based fields.
+  for (const f of ["sets", "reps", "movementPattern", "discipline"]) {
+    if (a[f] !== undefined) err("catalog/activities.json", `${a.id} carries "${f}" --- activities are logged by duration, not sets`);
+  }
+}
+
+// Sport nutrition profiles: a member's sport of focus drives macro targets.
+const activityIds = idsOf(activities);
+const profileTypes = new Set((sportProfileDoc.types ?? []).map((t) => t.id));
+for (const p of sportProfiles) {
+  if (!profileTypes.has(p.type)) err("reference/sport-nutrition-profiles.json", `${p.id}: unknown type "${p.type}"`);
+  for (const ref of p.activityIds ?? []) {
+    if (!activityIds.has(ref)) err("reference/sport-nutrition-profiles.json", `${p.id}.activityIds -> "${ref}" is not an activity`);
+  }
+  const c = p.carbsGPerKg ?? {};
+  const pr = p.proteinGPerKg ?? {};
+  if (!(c.lose <= c.maintain && c.maintain <= c.gain)) err("reference/sport-nutrition-profiles.json", `${p.id}: carb targets are not ordered lose <= maintain <= gain`);
+  // ACSM/ISSN ranges: carbohydrate 3-12 g/kg, protein 1.2-2.2 g/kg.
+  for (const [goal, val] of Object.entries(c)) {
+    if (val < 3 || val > 12) err("reference/sport-nutrition-profiles.json", `${p.id}.carbsGPerKg.${goal} = ${val} outside the 3-12 g/kg range`);
+  }
+  for (const [goal, val] of Object.entries(pr)) {
+    if (val < 1.2 || val > 2.2) err("reference/sport-nutrition-profiles.json", `${p.id}.proteinGPerKg.${goal} = ${val} outside the 1.2-2.2 g/kg range`);
+  }
 }
 
 // Survey questions: contiguous positions and the right options shape per type.
@@ -296,10 +384,15 @@ const counts = {
   "measurement sites": measurementSites.length,
   "difficulty levels": difficulties.length,
   injuries: injuries.length,
+  "food groups": foodGroups.size,
   ingredients: ingredients.length,
   meals: meals.length,
   exercises: exercises.length,
-  sports: sports.length,
+  activities: activities.length,
+  disciplines: disciplines.length,
+  "logging modes": loggingModes.length,
+  "exercise tags": exerciseTags.length,
+  "sport nutrition profiles": sportProfiles.length,
   "survey templates": surveys.length,
   "survey questions": surveys.reduce((n, s) => n + (s.questions?.length ?? 0), 0),
 };

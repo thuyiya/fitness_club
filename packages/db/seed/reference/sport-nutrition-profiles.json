@@ -1,0 +1,36 @@
+{
+  "$comment": "A member's SPORT OF FOCUS -- the discipline they train for -- which sets their carbohydrate and protein targets. This is NOT the activity they logged today: a cricketer who cycled this morning still eats to a cricket profile. Values are grams per kg of bodyweight per day, varying by the member's goal, and they REPLACE the generic percentage split from goal-types.json when a member has a sport of focus.",
+  "basis": "Adapted from the ZoneIn sports-nutrition table (/Users/tj/Documents/my work/zonein/zonein_api/sports_nutrition.csv), cross-checked against the ACSM/ISSN joint position stand: carbohydrate 3-5 g/kg for light training, 5-7 for about an hour a day, 6-10 for endurance work of one to three hours, 8-12 only for extreme loads beyond four hours; protein 1.2-2.0 g/kg, and up to 2.2 while in a deficit to protect lean mass.",
+  "corrections": [
+    "The source listed cycling at 20 g/kg carbohydrate for weight gain. That is above the 8-12 g/kg ceiling for even extreme endurance loads and is carried here as 12.",
+    "The source's heart-rate columns are dropped. They were internally inconsistent -- golf at 99 bpm 'intense', football at 554 bpm 'moderate' -- and heart-rate zones should be derived from the member's own max, not from a per-sport constant."
+  ],
+  "types": [
+    { "id": "endurance", "label": "Endurance", "description": "Sustained output over long durations. Carbohydrate-led: glycogen availability limits performance." },
+    { "id": "power", "label": "Power", "description": "Short maximal efforts with recovery between them. Protein-led, with carbohydrate to support training volume." }
+  ],
+  "items": [
+    { "id": "sport_profile_baseball", "label": "Baseball", "type": "endurance", "carbsGPerKg": { "lose": 3, "maintain": 4, "gain": 5 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": [] },
+    { "id": "sport_profile_basketball", "label": "Basketball", "type": "endurance", "carbsGPerKg": { "lose": 5, "maintain": 6, "gain": 7 }, "proteinGPerKg": { "lose": 1.4, "maintain": 1.55, "gain": 1.7 }, "activityIds": ["sport_basketball"] },
+    { "id": "sport_profile_bodybuilding", "label": "Bodybuilding", "type": "power", "carbsGPerKg": { "lose": 5, "maintain": 6, "gain": 7 }, "proteinGPerKg": { "lose": 1.4, "maintain": 1.55, "gain": 1.7 }, "activityIds": ["sport_strength_training_vigorous"] },
+    { "id": "sport_profile_cycling", "label": "Cycling", "type": "endurance", "carbsGPerKg": { "lose": 7, "maintain": 10, "gain": 12 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_cycling_moderate", "sport_cycling_vigorous"] },
+    { "id": "sport_profile_cricket", "label": "Cricket", "type": "endurance", "carbsGPerKg": { "lose": 4, "maintain": 5, "gain": 6 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_cricket"] },
+    { "id": "sport_profile_field_events", "label": "Field events", "type": "power", "carbsGPerKg": { "lose": 5, "maintain": 6, "gain": 7 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": [] },
+    { "id": "sport_profile_figure_skating", "label": "Figure skating", "type": "endurance", "carbsGPerKg": { "lose": 3, "maintain": 4.5, "gain": 6 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_ice_skating"] },
+    { "id": "sport_profile_american_football", "label": "American football", "type": "power", "carbsGPerKg": { "lose": 7, "maintain": 9.5, "gain": 12 }, "proteinGPerKg": { "lose": 1.4, "maintain": 1.55, "gain": 1.7 }, "activityIds": [] },
+    { "id": "sport_profile_football", "label": "Football (soccer)", "type": "endurance", "carbsGPerKg": { "lose": 7, "maintain": 9.5, "gain": 12 }, "proteinGPerKg": { "lose": 1.4, "maintain": 1.55, "gain": 1.7 }, "activityIds": ["sport_football", "sport_football_competitive"] },
+    { "id": "sport_profile_golf", "label": "Golf", "type": "endurance", "carbsGPerKg": { "lose": 3, "maintain": 4, "gain": 5 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_golf_walking"] },
+    { "id": "sport_profile_gymnastics", "label": "Gymnastics", "type": "power", "carbsGPerKg": { "lose": 3, "maintain": 4, "gain": 5 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": [] },
+    { "id": "sport_profile_ice_hockey", "label": "Ice hockey", "type": "endurance", "carbsGPerKg": { "lose": 8, "maintain": 9, "gain": 10 }, "proteinGPerKg": { "lose": 1.4, "maintain": 1.55, "gain": 1.7 }, "activityIds": ["sport_hockey"] },
+    { "id": "sport_profile_martial_arts", "label": "Martial arts", "type": "power", "carbsGPerKg": { "lose": 5, "maintain": 6, "gain": 7 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_martial_arts", "sport_kickboxing"] },
+    { "id": "sport_profile_rowing", "label": "Rowing", "type": "endurance", "carbsGPerKg": { "lose": 5, "maintain": 6, "gain": 7 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_rowing_water"] },
+    { "id": "sport_profile_rugby", "label": "Rugby", "type": "power", "carbsGPerKg": { "lose": 6, "maintain": 8, "gain": 10 }, "proteinGPerKg": { "lose": 1.4, "maintain": 1.55, "gain": 1.7 }, "activityIds": ["sport_rugby"] },
+    { "id": "sport_profile_running_distance", "label": "Distance running", "type": "endurance", "carbsGPerKg": { "lose": 6, "maintain": 8, "gain": 10 }, "proteinGPerKg": { "lose": 1.4, "maintain": 1.5, "gain": 1.7 }, "activityIds": ["sport_running_moderate", "sport_running_fast", "sport_trail_running"] },
+    { "id": "sport_profile_sprinting", "label": "Sprinting", "type": "power", "carbsGPerKg": { "lose": 5, "maintain": 6, "gain": 7 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": [] },
+    { "id": "sport_profile_swimming", "label": "Swimming", "type": "endurance", "carbsGPerKg": { "lose": 7, "maintain": 9.5, "gain": 12 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_swimming_laps", "sport_swimming_vigorous"] },
+    { "id": "sport_profile_tennis", "label": "Tennis", "type": "endurance", "carbsGPerKg": { "lose": 7, "maintain": 9.5, "gain": 12 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_tennis_singles", "sport_tennis_doubles"] },
+    { "id": "sport_profile_squash", "label": "Squash", "type": "endurance", "carbsGPerKg": { "lose": 7, "maintain": 9.5, "gain": 12 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.7 }, "activityIds": ["sport_squash"] },
+    { "id": "sport_profile_wrestling", "label": "Wrestling", "type": "power", "carbsGPerKg": { "lose": 5, "maintain": 6, "gain": 7 }, "proteinGPerKg": { "lose": 1.2, "maintain": 1.45, "gain": 1.8 }, "activityIds": ["sport_wrestling"] },
+    { "id": "sport_profile_general_fitness", "label": "General fitness (no sport of focus)", "type": "power", "carbsGPerKg": { "lose": 3, "maintain": 4, "gain": 5 }, "proteinGPerKg": { "lose": 1.6, "maintain": 1.4, "gain": 1.6 }, "activityIds": ["sport_strength_training_general"] }
+  ]
+}

@@ -60,3 +60,66 @@ export const paymentStatus = pgEnum("payment_status", ["pending", "paid", "refun
 
 /** HealthKit and Google Fit write the same shape; keep the origin so we can de-dupe. */
 export const healthSource = pgEnum("health_source", ["apple_health", "google_fit", "manual"]);
+
+/**
+ * Exercise taxonomy. These four axes are deliberately independent --- a coach
+ * filters on several at once ("calisthenics pull work for someone with a bar").
+ * See packages/db/seed/README.md for why sports are NOT a discipline here.
+ */
+export const discipline = pgEnum("discipline", ["calisthenics", "gym", "cardio", "mobility"]);
+export const exerciseCategory = pgEnum("exercise_category", [
+  "strength",
+  "cardio",
+  "hiit",
+  "mobility",
+  "flexibility",
+  "plyometric",
+  "balance",
+  "core",
+  "warmup",
+  "cooldown",
+]);
+export const movementPattern = pgEnum("movement_pattern", [
+  "horizontal_push",
+  "vertical_push",
+  "horizontal_pull",
+  "vertical_pull",
+  "squat",
+  "hinge",
+  "lunge",
+  "carry",
+  "rotation",
+  "isolation",
+  "locomotion",
+]);
+/**
+ * Decides which columns a set row fills. Without this an app asks for "reps"
+ * on a plank and cannot record a farmer's walk or a front lever at all.
+ */
+export const loggingMode = pgEnum("logging_mode", ["reps", "hold", "distance", "duration", "rounds"]);
+/** Four levels, not three: calisthenics statics sit far beyond "advanced". */
+export const difficultyLevel = pgEnum("difficulty_level", ["beginner", "intermediate", "advanced", "elite"]);
+
+/** Why an activity row exists, which decides where it may appear in the UI. */
+export const activityKind = pgEnum("activity_kind", ["sport", "training_session", "daily_living"]);
+export const activityIntensity = pgEnum("activity_intensity", ["light", "moderate", "vigorous"]);
+/** Carbohydrate-led versus protein-led macro prescription. */
+export const sportType = pgEnum("sport_type", ["endurance", "power"]);
+
+/** Required by Mifflin-St Jeor; there is no way to compute BMR without it. */
+export const biologicalSex = pgEnum("biological_sex", ["male", "female"]);
+export const activityLevel = pgEnum("activity_level", [
+  "sedentary",
+  "lightly_active",
+  "moderately_active",
+  "very_active",
+  "extra_active",
+]);
+export const goalType = pgEnum("goal_type", [
+  "fat_loss",
+  "maintain",
+  "muscle_gain",
+  "recomposition",
+  "endurance",
+  "general_health",
+]);

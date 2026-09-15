@@ -1,7 +1,16 @@
 {
-  "generated": 242,
+  "generated": 349,
   "total": 451,
-  "remaining": 209,
-  "firstPending": "knee-plank",
-  "mode": "built-in image_gen"
+  "remaining": 102,
+  "firstPending": "back-to-wall-handstand",
+  "mode": "built-in image_gen",
+  "reason": "image_gen usage_limit_reached HTTP 429",
+  "reportedResetAt": "2026-09-15T15:28:56+05:30",
+  "invalidPNGHeaders": [],
+  "sheetDimensions": [
+    [
+      1536,
+      1024
+    ]
+  ]
 }

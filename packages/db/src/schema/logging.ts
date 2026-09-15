@@ -11,10 +11,11 @@ import {
   uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
-import { healthSource, mealType } from "./enums";
-import { users } from "./identity";
-import { foods, meals } from "./nutrition";
-import { exercises, planAssignments, planDays } from "./training";
+import { activityIntensity, healthSource, mealType } from "./enums.js";
+import { activities } from "./reference.js";
+import { users } from "./identity.js";
+import { foods, meals } from "./nutrition.js";
+import { exercises, planAssignments, planDays } from "./training.js";
 
 /**
  * Every table here is append-oriented and indexed on (member_id, date) --- that
@@ -33,6 +34,13 @@ export const workoutLogs = pgTable(
     planDayId: uuid("plan_day_id").references(() => planDays.id, { onDelete: "set null" }),
     date: date("date").notNull(),
     title: text("title"),
+    /**
+     * Set when the member quick-logged a bout ("played squash for an hour")
+     * rather than completing a planned session. Mutually exclusive with
+     * planDayId in practice; the calorie estimate comes from the activity MET.
+     */
+    activityId: uuid("activity_id").references(() => activities.id, { onDelete: "set null" }),
+    intensity: activityIntensity("intensity"),
     durationMinutes: integer("duration_minutes"),
     caloriesBurned: integer("calories_burned"),
     notes: text("notes"),
@@ -54,8 +62,17 @@ export const workoutLogSets = pgTable(
       .notNull()
       .references(() => exercises.id, { onDelete: "restrict" }),
     setNumber: integer("set_number").notNull(),
+    /**
+     * Which of these is populated follows exercises.loggingMode. Before these
+     * columns existed a plank, a farmer's walk and a front lever could all be
+     * PRESCRIBED but none of them could be LOGGED.
+     */
     reps: integer("reps"),
     weightKg: numeric("weight_kg", { precision: 6, scale: 2 }),
+    durationSeconds: integer("duration_seconds"),
+    distanceMetres: numeric("distance_metres", { precision: 8, scale: 1 }),
+    rounds: integer("rounds"),
+    rpe: numeric("rpe", { precision: 3, scale: 1 }),
     completed: boolean("completed").notNull().default(true),
   },
   (t) => [index("workout_log_sets_log_idx").on(t.workoutLogId)],
