@@ -1,0 +1,26 @@
+{
+  "order": [
+    "calisthenics",
+    "sports",
+    "gym"
+  ],
+  "calisthenics": {
+    "saved": 451,
+    "total": 451,
+    "path": "exercise-db/sprites"
+  },
+  "sports": {
+    "saved": 47,
+    "total": 55,
+    "path": "sport-db/sprites",
+    "firstPending": "sport_stair_climbing"
+  },
+  "gym": {
+    "saved": 0,
+    "total": 38,
+    "path": "exercise-db/gym-sprites",
+    "firstPending": "ex_goblet_squat"
+  },
+  "reason": "image_gen usage_limit_reached HTTP 429",
+  "reportedResetAt": "2026-09-15T23:05:52+05:30"
+}

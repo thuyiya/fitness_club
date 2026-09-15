@@ -17,8 +17,8 @@
       "category": "adaptive",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_wheelchair_push.png",
       "variants": [
         "female",
         "male"
@@ -30,8 +30,8 @@
       "category": "adaptive",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_handcycling.png",
       "variants": [
         "female",
         "male"
@@ -43,8 +43,8 @@
       "category": "combat",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_wrestling.png",
       "variants": [
         "female",
         "male"
@@ -56,8 +56,8 @@
       "category": "combat",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_boxing_bag.png",
       "variants": [
         "female",
         "male"
@@ -69,8 +69,8 @@
       "category": "combat",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_boxing_sparring.png",
       "variants": [
         "female",
         "male"
@@ -82,8 +82,8 @@
       "category": "combat",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_kickboxing.png",
       "variants": [
         "female",
         "male"
@@ -95,8 +95,8 @@
       "category": "combat",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_martial_arts.png",
       "variants": [
         "female",
         "male"
@@ -108,8 +108,8 @@
       "category": "cycling",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_cycling_leisure.png",
       "variants": [
         "female",
         "male"
@@ -121,8 +121,8 @@
       "category": "cycling",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_cycling_moderate.png",
       "variants": [
         "female",
         "male"
@@ -134,8 +134,8 @@
       "category": "cycling",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_mountain_biking.png",
       "variants": [
         "female",
         "male"
@@ -147,8 +147,8 @@
       "category": "cycling",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_spinning.png",
       "variants": [
         "female",
         "male"
@@ -160,8 +160,8 @@
       "category": "cycling",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_cycling_vigorous.png",
       "variants": [
         "female",
         "male"
@@ -173,8 +173,8 @@
       "category": "dance",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_dance_general.png",
       "variants": [
         "female",
         "male"
@@ -186,8 +186,8 @@
       "category": "dance",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_dance_aerobic.png",
       "variants": [
         "female",
         "male"
@@ -199,8 +199,8 @@
       "category": "mindbody",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_stretching.png",
       "variants": [
         "female",
         "male"
@@ -212,8 +212,8 @@
       "category": "mindbody",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_yoga_hatha.png",
       "variants": [
         "female",
         "male"
@@ -225,8 +225,8 @@
       "category": "mindbody",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_pilates.png",
       "variants": [
         "female",
         "male"
@@ -238,8 +238,8 @@
       "category": "mindbody",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_tai_chi.png",
       "variants": [
         "female",
         "male"
@@ -251,8 +251,8 @@
       "category": "mindbody",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_yoga_power.png",
       "variants": [
         "female",
         "male"
@@ -264,8 +264,8 @@
       "category": "outdoor",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_golf_walking.png",
       "variants": [
         "female",
         "male"
@@ -277,8 +277,8 @@
       "category": "outdoor",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_skateboarding.png",
       "variants": [
         "female",
         "male"
@@ -290,8 +290,8 @@
       "category": "outdoor",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_horse_riding.png",
       "variants": [
         "female",
         "male"
@@ -303,8 +303,8 @@
       "category": "outdoor",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_bouldering.png",
       "variants": [
         "female",
         "male"
@@ -316,8 +316,8 @@
       "category": "outdoor",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_climbing_indoor.png",
       "variants": [
         "female",
         "male"
@@ -329,8 +329,8 @@
       "category": "racquet",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_table_tennis.png",
       "variants": [
         "female",
         "male"
@@ -342,8 +342,8 @@
       "category": "racquet",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_badminton.png",
       "variants": [
         "female",
         "male"
@@ -355,8 +355,8 @@
       "category": "racquet",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_pickleball.png",
       "variants": [
         "female",
         "male"
@@ -368,8 +368,8 @@
       "category": "racquet",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_tennis_doubles.png",
       "variants": [
         "female",
         "male"
@@ -381,8 +381,8 @@
       "category": "racquet",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_squash.png",
       "variants": [
         "female",
         "male"
@@ -394,8 +394,8 @@
       "category": "racquet",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_tennis_singles.png",
       "variants": [
         "female",
         "male"
@@ -407,8 +407,8 @@
       "category": "running",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_running_jog.png",
       "variants": [
         "female",
         "male"
@@ -420,8 +420,8 @@
       "category": "running",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_trail_running.png",
       "variants": [
         "female",
         "male"
@@ -433,8 +433,8 @@
       "category": "running",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_running_moderate.png",
       "variants": [
         "female",
         "male"
@@ -446,8 +446,8 @@
       "category": "running",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_running_fast.png",
       "variants": [
         "female",
         "male"
@@ -459,8 +459,8 @@
       "category": "snow",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_snowboarding.png",
       "variants": [
         "female",
         "male"
@@ -472,8 +472,8 @@
       "category": "snow",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_skiing_downhill.png",
       "variants": [
         "female",
         "male"
@@ -485,8 +485,8 @@
       "category": "snow",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_ice_skating.png",
       "variants": [
         "female",
         "male"
@@ -498,8 +498,8 @@
       "category": "team",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_volleyball.png",
       "variants": [
         "female",
         "male"
@@ -511,8 +511,8 @@
       "category": "team",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_cricket.png",
       "variants": [
         "female",
         "male"
@@ -524,8 +524,8 @@
       "category": "team",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_football.png",
       "variants": [
         "female",
         "male"
@@ -537,8 +537,8 @@
       "category": "team",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_hockey.png",
       "variants": [
         "female",
         "male"
@@ -550,8 +550,8 @@
       "category": "team",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_basketball.png",
       "variants": [
         "female",
         "male"
@@ -563,8 +563,8 @@
       "category": "team",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_rugby.png",
       "variants": [
         "female",
         "male"
@@ -576,8 +576,8 @@
       "category": "team",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_football_competitive.png",
       "variants": [
         "female",
         "male"
@@ -589,8 +589,8 @@
       "category": "walking",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_walking_slow.png",
       "variants": [
         "female",
         "male"
@@ -602,8 +602,8 @@
       "category": "walking",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_walking_brisk.png",
       "variants": [
         "female",
         "male"
@@ -615,8 +615,8 @@
       "category": "walking",
       "instructions": [],
       "equipment": [],
-      "status": "pending",
-      "sheet": null,
+      "status": "generated-unreviewed",
+      "sheet": "sport_hiking.png",
       "variants": [
         "female",
         "male"

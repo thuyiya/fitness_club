@@ -2,7 +2,7 @@
 
 Source: `../calisthenics-exercises.md` (451 exercises).
 
-Generation resumed after the initial 201-sheet run reached its usage limit. `checkpoint.json` and `manifest.json` record current progress. Resume from pending manifest entries, preserving existing images.
+All **451 catalog entries have a saved image**. `checkpoint.json` and `manifest.json` record coverage; `validation.json` records file checks. Visual review remains separate from generation coverage.
 
 The selected style is the original v1: outlined, cel-shaded fitness characters with dark softly shaded backgrounds. Each named PNG is a single exercise sheet with an adult woman in the top row and an adult man in the bottom row, three poses per character. Purple female clothing and blue male clothing use the requested Wellness 2.0 brand. No alternate versions are being generated.
 

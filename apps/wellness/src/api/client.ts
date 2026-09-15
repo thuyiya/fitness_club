@@ -1,11 +1,41 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import Constants from "expo-constants";
+import { Platform } from "react-native";
+
 /**
- * On a simulator or the web `localhost` reaches the host machine. On a real
- * device it does not, so EXPO_PUBLIC_API_URL must point at the machine's LAN
- * address --- the single most common reason a first run appears to hang.
+ * Where the API lives, resolved per platform.
+ *
+ * `localhost` means something different on every target, and getting it wrong
+ * is the single most common reason a first run appears to hang:
+ *   - web and the iOS simulator share the host's loopback, so localhost works
+ *   - the ANDROID EMULATOR is its own virtual machine; localhost is the
+ *     emulator itself, and the host is reachable only at 10.0.2.2
+ *   - a physical device shares neither, and needs the host's LAN address
+ *
+ * Rather than making everyone set an env var, the LAN address is taken from
+ * the Expo dev server the app was loaded from --- if Metro could reach this
+ * device, so can the API on the same host.
  */
-export const API_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:3001";
+function resolveApiUrl(): string {
+  // An explicit override always wins; this is what production builds set.
+  if (process.env.EXPO_PUBLIC_API_URL) return process.env.EXPO_PUBLIC_API_URL;
+
+  const port = process.env.EXPO_PUBLIC_API_PORT ?? "3001";
+
+  if (Platform.OS === "web") return `http://localhost:${port}`;
+
+  // e.g. "192.168.1.42:8081" in dev, undefined in a production build.
+  const host = (Constants.expoConfig as { hostUri?: string } | null)?.hostUri?.split(":")[0];
+
+  if (host && host !== "localhost" && host !== "127.0.0.1") {
+    return `http://${host}:${port}`;
+  }
+  // Loopback dev server: fine for iOS, never for the Android emulator.
+  return Platform.OS === "android" ? `http://10.0.2.2:${port}` : `http://localhost:${port}`;
+}
+
+export const API_URL = resolveApiUrl();
 
 const ACCESS_KEY = "wellness.accessToken";
 const REFRESH_KEY = "wellness.refreshToken";

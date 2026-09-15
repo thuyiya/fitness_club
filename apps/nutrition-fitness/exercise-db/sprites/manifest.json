@@ -4263,705 +4263,705 @@
       "id": "single-leg-broad-jump",
       "name": "Single-leg broad jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "single-leg-broad-jump.png"
     },
     {
       "id": "pogo-jump",
       "name": "Pogo jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "pogo-jump.png"
     },
     {
       "id": "single-leg-pogo-jump",
       "name": "Single-leg pogo jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "single-leg-pogo-jump.png"
     },
     {
       "id": "line-hop",
       "name": "Line hop",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "line-hop.png"
     },
     {
       "id": "lateral-line-hop",
       "name": "Lateral line hop",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "lateral-line-hop.png"
     },
     {
       "id": "box-jump",
       "name": "Box jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "box-jump.png"
     },
     {
       "id": "depth-drop",
       "name": "Depth drop",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "depth-drop.png"
     },
     {
       "id": "depth-jump",
       "name": "Depth jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "depth-jump.png"
     },
     {
       "id": "drop-jump",
       "name": "Drop jump",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "drop-jump.png"
     },
     {
       "id": "jumping-step-up",
       "name": "Jumping step-up",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "jumping-step-up.png"
     },
     {
       "id": "kneeling-jump-to-squat",
       "name": "Kneeling jump to squat",
       "category": "17. Jumps and Explosive Lower-Body Exercises",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "kneeling-jump-to-squat.png"
     },
     {
       "id": "march-in-place",
       "name": "March in place",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "march-in-place.png"
     },
     {
       "id": "high-knees",
       "name": "High knees",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "high-knees.png"
     },
     {
       "id": "butt-kicks",
       "name": "Butt kicks",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "butt-kicks.png"
     },
     {
       "id": "jumping-jack",
       "name": "Jumping jack",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "jumping-jack.png"
     },
     {
       "id": "seal-jack",
       "name": "Seal jack",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "seal-jack.png"
     },
     {
       "id": "cross-jack",
       "name": "Cross jack",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "cross-jack.png"
     },
     {
       "id": "step-jack",
       "name": "Step jack",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "step-jack.png"
     },
     {
       "id": "mountain-climber",
       "name": "Mountain climber",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "mountain-climber.png"
     },
     {
       "id": "slow-mountain-climber",
       "name": "Slow mountain climber",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "slow-mountain-climber.png"
     },
     {
       "id": "spiderman-mountain-climber",
       "name": "Spiderman mountain climber",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "spiderman-mountain-climber.png"
     },
     {
       "id": "squat-thrust",
       "name": "Squat thrust",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "squat-thrust.png"
     },
     {
       "id": "step-back-burpee",
       "name": "Step-back burpee",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "step-back-burpee.png"
     },
     {
       "id": "burpee-without-push-up",
       "name": "Burpee without push-up",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "burpee-without-push-up.png"
     },
     {
       "id": "burpee-with-push-up",
       "name": "Burpee with push-up",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "burpee-with-push-up.png"
     },
     {
       "id": "chest-to-floor-burpee",
       "name": "Chest-to-floor burpee",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "chest-to-floor-burpee.png"
     },
     {
       "id": "broad-jump-burpee",
       "name": "Broad-jump burpee",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "broad-jump-burpee.png"
     },
     {
       "id": "single-leg-burpee",
       "name": "Single-leg burpee",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "single-leg-burpee.png"
     },
     {
       "id": "bear-crawl",
       "name": "Bear crawl",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "bear-crawl.png"
     },
     {
       "id": "reverse-bear-crawl",
       "name": "Reverse bear crawl",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "reverse-bear-crawl.png"
     },
     {
       "id": "lateral-bear-crawl",
       "name": "Lateral bear crawl",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "lateral-bear-crawl.png"
     },
     {
       "id": "leopard-crawl",
       "name": "Leopard crawl",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "leopard-crawl.png"
     },
     {
       "id": "crab-walk",
       "name": "Crab walk",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "crab-walk.png"
     },
     {
       "id": "crab-reach",
       "name": "Crab reach",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "crab-reach.png"
     },
     {
       "id": "spiderman-crawl",
       "name": "Spiderman crawl",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "spiderman-crawl.png"
     },
     {
       "id": "army-crawl",
       "name": "Army crawl",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "army-crawl.png"
     },
     {
       "id": "ape-travel",
       "name": "Ape travel",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "ape-travel.png"
     },
     {
       "id": "frog-jump",
       "name": "Frog jump",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "frog-jump.png"
     },
     {
       "id": "bunny-hop",
       "name": "Bunny hop",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "bunny-hop.png"
     },
     {
       "id": "lateral-shoot-through",
       "name": "Lateral shoot-through",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "lateral-shoot-through.png"
     },
     {
       "id": "sit-through",
       "name": "Sit-through",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "sit-through.png"
     },
     {
       "id": "kick-through",
       "name": "Kick-through",
       "category": "18. Full-Body Conditioning and Locomotion",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "kick-through.png"
     },
     {
       "id": "wrist-rock",
       "name": "Wrist rock",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "wrist-rock.png"
     },
     {
       "id": "quadruped-wrist-lean",
       "name": "Quadruped wrist lean",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "quadruped-wrist-lean.png"
     },
     {
       "id": "wrist-circles",
       "name": "Wrist circles",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "wrist-circles.png"
     },
     {
       "id": "shoulder-circles",
       "name": "Shoulder circles",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "shoulder-circles.png"
     },
     {
       "id": "wall-slide",
       "name": "Wall slide",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "wall-slide.png"
     },
     {
       "id": "scapular-wall-push-up",
       "name": "Scapular wall push-up",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "scapular-wall-push-up.png"
     },
     {
       "id": "prone-y-raise",
       "name": "Prone Y raise",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "prone-y-raise.png"
     },
     {
       "id": "prone-t-raise",
       "name": "Prone T raise",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "prone-t-raise.png"
     },
     {
       "id": "prone-w-raise",
       "name": "Prone W raise",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "prone-w-raise.png"
     },
     {
       "id": "reverse-snow-angel",
       "name": "Reverse snow angel",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "reverse-snow-angel.png"
     },
     {
       "id": "cat-cow",
       "name": "Cat\u2013cow",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "cat-cow.png"
     },
     {
       "id": "thoracic-rotation",
       "name": "Thoracic rotation",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "thoracic-rotation.png"
     },
     {
       "id": "deep-squat-hold",
       "name": "Deep squat hold",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "deep-squat-hold.png"
     },
     {
       "id": "ninety-ninety-hip-switch",
       "name": "Ninety-ninety hip switch",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "ninety-ninety-hip-switch.png"
     },
     {
       "id": "hip-circle",
       "name": "Hip circle",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "hip-circle.png"
     },
     {
       "id": "ankle-rock",
       "name": "Ankle rock",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "ankle-rock.png"
     },
     {
       "id": "world-s-greatest-stretch",
       "name": "World's greatest stretch",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "world-s-greatest-stretch.png"
     },
     {
       "id": "downward-dog-to-plank",
       "name": "Downward dog to plank",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "downward-dog-to-plank.png"
     },
     {
       "id": "prone-press-up",
       "name": "Prone press-up",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "prone-press-up.png"
     },
     {
       "id": "supine-bridge-gymnastic-bridge",
       "name": "Supine bridge (gymnastic bridge)",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "supine-bridge-gymnastic-bridge.png"
     },
     {
       "id": "bridge-weight-shift",
       "name": "Bridge weight shift",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "bridge-weight-shift.png"
     },
     {
       "id": "bridge-push-up",
       "name": "Bridge push-up",
       "category": "19. Bodyweight Mobility and Preparation",
-      "status": "pending",
+      "status": "generated-unreviewed",
       "variants": [
         "female",
         "male"
       ],
-      "sheet": null
+      "sheet": "bridge-push-up.png"
     }
   ],
   "style": "v1 cel-shaded illustration; dark shaded background",

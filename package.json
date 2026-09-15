@@ -18,11 +18,14 @@
     "infra:down": "docker compose -f infra/docker-compose.yml down",
     "infra:logs": "docker compose -f infra/docker-compose.yml logs -f",
     "dev:api": "pnpm --filter @wellness/api dev",
-    "dev:app": "pnpm --filter @wellness/mobile web",
+    "dev:app": "node scripts/dev.mjs web",
     "db:seed": "pnpm --filter @wellness/db seed",
     "db:embed": "pnpm --filter @wellness/db seed:embed",
     "demo:users": "node scripts/demo-users.mjs",
-    "smoke": "node apps/api/smoke.mjs && node apps/api/smoke-domain.mjs && node apps/api/smoke-comms.mjs"
+    "smoke": "node apps/api/smoke.mjs && node apps/api/smoke-domain.mjs && node apps/api/smoke-comms.mjs",
+    "dev:ios": "node scripts/dev.mjs ios",
+    "dev:android": "node scripts/dev.mjs android",
+    "dev:all": "node scripts/dev.mjs"
   },
   "devDependencies": {
     "playwright-core": "^1.63.0",
