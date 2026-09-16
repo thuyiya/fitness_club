@@ -193,5 +193,42 @@ check("coach home carries the member's day stats", row?.hydrationMl === 1250 && 
 const revenue = await call("GET", "/v1/coach/revenue", { token: coach.token });
 check("revenue endpoint responds", revenue.status === 200 && Array.isArray(revenue.body.series));
 
+
+// --- derived counts ---------------------------------------------------------
+// These are correlated subqueries. Drizzle renders an interpolated column
+// UNQUALIFIED inside a raw sql`` template, so `WHERE plan_id = id` silently
+// resolves against the inner table and counts zero without erroring. Assert the
+// counts against the real rows rather than trusting them.
+const planList = await call("GET", "/v1/plans", { token: coach.token });
+const listed = planList.body.items?.find((p) => p.id === planId);
+const realAssigned = await call("GET", `/v1/plans/${planId}/assignments`, { token: coach.token });
+check("plan.assignedCount matches the real assignments",
+  listed?.assignedCount === realAssigned.body.count,
+  `list says ${listed?.assignedCount}, really ${realAssigned.body.count}`);
+check("plan.dayCount matches the real days", listed?.dayCount === tree.body.days?.length,
+  `list says ${listed?.dayCount}, really ${tree.body.days?.length}`);
+
+const gymList = await call("GET", "/v1/gyms", { token: coach.token });
+const rosterNow = await call("GET", "/v1/members", { token: coach.token });
+check("gym.memberCount matches the roster",
+  gymList.body.items?.[0]?.memberCount === rosterNow.body.items?.length,
+  `gym says ${gymList.body.items?.[0]?.memberCount}, roster has ${rosterNow.body.items?.length}`);
+
+// --- editing an assigned plan -----------------------------------------------
+const blind = await call("PATCH", `/v1/plans/${planId}`, { token: coach.token, body: { name: "Changed" } });
+check("editing an assigned plan refuses to guess (409)",
+  blind.status === 409 && blind.body.error === "plan_has_assignments", `got ${blind.status}`);
+
+const forked = await call("PATCH", `/v1/plans/${planId}`, { token: coach.token, body: { name: "Forked copy", strategy: "fork" } });
+const afterFork = await call("GET", `/v1/plans/${planId}/assignments`, { token: coach.token });
+check("fork leaves the original's members in place",
+  forked.status === 200 && afterFork.body.count === realAssigned.body.count,
+  `before ${realAssigned.body.count}, after ${afterFork.body.count}`);
+
+const detached = await call("PATCH", `/v1/plans/${planId}`, { token: coach.token, body: { name: "Retired", strategy: "detach" } });
+const afterDetach = await call("GET", `/v1/plans/${planId}/assignments`, { token: coach.token });
+check("detach ends the assignments", detached.status === 200 && afterDetach.body.count === 0,
+  `still ${afterDetach.body.count} assigned`);
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -76,6 +76,29 @@ const foodColumns = {
   foodClasses: schema.foods.foodClasses,
   dietaryTags: schema.foods.dietaryTags,
   isVerified: schema.foods.isVerified,
+  // Which provider the row came from, so the UI can attribute a number it did
+  // not compute --- "USDA" next to a food means something different to a coach
+  // than a member-typed entry does.
+  source: schema.foods.source,
+  usdaCategory: schema.foods.usdaCategory,
+  barcode: schema.foods.barcode,
+  /** Inferred from the ingredient statement --- see the schema note. Warn, never clear. */
+  allergensDerived: schema.foods.allergensDerived,
+  healthClaims: schema.foods.healthClaims,
+};
+
+/**
+ * The list projection plus everything that is too heavy to ship for 25 rows at
+ * once: the full micronutrient panel and the ingredient statement.
+ */
+const foodDetailColumns = {
+  ...foodColumns,
+  micronutrients: schema.foods.micronutrients,
+  ingredientsText: schema.foods.ingredientsText,
+  allergenSource: schema.foods.allergenSource,
+  claimsBasis: schema.foods.claimsBasis,
+  usdaDataType: schema.foods.usdaDataType,
+  sourcePublishedAt: schema.foods.sourcePublishedAt,
 };
 
 const mealColumns = {
@@ -237,14 +260,106 @@ export const catalogRoutes: FastifyPluginAsync = async (app) => {
       where.push(sql`${schema.foods.dietaryTags} @> ${pgTextArray(tags)}::text[]`);
     }
 
+    // When the member is SEARCHING, generic reference foods outrank branded
+    // SKUs --- there are ~1.9M of the latter and they would otherwise fill every
+    // page alphabetically. When browsing with no query, plain alphabetical is
+    // still what a list wants.
+    const order = q.q
+      ? [
+          sql`CASE
+                WHEN ${schema.foods.source} <> 'usda' THEN 0
+                WHEN ${schema.foods.usdaDataType} <> 'branded_food' THEN 1
+                ELSE 2
+              END`,
+          sql`length(${schema.foods.name})`,
+          asc(schema.foods.name),
+        ]
+      : [asc(schema.foods.name)];
+
     const rows = await db
       .select(foodColumns)
       .from(schema.foods)
       .where(and(...where))
-      .orderBy(asc(schema.foods.name))
+      .orderBy(...order)
       .limit(q.limit)
       .offset(q.offset);
     return { items: rows, semanticAvailable: await hasVector() };
+  });
+
+  /**
+   * One food, with the micronutrient panel resolved against the nutrient
+   * dictionary and the household measures it can be logged in.
+   *
+   * The panel is returned as an ordered array rather than the raw jsonb: the
+   * jsonb is keyed by slug and carries no label, unit or position, and USDA's
+   * `rank` is what makes it read like a Nutrition Facts panel instead of an
+   * alphabetical dump.
+   */
+  app.get("/foods/:slug", { preHandler: auth }, async (req) => {
+    const { slug } = z.object({ slug: z.string() }).parse(req.params);
+    const [food] = await db
+      .select(foodDetailColumns)
+      .from(schema.foods)
+      .where(eq(schema.foods.slug, slug))
+      .limit(1);
+    if (!food) throw notFound("Food");
+
+    const panel = food.micronutrients
+      ? await db
+          .select({
+            slug: schema.nutrients.slug,
+            name: schema.nutrients.name,
+            unit: schema.nutrients.unit,
+            dailyValue: schema.nutrients.dailyValue,
+            isMacro: schema.nutrients.isMacro,
+          })
+          .from(schema.nutrients)
+          .where(inArray(schema.nutrients.slug, Object.keys(food.micronutrients)))
+          .orderBy(asc(schema.nutrients.rank))
+      : [];
+
+    const portions = await db
+      .select({
+        amount: schema.foodPortions.amount,
+        unit: schema.foodPortions.unit,
+        description: schema.foodPortions.description,
+        modifier: schema.foodPortions.modifier,
+        gramWeight: schema.foodPortions.gramWeight,
+        isLabelServing: schema.foodPortions.isLabelServing,
+      })
+      .from(schema.foodPortions)
+      .where(eq(schema.foodPortions.foodId, food.id))
+      .orderBy(asc(schema.foodPortions.seqNum));
+
+    /**
+     * Stored amounts are verbatim USDA, which means "carbohydrate, by
+     * difference" can be a few hundredths BELOW zero on zero-carb foods --- it
+     * is computed as 100 minus water, protein, fat and ash. The database keeps
+     * that so the import stays auditable against the source; a rendered panel
+     * showing "-0.43 g carbohydrate" just looks broken, and FDA labelling
+     * rounds these artifacts to zero anyway. Floor at the display edge only.
+     */
+    const shown = (slug: string) => {
+      const raw = food.micronutrients?.[slug];
+      return raw == null ? null : Math.max(raw, 0);
+    };
+
+    return {
+      food,
+      // amount is per `servingSize` of `servingUnit`, matching the food row.
+      nutrients: panel.map((n) => {
+        const amount = shown(n.slug);
+        return {
+          ...n,
+          amount,
+          percentDailyValue:
+            n.dailyValue && amount != null
+              ? Math.round((amount / Number(n.dailyValue)) * 1000) / 10
+              : null,
+        };
+      }),
+      portions,
+    };
   });
 
   /** Meals, with their ingredient lines resolved. */

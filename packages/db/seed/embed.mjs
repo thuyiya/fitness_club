@@ -2,15 +2,26 @@
 /**
  * Backfills the `embedding` column on foods, meals and exercises.
  *
- *   DATABASE_URL=postgres://... node packages/db/seed/embed.mjs [--force]
+ *   DATABASE_URL=postgres://... node packages/db/seed/embed.mjs [--force] [--foods-where '<sql>']
  *
  * Only rows with a NULL embedding are processed unless --force is given, so a
  * re-run after adding catalog rows is cheap. Requires migration 0003_pgvector.
+ *
+ * --foods-where narrows the foods pass to a subset. This exists because the USDA
+ * import adds ~1.9M branded products, and embedding all of them through CPU
+ * MiniLM is a multi-day job whose value is mostly in the first 1%: the generic
+ * core-tier foods are what someone means by "chicken breast", while branded SKUs
+ * are found by barcode or exact name. To embed just those:
+ *
+ *   node packages/db/seed/embed.mjs --foods-where "source <> 'usda' OR usda_data_type <> 'branded_food'"
  */
 import postgres from "postgres";
 import { describe, embedBatch, toVectorLiteral } from "@wellness/embeddings";
 
 const force = process.argv.includes("--force");
+const whereIdx = process.argv.indexOf("--foods-where");
+/** Raw SQL, so it is a developer-supplied predicate and never user input. */
+const foodsWhere = whereIdx === -1 ? null : process.argv[whereIdx + 1];
 const sql = postgres(
   process.env.DATABASE_URL ?? "postgres://wellness:localdev_only_not_a_real_secret@localhost:5432/wellness",
   { max: 2, onnotice: () => {} },
@@ -42,7 +53,15 @@ async function backfill(label, rows, toText, update) {
 const filter = force ? sql`` : sql`WHERE embedding IS NULL`;
 
 try {
-  const foods = await sql`SELECT id, name, brand, "group", dietary_tags FROM foods ${filter}`;
+  const foodConds = [
+    ...(force ? [] : ["embedding IS NULL"]),
+    ...(foodsWhere ? [`(${foodsWhere})`] : []),
+  ];
+  const foodFilter = foodConds.length ? `WHERE ${foodConds.join(" AND ")}` : "";
+  if (foodsWhere) console.log(`foods filter: ${foodFilter}`);
+  const foods = await sql.unsafe(
+    `SELECT id, name, brand, "group", dietary_tags FROM foods ${foodFilter}`,
+  );
   console.log(
     await backfill(
       "foods",

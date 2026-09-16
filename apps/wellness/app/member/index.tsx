@@ -3,17 +3,38 @@ import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { useQuickLog } from "../../src/state/quicklog";
+import { api } from "../../src/api/client";
 import { isoDate, useApi } from "../../src/api/hooks";
-import type { DayLog, MealRec, Targets } from "../../src/api/types";
 import { Card, MacroBar, Pill, Screen } from "../../src/components/ui";
 import { Stat } from "../../src/components/Ring";
 import { DateStrip, NotificationBell } from "../../src/components/DateStrip";
-import { api } from "../../src/api/client";
+import { useQuickLog } from "../../src/state/quicklog";
 import { useAuth } from "../../src/state/auth";
 import { radius, space, type as typo } from "../../src/theme/tokens";
 
 const SLOTS = ["breakfast", "lunch", "dinner", "snack"] as const;
+
+interface Entry {
+  kind: "meal" | "workout"; id: string; at: string; title: string; calories: number;
+  proteinG?: number; carbsG?: number; fatG?: number; mealType?: string | null;
+  durationMinutes?: number | null; intensity?: string | null; exercises?: string[]; setCount?: number;
+}
+interface Timeline {
+  entries: Entry[]; loggedSlots: string[];
+  totals: { calories: number; proteinG: number; carbsG: number; fatG: number; caloriesBurned: number };
+  hydration: { totalMl: number; targetMl: number };
+}
+interface Alerts {
+  count: number;
+  unreadNotifications: { id: string; kind: string; title: string; body: string | null }[];
+  pendingSurveys: { assignmentId: string; surveyId: string; title: string; dueDate: string | null }[];
+  recentAssignments: { id: string; planName: string; planType: string; startDate: string }[];
+  todaySessions: { id: string; title: string; startsAt: string; location: string | null }[];
+}
+interface Targets { ready: boolean; missing?: string[]; targets: { calories: number; proteinG: number; hydrationMl: number } | null }
+interface Rec { id: string; slug: string; name: string; servings: string; proteinG: string; carbsG: string; fatG: string; mealType: string | null }
+
+const hhmm = (iso: string) => new Date(iso).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
 
 export default function MemberHome() {
   const { theme } = useAuth();
@@ -22,54 +43,76 @@ export default function MemberHome() {
   const [date, setDate] = useState(new Date());
   const key = isoDate(date);
 
-  const day = useApi<DayLog>(`/v1/logs/day?date=${key}`, [quickLog.version]);
+  const timeline = useApi<Timeline>(`/v1/logs/timeline?date=${key}`, [quickLog.version]);
+  const alerts = useApi<Alerts>("/v1/me/alerts", [quickLog.version]);
   const targets = useApi<Targets>("/v1/me/targets");
-  const notifications = useApi<{ unreadCount: number }>("/v1/notifications");
-  const [recs, setRecs] = useState<MealRec[] | null>(null);
-  const [recsLoading, setRecsLoading] = useState(true);
+  const [recs, setRecs] = useState<Record<string, Rec[]>>({});
 
   const t = targets.data?.targets;
+  const logged = new Set(timeline.data?.loggedSlots ?? []);
 
-  // Recommendations fill the gap between what is eaten and the day's target,
-  // so they change as the day fills up rather than suggesting a full dinner
-  // to someone who has already eaten one.
+  // Suggestions are fetched per slot and rendered UNDER that slot's card, so
+  // "what should I eat for lunch?" is answered where the question is asked
+  // rather than in a carousel detached from any meal.
   useEffect(() => {
-    if (!t || !day.data) return;
-    const eaten = day.data.totals;
-    const remaining = {
-      calories: Math.max(200, t.calories - eaten.calories),
-      proteinG: Math.max(10, t.proteinG - eaten.proteinG),
-      carbsG: Math.max(10, t.carbsG - eaten.carbsG),
-      fatG: Math.max(5, t.fatG - eaten.fatG),
-    };
-    setRecsLoading(true);
-    api<{ items: MealRec[] }>("/v1/recommend/meals", { method: "POST", body: { ...remaining, limit: 6 } })
-      .then((r) => setRecs(r.items))
-      .catch(() => setRecs([]))
-      .finally(() => setRecsLoading(false));
-  }, [t?.calories, day.data?.totals.calories]);
+    if (!t || !timeline.data) return;
+    const remaining = t.calories - timeline.data.totals.calories;
+    const open = SLOTS.filter((s) => !logged.has(s)).slice(0, 2);
+    open.forEach((slot) => {
+      const share = slot === "snack" ? 0.15 : 0.32;
+      // Ask for a realistic PORTION, not the leftover crumbs. Someone already
+      // over their target still eats dinner, and a 200 kcal ask matches nothing
+      // because every meal would have to scale below the 0.5x serving floor.
+      const floor = slot === "snack" ? 180 : 420;
+      const wanted = Math.max(floor, Math.round(remaining * (slot === "snack" ? 0.4 : 0.9)));
+      api<{ items: Rec[] }>("/v1/recommend/meals", {
+        method: "POST",
+        body: {
+          calories: wanted,
+          proteinG: Math.max(12, Math.round(t.proteinG * share)), carbsG: 40, fatG: 15,
+          mealType: slot, limit: 3,
+        },
+      })
+        .then((r) => setRecs((prev) => ({ ...prev, [slot]: r.items })))
+        .catch(() => {});
+    });
+  }, [t?.calories, timeline.data?.totals.calories, key]);
 
-  const refresh = () => { day.refetch(); targets.refetch(); notifications.refetch(); };
-  const byType = (slot: string) => day.data?.meals.filter((m) => m.mealType === slot) ?? [];
+  const refresh = () => { timeline.refetch(); alerts.refetch(); targets.refetch(); };
+  const entries = timeline.data?.entries ?? [];
 
   return (
     <Screen theme={theme}>
       <ScrollView
         contentContainerStyle={{ padding: space.lg, paddingTop: insets.top + space.md, paddingBottom: 120 }}
-        refreshControl={<RefreshControl refreshing={day.loading && !!day.data} onRefresh={refresh} tintColor={theme.accent} />}
+        refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} tintColor={theme.accent} />}
       >
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: space.lg }}>
           <DateStrip theme={theme} date={date} onChange={setDate} onOpenCalendar={() => router.push("/member/calendar")} />
-          <NotificationBell theme={theme} count={notifications.data?.unreadCount ?? 0} onPress={() => router.push("/member/notifications")} />
+          <NotificationBell theme={theme} count={alerts.data?.count ?? 0} onPress={() => router.push("/member/notifications")} />
         </View>
 
-        {day.error && (
-          <Card theme={theme} style={{ marginBottom: space.md, borderColor: theme.danger }}>
-            <Text style={{ ...typo.body, color: theme.danger }}>{day.error}</Text>
-          </Card>
+        {/* What CHANGED, not arithmetic the summary already shows. */}
+        {(alerts.data?.count ?? 0) > 0 && (
+          <View style={{ marginBottom: space.lg }}>
+            {alerts.data!.todaySessions.map((s) => (
+              <AlertRow key={s.id} theme={theme} icon="calendar" tone={theme.accent}
+                title={s.title} body={`${hhmm(s.startsAt)}${s.location ? ` · ${s.location}` : ""}`}
+                onPress={() => router.push("/member/calendar")} />
+            ))}
+            {alerts.data!.pendingSurveys.map((s) => (
+              <AlertRow key={s.assignmentId} theme={theme} icon="check-square" tone={theme.warning}
+                title={s.title} body={s.dueDate ? `Due ${s.dueDate}` : "From your coach"}
+                onPress={() => router.push("/member/notifications")} />
+            ))}
+            {alerts.data!.unreadNotifications.slice(0, 3).map((n) => (
+              <AlertRow key={n.id} theme={theme} icon={n.kind === "message" ? "message-circle" : n.kind === "plan_assigned" ? "clipboard" : "bell"}
+                tone={theme.teal} title={n.title} body={n.body ?? ""}
+                onPress={() => router.push(n.kind === "message" ? "/member/chat" : "/member/notifications")} />
+            ))}
+          </View>
         )}
 
-        {/* Profile-incomplete is a real state, not an error: say what is missing. */}
         {targets.data && !targets.data.ready && (
           <Pressable onPress={() => router.push("/member/settings")}>
             <Card theme={theme} style={{ marginBottom: space.lg, borderColor: theme.warning }}>
@@ -85,103 +128,144 @@ export default function MemberHome() {
           </Pressable>
         )}
 
-        <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginBottom: space.sm }}>
-          {t ? "To hit your remaining targets" : "Recommended for you"}
-        </Text>
-
-        {recsLoading && !recs ? (
-          <ActivityIndicator color={theme.accent} style={{ marginVertical: space.xl }} />
-        ) : (recs?.length ?? 0) === 0 ? (
-          <Card theme={theme}><Text style={{ ...typo.body, color: theme.muted }}>Nothing to suggest right now.</Text></Card>
-        ) : (
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -space.lg }} contentContainerStyle={{ paddingHorizontal: space.lg, gap: space.md }}>
-            {recs!.map((m) => {
-              const p = Number(m.proteinG), c = Number(m.carbsG), f = Number(m.fatG);
-              return (
-                <Pressable key={m.id} onPress={() => quickLog.open("meal", m.mealType ?? "lunch")}>
-                  <Card theme={theme} style={{ width: 230 }}>
-                    <View style={{ flexDirection: "row", gap: 6, marginBottom: space.sm, flexWrap: "wrap" }}>
-                      {m.mealType && <Pill theme={theme} label={m.mealType} />}
-                      {m.prepMinutes != null && <Pill theme={theme} label={`${m.prepMinutes} min`} tone={theme.teal} />}
-                    </View>
-                    <Text style={{ ...typo.heading, color: theme.ink, marginBottom: 6 }} numberOfLines={2}>{m.name}</Text>
-                    <Text style={{ ...typo.caption, color: theme.muted, marginBottom: space.sm }}>Serve {Number(m.servings).toFixed(2)}x</Text>
-                    <MacroBar theme={theme} protein={p} carbs={c} fat={f} />
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: space.sm }}>
-                      <Text style={{ ...typo.caption, color: theme.accent }}>{p.toFixed(0)}g P</Text>
-                      <Text style={{ ...typo.caption, color: theme.teal }}>{c.toFixed(0)}g C</Text>
-                      <Text style={{ ...typo.caption, color: theme.warning }}>{f.toFixed(0)}g F</Text>
-                    </View>
-                  </Card>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
-        )}
-
-        <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginTop: space.xl, marginBottom: space.sm }}>
-          Today's summary
-        </Text>
-        <Card theme={theme}>
+        <Card theme={theme} style={{ marginBottom: space.xl }}>
           <View style={{ flexDirection: "row", gap: space.lg }}>
-            <Stat theme={theme} label="Calories" value={day.data?.totals.calories ?? 0} target={t?.calories} color={theme.accent} />
-            <Stat theme={theme} label="Protein" value={day.data?.totals.proteinG ?? 0} target={t?.proteinG} unit="g" color={theme.accent} />
-            <Stat theme={theme} label="Water" value={(day.data?.hydration.totalMl ?? 0) / 1000} target={(t?.hydrationMl ?? day.data?.hydration.targetMl ?? 2500) / 1000} unit="L" color={theme.teal} />
+            <Stat theme={theme} label="Calories" value={timeline.data?.totals.calories ?? 0} target={t?.calories} color={theme.accent} />
+            <Stat theme={theme} label="Protein" value={timeline.data?.totals.proteinG ?? 0} target={t?.proteinG} unit="g" color={theme.accent} />
+            <Stat theme={theme} label="Water" value={(timeline.data?.hydration.totalMl ?? 0) / 1000}
+              target={(t?.hydrationMl ?? timeline.data?.hydration.targetMl ?? 2500) / 1000} unit="L" color={theme.teal} />
           </View>
-          {(day.data?.totals.caloriesBurned ?? 0) > 0 && (
+          {(timeline.data?.totals.caloriesBurned ?? 0) > 0 && (
             <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginTop: space.md, paddingTop: space.md, borderTopWidth: 1, borderTopColor: theme.line }}>
               <Feather name="zap" size={13} color={theme.teal} />
-              <Text style={{ ...typo.caption, color: theme.inkSoft }}>
-                {day.data!.totals.caloriesBurned} kcal burned across {day.data!.workouts.length} session{day.data!.workouts.length === 1 ? "" : "s"}
-              </Text>
+              <Text style={{ ...typo.caption, color: theme.inkSoft }}>{timeline.data!.totals.caloriesBurned} kcal burned</Text>
             </View>
           )}
         </Card>
 
-        {(day.data?.workouts.length ?? 0) > 0 && (
-          <>
-            <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginTop: space.xl, marginBottom: space.sm }}>Training</Text>
-            {day.data!.workouts.map((w) => (
-              <Card key={w.id} theme={theme} style={{ marginBottom: space.sm, flexDirection: "row", alignItems: "center", gap: space.md }}>
-                <View style={{ width: 36, height: 36, borderRadius: radius.pill, backgroundColor: theme.teal + "1F", alignItems: "center", justifyContent: "center" }}>
-                  <Feather name="activity" size={16} color={theme.teal} />
+        {/* The day in the order it happened. */}
+        <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginBottom: space.sm }}>Your day</Text>
+
+        {timeline.loading && !timeline.data ? (
+          <ActivityIndicator color={theme.accent} style={{ marginVertical: space.xl }} />
+        ) : entries.length === 0 ? (
+          <Card theme={theme} style={{ marginBottom: space.lg }}>
+            <Text style={{ ...typo.body, color: theme.muted }}>Nothing logged yet today.</Text>
+          </Card>
+        ) : (
+          entries.map((e) => (
+            <Pressable
+              key={`${e.kind}-${e.id}`}
+              onPress={() => e.kind === "meal"
+                ? router.push({ pathname: "/member/meal-detail", params: { id: e.id } })
+                : router.push({ pathname: "/member/exercise-detail", params: { id: e.id } })}
+            >
+              <Card theme={theme} style={{ marginBottom: space.sm }}>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: space.md }}>
+                  <View style={{ alignItems: "center", width: 44 }}>
+                    <Text style={{ ...typo.heading, color: theme.ink }}>{hhmm(e.at)}</Text>
+                  </View>
+                  <View style={{
+                    width: 34, height: 34, borderRadius: radius.pill,
+                    backgroundColor: (e.kind === "meal" ? theme.accent : theme.teal) + "1F",
+                    alignItems: "center", justifyContent: "center",
+                  }}>
+                    <Feather name={e.kind === "meal" ? "coffee" : "activity"} size={16} color={e.kind === "meal" ? theme.accent : theme.teal} />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ ...typo.heading, color: theme.ink, textTransform: e.kind === "meal" ? "capitalize" : "none" }}>{e.title}</Text>
+                    <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>
+                      {e.kind === "meal"
+                        ? `${e.calories} kcal · ${Math.round(e.proteinG ?? 0)}g protein`
+                        : [
+                            e.durationMinutes ? `${e.durationMinutes} min` : null,
+                            e.calories > 0 ? `${e.calories} kcal` : null,
+                            e.setCount ? `${e.setCount} sets` : null,
+                            e.exercises?.length ? e.exercises.slice(0, 2).join(", ") : null,
+                          ].filter(Boolean).join(" · ") || "Tap to add details"}
+                    </Text>
+                  </View>
+                  <Feather name="chevron-right" size={18} color={theme.muted} />
                 </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={{ ...typo.heading, color: theme.ink }}>{w.title ?? w.activityName ?? "Session"}</Text>
-                  <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>
-                    {w.durationMinutes} min · {w.caloriesBurned} kcal
-                  </Text>
-                </View>
+                {e.kind === "meal" && (e.proteinG ?? 0) + (e.carbsG ?? 0) + (e.fatG ?? 0) > 0 && (
+                  <View style={{ marginTop: space.sm }}>
+                    <MacroBar theme={theme} protein={e.proteinG ?? 0} carbs={e.carbsG ?? 0} fat={e.fatG ?? 0} />
+                  </View>
+                )}
               </Card>
-            ))}
-          </>
+            </Pressable>
+          ))
         )}
 
         <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginTop: space.xl, marginBottom: space.sm }}>Meals</Text>
         {SLOTS.map((slot) => {
-          const logged = byType(slot);
+          const isLogged = logged.has(slot);
+          const suggestions = recs[slot] ?? [];
           return (
-            <Card key={slot} theme={theme} style={{ marginBottom: space.sm }}>
-              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <View key={slot} style={{ marginBottom: space.md }}>
+              <Card theme={theme} style={{ flexDirection: "row", alignItems: "center" }}>
                 <View style={{ flex: 1 }}>
                   <Text style={{ ...typo.heading, color: theme.ink, textTransform: "capitalize" }}>{slot}</Text>
                   <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>
-                    {logged.length === 0
-                      ? "Not logged yet"
-                      : `${logged.map((m) => m.mealName ?? "Custom").join(", ")} · ${Math.round(logged.reduce((n, m) => n + Number(m.calories), 0))} kcal`}
+                    {isLogged
+                      ? entries.filter((e) => e.kind === "meal" && e.mealType === slot).map((e) => `${e.calories} kcal`).join(" + ")
+                      : "Not logged yet"}
                   </Text>
                 </View>
+                {/* Logged shows a tick, but stays tappable --- people eat twice
+                    at the same slot and a locked card makes that unloggable. */}
                 <Pressable
-                  onPress={() => quickLog.open("meal", slot)}
-                  style={{ width: 32, height: 32, borderRadius: radius.pill, backgroundColor: theme.accent + "14", alignItems: "center", justifyContent: "center" }}
+                  onPress={() => router.push({ pathname: "/member/meal", params: { slot, date: key } })}
+                  hitSlop={8}
+                  style={{
+                    width: 34, height: 34, borderRadius: radius.pill,
+                    backgroundColor: isLogged ? theme.teal : theme.accent + "14",
+                    alignItems: "center", justifyContent: "center",
+                  }}
                 >
-                  <Feather name="plus" size={18} color={theme.accent} />
+                  <Feather name={isLogged ? "check" : "plus"} size={18} color={isLogged ? "#FFFFFF" : theme.accent} />
                 </Pressable>
-              </View>
-            </Card>
+              </Card>
+
+              {!isLogged && suggestions.length > 0 && (
+                <View style={{ marginTop: space.sm, marginLeft: space.md }}>
+                  <Text style={{ ...typo.caption, color: theme.muted, marginBottom: 6 }}>Suggested</Text>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: space.sm, paddingRight: space.lg }}>
+                    {suggestions.map((r) => (
+                      <Pressable key={r.id} onPress={() => router.push({ pathname: "/member/meal", params: { slot, date: key } })}>
+                        <View style={{ width: 170, backgroundColor: theme.card, borderRadius: radius.md, borderWidth: 1, borderColor: theme.line, padding: space.md }}>
+                          <Text style={{ ...typo.body, color: theme.ink, fontWeight: "600" }} numberOfLines={2}>{r.name}</Text>
+                          <Text style={{ ...typo.caption, color: theme.muted, marginTop: 4 }}>
+                            {Math.round(Number(r.proteinG))}g P · serve {Number(r.servings).toFixed(1)}x
+                          </Text>
+                        </View>
+                      </Pressable>
+                    ))}
+                  </ScrollView>
+                </View>
+              )}
+            </View>
           );
         })}
       </ScrollView>
     </Screen>
+  );
+}
+
+function AlertRow({ theme, icon, tone, title, body, onPress }: {
+  theme: ReturnType<typeof useAuth>["theme"]; icon: keyof typeof Feather.glyphMap;
+  tone: string; title: string; body: string; onPress: () => void;
+}) {
+  return (
+    <Pressable onPress={onPress}>
+      <Card theme={theme} style={{ marginBottom: space.sm, flexDirection: "row", alignItems: "center", gap: space.md, borderLeftWidth: 3, borderLeftColor: tone }}>
+        <Feather name={icon} size={17} color={tone} />
+        <View style={{ flex: 1 }}>
+          <Text style={{ ...typo.heading, color: theme.ink }} numberOfLines={1}>{title}</Text>
+          {!!body && <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }} numberOfLines={1}>{body}</Text>}
+        </View>
+        <Feather name="chevron-right" size={17} color={theme.muted} />
+      </Card>
+    </Pressable>
   );
 }

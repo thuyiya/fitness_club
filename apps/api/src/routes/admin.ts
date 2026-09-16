@@ -127,7 +127,8 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
         status: schema.gyms.status,
         createdAt: schema.gyms.createdAt,
         owner: { id: schema.users.id, name: schema.users.name, email: schema.users.email },
-        memberCount: sql<number>`(SELECT count(*)::int FROM gym_members gm WHERE gm.gym_id = ${schema.gyms.id} AND gm.status = 'active')`,
+        // `gyms.id` written literally --- see the note in routes/plans.ts.
+        memberCount: sql<number>`(SELECT count(*)::int FROM gym_members gm WHERE gm.gym_id = gyms.id AND gm.status = 'active')`,
       })
       .from(schema.gyms)
       .innerJoin(schema.users, eq(schema.users.id, schema.gyms.ownerCoachId))

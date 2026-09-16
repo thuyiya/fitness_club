@@ -117,9 +117,17 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
             }),
           )
           .min(1)
-          .max(40),
+          .max(40)
+          .optional(),
+        // Shorthand for the common case: one catalog meal, one serving.
+        // Forcing every caller to wrap a single meal in an array buys nothing.
+        mealId: z.string().uuid().optional(),
+        servings: z.coerce.number().min(0.01).max(20).default(1),
       })
+      .refine((b) => b.items?.length || b.mealId, { message: "Provide items[] or a mealId" })
       .parse(req.body);
+
+    const items = body.items ?? [{ mealId: body.mealId!, quantity: body.servings, unit: "serving" }];
 
     // Resolve every line to real nutrition before writing anything, so a bad
     // id fails the whole plate rather than saving half of it.
@@ -128,7 +136,7 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
       calories: number; proteinG: number; carbsG: number; fatG: number;
     }[] = [];
 
-    for (const item of body.items) {
+    for (const item of items) {
       if (item.mealId) {
         const meal = await db.query.meals.findFirst({ where: eq(schema.meals.id, item.mealId) });
         if (!meal) throw notFound("Meal");
@@ -168,7 +176,7 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
         .insert(schema.mealLogs)
         .values({
           memberId: req.user!.id,
-          mealId: body.items.length === 1 ? (body.items[0]!.mealId ?? null) : null,
+          mealId: items.length === 1 ? (items[0]!.mealId ?? null) : null,
           date: body.date,
           mealType: body.mealType,
           photoUrl: body.photoUrl ?? null,
@@ -374,7 +382,9 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
           .values({
             memberId: req.user!.id,
             date: body.date,
-            title: "Workout",
+            // Named after the first exercise logged into it, so the timeline
+            // reads "Barbell bench press +2" rather than an anonymous "Workout".
+            title: exercise.name,
             notes: body.notes ?? null,
             completedAt: new Date(),
           })

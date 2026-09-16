@@ -5,6 +5,7 @@ import { api } from "../api/client";
 import { isoDate, useAction, useApi } from "../api/hooks";
 import { BottomSheet } from "./BottomSheet";
 import { Card, MacroBar, Pill } from "./ui";
+import { ExercisePicker, type Picked } from "./ExercisePicker";
 import { radius, space, type as typo, type Theme } from "../theme/tokens";
 
 type Mode = "menu" | "meal" | "exercise" | "activity" | "hydration";
@@ -13,7 +14,6 @@ interface MealHit {
   id: string; name: string; calories?: string; proteinG?: string; carbsG?: string; fatG?: string;
   mealType?: string | null; allergens?: string[]; prepMinutes?: number | null;
 }
-interface ExerciseHit { id: string; name: string; loggingMode?: string; discipline?: string; equipment?: string[] }
 
 const WATER = [250, 330, 500, 750];
 const SLOTS = ["breakfast", "lunch", "dinner", "snack"] as const;
@@ -35,18 +35,16 @@ export function QuickLogSheet({
   const [done, setDone] = useState<string | null>(null);
   const { busy, error, run } = useAction();
 
-  // Exercise being logged, with its set rows.
-  const [target, setTarget] = useState<ExerciseHit | null>(null);
+  // Whatever the picker returned, plus the detail being filled in for it.
+  const [target, setTarget] = useState<Picked | null>(null);
   const [sets, setSets] = useState([{ reps: "", weightKg: "", durationSeconds: "", distanceMetres: "" }]);
+  const [minutes, setMinutes] = useState(45);
+  const [intensity, setIntensity] = useState<string | null>(null);
+  const [burned, setBurned] = useState("");
 
   const meals = useApi<{ items: MealHit[] }>(
     mode === "meal" && query.trim().length >= 2 ? `/v1/search?q=${encodeURIComponent(query)}&type=meals&limit=12` : null, [query]);
-  const exercises = useApi<{ items: ExerciseHit[] }>(
-    mode === "exercise" ? (query.trim().length >= 2
-      ? `/v1/search?q=${encodeURIComponent(query)}&type=exercises&limit=15`
-      : "/v1/exercises?limit=20") : null, [query]);
-  const activities = useApi<{ items: { id: string; name: string; met: string }[] }>(
-    mode === "activity" ? `/v1/activities?limit=100${query.trim() ? `&q=${encodeURIComponent(query)}` : ""}` : null, [query]);
+
 
   const finish = (msg: string) => {
     setDone(msg);
@@ -60,7 +58,7 @@ export function QuickLogSheet({
   };
 
   const logSets = async () => {
-    if (!target) return;
+    if (!target || target.kind !== "exercise") return;
     const mode_ = target.loggingMode ?? "reps";
     const payload = sets
       .map((s) => ({
@@ -76,10 +74,28 @@ export function QuickLogSheet({
       finish(`${target.name}, ${payload.length} set${payload.length === 1 ? "" : "s"}`);
   };
 
-  const logActivity = async (id: string, name: string, minutes: number) => {
-    if (await run(() => api("/v1/logs/activity", { method: "POST", body: { date: today, activityId: id, durationMinutes: minutes } })))
-      finish(`${name}, ${minutes} min`);
+  const logActivity = async () => {
+    if (!target || target.kind !== "activity") return;
+    const ok = await run(() =>
+      api("/v1/logs/activity", {
+        method: "POST",
+        body: {
+          date: today, activityId: target.id, durationMinutes: minutes,
+          intensity: intensity ?? target.intensity,
+          startedAt: new Date().toISOString(),
+          // Blank means "use the MET estimate"; a number is a measured reading.
+          ...(burned ? { caloriesBurned: Number(burned) } : {}),
+        },
+      }),
+    );
+    if (ok) finish(`${target.name}, ${minutes} min`);
   };
+
+  /** kcal = MET x 3.5 x kg / 200 x minutes --- shown before logging so the
+   *  member can sanity-check it against their watch. */
+  const estimate = target?.kind === "activity"
+    ? Math.round((Number(target.met) * 3.5 * 78) / 200 * minutes)
+    : 0;
 
   const logWater = async (ml: number) => {
     if (await run(() => api("/v1/logs/hydration", { method: "POST", body: { date: today, amountMl: ml } })))
@@ -199,27 +215,15 @@ export function QuickLogSheet({
         </>
       )}
 
-      {mode === "exercise" && !target && (
-        <>
-          <TextInput style={field} placeholder="Search exercises" placeholderTextColor={theme.muted} value={query} onChangeText={setQuery} autoCorrect={false} />
-          <ScrollView style={{ marginTop: space.md }} keyboardShouldPersistTaps="handled">
-            {exercises.loading && !exercises.data ? <ActivityIndicator color={theme.accent} style={{ marginTop: space.xl }} /> :
-              exercises.data?.items.map((e) => (
-                <Pressable key={e.id} onPress={() => { setTarget(e); setSets([{ reps: "", weightKg: "", durationSeconds: "", distanceMetres: "" }]); }}>
-                  <Card theme={theme} style={{ marginBottom: space.sm, padding: space.md, flexDirection: "row", alignItems: "center", gap: space.sm }}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={{ ...typo.body, color: theme.ink }}>{e.name}</Text>
-                      {e.discipline && <Text style={{ ...typo.caption, color: theme.muted, marginTop: 1 }}>{e.discipline} · {e.loggingMode}</Text>}
-                    </View>
-                    <Feather name="chevron-right" size={18} color={theme.muted} />
-                  </Card>
-                </Pressable>
-              ))}
-          </ScrollView>
-        </>
+      {(mode === "exercise" || mode === "activity") && !target && (
+        <ExercisePicker theme={theme} onPick={(p) => {
+          setTarget(p);
+          if (p.kind === "activity") { setIntensity(p.intensity); setBurned(""); setMinutes(45); }
+          else setSets([{ reps: "", weightKg: "", durationSeconds: "", distanceMetres: "" }]);
+        }} />
       )}
 
-      {mode === "exercise" && target && (
+      {target?.kind === "exercise" && (
         <ScrollView keyboardShouldPersistTaps="handled">
           <Text style={{ ...typo.caption, color: theme.muted, marginBottom: space.md }}>
             {target.loggingMode === "hold" || target.loggingMode === "duration" ? "Logged in seconds"
@@ -249,45 +253,66 @@ export function QuickLogSheet({
               )}
             </View>
           ))}
-          <Pressable
-            onPress={() => setSets([...sets, { ...sets[sets.length - 1]! }])}
-            style={{ flexDirection: "row", alignItems: "center", gap: 6, paddingVertical: space.sm }}
-          >
+          <Pressable onPress={() => setSets([...sets, { ...sets[sets.length - 1]! }])} style={{ flexDirection: "row", alignItems: "center", gap: 6, paddingVertical: space.sm }}>
             <Feather name="plus" size={16} color={theme.accent} />
             <Text style={{ ...typo.body, color: theme.accent }}>Add another set</Text>
           </Pressable>
-          <Pressable
-            onPress={logSets}
-            disabled={busy}
-            style={{ marginTop: space.md, backgroundColor: theme.accent, borderRadius: radius.pill, paddingVertical: 14, alignItems: "center" }}
-          >
+          <Pressable onPress={logSets} disabled={busy} style={{ marginTop: space.md, backgroundColor: theme.accent, borderRadius: radius.pill, paddingVertical: 14, alignItems: "center" }}>
             {busy ? <ActivityIndicator color="#FFFFFF" /> : <Text style={{ ...typo.heading, color: "#FFFFFF" }}>Save sets</Text>}
           </Pressable>
         </ScrollView>
       )}
 
-      {mode === "activity" && (
-        <>
-          <TextInput style={field} placeholder="Search activities" placeholderTextColor={theme.muted} value={query} onChangeText={setQuery} autoCorrect={false} />
-          <ScrollView style={{ marginTop: space.md }} keyboardShouldPersistTaps="handled">
-            {activities.data?.items.slice(0, 30).map((a) => (
-              <Card key={a.id} theme={theme} style={{ marginBottom: space.sm, padding: space.md }}>
-                <View style={{ flexDirection: "row", alignItems: "center", gap: space.sm, marginBottom: space.sm }}>
-                  <Text style={{ ...typo.body, color: theme.ink, flex: 1 }}>{a.name}</Text>
-                  <Pill theme={theme} label={`MET ${a.met}`} tone={theme.muted} />
-                </View>
-                <View style={{ flexDirection: "row", gap: 6 }}>
-                  {[20, 30, 45, 60].map((min) => (
-                    <Pressable key={min} onPress={() => logActivity(a.id, a.name, min)} disabled={busy}
-                      style={{ flex: 1, paddingVertical: 8, borderRadius: radius.sm, alignItems: "center", backgroundColor: theme.accent + "14" }}>
-                      <Text style={{ ...typo.caption, color: theme.accent, fontWeight: "700" }}>{min}m</Text>
-                    </Pressable>
-                  ))}
-                </View>
-              </Card>
+      {target?.kind === "activity" && (
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <View style={{ flexDirection: "row", gap: space.sm, marginBottom: space.lg }}>
+            <Pill theme={theme} label={`MET ${target.met}`} tone={theme.muted} />
+            <Pill theme={theme} label={target.group.replace(/_/g, " ")} tone={theme.teal} />
+          </View>
+
+          <Text style={{ ...typo.caption, color: theme.muted, marginBottom: space.sm }}>DURATION</Text>
+          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: space.sm, marginBottom: space.lg }}>
+            {[15, 20, 30, 45, 60, 90].map((d) => (
+              <Pressable key={d} onPress={() => setMinutes(d)} style={{
+                paddingHorizontal: 14, paddingVertical: 9, borderRadius: radius.pill, borderWidth: 1,
+                borderColor: minutes === d ? theme.accent : theme.line,
+                backgroundColor: minutes === d ? theme.accent + "14" : theme.card,
+              }}>
+                <Text style={{ ...typo.caption, color: minutes === d ? theme.accent : theme.inkSoft, fontWeight: "600" }}>{d} min</Text>
+              </Pressable>
             ))}
-          </ScrollView>
-        </>
+          </View>
+
+          <Text style={{ ...typo.caption, color: theme.muted, marginBottom: space.sm }}>INTENSITY</Text>
+          <View style={{ flexDirection: "row", gap: space.sm, marginBottom: space.lg }}>
+            {["light", "moderate", "vigorous"].map((i) => (
+              <Pressable key={i} onPress={() => setIntensity(i)} style={{
+                flex: 1, alignItems: "center", paddingVertical: 10, borderRadius: radius.sm, borderWidth: 1,
+                borderColor: intensity === i ? theme.accent : theme.line,
+                backgroundColor: intensity === i ? theme.accent + "14" : theme.card,
+              }}>
+                <Text style={{ ...typo.caption, color: intensity === i ? theme.accent : theme.inkSoft, fontWeight: "600", textTransform: "capitalize" }}>{i}</Text>
+              </Pressable>
+            ))}
+          </View>
+
+          <Text style={{ ...typo.caption, color: theme.muted, marginBottom: space.sm }}>CALORIES BURNED</Text>
+          <TextInput
+            style={{ ...field, marginBottom: 6 }}
+            placeholder={`${estimate} (estimated)`}
+            placeholderTextColor={theme.muted}
+            keyboardType="number-pad"
+            value={burned}
+            onChangeText={setBurned}
+          />
+          <Text style={{ ...typo.caption, color: theme.muted, marginBottom: space.lg }}>
+            Estimated from MET {target.met} x your weight x {minutes} min. Enter your watch reading to override.
+          </Text>
+
+          <Pressable onPress={logActivity} disabled={busy} style={{ backgroundColor: theme.accent, borderRadius: radius.pill, paddingVertical: 15, alignItems: "center" }}>
+            {busy ? <ActivityIndicator color="#FFFFFF" /> : <Text style={{ ...typo.heading, color: "#FFFFFF" }}>Log {minutes} min</Text>}
+          </Pressable>
+        </ScrollView>
       )}
 
       {mode === "hydration" && (

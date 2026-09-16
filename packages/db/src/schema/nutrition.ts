@@ -1,7 +1,9 @@
 import {
   boolean,
+  date,
   index,
   integer,
+  jsonb,
   numeric,
   pgTable,
   text,
@@ -16,9 +18,11 @@ import { users } from "./identity.js";
 /**
  * The searchable food database behind C34/C35 and M18.
  *
- * Bulk rows come from Open Food Facts (free, open licence, ships photo URLs), so
- * `imageUrl` points at their CDN rather than our storage --- that is what keeps the
- * image bill at zero. Coach-authored entries are source='custom' (C37).
+ * Bulk rows come from two providers. Open Food Facts (free, open licence) ships
+ * photo URLs, so `imageUrl` points at their CDN rather than our storage --- that is
+ * what keeps the image bill at zero. USDA FoodData Central ships no images but is
+ * the only source with a real micronutrient panel, so it fills `micronutrients`.
+ * Coach-authored entries are source='custom' (C37).
  *
  * All macros are per `servingSize` of `servingUnit`, NOT per 100g, so that a logged
  * quantity is a straight multiply with no unit conversion at read time.
@@ -28,7 +32,10 @@ export const foods = pgTable(
   {
     id: uuid("id").defaultRandom().primaryKey(),
     source: foodSource("source").notNull().default("custom"),
-    /** Open Food Facts barcode, so re-imports upsert instead of duplicating. */
+    /**
+     * The provider's own key --- an Open Food Facts barcode, or a USDA fdc_id ---
+     * so re-imports upsert instead of duplicating. Unique per (source, externalId).
+     */
     externalId: text("external_id"),
     ownerCoachId: uuid("owner_coach_id").references(() => users.id, { onDelete: "cascade" }),
     slug: text("slug"),
@@ -48,10 +55,46 @@ export const foods = pgTable(
     sugarG: numeric("sugar_g", { precision: 8, scale: 2 }),
     sodiumMg: numeric("sodium_mg", { precision: 8, scale: 2 }),
     /**
+     * Everything past the eight macros above, per `servingSize` like they are:
+     * { "iron_mg": 2.3, "vitamin_d_ug": 0.4, ... }. The slug carries the unit so
+     * a value can never be read against the wrong scale. Keys are defined by the
+     * `nutrients` table, which also holds the label and display order.
+     *
+     * jsonb rather than a child table because a panel is always read whole ---
+     * one row fetch instead of a join against 27M nutrient rows.
+     */
+    micronutrients: jsonb("micronutrients").$type<Record<string, number>>(),
+    /** Which USDA tier this came from; NULL for every other source. */
+    usdaDataType: text("usda_data_type"),
+    /** The provider's own category string, kept verbatim next to our `group`. */
+    usdaCategory: text("usda_category"),
+    barcode: text("barcode"),
+    /** The raw ingredient statement, as printed. The basis for allergensDerived. */
+    ingredientsText: text("ingredients_text"),
+    sourcePublishedAt: date("source_published_at"),
+    /**
      * Safety-relevant: what the SOURCE declares, never inferred. A food that
      * declares an allergen must not also carry the matching "free of" tag.
      */
     allergens: text("allergens").array().notNull().default([]),
+    /**
+     * INFERRED, and deliberately not `allergens`. USDA publishes no structured
+     * allergen field, only an ingredient statement, so this is what a parser
+     * read out of `ingredientsText` --- good enough to warn a member, never good
+     * enough to promise a food is free of something. Exclusion filters must keep
+     * reading `allergens`; a parser miss here would otherwise read as "safe".
+     */
+    allergensDerived: text("allergens_derived").array().notNull().default([]),
+    /** How allergensDerived was produced, so a parser change can re-derive. */
+    allergenSource: text("allergen_source"),
+    /**
+     * FDA nutrient-content claims computed from the values ("excellent_source_of_fiber",
+     * "low_sodium"). Pure arithmetic against the thresholds in `claimsBasis` ---
+     * never hand-typed, never model-generated.
+     */
+    healthClaims: text("health_claims").array().notNull().default([]),
+    /** The rule set healthClaims was computed under, e.g. FDA 21 CFR 101.54. */
+    claimsBasis: text("claims_basis"),
     /**
      * `foodClasses` is the composition (meat, dairy, legumes); `dietaryTags` is
      * computed from it, so a meal cannot be mislabelled vegan while containing
@@ -75,6 +118,66 @@ export const foods = pgTable(
     // GIN over the arrays so "exclude anything with peanuts" is an index scan.
     index("foods_allergens_idx").using("gin", t.allergens),
     index("foods_dietary_idx").using("gin", t.dietaryTags),
+    index("foods_allergens_derived_idx").using("gin", t.allergensDerived),
+    index("foods_health_claims_idx").using("gin", t.healthClaims),
+    index("foods_usda_data_type_idx").on(t.usdaDataType),
+    // Partial: only USDA branded rows carry a barcode, ~6% of the table.
+    index("foods_barcode_idx").on(t.barcode),
+    // jsonb_path_ops --- we ask "contains nutrient X above Y", never "what keys
+    // exist", and it builds a smaller index than the default opclass.
+    index("foods_micronutrients_idx").using("gin", t.micronutrients),
+  ],
+);
+
+/**
+ * The nutrient dictionary behind `foods.micronutrients`. Seeded from USDA's
+ * nutrient.csv, so `usdaId` is their id and `rank` their display order --- which
+ * is what makes a rendered panel read like a Nutrition Facts label rather than
+ * an alphabetical dump.
+ */
+export const nutrients = pgTable(
+  "nutrients",
+  {
+    usdaId: integer("usda_id").primaryKey(),
+    /** The key used in `foods.micronutrients`; carries the unit (iron_mg). */
+    slug: text("slug").notNull(),
+    name: text("name").notNull(),
+    unit: text("unit").notNull(),
+    rank: numeric("rank", { precision: 10, scale: 1 }),
+    /** FDA 2016 adult Daily Value in `unit`; NULL where the nutrient has none. */
+    dailyValue: numeric("daily_value", { precision: 12, scale: 4 }),
+    /** True for the eight that live in their own columns on `foods`. */
+    isMacro: boolean("is_macro").notNull().default(false),
+  },
+  (t) => [uniqueIndex("nutrients_slug_unique").on(t.slug)],
+);
+
+/**
+ * Household measures --- "1 cup, chopped" -> 150 g. Without these a member can
+ * only log in grams, which is not how anyone describes a portion.
+ */
+export const foodPortions = pgTable(
+  "food_portions",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    foodId: uuid("food_id")
+      .notNull()
+      .references(() => foods.id, { onDelete: "cascade" }),
+    seqNum: integer("seq_num").notNull().default(0),
+    amount: numeric("amount", { precision: 10, scale: 3 }),
+    unit: text("unit"),
+    description: text("description"),
+    modifier: text("modifier"),
+    gramWeight: numeric("gram_weight", { precision: 10, scale: 2 }).notNull(),
+    /**
+     * The serving printed on the package --- what a member means by "one
+     * serving", and the basis every health claim on this food was tested against.
+     */
+    isLabelServing: boolean("is_label_serving").notNull().default(false),
+  },
+  (t) => [
+    index("food_portions_food_idx").on(t.foodId, t.seqNum),
+    uniqueIndex("food_portions_unique").on(t.foodId, t.seqNum, t.gramWeight),
   ],
 );
 

@@ -12,6 +12,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-wellness}
       # Postgres refuses to start on an existing cluster if this changes; keep it stable.
       PGDATA: /var/lib/postgresql/data/pgdata
+    # Docker's 64MB default is where parallel query workers put their shared
+    # hash and sort state. The USDA import aggregates 27M nutrient rows and dies
+    # with "could not resize shared memory segment" long before it runs out of
+    # real memory; anything that scans the whole foods table will do the same.
+    shm_size: 1gb
     ports:
       # Bound to loopback only. Caddy is the sole public surface.
       - "127.0.0.1:5432:5432"

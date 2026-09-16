@@ -19,6 +19,26 @@ export async function hasVector(): Promise<boolean> {
  * nobody types a food name from its first character: "greek yogurt" has to
  * match "Yogurt, Greek, 0% fat".
  */
+/**
+ * Provenance tier, applied to `foods` only, as a tie-break BEFORE name.
+ *
+ * The USDA import added ~1.9M branded products against ~14k generic ones, and
+ * they score identically on trigram: "chicken breast" matches "Chicken, breast,
+ * meat only, raw" and "100% ALL NATURAL CHICKEN BREAST MINI NUGGETS PATTY
+ * FRITTERS" equally well. Alphabetically the nuggets win, so without this a
+ * search that used to return the food someone meant now returns eight brands of
+ * frozen nugget. Generic reference foods first, branded SKUs after.
+ *
+ * Length is the last tie-break: among rows of the same provenance the shorter
+ * name is the more generic one.
+ */
+const FOOD_RANK = client`
+  CASE
+    WHEN source <> 'usda' THEN 0
+    WHEN usda_data_type <> 'branded_food' THEN 1
+    ELSE 2
+  END, length(name),`;
+
 export async function trigramSearch(table: "foods" | "meals" | "exercises", term: string, limit: number) {
   // word_similarity, not similarity: the query is a few characters and the
   // stored name is a long phrase, so whole-string similarity scores "yogrt"
@@ -35,11 +55,12 @@ export async function trigramSearch(table: "foods" | "meals" | "exercises", term
         ? client`, calories, protein_g AS "proteinG", carbs_g AS "carbsG", fat_g AS "fatG", serving_size AS "servingSize", serving_unit AS "servingUnit", allergens, image_url AS "imageUrl"`
         : client`, discipline::text, logging_mode::text AS "loggingMode", equipment, muscle_groups AS "muscleGroups", met`;
 
+  const rank = table === "foods" ? FOOD_RANK : client``;
   return client`
     SELECT id, name, word_similarity(${term}, name) AS score ${extra}
     FROM ${client(table)}
     WHERE ${term} <% name
-    ORDER BY score DESC, name
+    ORDER BY score DESC, ${rank} name
     LIMIT ${limit}`;
 }
 

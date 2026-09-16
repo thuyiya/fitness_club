@@ -52,6 +52,9 @@ function MemberTabs() {
         <Tabs.Screen name="chat" options={{ href: null }} />
         <Tabs.Screen name="calendar" options={{ href: null }} />
         <Tabs.Screen name="notifications" options={{ href: null }} />
+        <Tabs.Screen name="meal" options={{ href: null }} />
+        <Tabs.Screen name="meal-detail" options={{ href: null }} />
+        <Tabs.Screen name="exercise-detail" options={{ href: null }} />
       </Tabs>
 
       <QuickLogSheet

@@ -15,7 +15,7 @@ export const recurrence = pgEnum("recurrence", ["once", "daily", "weekly", "biwe
 
 export const mealType = pgEnum("meal_type", ["breakfast", "lunch", "dinner", "snack"]);
 /** Where a food row came from. Open Food Facts is the free bulk source. */
-export const foodSource = pgEnum("food_source", ["open_food_facts", "custom", "verified"]);
+export const foodSource = pgEnum("food_source", ["open_food_facts", "custom", "verified", "usda"]);
 
 export const goalSource = pgEnum("goal_source", ["coach", "personal"]);
 export const goalPeriod = pgEnum("goal_period", ["daily", "weekly", "monthly"]);

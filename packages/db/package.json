@@ -16,7 +16,9 @@
     "studio": "drizzle-kit studio",
     "typecheck": "tsc --noEmit",
     "seed": "node seed/seed.mjs",
-    "seed:embed": "node seed/embed.mjs"
+    "seed:embed": "node seed/embed.mjs",
+    "seed:usda": "node seed/usda/import.mjs",
+    "validate:usda": "node seed/usda/validate.mjs"
   },
   "dependencies": {
     "@wellness/embeddings": "workspace:*",

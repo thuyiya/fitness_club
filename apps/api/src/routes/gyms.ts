@@ -29,15 +29,17 @@ export const gymRoutes: FastifyPluginAsync = async (app) => {
         capacity: schema.gyms.capacity,
         status: schema.gyms.status,
         coverImageUrl: schema.gyms.coverImageUrl,
+        // Table names are written out literally here. Interpolating a drizzle
+        // column into a raw sql`` template renders it UNQUALIFIED, so the
+        // correlation becomes `WHERE gym_id = id` --- which resolves `id` to
+        // the INNER table and silently counts zero instead of erroring.
         memberCount: sql<number>`(
-          SELECT count(*)::int FROM ${schema.gymMembers}
-          WHERE ${schema.gymMembers.gymId} = ${schema.gyms.id}
-            AND ${schema.gymMembers.status} = 'active'
+          SELECT count(*)::int FROM gym_members gm
+          WHERE gm.gym_id = gyms.id AND gm.status = 'active'
         )`,
         pendingRequests: sql<number>`(
-          SELECT count(*)::int FROM ${schema.joinRequests}
-          WHERE ${schema.joinRequests.gymId} = ${schema.gyms.id}
-            AND ${schema.joinRequests.status} = 'pending'
+          SELECT count(*)::int FROM join_requests jr
+          WHERE jr.gym_id = gyms.id AND jr.status = 'pending'
         )`,
       })
       .from(schema.gyms)

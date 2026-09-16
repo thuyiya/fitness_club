@@ -80,6 +80,89 @@ export const calendarRoutes: FastifyPluginAsync = async (app) => {
     return { from, to, appointments: rows, planWindows };
   });
 
+
+  /**
+   * One day for a member: booked sessions plus the SLOTS their plans prescribe.
+   *
+   * A calendar that only shows appointments is nearly empty for most members --
+   * they have one session a week and eat four times a day. The prescribed meals
+   * and exercises are what actually fill the day, so they belong here, marked
+   * as planned rather than booked.
+   */
+  app.get("/calendar/day", { preHandler: auth }, async (req) => {
+    const { date, memberId } = z
+      .object({ date: isoDate, memberId: z.string().uuid().optional() })
+      .parse(req.query);
+    const member = memberId ?? req.user!.id;
+    await assertCanReadMember(req.user!, member);
+
+    const start = new Date(`${date}T00:00:00.000Z`);
+    const end = new Date(`${date}T23:59:59.999Z`);
+
+    // Plans whose window covers this date.
+    const active = and(
+      eq(schema.planAssignments.memberId, member),
+      lte(schema.planAssignments.startDate, date),
+      or(isNull(schema.planAssignments.endDate), gte(schema.planAssignments.endDate, date))!,
+      inArray(schema.planAssignments.status, ["scheduled", "active"]),
+    );
+
+    const [appointments, exercises, meals] = await Promise.all([
+      db
+        .select({
+          id: schema.appointments.id, kind: schema.appointments.kind, title: schema.appointments.title,
+          location: schema.appointments.location, startsAt: schema.appointments.startsAt,
+          endsAt: schema.appointments.endsAt, status: schema.appointments.status,
+        })
+        .from(schema.appointments)
+        .where(and(eq(schema.appointments.memberId, member), gte(schema.appointments.startsAt, start), lte(schema.appointments.startsAt, end))),
+      db
+        .select({
+          id: schema.planExercises.id, planName: schema.plans.name, position: schema.planExercises.position,
+          sets: schema.planExercises.sets, reps: schema.planExercises.reps,
+          durationSeconds: schema.planExercises.durationSeconds, restSeconds: schema.planExercises.restSeconds,
+          name: schema.exercises.name, loggingMode: schema.exercises.loggingMode,
+          discipline: schema.exercises.discipline, dayTitle: schema.planDays.title,
+        })
+        .from(schema.planAssignments)
+        .innerJoin(schema.plans, eq(schema.plans.id, schema.planAssignments.planId))
+        .innerJoin(schema.planDays, eq(schema.planDays.planId, schema.plans.id))
+        .innerJoin(schema.planExercises, eq(schema.planExercises.planDayId, schema.planDays.id))
+        .innerJoin(schema.exercises, eq(schema.exercises.id, schema.planExercises.exerciseId))
+        .where(active)
+        .orderBy(asc(schema.planExercises.position)),
+      db
+        .select({
+          id: schema.planMeals.id, planName: schema.plans.name, mealType: schema.planMeals.mealType,
+          position: schema.planMeals.position, servings: schema.planMeals.servings,
+          name: schema.meals.name, calories: schema.meals.calories, proteinG: schema.meals.proteinG,
+          carbsG: schema.meals.carbsG, fatG: schema.meals.fatG,
+        })
+        .from(schema.planAssignments)
+        .innerJoin(schema.plans, eq(schema.plans.id, schema.planAssignments.planId))
+        .innerJoin(schema.planDays, eq(schema.planDays.planId, schema.plans.id))
+        .innerJoin(schema.planMeals, eq(schema.planMeals.planDayId, schema.planDays.id))
+        .innerJoin(schema.meals, eq(schema.meals.id, schema.planMeals.mealId))
+        .where(active)
+        .orderBy(asc(schema.planMeals.position)),
+    ]);
+
+    // Typical times for each slot, so meal slots can be placed on the hour axis
+    // alongside real bookings. A member who logs at a different time is not
+    // wrong --- this only positions the PLAN.
+    const SLOT_HOUR: Record<string, number> = { breakfast: 8, lunch: 13, dinner: 19, snack: 16 };
+
+    return {
+      date,
+      appointments,
+      mealSlots: meals.map((m) => ({ ...m, plannedHour: SLOT_HOUR[m.mealType ?? "snack"] ?? 12 })),
+      exerciseSlots: exercises,
+      // Exercises have no fixed hour: they belong to the session the member
+      // books or chooses, so the client renders them as an unscheduled block.
+      hasPlannedTraining: exercises.length > 0,
+    };
+  });
+
   app.post("/appointments", { preHandler: coachOnly }, async (req, reply) => {
     const body = z
       .object({
