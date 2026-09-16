@@ -57,6 +57,20 @@
       "when": 1789573760626,
       "tag": "0007_usda_foodcentral",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1789579325833,
+      "tag": "0008_late_nightcrawler",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1789580115380,
+      "tag": "0009_worthless_hellcat",
+      "breakpoints": true
     }
   ]
 }

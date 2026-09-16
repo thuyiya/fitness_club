@@ -1,5 +1,6 @@
 import { Feather } from "@expo/vector-icons";
-import { ScrollView, Text, View } from "react-native";
+import { router } from "expo-router";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Card, Screen } from "./ui";
 import { space, type as typo, type Theme } from "../theme/tokens";
@@ -14,7 +15,12 @@ export function Placeholder({ theme, title, planned }: { theme: Theme; title: st
   return (
     <Screen theme={theme}>
       <ScrollView contentContainerStyle={{ padding: space.lg, paddingTop: insets.top + space.md, paddingBottom: 120 }}>
-        <Text style={{ ...typo.display, color: theme.ink, marginBottom: space.lg }}>{title}</Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: space.md, marginBottom: space.lg }}>
+          <Pressable onPress={() => router.canGoBack() && router.back()} hitSlop={12}>
+            <Feather name="chevron-left" size={24} color={theme.inkSoft} />
+          </Pressable>
+          <Text style={{ ...typo.display, color: theme.ink }}>{title}</Text>
+        </View>
         <Card theme={theme}>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: space.md }}>
             <Feather name="tool" size={16} color={theme.warning} />

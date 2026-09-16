@@ -3,6 +3,7 @@ import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import { db, schema } from "../db.js";
 import { badRequest, notFound } from "../errors.js";
+import { notify } from "../lib/notify.js";
 
 /** Every admin mutation writes an audit row; who changed a role matters later. */
 async function audit(actorId: string, action: string, entityType: string, entityId: string, metadata?: unknown) {
@@ -133,7 +134,34 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
       .from(schema.gyms)
       .innerJoin(schema.users, eq(schema.users.id, schema.gyms.ownerCoachId))
       .orderBy(desc(schema.gyms.createdAt));
-    return { items: rows };
+    return { items: rows, pendingCount: rows.filter((g) => g.status === "pending").length };
+  });
+
+  /** Approve or turn down a coach-created gym. */
+  app.post("/admin/gyms/:id/decide", { preHandler: adminOnly }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const { decision, reason } = z
+      .object({ decision: z.enum(["active", "rejected", "archived"]), reason: z.string().max(300).optional() })
+      .parse(req.body);
+
+    const gym = await db.query.gyms.findFirst({ where: eq(schema.gyms.id, id) });
+    if (!gym) throw notFound("Gym");
+
+    const [updated] = await db
+      .update(schema.gyms)
+      .set({ status: decision, updatedAt: new Date() })
+      .where(eq(schema.gyms.id, id))
+      .returning();
+
+    await audit(req.user!.id, "gym_" + decision, "gym", id, { name: gym.name, reason });
+    await notify(
+      gym.ownerCoachId,
+      "system",
+      decision === "active" ? "Gym approved" : decision === "rejected" ? "Gym not approved" : "Gym archived",
+      decision === "active" ? `${gym.name} is now live` : reason ?? `${gym.name} was ${decision}`,
+      { gymId: id },
+    );
+    return { gym: updated };
   });
 
   app.get("/admin/audit", { preHandler: adminOnly }, async (req) => {

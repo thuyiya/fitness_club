@@ -138,3 +138,10 @@ export const appointmentStatus = pgEnum("appointment_status", [
   "cancelled",
   "no_show",
 ]);
+
+/**
+ * A gym's lifecycle. Deliberately not the user_status enum it used to borrow:
+ * a gym is not "suspended", it is awaiting approval, live, turned down, or
+ * retired --- and a coach-created gym must not be live before an admin sees it.
+ */
+export const gymStatus = pgEnum("gym_status", ["pending", "active", "rejected", "archived"]);

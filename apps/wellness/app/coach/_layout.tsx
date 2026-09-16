@@ -55,6 +55,10 @@ export default function CoachLayout() {
         <Tabs.Screen name="templates" options={{ href: null }} />
         <Tabs.Screen name="assign" options={{ href: null }} />
         <Tabs.Screen name="add-exercises" options={{ href: null }} />
+        <Tabs.Screen name="gyms" options={{ href: null }} />
+        <Tabs.Screen name="members" options={{ href: null }} />
+        <Tabs.Screen name="teams" options={{ href: null }} />
+        <Tabs.Screen name="profile" options={{ href: null }} />
       </Tabs>
 
       <CoachActionSheet theme={theme} visible={sheet} onClose={() => setSheet(false)} />

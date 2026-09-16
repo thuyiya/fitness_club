@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
-import { boolean, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
-import { membershipStatus, requestStatus, userStatus } from "./enums.js";
+import { boolean, index, integer, jsonb, numeric, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { gymStatus, membershipStatus, requestStatus, userStatus } from "./enums.js";
 import { users } from "./identity.js";
 
 export const gyms = pgTable(
@@ -16,9 +16,24 @@ export const gyms = pgTable(
     city: text("city"),
     country: text("country"),
     phone: text("phone"),
+    website: text("website"),
+    /**
+     * The link a coach pastes from Google Maps, kept verbatim so "open in maps"
+     * reproduces exactly what they intended --- a place id or plus code survives
+     * here even when it cannot be reduced to a coordinate.
+     */
+    mapsUrl: text("maps_url"),
+    /**
+     * Resolved coordinates. Stored separately from mapsUrl because the preview
+     * needs numbers, and because the link may be a short form that has to be
+     * expanded once rather than on every render.
+     */
+    latitude: numeric("latitude", { precision: 9, scale: 6 }),
+    longitude: numeric("longitude", { precision: 9, scale: 6 }),
     coverImageUrl: text("cover_image_url"),
     capacity: integer("capacity"),
-    status: userStatus("status").notNull().default("active"),
+    /** Coach-created gyms start pending; an admin promotes them to active. */
+    status: gymStatus("status").notNull().default("pending"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },

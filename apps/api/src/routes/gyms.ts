@@ -1,9 +1,11 @@
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, ilike, or, sql } from "drizzle-orm";
 import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import { db, schema } from "../db.js";
 import { badRequest, conflict, notFound } from "../errors.js";
 import { assertOwnsGym, coachRoster } from "../lib/access.js";
+import { notify } from "../lib/notify.js";
+import { resolveLocation } from "../lib/geo.js";
 
 const gymBody = z.object({
   name: z.string().min(1).max(160),
@@ -11,6 +13,10 @@ const gymBody = z.object({
   city: z.string().max(120).optional(),
   country: z.string().max(120).optional(),
   phone: z.string().max(40).optional(),
+  // Accepts a bare domain; the client should not have to know we want a scheme.
+  website: z.string().max(300).optional().transform((v) =>
+    v && v.trim() ? (/^https?:\/\//i.test(v.trim()) ? v.trim() : `https://${v.trim()}`) : undefined),
+  mapsUrl: z.string().max(600).optional(),
   capacity: z.coerce.number().int().positive().optional(),
 });
 
@@ -27,6 +33,13 @@ export const gymRoutes: FastifyPluginAsync = async (app) => {
         city: schema.gyms.city,
         country: schema.gyms.country,
         capacity: schema.gyms.capacity,
+        ownerCoachId: schema.gyms.ownerCoachId,
+        address: schema.gyms.address,
+        phone: schema.gyms.phone,
+        website: schema.gyms.website,
+        mapsUrl: schema.gyms.mapsUrl,
+        latitude: schema.gyms.latitude,
+        longitude: schema.gyms.longitude,
         status: schema.gyms.status,
         coverImageUrl: schema.gyms.coverImageUrl,
         // Table names are written out literally here. Interpolating a drizzle
@@ -43,16 +56,148 @@ export const gymRoutes: FastifyPluginAsync = async (app) => {
         )`,
       })
       .from(schema.gyms)
-      .where(req.user!.role === "admin" ? undefined : eq(schema.gyms.ownerCoachId, req.user!.id))
+      .where(
+        req.user!.role === "admin"
+          ? undefined
+          // A coach may own a gym or simply work at one, so both count as "mine".
+          : or(
+              eq(schema.gyms.ownerCoachId, req.user!.id),
+              sql`EXISTS (SELECT 1 FROM gym_members gm WHERE gm.gym_id = gyms.id AND gm.user_id = ${req.user!.id} AND gm.status = 'active')`,
+            ),
+      )
       .orderBy(schema.gyms.name);
+    return {
+      items: rows.map((g) => ({ ...g, isOwner: g.ownerCoachId === req.user!.id })),
+    };
+  });
+
+  /**
+   * Gyms a coach could ask to join: live ones they are not already part of.
+   * Admins pre-create gyms for chains, so a new coach usually joins rather
+   * than creating, and offering creation first leads to duplicates.
+   */
+  app.get("/gyms/browse", { preHandler: coachOnly }, async (req) => {
+    const { q } = z.object({ q: z.string().trim().optional() }).parse(req.query);
+    const where = [
+      eq(schema.gyms.status, "active"),
+      sql`${schema.gyms.ownerCoachId} <> ${req.user!.id}`,
+      sql`NOT EXISTS (SELECT 1 FROM gym_members gm WHERE gm.gym_id = gyms.id AND gm.user_id = ${req.user!.id})`,
+    ];
+    if (q) where.push(ilike(schema.gyms.name, `%${q}%`));
+
+    const rows = await db
+      .select({
+        id: schema.gyms.id, name: schema.gyms.name, city: schema.gyms.city,
+        country: schema.gyms.country, coverImageUrl: schema.gyms.coverImageUrl,
+        memberCount: sql<number>`(SELECT count(*)::int FROM gym_members gm WHERE gm.gym_id = gyms.id AND gm.status = 'active')`,
+        pending: sql<boolean>`EXISTS (SELECT 1 FROM join_requests jr WHERE jr.gym_id = gyms.id AND jr.member_id = ${req.user!.id} AND jr.status = 'pending')`,
+      })
+      .from(schema.gyms)
+      .where(and(...where))
+      .orderBy(schema.gyms.name)
+      .limit(50);
     return { items: rows };
   });
 
   app.post("/gyms", { preHandler: coachOnly }, async (req, reply) => {
     const body = gymBody.parse(req.body);
-    const [gym] = await db.insert(schema.gyms).values({ ...body, ownerCoachId: req.user!.id }).returning();
+
+    // A coach-created gym is not live until an admin approves it; an admin
+    // creating one has already made that decision.
+    const status = req.user!.role === "admin" ? "active" : "pending";
+
+    // Resolve a pin before writing, so the gym is never saved without the
+    // coordinates its preview needs. A failure here is not fatal --- the gym
+    // still saves, just without a map.
+    const coords = await resolveLocation(body);
+
+    const [gym] = await db
+      .insert(schema.gyms)
+      .values({
+        ...body,
+        ownerCoachId: req.user!.id,
+        status,
+        latitude: coords ? String(coords.latitude) : null,
+        longitude: coords ? String(coords.longitude) : null,
+      })
+      .returning();
+
+    // The owner is a member of their own gym from the start, so the roster and
+    // "my gyms" queries do not need to special-case ownership.
+    await db.insert(schema.gymMembers).values({ gymId: gym!.id, userId: req.user!.id, status: "active" }).onConflictDoNothing();
+
+    if (status === "pending") {
+      const admins = await db.select({ id: schema.users.id }).from(schema.users).where(eq(schema.users.role, "admin"));
+      await Promise.all(
+        admins.map((a) => notify(a.id, "join_request", "Gym awaiting approval", `${body.name} was created and needs review`, { gymId: gym!.id })),
+      );
+    }
+
     reply.code(201);
-    return { gym };
+    return { gym, needsApproval: status === "pending", located: coords?.source ?? null };
+  });
+
+
+  /** One gym with everything the detail view shows. */
+  app.get("/gyms/:id", { preHandler: auth }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const gym = await db.query.gyms.findFirst({ where: eq(schema.gyms.id, id) });
+    if (!gym) throw notFound("Gym");
+    const [counts] = await db
+      .select({
+        members: sql<number>`(SELECT count(*)::int FROM gym_members gm WHERE gm.gym_id = gyms.id AND gm.status = 'active')`,
+        pending: sql<number>`(SELECT count(*)::int FROM join_requests jr WHERE jr.gym_id = gyms.id AND jr.status = 'pending')`,
+      })
+      .from(schema.gyms)
+      .where(eq(schema.gyms.id, id));
+    return { gym, ...counts, isOwner: gym.ownerCoachId === req.user!.id };
+  });
+
+  app.patch("/gyms/:id", { preHandler: coachOnly }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    await assertOwnsGym(req.user!, id);
+    const body = gymBody.partial().parse(req.body);
+
+    // Only re-resolve when something that determines the pin actually moved;
+    // Nominatim is rate-limited and a name change must not cost a lookup.
+    const existing = await db.query.gyms.findFirst({ where: eq(schema.gyms.id, id) });
+    const moved = body.mapsUrl !== undefined || body.address !== undefined || body.city !== undefined;
+    const coords = moved
+      ? await resolveLocation({
+          mapsUrl: body.mapsUrl ?? existing?.mapsUrl,
+          address: body.address ?? existing?.address,
+          city: body.city ?? existing?.city,
+          country: body.country ?? existing?.country,
+        })
+      : null;
+
+    const [gym] = await db
+      .update(schema.gyms)
+      .set({
+        ...body,
+        ...(coords ? { latitude: String(coords.latitude), longitude: String(coords.longitude) } : {}),
+        updatedAt: new Date(),
+      })
+      .where(eq(schema.gyms.id, id))
+      .returning();
+    return { gym, located: coords?.source ?? null };
+  });
+
+  /**
+   * Preview a pasted link before saving, so a coach sees the pin land on the
+   * right building rather than discovering it was wrong after creating the gym.
+   */
+  app.post("/gyms/resolve-location", { preHandler: coachOnly }, async (req) => {
+    const body = z
+      .object({
+        mapsUrl: z.string().max(600).optional(),
+        address: z.string().max(300).optional(),
+        city: z.string().max(120).optional(),
+        country: z.string().max(120).optional(),
+      })
+      .parse(req.body);
+    const coords = await resolveLocation(body);
+    return { coords, resolved: !!coords };
   });
 
   /** A member asks to join. One pending request per gym is enforced by a partial unique index. */

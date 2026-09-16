@@ -1,3 +1,4 @@
+import { Feather } from "@expo/vector-icons";
 import { ActivityIndicator, Pressable, StyleSheet, Text, View, type ViewStyle } from "react-native";
 import { radius, space, type as typo, type Theme } from "../theme/tokens";
 
@@ -82,3 +83,63 @@ export function Screen({ theme, children }: { theme: Theme; children: React.Reac
 }
 
 const styles = StyleSheet.create({ screen: { flex: 1 } });
+
+
+/**
+ * Grouped settings rows with a single rounded outline, as the design shows.
+ * Dividers sit between rows rather than around each one, so the group reads as
+ * one object instead of a stack of cards.
+ */
+export function SettingsGroup({ theme, children }: { theme: Theme; children: React.ReactNode }) {
+  return (
+    <View style={{ backgroundColor: theme.card, borderRadius: radius.md, borderWidth: 1, borderColor: theme.line, overflow: "hidden" }}>
+      {children}
+    </View>
+  );
+}
+
+export function SettingsRow({
+  theme, icon, avatar, title, subtitle, badge, badgeTone, onPress, last,
+}: {
+  theme: Theme;
+  icon?: keyof typeof Feather.glyphMap;
+  avatar?: string;
+  title: string;
+  subtitle?: string;
+  badge?: string;
+  badgeTone?: string;
+  onPress?: () => void;
+  last?: boolean;
+}) {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => ({
+        flexDirection: "row", alignItems: "center", gap: space.md,
+        paddingHorizontal: space.lg, paddingVertical: avatar ? space.lg : 15,
+        borderBottomWidth: last ? 0 : 1, borderBottomColor: theme.line,
+        backgroundColor: pressed ? theme.cardAlt : "transparent",
+      })}
+    >
+      {avatar ? (
+        <View style={{ width: 44, height: 44, borderRadius: radius.pill, backgroundColor: theme.accent, alignItems: "center", justifyContent: "center" }}>
+          <Text style={{ ...typo.title, color: "#FFFFFF" }}>{avatar}</Text>
+        </View>
+      ) : icon ? (
+        <Feather name={icon} size={19} color={theme.inkSoft} />
+      ) : null}
+
+      <View style={{ flex: 1 }}>
+        <Text style={{ ...typo.body, color: theme.ink, fontWeight: avatar ? "700" : "400" }}>{title}</Text>
+        {subtitle ? <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>{subtitle}</Text> : null}
+      </View>
+
+      {badge ? (
+        <View style={{ backgroundColor: (badgeTone ?? theme.muted) + "26", borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 2 }}>
+          <Text style={{ ...typo.caption, color: badgeTone ?? theme.inkSoft, fontWeight: "700" }}>{badge}</Text>
+        </View>
+      ) : null}
+      <Feather name="chevron-right" size={18} color={theme.muted} />
+    </Pressable>
+  );
+}
