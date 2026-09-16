@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Constants from "expo-constants";
-import { Platform } from "react-native";
+import { NativeModules, Platform } from "react-native";
 
 /**
  * Where the API lives, resolved per platform.
@@ -17,21 +17,54 @@ import { Platform } from "react-native";
  * the Expo dev server the app was loaded from --- if Metro could reach this
  * device, so can the API on the same host.
  */
+function devServerHost(): string | null {
+  // React Native's own dev-server lookup. This is the only source that works
+  // under BRIDGELESS mode (the New Architecture), where NativeModules is empty
+  // and NativeModules.SourceCode.scriptURL is therefore undefined.
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const getDevServer = require("react-native/Libraries/Core/Devtools/getDevServer") as
+      | (() => { url?: string; bundleLoadedFromServer?: boolean })
+      | { default?: () => { url?: string } };
+    const fn = typeof getDevServer === "function" ? getDevServer : getDevServer.default;
+    const url = fn?.()?.url;
+    const host = url?.match(/^https?:\/\/([^/:]+)/)?.[1];
+    if (host) return host;
+  } catch {
+    // Not a dev build, or the internal path moved --- fall through.
+  }
+
+  const scriptURL = (NativeModules as { SourceCode?: { scriptURL?: string } }).SourceCode?.scriptURL;
+  const fromScript = scriptURL?.match(/^https?:\/\/([^/:]+)/)?.[1];
+  if (fromScript) return fromScript;
+
+  const c = Constants as unknown as {
+    expoConfig?: { hostUri?: string };
+    expoGoConfig?: { debuggerHost?: string };
+    manifest2?: { extra?: { expoGo?: { debuggerHost?: string } } };
+  };
+  const candidate =
+    c.expoConfig?.hostUri ??
+    c.expoGoConfig?.debuggerHost ??
+    c.manifest2?.extra?.expoGo?.debuggerHost;
+  return candidate?.split(":")[0] ?? null;
+}
+
 function resolveApiUrl(): string {
-  // An explicit override always wins; this is what production builds set.
+  // An explicit override always wins. `pnpm dev:*` writes this into
+  // apps/wellness/.env.local with the machine's current LAN address, so a
+  // physical device never depends on runtime introspection working.
   if (process.env.EXPO_PUBLIC_API_URL) return process.env.EXPO_PUBLIC_API_URL;
 
   const port = process.env.EXPO_PUBLIC_API_PORT ?? "3001";
-
   if (Platform.OS === "web") return `http://localhost:${port}`;
 
-  // e.g. "192.168.1.42:8081" in dev, undefined in a production build.
-  const host = (Constants.expoConfig as { hostUri?: string } | null)?.hostUri?.split(":")[0];
-
+  const host = devServerHost();
   if (host && host !== "localhost" && host !== "127.0.0.1") {
     return `http://${host}:${port}`;
   }
-  // Loopback dev server: fine for iOS, never for the Android emulator.
+  // Loopback: fine for the iOS simulator, never for the Android emulator
+  // (which needs 10.0.2.2) and never for a physical device.
   return Platform.OS === "android" ? `http://10.0.2.2:${port}` : `http://localhost:${port}`;
 }
 

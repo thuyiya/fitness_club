@@ -25,7 +25,8 @@
     "smoke": "node apps/api/smoke.mjs && node apps/api/smoke-domain.mjs && node apps/api/smoke-comms.mjs",
     "dev:ios": "node scripts/dev.mjs ios",
     "dev:android": "node scripts/dev.mjs android",
-    "dev:all": "node scripts/dev.mjs"
+    "dev:all": "node scripts/dev.mjs",
+    "dev:device": "node scripts/dev.mjs device"
   },
   "devDependencies": {
     "playwright-core": "^1.63.0",

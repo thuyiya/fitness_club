@@ -9,13 +9,40 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.glitchfy.wellness"
+      "bundleIdentifier": "com.glitchfy.wellness",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsLocalNetworking": true
+        },
+        "NSLocalNetworkUsageDescription": "Wellness connects to your development server on this network."
+      }
     },
     "android": {
       "package": "com.glitchfy.wellness",
       "edgeToEdgeEnabled": true
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.1"
+          },
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "minSdkVersion": 24
+          }
+        }
+      ],
+      [
+        "./plugins/withMinIosDeploymentTarget",
+        {
+          "deploymentTarget": "15.1"
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     }

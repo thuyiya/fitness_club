@@ -170,8 +170,59 @@ if (target === "android") {
   console.log("    the app reaches the API at 10.0.2.2:3001 — handled automatically");
 }
 
+
+if (target === "device") {
+  // A physical iPhone cannot run this through Expo Go: the App Store only ships
+  // the current client, which does not support this project's SDK, and an older
+  // Expo Go cannot be sideloaded. So a development build is the only route.
+  const devices = spawnSync("xcrun", ["devicectl", "list", "devices"], { encoding: "utf8" }).stdout ?? "";
+  const line = devices.split("\n").find((l) => /physical/.test(l) && /available/.test(l));
+  if (!line) {
+    die("No physical device connected", "Plug the iPhone in, unlock it, and tap Trust if prompted.");
+  }
+  const udid = line.match(/([0-9A-F]{8}-[0-9A-F]{16})/i)?.[1] ?? line.trim().split(/\s{2,}/)[2]?.split(" ")[0];
+  ok(`Device found: ${line.trim().split(/\s{2,}/)[0]}`);
+
+  if (/needs to be unlocked/i.test(devices)) {
+    die("The device is locked", "Unlock the iPhone and keep it unlocked while the build runs.");
+  }
+
+  if (!existsSync(join(APP, "ios"))) {
+    ok("Generating the native project (first run only)");
+    const pre = spawnSync(join(ROOT, "node_modules/.bin/expo"), ["prebuild", "--platform", "ios"], { cwd: APP, stdio: "inherit" });
+    if (pre.status !== 0) die("expo prebuild failed");
+  }
+
+  console.log("\n  Building and installing — the first build takes several minutes.");
+  console.log("  Keep the iPhone unlocked and on the same Wi-Fi as this machine.\n");
+  const run = spawn(join(ROOT, "node_modules/.bin/expo"), ["run:ios", "--device", udid], { cwd: APP, stdio: "inherit" });
+  run.on("exit", (code) => { api?.kill("SIGINT"); process.exit(code ?? 0); });
+  process.on("SIGINT", () => { run.kill("SIGINT"); api?.kill("SIGINT"); process.exit(0); });
+} else {
+
+/**
+ * Write the API address into the app's env at BUILD time.
+ *
+ * Runtime detection of the dev-server host is unreliable: Constants.hostUri is
+ * empty in a plain dev build, and NativeModules.SourceCode does not exist under
+ * bridgeless. Baking the machine's current LAN address in removes the guesswork
+ * entirely, and rewriting it on every run keeps it correct when the network
+ * changes. EXPO_PUBLIC_* is inlined by Metro, so this needs a Metro restart,
+ * which is exactly what this script does.
+ */
 const lan = lanAddress();
-if (lan) console.log(`\n  Physical device? Make sure it is on the same network as ${lan}\n`);
+if (lan) {
+  const envFile = join(APP, ".env.local");
+  const line = `EXPO_PUBLIC_API_URL=http://${lan}:3001`;
+  const existing = existsSync(envFile) ? readFileSync(envFile, "utf8") : "";
+  if (!existing.includes(line)) {
+    writeFileSync(envFile, `# Written by scripts/dev.mjs on each run. Do not commit.\n${line}\n`);
+    ok(`API address for devices: http://${lan}:3001`);
+  } else {
+    ok(`API address for devices: http://${lan}:3001`);
+  }
+  console.log(`\n  A phone must be on the same network as ${lan}\n`);
+}
 
 // --- metro ------------------------------------------------------------------
 const args = ["start"];
@@ -193,3 +244,4 @@ expo.on("exit", (code) => {
   api?.kill("SIGINT");
   process.exit(code ?? 0);
 });
+}

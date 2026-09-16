@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ApiError } from "../src/api/client";
+import { API_URL, ApiError } from "../src/api/client";
 import { Button, Screen } from "../src/components/ui";
 import { useAuth, type Role } from "../src/state/auth";
 import { member, radius, space, type as typo } from "../src/theme/tokens";
@@ -26,7 +26,13 @@ export default function SignIn() {
       if (mode === "in") await signIn(email, password);
       else await register({ name, email, password, role });
     } catch (e) {
-      setError(e instanceof ApiError ? e.message : "Could not reach the server. Is the API running?");
+      // Name the address that failed. "Could not connect" with no URL is
+      // undebuggable on a device, where the host is resolved at runtime.
+      setError(
+        e instanceof ApiError
+          ? e.message
+          : `Could not reach the API at ${API_URL}. Check it is running and that this device is on the same network.`,
+      );
     } finally {
       setBusy(false);
     }
@@ -100,6 +106,10 @@ export default function SignIn() {
           )}
 
           <Button theme={theme} label={mode === "in" ? "Sign in" : "Create account"} onPress={submit} busy={busy} />
+
+          <Text style={{ ...typo.caption, color: theme.muted, textAlign: "center", marginTop: space.md }}>
+            API: {API_URL}
+          </Text>
 
           <Pressable onPress={() => { setMode(mode === "in" ? "up" : "in"); setError(null); }} style={{ marginTop: space.lg, alignItems: "center" }}>
             <Text style={{ ...typo.body, color: theme.inkSoft }}>
