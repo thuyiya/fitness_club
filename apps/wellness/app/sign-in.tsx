@@ -14,7 +14,7 @@ export default function SignIn() {
   const [mode, setMode] = useState<"in" | "up">("in");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("demo-password-123");
   const [role, setRole] = useState<Role>("member");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
