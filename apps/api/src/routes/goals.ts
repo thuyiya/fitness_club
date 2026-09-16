@@ -4,6 +4,7 @@ import { z } from "zod";
 import { db, schema } from "../db.js";
 import { forbidden, notFound } from "../errors.js";
 import { assertCanReadMember } from "../lib/access.js";
+import { notify } from "../lib/notify.js";
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD");
 
@@ -94,6 +95,20 @@ export const goalRoutes: FastifyPluginAsync = async (app) => {
         endDate: body.endDate ?? null,
       })
       .returning();
+    if (goal!.source === "coach") {
+      await notify(member, "system", "New goal from your coach", goal!.title, { goalId: goal!.id });
+    } else {
+      // Tell the coach their member set themselves a goal, so it can be
+      // reviewed rather than discovered by accident weeks later.
+      const link = await db.query.coachMembers.findFirst({
+        where: and(eq(schema.coachMembers.memberId, member), eq(schema.coachMembers.status, "active")),
+      });
+      if (link) {
+        const who = await db.query.users.findFirst({ where: eq(schema.users.id, member) });
+        await notify(link.coachId, "system", `${who?.name ?? "A member"} set a goal`, goal!.title, { goalId: goal!.id, memberId: member });
+      }
+    }
+
     reply.code(201);
     return { goal };
   });

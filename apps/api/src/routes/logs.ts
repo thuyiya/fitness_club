@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, gte, lte, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import { db, schema } from "../db.js";
@@ -92,64 +92,130 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
   });
 
   /**
-   * Log a meal. Passing a catalog `mealId` copies its macros so the log stays
-   * correct even if the meal is later edited --- a diary that rewrites history
-   * when a recipe changes is not a diary.
+   * Log a meal as a PLATE: any mix of catalog meals and individual foods, each
+   * with its own quantity. Macros are summed from the items server-side and
+   * snapshotted, so editing a recipe later never rewrites what someone ate.
+   *
+   * `loggedAt` places it on the day timeline. Without a real time the home
+   * screen cannot interleave meals and training in the order they happened.
    */
   app.post("/logs/meals", { preHandler: auth }, async (req, reply) => {
     const body = z
       .object({
         date: isoDate,
         mealType: z.enum(["breakfast", "lunch", "dinner", "snack"]),
-        mealId: z.string().uuid().optional(),
-        servings: z.coerce.number().min(0.1).max(20).default(1),
-        calories: z.coerce.number().min(0).max(10000).optional(),
-        proteinG: z.coerce.number().min(0).max(1000).optional(),
-        carbsG: z.coerce.number().min(0).max(1000).optional(),
-        fatG: z.coerce.number().min(0).max(1000).optional(),
+        loggedAt: z.string().datetime().optional(),
         photoUrl: z.string().url().optional(),
         notes: z.string().max(500).optional(),
+        items: z
+          .array(
+            z.object({
+              foodId: z.string().uuid().optional(),
+              mealId: z.string().uuid().optional(),
+              quantity: z.coerce.number().min(0.01).max(5000),
+              unit: z.string().max(12).default("g"),
+            }),
+          )
+          .min(1)
+          .max(40),
       })
       .parse(req.body);
 
-    let macros = {
-      calories: body.calories ?? 0,
-      proteinG: body.proteinG ?? 0,
-      carbsG: body.carbsG ?? 0,
-      fatG: body.fatG ?? 0,
-    };
+    // Resolve every line to real nutrition before writing anything, so a bad
+    // id fails the whole plate rather than saving half of it.
+    const lines: {
+      foodId: string | null; name: string; quantity: number; unit: string;
+      calories: number; proteinG: number; carbsG: number; fatG: number;
+    }[] = [];
 
-    if (body.mealId) {
-      const meal = await db.query.meals.findFirst({ where: eq(schema.meals.id, body.mealId) });
-      if (!meal) throw notFound("Meal");
-      const s = body.servings;
-      macros = {
-        calories: Number(meal.calories) * s,
-        proteinG: Number(meal.proteinG) * s,
-        carbsG: Number(meal.carbsG) * s,
-        fatG: Number(meal.fatG) * s,
-      };
-    } else if (body.calories == null) {
-      throw badRequest("Provide either a mealId or explicit macros");
+    for (const item of body.items) {
+      if (item.mealId) {
+        const meal = await db.query.meals.findFirst({ where: eq(schema.meals.id, item.mealId) });
+        if (!meal) throw notFound("Meal");
+        // For a catalog meal, quantity is a serving multiplier.
+        const n = item.quantity;
+        lines.push({
+          foodId: null, name: meal.name, quantity: n, unit: "serving",
+          calories: Number(meal.calories) * n, proteinG: Number(meal.proteinG) * n,
+          carbsG: Number(meal.carbsG) * n, fatG: Number(meal.fatG) * n,
+        });
+      } else if (item.foodId) {
+        const food = await db.query.foods.findFirst({ where: eq(schema.foods.id, item.foodId) });
+        if (!food) throw notFound("Food");
+        // Foods are stored per serving_size (100 g/ml for the catalog).
+        const factor = item.quantity / Number(food.servingSize || 100);
+        lines.push({
+          foodId: food.id, name: food.name, quantity: item.quantity, unit: item.unit || food.servingUnit,
+          calories: Number(food.calories) * factor, proteinG: Number(food.proteinG) * factor,
+          carbsG: Number(food.carbsG) * factor, fatG: Number(food.fatG) * factor,
+        });
+      } else {
+        throw badRequest("Each item needs a foodId or a mealId");
+      }
     }
 
-    const [row] = await db
-      .insert(schema.mealLogs)
-      .values({
-        memberId: req.user!.id,
-        mealId: body.mealId ?? null,
-        date: body.date,
-        mealType: body.mealType,
-        photoUrl: body.photoUrl ?? null,
-        notes: body.notes ?? null,
-        calories: String(Math.round(macros.calories)),
-        proteinG: String(Math.round(macros.proteinG * 10) / 10),
-        carbsG: String(Math.round(macros.carbsG * 10) / 10),
-        fatG: String(Math.round(macros.fatG * 10) / 10),
-      })
-      .returning();
+    const total = lines.reduce(
+      (a, l) => ({
+        calories: a.calories + l.calories, proteinG: a.proteinG + l.proteinG,
+        carbsG: a.carbsG + l.carbsG, fatG: a.fatG + l.fatG,
+      }),
+      { calories: 0, proteinG: 0, carbsG: 0, fatG: 0 },
+    );
+    const r1 = (n: number) => String(Math.round(n * 10) / 10);
+
+    const log = await db.transaction(async (tx) => {
+      const [row] = await tx
+        .insert(schema.mealLogs)
+        .values({
+          memberId: req.user!.id,
+          mealId: body.items.length === 1 ? (body.items[0]!.mealId ?? null) : null,
+          date: body.date,
+          mealType: body.mealType,
+          photoUrl: body.photoUrl ?? null,
+          notes: body.notes ?? null,
+          loggedAt: body.loggedAt ? new Date(body.loggedAt) : new Date(),
+          calories: String(Math.round(total.calories)),
+          proteinG: r1(total.proteinG), carbsG: r1(total.carbsG), fatG: r1(total.fatG),
+        })
+        .returning();
+
+      await tx.insert(schema.mealLogItems).values(
+        lines.map((l, i) => ({
+          mealLogId: row!.id, foodId: l.foodId, nameSnapshot: l.name,
+          quantity: String(l.quantity), unit: l.unit, position: i,
+          calories: String(Math.round(l.calories)), proteinG: r1(l.proteinG),
+          carbsG: r1(l.carbsG), fatG: r1(l.fatG),
+        })),
+      );
+      return row!;
+    });
+
     reply.code(201);
-    return { mealLog: row };
+    return { mealLog: log, items: lines.length };
+  });
+
+  /** One logged meal with everything on the plate, for the detail view. */
+  app.get("/logs/meals/:id", { preHandler: auth }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const log = await db.query.mealLogs.findFirst({ where: eq(schema.mealLogs.id, id) });
+    if (!log) throw notFound("Meal log");
+    await assertCanReadMember(req.user!, log.memberId);
+
+    const items = await db
+      .select()
+      .from(schema.mealLogItems)
+      .where(eq(schema.mealLogItems.mealLogId, id))
+      .orderBy(asc(schema.mealLogItems.position));
+    return { mealLog: log, items };
+  });
+
+  app.delete("/logs/meals/:id", { preHandler: auth }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const log = await db.query.mealLogs.findFirst({ where: eq(schema.mealLogs.id, id) });
+    if (!log) throw notFound("Meal log");
+    if (log.memberId !== req.user!.id) throw notFound("Meal log");
+    await db.delete(schema.mealLogs).where(eq(schema.mealLogs.id, id));
+    return { ok: true };
   });
 
   /**
@@ -164,7 +230,10 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
         activityId: z.string().uuid(),
         durationMinutes: z.coerce.number().int().min(1).max(1440),
         intensity: z.enum(["light", "moderate", "vigorous"]).optional(),
+        startedAt: z.string().datetime().optional(),
         notes: z.string().max(500).optional(),
+        /** Overrides the MET estimate when the member has a tracker reading. */
+        caloriesBurned: z.coerce.number().int().min(0).max(10000).optional(),
       })
       .parse(req.body);
 
@@ -176,6 +245,7 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
       orderBy: desc(schema.bodyMetrics.date),
     });
     const weightKg = Number(latestWeight?.weightKg ?? 75);
+    const started = body.startedAt ? new Date(body.startedAt) : new Date();
 
     const [row] = await db
       .insert(schema.workoutLogs)
@@ -186,8 +256,11 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
         title: activity.name,
         durationMinutes: body.durationMinutes,
         intensity: body.intensity ?? activity.intensity,
-        caloriesBurned: activityKcal(Number(activity.met), weightKg, body.durationMinutes),
+        // A measured burn beats an estimate; the MET formula is the fallback.
+        caloriesBurned: body.caloriesBurned ?? activityKcal(Number(activity.met), weightKg, body.durationMinutes),
         notes: body.notes ?? null,
+        startedAt: started,
+        endedAt: new Date(started.getTime() + body.durationMinutes * 60000),
         completedAt: new Date(),
       })
       .returning();
@@ -226,6 +299,394 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
       .returning();
     reply.code(201);
     return { bodyMetrics: row };
+  });
+
+
+  /**
+   * Log one exercise with its sets. This is the counterpart to /logs/activity:
+   * an activity is a bout (duration + intensity), an exercise is sets. Which
+   * fields a set carries follows the exercise's loggingMode, so a plank records
+   * seconds and a farmer's walk records metres --- the schema has had the
+   * columns since migration 0001 but nothing wrote to them.
+   */
+  app.post("/logs/exercise", { preHandler: auth }, async (req, reply) => {
+    const body = z
+      .object({
+        date: isoDate,
+        exerciseId: z.string().uuid(),
+        workoutLogId: z.string().uuid().optional(),
+        notes: z.string().max(500).optional(),
+        sets: z
+          .array(
+            z.object({
+              reps: z.coerce.number().int().min(0).max(1000).optional(),
+              weightKg: z.coerce.number().min(0).max(1000).optional(),
+              durationSeconds: z.coerce.number().int().min(1).max(86400).optional(),
+              distanceMetres: z.coerce.number().min(1).max(100000).optional(),
+              rounds: z.coerce.number().int().min(1).max(500).optional(),
+              rpe: z.coerce.number().min(1).max(10).optional(),
+              completed: z.boolean().default(true),
+            }),
+          )
+          .min(1)
+          .max(30),
+      })
+      .parse(req.body);
+
+    const exercise = await db.query.exercises.findFirst({ where: eq(schema.exercises.id, body.exerciseId) });
+    if (!exercise) throw notFound("Exercise");
+
+    // Reject a set that carries nothing for the mode it is logged in, rather
+    // than silently storing an empty row the member will see as "0 reps".
+    const required: Record<string, keyof (typeof body.sets)[number]> = {
+      reps: "reps",
+      hold: "durationSeconds",
+      distance: "distanceMetres",
+      duration: "durationSeconds",
+      rounds: "rounds",
+    };
+    const field = required[exercise.loggingMode];
+    const bad = body.sets.findIndex((s) => field && s[field] == null);
+    if (bad >= 0) {
+      throw badRequest(
+        `"${exercise.name}" is logged by ${exercise.loggingMode}; set ${bad + 1} is missing ${String(field)}`,
+        "logging_mode_mismatch",
+      );
+    }
+
+    const result = await db.transaction(async (tx) => {
+      // All of a day's exercises hang off one workout_log, so the day reads as
+      // a session rather than as a pile of unrelated rows.
+      let logId = body.workoutLogId;
+      if (!logId) {
+        const existing = await tx.query.workoutLogs.findFirst({
+          where: and(
+            eq(schema.workoutLogs.memberId, req.user!.id),
+            eq(schema.workoutLogs.date, body.date),
+            isNull(schema.workoutLogs.activityId),
+          ),
+        });
+        logId = existing?.id;
+      }
+      if (!logId) {
+        const [created] = await tx
+          .insert(schema.workoutLogs)
+          .values({
+            memberId: req.user!.id,
+            date: body.date,
+            title: "Workout",
+            notes: body.notes ?? null,
+            completedAt: new Date(),
+          })
+          .returning();
+        logId = created!.id;
+      }
+
+      const nextSet = await tx
+        .select({ n: sql<number>`coalesce(max(${schema.workoutLogSets.setNumber}), 0)::int` })
+        .from(schema.workoutLogSets)
+        .where(and(eq(schema.workoutLogSets.workoutLogId, logId), eq(schema.workoutLogSets.exerciseId, body.exerciseId)));
+
+      const rows = await tx
+        .insert(schema.workoutLogSets)
+        .values(
+          body.sets.map((s, i) => ({
+            workoutLogId: logId!,
+            exerciseId: body.exerciseId,
+            setNumber: (nextSet[0]?.n ?? 0) + i + 1,
+            reps: s.reps ?? null,
+            weightKg: s.weightKg != null ? String(s.weightKg) : null,
+            durationSeconds: s.durationSeconds ?? null,
+            distanceMetres: s.distanceMetres != null ? String(s.distanceMetres) : null,
+            rounds: s.rounds ?? null,
+            rpe: s.rpe != null ? String(s.rpe) : null,
+            completed: s.completed,
+          })),
+        )
+        .returning();
+
+      return { workoutLogId: logId!, sets: rows };
+    });
+
+    reply.code(201);
+    return result;
+  });
+
+  /**
+   * A day's exercise work: what the coach prescribed for today, and what the
+   * member actually logged. One request, because the screen shows both lists
+   * side by side and they are meaningless apart.
+   */
+  app.get("/logs/exercises", { preHandler: auth }, async (req) => {
+    const { date, memberId } = z
+      .object({ date: isoDate, memberId: z.string().uuid().optional() })
+      .parse(req.query);
+    const member = memberId ?? req.user!.id;
+    await assertCanReadMember(req.user!, member);
+
+    const logged = await db
+      .select({
+        setId: schema.workoutLogSets.id,
+        workoutLogId: schema.workoutLogSets.workoutLogId,
+        setNumber: schema.workoutLogSets.setNumber,
+        reps: schema.workoutLogSets.reps,
+        weightKg: schema.workoutLogSets.weightKg,
+        durationSeconds: schema.workoutLogSets.durationSeconds,
+        distanceMetres: schema.workoutLogSets.distanceMetres,
+        rounds: schema.workoutLogSets.rounds,
+        rpe: schema.workoutLogSets.rpe,
+        exercise: {
+          id: schema.exercises.id,
+          slug: schema.exercises.slug,
+          name: schema.exercises.name,
+          discipline: schema.exercises.discipline,
+          loggingMode: schema.exercises.loggingMode,
+          primaryMuscle: schema.exercises.primaryMuscle,
+        },
+      })
+      .from(schema.workoutLogSets)
+      .innerJoin(schema.workoutLogs, eq(schema.workoutLogs.id, schema.workoutLogSets.workoutLogId))
+      .innerJoin(schema.exercises, eq(schema.exercises.id, schema.workoutLogSets.exerciseId))
+      .where(and(eq(schema.workoutLogs.memberId, member), eq(schema.workoutLogs.date, date)))
+      .orderBy(asc(schema.workoutLogSets.setNumber));
+
+    // Group the flat set rows by exercise for rendering.
+    const byExercise = new Map<string, { exercise: (typeof logged)[number]["exercise"]; sets: unknown[] }>();
+    for (const row of logged) {
+      const entry = byExercise.get(row.exercise.id) ?? { exercise: row.exercise, sets: [] };
+      entry.sets.push({
+        id: row.setId, setNumber: row.setNumber, reps: row.reps, weightKg: row.weightKg,
+        durationSeconds: row.durationSeconds, distanceMetres: row.distanceMetres, rounds: row.rounds, rpe: row.rpe,
+      });
+      byExercise.set(row.exercise.id, entry);
+    }
+
+    // Prescribed work: any active assignment whose window covers this date.
+    const prescribed = await db
+      .select({
+        planExerciseId: schema.planExercises.id,
+        planName: schema.plans.name,
+        position: schema.planExercises.position,
+        sets: schema.planExercises.sets,
+        reps: schema.planExercises.reps,
+        weightKg: schema.planExercises.weightKg,
+        restSeconds: schema.planExercises.restSeconds,
+        durationSeconds: schema.planExercises.durationSeconds,
+        notes: schema.planExercises.notes,
+        exercise: {
+          id: schema.exercises.id,
+          slug: schema.exercises.slug,
+          name: schema.exercises.name,
+          discipline: schema.exercises.discipline,
+          loggingMode: schema.exercises.loggingMode,
+          equipment: schema.exercises.equipment,
+          primaryMuscle: schema.exercises.primaryMuscle,
+        },
+      })
+      .from(schema.planAssignments)
+      .innerJoin(schema.plans, eq(schema.plans.id, schema.planAssignments.planId))
+      .innerJoin(schema.planDays, eq(schema.planDays.planId, schema.plans.id))
+      .innerJoin(schema.planExercises, eq(schema.planExercises.planDayId, schema.planDays.id))
+      .innerJoin(schema.exercises, eq(schema.exercises.id, schema.planExercises.exerciseId))
+      .where(
+        and(
+          eq(schema.planAssignments.memberId, member),
+          lte(schema.planAssignments.startDate, date),
+          or(isNull(schema.planAssignments.endDate), gte(schema.planAssignments.endDate, date))!,
+          inArray(schema.planAssignments.status, ["scheduled", "active"]),
+        ),
+      )
+      .orderBy(asc(schema.planExercises.position));
+
+    const doneIds = new Set(byExercise.keys());
+    return {
+      date,
+      prescribed: prescribed.map((p) => ({ ...p, logged: doneIds.has(p.exercise.id) })),
+      logged: [...byExercise.values()],
+    };
+  });
+
+
+  /**
+   * Edit a logged session. The member changed their mind about the time, the
+   * intensity, or how long it really was --- without this the only fix is to
+   * delete and re-log, which loses the sets hanging off it.
+   */
+  app.patch("/logs/workout/:id", { preHandler: auth }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const body = z
+      .object({
+        title: z.string().min(1).max(160).optional(),
+        durationMinutes: z.coerce.number().int().min(1).max(1440).optional(),
+        intensity: z.enum(["light", "moderate", "vigorous"]).optional(),
+        startedAt: z.string().datetime().optional(),
+        caloriesBurned: z.coerce.number().int().min(0).max(10000).optional(),
+        activityId: z.string().uuid().optional(),
+        notes: z.string().max(500).optional(),
+      })
+      .parse(req.body);
+
+    const existing = await db.query.workoutLogs.findFirst({ where: eq(schema.workoutLogs.id, id) });
+    if (!existing || existing.memberId !== req.user!.id) throw notFound("Workout log");
+
+    const started = body.startedAt ? new Date(body.startedAt) : existing.startedAt;
+    const minutes = body.durationMinutes ?? existing.durationMinutes;
+
+    // Recompute the burn when the inputs to it move, unless the caller supplied
+    // a measured figure --- a stale calorie number is worse than none.
+    let kcal = body.caloriesBurned;
+    if (kcal == null && (body.durationMinutes || body.activityId)) {
+      const activityId = body.activityId ?? existing.activityId;
+      if (activityId && minutes) {
+        const activity = await db.query.activities.findFirst({ where: eq(schema.activities.id, activityId) });
+        const weight = await db.query.bodyMetrics.findFirst({
+          where: eq(schema.bodyMetrics.memberId, req.user!.id),
+          orderBy: desc(schema.bodyMetrics.date),
+        });
+        if (activity) kcal = activityKcal(Number(activity.met), Number(weight?.weightKg ?? 75), minutes);
+      }
+    }
+
+    const [row] = await db
+      .update(schema.workoutLogs)
+      .set({
+        ...body,
+        startedAt: started,
+        endedAt: started && minutes ? new Date(started.getTime() + minutes * 60000) : existing.endedAt,
+        caloriesBurned: kcal ?? existing.caloriesBurned,
+      })
+      .where(eq(schema.workoutLogs.id, id))
+      .returning();
+    return { workoutLog: row };
+  });
+
+  app.delete("/logs/workout/:id", { preHandler: auth }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const existing = await db.query.workoutLogs.findFirst({ where: eq(schema.workoutLogs.id, id) });
+    if (!existing || existing.memberId !== req.user!.id) throw notFound("Workout log");
+    await db.delete(schema.workoutLogs).where(eq(schema.workoutLogs.id, id));
+    return { ok: true };
+  });
+
+  app.delete("/logs/sets/:id", { preHandler: auth }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const [row] = await db
+      .select({ memberId: schema.workoutLogs.memberId })
+      .from(schema.workoutLogSets)
+      .innerJoin(schema.workoutLogs, eq(schema.workoutLogs.id, schema.workoutLogSets.workoutLogId))
+      .where(eq(schema.workoutLogSets.id, id));
+    if (!row || row.memberId !== req.user!.id) throw notFound("Set");
+    await db.delete(schema.workoutLogSets).where(eq(schema.workoutLogSets.id, id));
+    return { ok: true };
+  });
+
+  /**
+   * The day as it actually happened: meals and training interleaved in time
+   * order. This is what the home screen renders --- breakfast 08:00, session
+   * 09:30, recovery snack 11:00 --- rather than two lists that hide the shape
+   * of someone's day.
+   */
+  app.get("/logs/timeline", { preHandler: auth }, async (req) => {
+    const { date, memberId } = z
+      .object({ date: isoDate, memberId: z.string().uuid().optional() })
+      .parse(req.query);
+    const member = memberId ?? req.user!.id;
+    await assertCanReadMember(req.user!, member);
+
+    const [meals, workouts, sets, hydration, target] = await Promise.all([
+      db
+        .select({
+          id: schema.mealLogs.id, mealType: schema.mealLogs.mealType, loggedAt: schema.mealLogs.loggedAt,
+          calories: schema.mealLogs.calories, proteinG: schema.mealLogs.proteinG,
+          carbsG: schema.mealLogs.carbsG, fatG: schema.mealLogs.fatG,
+          photoUrl: schema.mealLogs.photoUrl, notes: schema.mealLogs.notes,
+        })
+        .from(schema.mealLogs)
+        .where(and(eq(schema.mealLogs.memberId, member), eq(schema.mealLogs.date, date))),
+      db
+        .select({
+          id: schema.workoutLogs.id, title: schema.workoutLogs.title,
+          startedAt: schema.workoutLogs.startedAt, endedAt: schema.workoutLogs.endedAt,
+          durationMinutes: schema.workoutLogs.durationMinutes, caloriesBurned: schema.workoutLogs.caloriesBurned,
+          intensity: schema.workoutLogs.intensity, activityId: schema.workoutLogs.activityId,
+          activityName: schema.activities.name, createdAt: schema.workoutLogs.createdAt,
+        })
+        .from(schema.workoutLogs)
+        .leftJoin(schema.activities, eq(schema.activities.id, schema.workoutLogs.activityId))
+        .where(and(eq(schema.workoutLogs.memberId, member), eq(schema.workoutLogs.date, date))),
+      db
+        .select({
+          workoutLogId: schema.workoutLogSets.workoutLogId,
+          exerciseName: schema.exercises.name,
+          exerciseId: schema.exercises.id,
+        })
+        .from(schema.workoutLogSets)
+        .innerJoin(schema.workoutLogs, eq(schema.workoutLogs.id, schema.workoutLogSets.workoutLogId))
+        .innerJoin(schema.exercises, eq(schema.exercises.id, schema.workoutLogSets.exerciseId))
+        .where(and(eq(schema.workoutLogs.memberId, member), eq(schema.workoutLogs.date, date))),
+      db
+        .select({ ml: sql<number>`coalesce(sum(${schema.hydrationLogs.amountMl}), 0)::int` })
+        .from(schema.hydrationLogs)
+        .where(and(eq(schema.hydrationLogs.memberId, member), eq(schema.hydrationLogs.date, date))),
+      db.query.hydrationGoals.findFirst({ where: eq(schema.hydrationGoals.memberId, member) }),
+    ]);
+
+    const exercisesByLog = new Map<string, string[]>();
+    for (const s of sets) {
+      const list = exercisesByLog.get(s.workoutLogId) ?? [];
+      if (!list.includes(s.exerciseName)) list.push(s.exerciseName);
+      exercisesByLog.set(s.workoutLogId, list);
+    }
+
+    type Entry = {
+      kind: "meal" | "workout"; id: string; at: string; title: string;
+      calories: number; proteinG?: number; carbsG?: number; fatG?: number;
+      mealType?: string | null; durationMinutes?: number | null; intensity?: string | null;
+      exercises?: string[]; photoUrl?: string | null; setCount?: number;
+    };
+
+    const entries: Entry[] = [
+      ...meals.map((m) => ({
+        kind: "meal" as const, id: m.id,
+        at: (m.loggedAt ?? new Date()).toISOString(),
+        title: m.mealType ?? "Meal", mealType: m.mealType,
+        calories: Math.round(Number(m.calories)), proteinG: Number(m.proteinG),
+        carbsG: Number(m.carbsG), fatG: Number(m.fatG), photoUrl: m.photoUrl,
+      })),
+      ...workouts.map((w) => ({
+        kind: "workout" as const, id: w.id,
+        // Fall back to creation time so a session logged before this feature
+        // existed still lands somewhere sensible rather than at midnight.
+        at: (w.startedAt ?? w.createdAt).toISOString(),
+        title: w.title ?? w.activityName ?? "Training",
+        calories: w.caloriesBurned ?? 0,
+        durationMinutes: w.durationMinutes, intensity: w.intensity,
+        exercises: exercisesByLog.get(w.id) ?? [],
+        setCount: sets.filter((s) => s.workoutLogId === w.id).length,
+      })),
+    ].sort((a, b) => a.at.localeCompare(b.at));
+
+    const eaten = meals.reduce(
+      (a, m) => ({
+        calories: a.calories + Number(m.calories), proteinG: a.proteinG + Number(m.proteinG),
+        carbsG: a.carbsG + Number(m.carbsG), fatG: a.fatG + Number(m.fatG),
+      }),
+      { calories: 0, proteinG: 0, carbsG: 0, fatG: 0 },
+    );
+
+    return {
+      date,
+      entries,
+      // Which of the four slots already has something, so the home screen can
+      // render a tick instead of a plus without a second request.
+      loggedSlots: [...new Set(meals.map((m) => m.mealType).filter(Boolean))],
+      totals: {
+        calories: Math.round(eaten.calories), proteinG: Math.round(eaten.proteinG * 10) / 10,
+        carbsG: Math.round(eaten.carbsG * 10) / 10, fatG: Math.round(eaten.fatG * 10) / 10,
+        caloriesBurned: workouts.reduce((n, w) => n + (w.caloriesBurned ?? 0), 0),
+      },
+      hydration: { totalMl: hydration[0]?.ml ?? 0, targetMl: target?.dailyTargetMl ?? 2500 },
+    };
   });
 
   /** Weekly series for the Progress screen's bar charts. */

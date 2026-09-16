@@ -1,4 +1,4 @@
-import { and, asc, eq, ilike, inArray, isNull, or, sql } from "drizzle-orm";
+import { and, asc, eq, ilike, inArray, isNotNull, isNull, or, sql } from "drizzle-orm";
 import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import { db, schema } from "../db.js";
@@ -148,12 +148,57 @@ export const catalogRoutes: FastifyPluginAsync = async (app) => {
     };
   });
 
+
+  /**
+   * The exercise picker's two-level tree: pick a discipline (calisthenics, gym,
+   * cardio, mobility) or a sport group, then a movement. Returned as counts so
+   * the first screen can be drawn without loading the whole catalog.
+   */
+  app.get("/exercise-tree", { preHandler: auth }, async () => {
+    const [disciplines, categories, sportGroups] = await Promise.all([
+      db
+        .select({ id: sql<string>`${schema.exercises.discipline}::text`, count: sql<number>`count(*)::int` })
+        .from(schema.exercises)
+        .where(isNotNull(schema.exercises.discipline))
+        .groupBy(schema.exercises.discipline),
+      db
+        .select({
+          discipline: sql<string>`${schema.exercises.discipline}::text`,
+          category: sql<string>`${schema.exercises.category}::text`,
+          count: sql<number>`count(*)::int`,
+        })
+        .from(schema.exercises)
+        .where(isNotNull(schema.exercises.category))
+        .groupBy(schema.exercises.discipline, schema.exercises.category),
+      db
+        .select({ group: schema.activities.group, kind: sql<string>`${schema.activities.kind}::text`, count: sql<number>`count(*)::int` })
+        .from(schema.activities)
+        .groupBy(schema.activities.group, schema.activities.kind),
+    ]);
+
+    return {
+      // Exercises: logged as sets.
+      disciplines: disciplines.map((d) => ({
+        ...d,
+        categories: categories.filter((c) => c.discipline === d.id).map((c) => ({ id: c.category, count: c.count })),
+      })),
+      // Activities: logged as a bout with a duration.
+      sportGroups: sportGroups.map((g) => ({ id: g.group, kind: g.kind, count: g.count })),
+    };
+  });
+
   /** Activities: bouts logged by duration and intensity, not sets. */
   app.get("/activities", { preHandler: auth }, async (req) => {
-    const q = listQuery.extend({ kind: z.enum(["sport", "training_session", "daily_living"]).optional() }).parse(req.query);
+    const q = listQuery
+      .extend({
+        kind: z.enum(["sport", "training_session", "daily_living"]).optional(),
+        group: z.string().optional(),
+      })
+      .parse(req.query);
     const where = [];
     if (q.q) where.push(ilike(schema.activities.name, `%${q.q}%`));
     if (q.kind) where.push(eq(schema.activities.kind, q.kind));
+    if (q.group) where.push(eq(schema.activities.group, q.group));
     const rows = await db
       .select()
       .from(schema.activities)

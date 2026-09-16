@@ -25,8 +25,18 @@ export async function trigramSearch(table: "foods" | "meals" | "exercises", term
   // against "Greek yogurt, 0% fat" at 0.19 and drops it below the 0.3
   // threshold. Matching the best WORD instead scores it 0.50. The `<%`
   // operator is index-backed by the GIN trgm index.
+  // Meals and foods carry their macros in the result: a search row that is
+  // only {id, name} forces the client into an N+1 just to show what the member
+  // is about to log, and they end up logging blind.
+  const extra =
+    table === "meals"
+      ? client`, calories, protein_g AS "proteinG", carbs_g AS "carbsG", fat_g AS "fatG", default_meal_type AS "mealType", tags, allergens, photo_url AS "photoUrl", prep_minutes AS "prepMinutes"`
+      : table === "foods"
+        ? client`, calories, protein_g AS "proteinG", carbs_g AS "carbsG", fat_g AS "fatG", serving_size AS "servingSize", serving_unit AS "servingUnit", allergens, image_url AS "imageUrl"`
+        : client`, discipline::text, logging_mode::text AS "loggingMode", equipment, muscle_groups AS "muscleGroups", met`;
+
   return client`
-    SELECT id, name, word_similarity(${term}, name) AS score
+    SELECT id, name, word_similarity(${term}, name) AS score ${extra}
     FROM ${client(table)}
     WHERE ${term} <% name
     ORDER BY score DESC, name
@@ -44,8 +54,15 @@ export async function trigramSearch(table: "foods" | "meals" | "exercises", term
  */
 export async function vectorSearch(table: "foods" | "meals" | "exercises", term: string, limit: number) {
   const literal = toVectorLiteral(await embed(term));
+  const extra =
+    table === "meals"
+      ? client`, calories, protein_g AS "proteinG", carbs_g AS "carbsG", fat_g AS "fatG", default_meal_type AS "mealType", tags, allergens, photo_url AS "photoUrl", prep_minutes AS "prepMinutes"`
+      : table === "foods"
+        ? client`, calories, protein_g AS "proteinG", carbs_g AS "carbsG", fat_g AS "fatG", serving_size AS "servingSize", serving_unit AS "servingUnit", allergens, image_url AS "imageUrl"`
+        : client`, discipline::text, logging_mode::text AS "loggingMode", equipment, muscle_groups AS "muscleGroups", met`;
+
   return client`
-    SELECT id, name, 1 - (embedding <=> ${literal}::vector) AS score
+    SELECT id, name, 1 - (embedding <=> ${literal}::vector) AS score ${extra}
     FROM ${client(table)}
     WHERE embedding IS NOT NULL
     ORDER BY embedding <=> ${literal}::vector
@@ -76,8 +93,8 @@ export async function hybridSearch(table: "foods" | "meals" | "exercises", term:
     (await hasVector()) ? vectorSearch(table, term, limit * 2) : Promise.resolve([]),
   ]);
 
-  const shape = (rows: readonly { id: string; name: string }[], via: string) =>
-    rows.map((r) => ({ id: r.id, name: r.name, via: [via] }));
+  const shape = (rows: readonly Record<string, unknown>[], via: string) =>
+    rows.map((r) => ({ ...r, via: [via] })) as (Record<string, unknown> & { id: string; name: string; via: string[] })[];
 
   if (looksLikeAName) {
     const out = shape(lexical as never, "trigram");
@@ -91,13 +108,15 @@ export async function hybridSearch(table: "foods" | "meals" | "exercises", term:
   }
 
   const K = 60; // RRF damping; the constant from the original paper.
-  const scores = new Map<string, { id: string; name: string; score: number; via: string[] }>();
-  const fold = (rows: readonly { id: string; name: string }[], via: string, weight: number) =>
+  const scores = new Map<string, Record<string, unknown> & { id: string; score: number; via: string[] }>();
+  const fold = (rows: readonly Record<string, unknown>[], via: string, weight: number) =>
     rows.forEach((row, rank) => {
-      const hit = scores.get(row.id) ?? { id: row.id, name: row.name, score: 0, via: [] };
+      const id = row.id as string;
+      // Keep every column the row carries --- the client needs the macros.
+      const hit = scores.get(id) ?? { ...row, id, score: 0, via: [] };
       hit.score += weight / (K + rank + 1);
       hit.via.push(via);
-      scores.set(row.id, hit);
+      scores.set(id, hit);
     });
 
   fold(lexical as never, "trigram", 1);

@@ -3,6 +3,7 @@ import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useQuickLog } from "../../src/state/quicklog";
 import { isoDate, useApi } from "../../src/api/hooks";
 import type { DayLog, MealRec, Targets } from "../../src/api/types";
 import { Card, MacroBar, Pill, Screen } from "../../src/components/ui";
@@ -17,10 +18,11 @@ const SLOTS = ["breakfast", "lunch", "dinner", "snack"] as const;
 export default function MemberHome() {
   const { theme } = useAuth();
   const insets = useSafeAreaInsets();
+  const quickLog = useQuickLog();
   const [date, setDate] = useState(new Date());
   const key = isoDate(date);
 
-  const day = useApi<DayLog>(`/v1/logs/day?date=${key}`);
+  const day = useApi<DayLog>(`/v1/logs/day?date=${key}`, [quickLog.version]);
   const targets = useApi<Targets>("/v1/me/targets");
   const notifications = useApi<{ unreadCount: number }>("/v1/notifications");
   const [recs, setRecs] = useState<MealRec[] | null>(null);
@@ -57,8 +59,8 @@ export default function MemberHome() {
         refreshControl={<RefreshControl refreshing={day.loading && !!day.data} onRefresh={refresh} tintColor={theme.accent} />}
       >
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: space.lg }}>
-          <DateStrip theme={theme} date={date} onChange={setDate} />
-          <NotificationBell theme={theme} count={notifications.data?.unreadCount ?? 0} />
+          <DateStrip theme={theme} date={date} onChange={setDate} onOpenCalendar={() => router.push("/member/calendar")} />
+          <NotificationBell theme={theme} count={notifications.data?.unreadCount ?? 0} onPress={() => router.push("/member/notifications")} />
         </View>
 
         {day.error && (
@@ -96,7 +98,7 @@ export default function MemberHome() {
             {recs!.map((m) => {
               const p = Number(m.proteinG), c = Number(m.carbsG), f = Number(m.fatG);
               return (
-                <Pressable key={m.id} onPress={() => router.push({ pathname: "/member/log", params: { mealSlug: m.slug } })}>
+                <Pressable key={m.id} onPress={() => quickLog.open("meal", m.mealType ?? "lunch")}>
                   <Card theme={theme} style={{ width: 230 }}>
                     <View style={{ flexDirection: "row", gap: 6, marginBottom: space.sm, flexWrap: "wrap" }}>
                       {m.mealType && <Pill theme={theme} label={m.mealType} />}
@@ -170,7 +172,7 @@ export default function MemberHome() {
                   </Text>
                 </View>
                 <Pressable
-                  onPress={() => router.push({ pathname: "/member/log", params: { slot } })}
+                  onPress={() => quickLog.open("meal", slot)}
                   style={{ width: 32, height: 32, borderRadius: radius.pill, backgroundColor: theme.accent + "14", alignItems: "center", justifyContent: "center" }}
                 >
                   <Feather name="plus" size={18} color={theme.accent} />

@@ -123,3 +123,18 @@ export const goalType = pgEnum("goal_type", [
   "endurance",
   "general_health",
 ]);
+
+/** Scheduled one-to-one time between a coach and a member. */
+export const appointmentKind = pgEnum("appointment_kind", [
+  "training_session",
+  "consultation",
+  "assessment",
+  "check_in",
+]);
+export const appointmentStatus = pgEnum("appointment_status", [
+  "scheduled",
+  "confirmed",
+  "completed",
+  "cancelled",
+  "no_show",
+]);

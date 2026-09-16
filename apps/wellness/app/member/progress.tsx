@@ -1,9 +1,11 @@
-import { ActivityIndicator, RefreshControl, ScrollView, Text, View } from "react-native";
+import { useState } from "react";
+import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { daysAgo, isoDate, useApi } from "../../src/api/hooks";
 import type { Goal, Series } from "../../src/api/types";
 import { Card, Pill, Screen } from "../../src/components/ui";
+import { GoalSheet } from "../../src/components/GoalSheet";
 import { useAuth } from "../../src/state/auth";
 import { radius, space, type as typo } from "../../src/theme/tokens";
 
@@ -38,19 +40,51 @@ function Bars({ theme, points, color, unit, decimals = 0 }: {
  * One dot per evaluated day: filled when the target was met. A month of
  * adherence is readable at a glance, which a line of the underlying metric is not.
  */
-function DotGraph({ entries, color, line }: { entries: Goal["entries"]; color: string; line: string }) {
+/**
+ * One dot per DAY over a fixed window, not one per entry.
+ *
+ * Drawing only the entries made a gap in logging look identical to a missed
+ * target, and the row never lined up with the calendar --- two goals started on
+ * different days rendered at different lengths. Three states now: met, missed,
+ * and not logged at all, which are three different conversations with a coach.
+ */
+function DotGraph({
+  entries, color, line, muted, days = 14, endDate,
+}: { entries: Goal["entries"]; color: string; line: string; muted: string; days?: number; endDate: Date }) {
+  const byDate = new Map(entries.map((e) => [e.date, e.achieved]));
+  const cells = Array.from({ length: days }, (_, i) => {
+    const d = new Date(endDate);
+    d.setDate(d.getDate() - (days - 1 - i));
+    const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    return { iso, state: byDate.has(iso) ? (byDate.get(iso) ? "met" : "missed") : "none", day: d };
+  });
+
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
-      {entries.map((e) => (
-        <View
-          key={e.date}
-          style={{
-            width: 14, height: 14, borderRadius: radius.pill,
-            backgroundColor: e.achieved ? color : "transparent",
-            borderWidth: e.achieved ? 0 : 1.5, borderColor: line,
-          }}
-        />
-      ))}
+    <View>
+      <View style={{ flexDirection: "row", gap: 4 }}>
+        {cells.map((c) => (
+          <View key={c.iso} style={{ flex: 1, alignItems: "center" }}>
+            <View
+              style={{
+                width: 13, height: 13, borderRadius: radius.pill,
+                backgroundColor: c.state === "met" ? color : "transparent",
+                borderWidth: c.state === "met" ? 0 : 1.5,
+                borderColor: c.state === "missed" ? line : muted + "55",
+                borderStyle: c.state === "none" ? "dashed" : "solid",
+              }}
+            />
+          </View>
+        ))}
+      </View>
+      <View style={{ flexDirection: "row", gap: 4, marginTop: 4 }}>
+        {cells.map((c, i) => (
+          <View key={c.iso} style={{ flex: 1, alignItems: "center" }}>
+            <Text style={{ fontSize: 8, color: muted }}>
+              {i % 2 === 0 ? c.day.toLocaleDateString(undefined, { weekday: "narrow" }) : ""}
+            </Text>
+          </View>
+        ))}
+      </View>
     </View>
   );
 }
@@ -63,6 +97,7 @@ export default function MemberProgress() {
   const to = isoDate(daysAgo(0));
   const series = useApi<Series>(`/v1/logs/series?from=${from}&to=${to}`);
   const goals = useApi<{ items: Goal[] }>(`/v1/goals?from=${isoDate(daysAgo(13))}&to=${to}`);
+  const [goalSheet, setGoalSheet] = useState(false);
 
   // The API returns only days that have data; the chart needs all seven.
   const week = Array.from({ length: 7 }, (_, i) => isoDate(daysAgo(6 - i)));
@@ -124,7 +159,13 @@ export default function MemberProgress() {
               </Card>
             )}
 
-            <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginBottom: space.sm }}>Goals</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: space.sm }}>
+              <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase" }}>Goals</Text>
+              <Pressable onPress={() => setGoalSheet(true)} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                <Feather name="plus" size={15} color={theme.accent} />
+                <Text style={{ ...typo.caption, color: theme.accent, fontWeight: "700" }}>New goal</Text>
+              </Pressable>
+            </View>
             {(goals.data?.items.length ?? 0) === 0 ? (
               <Card theme={theme}>
                 <Text style={{ ...typo.body, color: theme.muted }}>
@@ -142,10 +183,9 @@ export default function MemberProgress() {
                       tone={g.source === "coach" ? theme.accent : theme.muted}
                     />
                   </View>
-                  <DotGraph entries={g.entries} color={palette[i % palette.length]!} line={theme.line} />
+                  <DotGraph entries={g.entries} color={palette[i % palette.length]!} line={theme.line} muted={theme.muted} endDate={new Date()} />
                   <Text style={{ ...typo.caption, color: theme.muted, marginTop: space.sm }}>
-                    {g.achievedCount} of {g.evaluatedCount} days met
-                    {g.unit ? ` · target ${Number(g.targetValue)}${g.unit}` : ""}
+                    {g.achievedCount} of {g.evaluatedCount} logged days met · target {Number(g.targetValue)}{g.unit ?? ""}
                   </Text>
                 </Card>
               ))
@@ -153,6 +193,13 @@ export default function MemberProgress() {
           </>
         )}
       </ScrollView>
+
+      <GoalSheet
+        theme={theme}
+        visible={goalSheet}
+        onClose={() => setGoalSheet(false)}
+        onCreated={goals.refetch}
+      />
     </Screen>
   );
 }

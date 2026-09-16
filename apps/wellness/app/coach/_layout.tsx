@@ -23,6 +23,11 @@ export default function CoachLayout() {
       <Tabs.Screen name="progress" options={{ title: "Progress", tabBarIcon: ({ color, size }) => <Feather name="bar-chart-2" size={size} color={color} /> }} />
       <Tabs.Screen name="chat" options={{ title: "Chat", tabBarIcon: ({ color, size }) => <Feather name="message-circle" size={size} color={color} /> }} />
       <Tabs.Screen name="settings" options={{ title: "Settings", tabBarIcon: ({ color, size }) => <Feather name="settings" size={size} color={color} /> }} />
+      {/* Reachable by push from the home header, not tabs of their own ---
+          the coach tab set is deliberately four wide. */}
+      <Tabs.Screen name="calendar" options={{ href: null }} />
+      <Tabs.Screen name="notifications" options={{ href: null }} />
+      <Tabs.Screen name="member/[id]" options={{ href: null }} />
     </Tabs>
   );
 }

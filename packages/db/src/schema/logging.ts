@@ -41,6 +41,13 @@ export const workoutLogs = pgTable(
      */
     activityId: uuid("activity_id").references(() => activities.id, { onDelete: "set null" }),
     intensity: activityIntensity("intensity"),
+    /**
+     * When the session actually happened. `date` alone cannot place a workout
+     * between two meals on the day timeline, which is the whole point of that
+     * screen --- breakfast 08:00, session 09:30, recovery snack 11:00.
+     */
+    startedAt: timestamp("started_at", { withTimezone: true }),
+    endedAt: timestamp("ended_at", { withTimezone: true }),
     durationMinutes: integer("duration_minutes"),
     caloriesBurned: integer("calories_burned"),
     notes: text("notes"),
@@ -116,6 +123,8 @@ export const mealLogItems = pgTable(
     nameSnapshot: text("name_snapshot").notNull(),
     quantity: numeric("quantity", { precision: 8, scale: 2 }).notNull(),
     unit: text("unit").notNull().default("g"),
+    /** Order on the plate, so an edited meal renders the way it was built. */
+    position: integer("position").notNull().default(0),
     calories: numeric("calories", { precision: 8, scale: 2 }).notNull().default("0"),
     proteinG: numeric("protein_g", { precision: 8, scale: 2 }).notNull().default("0"),
     carbsG: numeric("carbs_g", { precision: 8, scale: 2 }).notNull().default("0"),

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { ActivityIndicator, RefreshControl, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { router } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { isoDate, useApi } from "../../src/api/hooks";
 import type { CoachToday } from "../../src/api/types";
@@ -29,8 +30,8 @@ export default function CoachHome() {
         refreshControl={<RefreshControl refreshing={false} onRefresh={() => { today.refetch(); notifications.refetch(); }} tintColor={theme.accent} />}
       >
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: space.lg }}>
-          <DateStrip theme={theme} date={date} onChange={setDate} />
-          <NotificationBell theme={theme} count={notifications.data?.unreadCount ?? 0} />
+          <DateStrip theme={theme} date={date} onChange={setDate} onOpenCalendar={() => router.push("/coach/calendar")} />
+          <NotificationBell theme={theme} count={notifications.data?.unreadCount ?? 0} onPress={() => router.push("/coach/notifications")} />
         </View>
 
         {today.loading && !today.data ? (
@@ -76,6 +77,7 @@ export default function CoachHome() {
 
 function MemberRow({ m, theme }: { m: Row; theme: ReturnType<typeof useAuth>["theme"] }) {
   return (
+    <Pressable onPress={() => router.push({ pathname: "/coach/member/[id]", params: { id: m.id } })}>
     <Card theme={theme} style={{ marginBottom: space.sm }}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: space.md }}>
         <View style={{ width: 40, height: 40, borderRadius: radius.pill, backgroundColor: (m.done ? theme.teal : theme.warning) + "1F", alignItems: "center", justifyContent: "center" }}>
@@ -103,5 +105,6 @@ function MemberRow({ m, theme }: { m: Row; theme: ReturnType<typeof useAuth>["th
         ))}
       </View>
     </Card>
+    </Pressable>
   );
 }

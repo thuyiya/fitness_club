@@ -11,5 +11,6 @@ export * from "./training.js";
 export * from "./logging.js";
 export * from "./goals.js";
 export * from "./messaging.js";
+export * from "./scheduling.js";
 export * from "./surveys.js";
 export * from "./billing.js";

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { db, schema } from "../db.js";
 import { badRequest, forbidden, notFound } from "../errors.js";
 import { assertCanReadMember, assertOwnsGym } from "../lib/access.js";
+import { notify } from "../lib/notify.js";
 
 /** Membership of a thread is the authorization check for every message route. */
 async function assertInThread(userId: string, threadId: string) {
@@ -168,6 +169,19 @@ export const chatRoutes: FastifyPluginAsync = async (app) => {
       return m!;
     });
 
+    // Notify everyone else in the thread. A message the member never sees is
+    // the single most common way coaching apps lose people.
+    const others = await db
+      .select({ userId: schema.threadParticipants.userId })
+      .from(schema.threadParticipants)
+      .where(and(eq(schema.threadParticipants.threadId, id), ne(schema.threadParticipants.userId, req.user!.id)));
+    const sender = await db.query.users.findFirst({ where: eq(schema.users.id, req.user!.id) });
+    await Promise.all(
+      others.map((o) =>
+        notify(o.userId, "message", sender?.name ?? "New message", body.body.slice(0, 140), { threadId: id }),
+      ),
+    );
+
     reply.code(201);
     return { message };
   });
@@ -200,6 +214,15 @@ export const chatRoutes: FastifyPluginAsync = async (app) => {
       .insert(schema.announcements)
       .values({ ...body, authorId: req.user!.id, publishedAt: new Date() })
       .returning();
+
+    const members = await db
+      .select({ userId: schema.gymMembers.userId })
+      .from(schema.gymMembers)
+      .where(and(eq(schema.gymMembers.gymId, body.gymId), eq(schema.gymMembers.status, "active")));
+    await Promise.all(
+      members.map((m) => notify(m.userId, "announcement", body.title, body.body.slice(0, 140), { announcementId: row!.id })),
+    );
+
     reply.code(201);
     return { announcement: row };
   });

@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, isNull, lte } from "drizzle-orm";
 import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import { db, schema } from "../db.js";
@@ -106,6 +106,80 @@ export const meRoutes: FastifyPluginAsync = async (app) => {
         tdeeKcal: Math.round(energy),
       },
       targets: { ...targets, hydrationMl: hydrationTargetMl(weightKg) },
+    };
+  });
+
+
+  /**
+   * What needs the member's attention right now: unread notes from their coach,
+   * surveys waiting, plans just assigned, sessions booked today.
+   *
+   * This replaces the macro-gap strip that used to sit at the top of Home.
+   * A member opens the app to find out what CHANGED, not to be told arithmetic
+   * they can already see in the summary card below it.
+   */
+  app.get("/me/alerts", { preHandler: auth }, async (req) => {
+    const me = req.user!.id;
+    const today = new Date().toISOString().slice(0, 10);
+    const todayStart = new Date(`${today}T00:00:00.000Z`);
+    const todayEnd = new Date(`${today}T23:59:59.999Z`);
+
+    const [unread, surveys, assignments, sessions] = await Promise.all([
+      db
+        .select({
+          id: schema.notifications.id, kind: schema.notifications.kind,
+          title: schema.notifications.title, body: schema.notifications.body,
+          createdAt: schema.notifications.createdAt,
+        })
+        .from(schema.notifications)
+        .where(and(eq(schema.notifications.userId, me), isNull(schema.notifications.readAt)))
+        .orderBy(desc(schema.notifications.createdAt))
+        .limit(10),
+      db
+        .select({
+          assignmentId: schema.surveyAssignments.id, dueDate: schema.surveyAssignments.dueDate,
+          surveyId: schema.surveys.id, title: schema.surveys.title,
+        })
+        .from(schema.surveyAssignments)
+        .innerJoin(schema.surveys, eq(schema.surveys.id, schema.surveyAssignments.surveyId))
+        .where(eq(schema.surveyAssignments.memberId, me)),
+      db
+        .select({
+          id: schema.planAssignments.id, startDate: schema.planAssignments.startDate,
+          planName: schema.plans.name, planType: schema.plans.type, createdAt: schema.planAssignments.createdAt,
+        })
+        .from(schema.planAssignments)
+        .innerJoin(schema.plans, eq(schema.plans.id, schema.planAssignments.planId))
+        .where(and(eq(schema.planAssignments.memberId, me), inArray(schema.planAssignments.status, ["scheduled", "active"])))
+        .orderBy(desc(schema.planAssignments.createdAt))
+        .limit(5),
+      db
+        .select({
+          id: schema.appointments.id, title: schema.appointments.title,
+          startsAt: schema.appointments.startsAt, location: schema.appointments.location,
+          status: schema.appointments.status,
+        })
+        .from(schema.appointments)
+        .where(and(eq(schema.appointments.memberId, me), gte(schema.appointments.startsAt, todayStart), lte(schema.appointments.startsAt, todayEnd)))
+        .orderBy(asc(schema.appointments.startsAt)),
+    ]);
+
+    // A survey counts as outstanding only if it has no response for this cycle.
+    const surveyIds = surveys.map((s) => s.surveyId);
+    const answered = surveyIds.length
+      ? await db
+          .select({ surveyId: schema.surveyResponses.surveyId, cycleDate: schema.surveyResponses.cycleDate })
+          .from(schema.surveyResponses)
+          .where(and(eq(schema.surveyResponses.memberId, me), inArray(schema.surveyResponses.surveyId, surveyIds)))
+      : [];
+    const done = new Set(answered.map((a) => a.surveyId));
+
+    return {
+      unreadNotifications: unread,
+      pendingSurveys: surveys.filter((s) => !done.has(s.surveyId)),
+      recentAssignments: assignments,
+      todaySessions: sessions,
+      count: unread.length + surveys.filter((s) => !done.has(s.surveyId)).length + sessions.length,
     };
   });
 

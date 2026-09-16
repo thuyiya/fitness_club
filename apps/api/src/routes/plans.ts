@@ -4,6 +4,7 @@ import { z } from "zod";
 import { db, schema } from "../db.js";
 import { badRequest, notFound } from "../errors.js";
 import { assertCanReadMember, assertOwnsPlan } from "../lib/access.js";
+import { notify } from "../lib/notify.js";
 
 const planBody = z.object({
   type: z.enum(["workout", "meal"]),
@@ -248,6 +249,16 @@ export const planRoutes: FastifyPluginAsync = async (app) => {
       .insert(schema.planAssignments)
       .values({ planId: id, ...body, assignedBy: req.user!.id, status: "scheduled" })
       .returning();
+
+    const plan = await db.query.plans.findFirst({ where: eq(schema.plans.id, id) });
+    await notify(
+      body.memberId,
+      "plan_assigned",
+      plan?.type === "meal" ? "New meal plan" : "New training plan",
+      `Your coach assigned "${plan?.name}", starting ${body.startDate}`,
+      { planId: id, assignmentId: assignment!.id, type: plan?.type },
+    );
+
     reply.code(201);
     return { assignment };
   });

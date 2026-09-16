@@ -4,6 +4,7 @@ import { z } from "zod";
 import { db, schema } from "../db.js";
 import { badRequest, conflict, notFound } from "../errors.js";
 import { assertCanReadMember } from "../lib/access.js";
+import { notify } from "../lib/notify.js";
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD");
 
@@ -121,6 +122,15 @@ export const surveyRoutes: FastifyPluginAsync = async (app) => {
       .insert(schema.surveyAssignments)
       .values({ surveyId: id, memberId: body.memberId, dueDate: body.dueDate ?? null })
       .returning();
+
+    await notify(
+      body.memberId,
+      "survey_assigned",
+      "New survey to complete",
+      body.dueDate ? `"${survey.title}" — due ${body.dueDate}` : `"${survey.title}"`,
+      { surveyId: id, assignmentId: assignment!.id },
+    );
+
     reply.code(201);
     return { assignment };
   });

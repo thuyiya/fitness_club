@@ -1,5 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
+import { router } from "expo-router";
 import { radius, space, type as typo, type Theme } from "../theme/tokens";
 
 const fmt = (d: Date) => {
@@ -16,7 +17,7 @@ const fmt = (d: Date) => {
  * Forward navigation stops at today: there is nothing logged in the future,
  * and letting someone scroll into it just shows empty screens.
  */
-export function DateStrip({ theme, date, onChange }: { theme: Theme; date: Date; onChange: (d: Date) => void }) {
+export function DateStrip({ theme, date, onChange, onOpenCalendar }: { theme: Theme; date: Date; onChange: (d: Date) => void; onOpenCalendar?: () => void }) {
   const shift = (days: number) => {
     const next = new Date(date);
     next.setDate(next.getDate() + days);
@@ -30,8 +31,11 @@ export function DateStrip({ theme, date, onChange }: { theme: Theme; date: Date;
       <Pressable onPress={() => shift(-1)} hitSlop={10}>
         <Feather name="chevron-left" size={22} color={theme.inkSoft} />
       </Pressable>
-      <Pressable onPress={() => onChange(new Date())} style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+      {/* The calendar icon opens the timeline; the label alone jumps to today. */}
+      <Pressable onPress={onOpenCalendar} hitSlop={8}>
         <Feather name="calendar" size={16} color={theme.inkSoft} />
+      </Pressable>
+      <Pressable onPress={() => onChange(new Date())} style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
         <Text style={{ ...typo.title, color: theme.ink }}>{fmt(date)}</Text>
       </Pressable>
       <Pressable onPress={() => shift(1)} hitSlop={10} disabled={isToday}>
