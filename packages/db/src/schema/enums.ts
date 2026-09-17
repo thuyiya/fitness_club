@@ -145,3 +145,14 @@ export const appointmentStatus = pgEnum("appointment_status", [
  * retired --- and a coach-created gym must not be live before an admin sees it.
  */
 export const gymStatus = pgEnum("gym_status", ["pending", "active", "rejected", "archived"]);
+
+/** Why a gym was reported, and where the report has got to. */
+export const reportReason = pgEnum("report_reason", [
+  "misleading_info",
+  "unsafe_practice",
+  "unprofessional_conduct",
+  "billing_dispute",
+  "closed_or_moved",
+  "other",
+]);
+export const reportStatus = pgEnum("report_status", ["open", "reviewing", "resolved", "dismissed"]);

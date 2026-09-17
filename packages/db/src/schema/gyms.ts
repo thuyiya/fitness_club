@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import { boolean, index, integer, jsonb, numeric, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
-import { gymStatus, membershipStatus, requestStatus, userStatus } from "./enums.js";
+import { gymStatus, membershipStatus, reportReason, reportStatus, requestStatus, userStatus } from "./enums.js";
 import { users } from "./identity.js";
 
 export const gyms = pgTable(
@@ -179,5 +179,36 @@ export const auditLogs = pgTable(
   (t) => [
     index("audit_logs_created_idx").on(t.createdAt),
     index("audit_logs_entity_idx").on(t.entityType, t.entityId),
+  ],
+);
+
+
+/**
+ * A complaint raised against a gym, for an admin to act on.
+ *
+ * Kept separate from join requests and audit logs: a report is about conduct,
+ * has its own lifecycle, and an admin needs to see the history before deciding
+ * whether to approve or suspend the gym it concerns.
+ */
+export const gymReports = pgTable(
+  "gym_reports",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    gymId: uuid("gym_id")
+      .notNull()
+      .references(() => gyms.id, { onDelete: "cascade" }),
+    /** Null when the reporter's account has since been deleted. */
+    reporterId: uuid("reporter_id").references(() => users.id, { onDelete: "set null" }),
+    reason: reportReason("reason").notNull(),
+    detail: text("detail"),
+    status: reportStatus("status").notNull().default("open"),
+    resolvedBy: uuid("resolved_by").references(() => users.id, { onDelete: "set null" }),
+    resolutionNote: text("resolution_note"),
+    resolvedAt: timestamp("resolved_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("gym_reports_gym_idx").on(t.gymId, t.status),
+    index("gym_reports_status_idx").on(t.status),
   ],
 );

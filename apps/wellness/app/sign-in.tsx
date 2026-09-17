@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { API_URL, ApiError } from "../src/api/client";
 import { Button, Screen } from "../src/components/ui";
 import { useAuth, type Role } from "../src/state/auth";
-import { member, radius, space, type as typo } from "../src/theme/tokens";
+import { brand, member, radius, space, type as typo } from "../src/theme/tokens";
 
 export default function SignIn() {
   const { signIn, register } = useAuth();
@@ -53,6 +53,28 @@ export default function SignIn() {
     <Screen theme={theme}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ padding: space.xl, paddingTop: insets.top + 60, flexGrow: 1, justifyContent: "center" }}>
+          {/* The mark is lime-on-black by design, so it keeps its own dark tile
+              rather than being dropped onto the light pre-auth background --- 
+              #C1FB09 on #F6F5F1 is nowhere near readable. */}
+          <View
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: radius.sm,
+              backgroundColor: brand.black,
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: space.lg,
+            }}
+          >
+            <Image
+              source={require("../assets/brand/logo-mark.png")}
+              style={{ width: 38, height: 38 }}
+              resizeMode="contain"
+              accessibilityRole="image"
+              accessibilityLabel="Wellness"
+            />
+          </View>
           <Text style={{ ...typo.display, color: theme.ink }}>Wellness</Text>
           <Text style={{ ...typo.body, color: theme.muted, marginTop: 4, marginBottom: space.xl }}>
             {mode === "in" ? "Sign in to continue" : "Create your account"}

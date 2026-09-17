@@ -39,7 +39,7 @@ export default function Gyms() {
   const [website, setWebsite] = useState("");
   const [mapsUrl, setMapsUrl] = useState("");
   const [query, setQuery] = useState("");
-  const [coords, setCoords] = useState<{ latitude: number; longitude: number; source: string; label?: string } | null>(null);
+  const [coords, setCoords] = useState<{ latitude: number; longitude: number; source: string; precision?: string; label?: string; matched?: string } | null>(null);
   const [locating, setLocating] = useState(false);
   const { busy, error, run } = useAction();
 
@@ -224,11 +224,25 @@ export default function Gyms() {
             <MapPlaceholder theme={theme} message="Finding the location…" height={140} />
           ) : coords ? (
             <>
-              <MapPreview theme={theme} latitude={coords.latitude} longitude={coords.longitude} label={name || "Gym"} height={140} />
-              <Text style={{ ...typo.caption, color: theme.muted, marginTop: 6 }}>
-                {coords.source === "url" ? "Pin taken from the link" : "Found from the address"}
-                {coords.label ? ` · ${coords.label.split(",").slice(0, 3).join(",")}` : ""}
-              </Text>
+              <MapPreview theme={theme} latitude={coords.latitude} longitude={coords.longitude}
+                label={name || "Gym"} mapsUrl={mapsUrl.trim() || undefined} height={140} />
+              {/* An approximate pin must say so. A share link often names a
+                  business that OpenStreetMap does not hold, and the honest
+                  result is the town, not a marker on the wrong street. */}
+              {coords.precision === "approximate" ? (
+                <View style={{ flexDirection: "row", gap: 6, marginTop: 8, alignItems: "flex-start" }}>
+                  <Feather name="alert-circle" size={13} color={theme.warning} style={{ marginTop: 2 }} />
+                  <Text style={{ ...typo.caption, color: theme.inkSoft, flex: 1 }}>
+                    Approximate — only “{coords.matched}” could be found on the map.
+                    {mapsUrl.trim() ? " Your link is saved, so Open in maps still goes to the exact place." : " Add a street address to place it precisely."}
+                  </Text>
+                </View>
+              ) : (
+                <Text style={{ ...typo.caption, color: theme.muted, marginTop: 6 }}>
+                  {coords.source === "url" ? "Pin taken from the link" : "Found from the address"}
+                  {coords.label ? ` · ${coords.label.split(",").slice(0, 3).join(",")}` : ""}
+                </Text>
+              )}
             </>
           ) : (
             <MapPlaceholder theme={theme} message="Add an address or paste a Google Maps link to show the location." height={140} />

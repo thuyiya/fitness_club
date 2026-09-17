@@ -4,8 +4,14 @@
     "slug": "wellness-2",
     "version": "2.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "scheme": "wellness",
     "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
@@ -19,7 +25,11 @@
     },
     "android": {
       "package": "com.glitchfy.wellness",
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000000"
+      }
     },
     "plugins": [
       "expo-router",
@@ -45,6 +55,9 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     }
   }
 }

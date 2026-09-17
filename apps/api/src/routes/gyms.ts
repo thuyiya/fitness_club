@@ -134,7 +134,7 @@ export const gymRoutes: FastifyPluginAsync = async (app) => {
     }
 
     reply.code(201);
-    return { gym, needsApproval: status === "pending", located: coords?.source ?? null };
+    return { gym, needsApproval: status === "pending", located: coords?.source ?? null, precision: coords?.precision ?? null };
   });
 
 

@@ -71,6 +71,13 @@
       "when": 1789580115380,
       "tag": "0009_worthless_hellcat",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1789612318001,
+      "tag": "0010_free_nitro",
+      "breakpoints": true
     }
   ]
 }

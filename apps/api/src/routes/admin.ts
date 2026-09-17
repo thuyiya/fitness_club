@@ -1,4 +1,4 @@
-import { and, desc, eq, ilike, or, sql } from "drizzle-orm";
+import { and, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
 import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import { db, schema } from "../db.js";
@@ -119,22 +119,162 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
     return { user: { id: user.id, status: user.status } };
   });
 
-  app.get("/admin/gyms", { preHandler: adminOnly }, async () => {
+  /**
+   * Every gym, searchable and filterable by status.
+   *
+   * The counts are split by role: an admin reviewing a gym cares how many
+   * COACHES work there separately from how many members train there, and a
+   * single "member count" hides which of the two a new gym actually has.
+   */
+  app.get("/admin/gyms", { preHandler: adminOnly }, async (req) => {
+    const q = z
+      .object({
+        q: z.string().trim().optional(),
+        status: z.enum(["pending", "active", "rejected", "archived"]).optional(),
+        limit: z.coerce.number().min(1).max(200).default(100),
+      })
+      .parse(req.query);
+
+    const where = [];
+    if (q.q) where.push(or(ilike(schema.gyms.name, `%${q.q}%`), ilike(schema.gyms.city, `%${q.q}%`))!);
+    if (q.status) where.push(eq(schema.gyms.status, q.status));
+
     const rows = await db
       .select({
         id: schema.gyms.id,
         name: schema.gyms.name,
         city: schema.gyms.city,
+        country: schema.gyms.country,
+        address: schema.gyms.address,
+        phone: schema.gyms.phone,
+        website: schema.gyms.website,
+        latitude: schema.gyms.latitude,
+        longitude: schema.gyms.longitude,
         status: schema.gyms.status,
+        capacity: schema.gyms.capacity,
         createdAt: schema.gyms.createdAt,
-        owner: { id: schema.users.id, name: schema.users.name, email: schema.users.email },
-        // `gyms.id` written literally --- see the note in routes/plans.ts.
-        memberCount: sql<number>`(SELECT count(*)::int FROM gym_members gm WHERE gm.gym_id = gyms.id AND gm.status = 'active')`,
+        owner: { id: schema.users.id, name: schema.users.name, email: schema.users.email, role: schema.users.role },
+        // Literal table qualification --- an interpolated drizzle column inside
+        // a raw sql`` renders unqualified and silently counts the wrong table.
+        coachCount: sql<number>`(
+          SELECT count(*)::int FROM gym_members gm JOIN users u ON u.id = gm.user_id
+          WHERE gm.gym_id = gyms.id AND gm.status = 'active' AND u.role = 'coach'
+        )`,
+        memberCount: sql<number>`(
+          SELECT count(*)::int FROM gym_members gm JOIN users u ON u.id = gm.user_id
+          WHERE gm.gym_id = gyms.id AND gm.status = 'active' AND u.role = 'member'
+        )`,
+        pendingRequests: sql<number>`(SELECT count(*)::int FROM join_requests jr WHERE jr.gym_id = gyms.id AND jr.status = 'pending')`,
+        openReports: sql<number>`(SELECT count(*)::int FROM gym_reports gr WHERE gr.gym_id = gyms.id AND gr.status IN ('open','reviewing'))`,
       })
       .from(schema.gyms)
       .innerJoin(schema.users, eq(schema.users.id, schema.gyms.ownerCoachId))
-      .orderBy(desc(schema.gyms.createdAt));
-    return { items: rows, pendingCount: rows.filter((g) => g.status === "pending").length };
+      .where(where.length ? and(...where) : undefined)
+      // Pending first: approvals are the reason an admin opens this screen.
+      .orderBy(sql`CASE WHEN ${schema.gyms.status} = 'pending' THEN 0 ELSE 1 END`, desc(schema.gyms.createdAt))
+      .limit(q.limit);
+
+    const [totals] = await db
+      .select({
+        all: sql<number>`count(*)::int`,
+        pending: sql<number>`count(*) FILTER (WHERE status = 'pending')::int`,
+        active: sql<number>`count(*) FILTER (WHERE status = 'active')::int`,
+      })
+      .from(schema.gyms);
+
+    return { items: rows, totals };
+  });
+
+  /** Everything about one gym, for the approval decision. */
+  app.get("/admin/gyms/:id", { preHandler: adminOnly }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+
+    const [gym] = await db
+      .select({
+        gym: schema.gyms,
+        owner: {
+          id: schema.users.id, name: schema.users.name, email: schema.users.email,
+          phone: schema.users.phone, status: schema.users.status, createdAt: schema.users.createdAt,
+          lastSeenAt: schema.users.lastSeenAt,
+        },
+      })
+      .from(schema.gyms)
+      .innerJoin(schema.users, eq(schema.users.id, schema.gyms.ownerCoachId))
+      .where(eq(schema.gyms.id, id));
+    if (!gym) throw notFound("Gym");
+
+    const [staff, members, requests, reports] = await Promise.all([
+      db
+        .select({
+          id: schema.users.id, name: schema.users.name, email: schema.users.email,
+          role: schema.users.role, joinedAt: schema.gymMembers.joinedAt, status: schema.gymMembers.status,
+        })
+        .from(schema.gymMembers)
+        .innerJoin(schema.users, eq(schema.users.id, schema.gymMembers.userId))
+        .where(and(eq(schema.gymMembers.gymId, id), inArray(schema.users.role, ["coach", "admin"])))
+        .orderBy(schema.users.name),
+      db
+        .select({
+          id: schema.users.id, name: schema.users.name, email: schema.users.email,
+          joinedAt: schema.gymMembers.joinedAt, status: schema.gymMembers.status,
+        })
+        .from(schema.gymMembers)
+        .innerJoin(schema.users, eq(schema.users.id, schema.gymMembers.userId))
+        .where(and(eq(schema.gymMembers.gymId, id), eq(schema.users.role, "member")))
+        .orderBy(desc(schema.gymMembers.joinedAt))
+        .limit(50),
+      db
+        .select({ id: schema.joinRequests.id, status: schema.joinRequests.status, createdAt: schema.joinRequests.createdAt })
+        .from(schema.joinRequests)
+        .where(and(eq(schema.joinRequests.gymId, id), eq(schema.joinRequests.status, "pending"))),
+      db
+        .select({
+          id: schema.gymReports.id, reason: schema.gymReports.reason, detail: schema.gymReports.detail,
+          status: schema.gymReports.status, createdAt: schema.gymReports.createdAt,
+          resolutionNote: schema.gymReports.resolutionNote,
+          reporter: { id: schema.users.id, name: schema.users.name },
+        })
+        .from(schema.gymReports)
+        .leftJoin(schema.users, eq(schema.users.id, schema.gymReports.reporterId))
+        .where(eq(schema.gymReports.gymId, id))
+        .orderBy(desc(schema.gymReports.createdAt)),
+    ]);
+
+    return {
+      gym: gym.gym,
+      owner: gym.owner,
+      instructors: staff,
+      members,
+      pendingRequests: requests.length,
+      reports,
+      openReports: reports.filter((r) => r.status === "open" || r.status === "reviewing").length,
+    };
+  });
+
+  /** Move a complaint along. */
+  app.patch("/admin/gym-reports/:id", { preHandler: adminOnly }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const body = z
+      .object({
+        status: z.enum(["open", "reviewing", "resolved", "dismissed"]),
+        resolutionNote: z.string().max(500).optional(),
+      })
+      .parse(req.body);
+
+    const closing = body.status === "resolved" || body.status === "dismissed";
+    const [row] = await db
+      .update(schema.gymReports)
+      .set({
+        status: body.status,
+        resolutionNote: body.resolutionNote ?? null,
+        resolvedBy: closing ? req.user!.id : null,
+        resolvedAt: closing ? new Date() : null,
+      })
+      .where(eq(schema.gymReports.id, id))
+      .returning();
+    if (!row) throw notFound("Report");
+    await audit(req.user!.id, `report_${body.status}`, "gym_report", id, { gymId: row.gymId });
+    return { report: row };
   });
 
   /** Approve or turn down a coach-created gym. */

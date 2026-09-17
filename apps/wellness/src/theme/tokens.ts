@@ -7,6 +7,18 @@
  * toggle is what the 58 designed screens assume.
  */
 
+/**
+ * Logo colours. Deliberately NOT in `palette`: the mark's lime is #C1FB09 and
+ * the UI accent lime is #B4FF3A, and they must not be used interchangeably ---
+ * tinting the logo with the accent (or an accent with the logo lime) is how a
+ * brand drifts. The mark is drawn for a dark field, so it always sits on
+ * `brand.black`, including on the light member palette.
+ */
+export const brand = {
+  lime: "#C1FB09",
+  black: "#000000",
+} as const;
+
 export const palette = {
   accent: "#FF5A36",
   accentDeep: "#E2431F",

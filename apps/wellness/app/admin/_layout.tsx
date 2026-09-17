@@ -19,6 +19,7 @@ export default function AdminLayout() {
       <Tabs.Screen name="gyms" options={{ title: "Gyms", tabBarIcon: ({ color, size }) => <Feather name="home" size={size} color={color} /> }} />
       <Tabs.Screen name="settings" options={{ title: "Settings", tabBarIcon: ({ color, size }) => <Feather name="settings" size={size} color={color} /> }} />
       <Tabs.Screen name="notifications" options={{ href: null }} />
+      <Tabs.Screen name="gym/[id]" options={{ href: null }} />
     </Tabs>
   );
 }
