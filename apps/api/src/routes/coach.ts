@@ -127,12 +127,23 @@ export const coachRoutes: FastifyPluginAsync = async (app) => {
         .where(and(eq(schema.goals.memberId, id), eq(schema.goals.status, "active"))),
       db
         .select({
-          id: schema.planAssignments.id, startDate: schema.planAssignments.startDate,
-          status: schema.planAssignments.status, planName: schema.plans.name, planType: schema.plans.type,
+          id: schema.planAssignments.id,
+          startDate: schema.planAssignments.startDate,
+          endDate: schema.planAssignments.endDate,
+          repeats: schema.planAssignments.repeats,
+          status: schema.planAssignments.status,
+          planId: schema.plans.id,
+          planName: schema.plans.name,
+          planType: schema.plans.type,
+          goal: schema.plans.goal,
+          difficulty: schema.plans.difficulty,
+          durationWeeks: schema.plans.durationWeeks,
+          dayCount: sql<number>`(SELECT count(*)::int FROM plan_days pd WHERE pd.plan_id = plans.id)`,
         })
         .from(schema.planAssignments)
         .innerJoin(schema.plans, eq(schema.plans.id, schema.planAssignments.planId))
-        .where(and(eq(schema.planAssignments.memberId, id), inArray(schema.planAssignments.status, ["scheduled", "active"]))),
+        .where(and(eq(schema.planAssignments.memberId, id), inArray(schema.planAssignments.status, ["scheduled", "active"])))
+        .orderBy(desc(schema.planAssignments.startDate)),
       db
         .select({
           date: schema.workoutLogs.date,
@@ -145,6 +156,29 @@ export const coachRoutes: FastifyPluginAsync = async (app) => {
     ]);
 
     if (!member) throw notFound("Member");
+
+    // Booked time, forward-looking. A coach opening a member before a session
+    // wants to know what is next, not what already happened.
+    const schedule = await db
+      .select({
+        id: schema.appointments.id,
+        kind: schema.appointments.kind,
+        title: schema.appointments.title,
+        location: schema.appointments.location,
+        startsAt: schema.appointments.startsAt,
+        endsAt: schema.appointments.endsAt,
+        status: schema.appointments.status,
+      })
+      .from(schema.appointments)
+      .where(
+        and(
+          eq(schema.appointments.memberId, id),
+          eq(schema.appointments.coachId, req.user!.id),
+          gte(schema.appointments.startsAt, new Date(`${day}T00:00:00.000Z`)),
+        ),
+      )
+      .orderBy(asc(schema.appointments.startsAt))
+      .limit(10);
 
     const totals = meals.reduce(
       (acc, m) => ({
@@ -179,6 +213,11 @@ export const coachRoutes: FastifyPluginAsync = async (app) => {
         const mine = entries.filter((e) => e.goalId === g.id);
         return { ...g, achieved: mine.filter((e) => e.achieved).length, evaluated: mine.length };
       }),
+      schedule,
+      // Split so the client can say "no meal plan" and "no exercise plan"
+      // separately --- one missing is a different conversation from both.
+      mealPlan: assignments.find((a) => a.planType === "meal") ?? null,
+      workoutPlan: assignments.find((a) => a.planType === "workout") ?? null,
       assignments,
     };
   });

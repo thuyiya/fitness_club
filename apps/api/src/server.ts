@@ -8,6 +8,7 @@ import { ApiError } from "./errors.js";
 import { authPlugin } from "./plugins/auth.js";
 import { authRoutes } from "./routes/auth.js";
 import { calendarRoutes } from "./routes/calendar.js";
+import { discoverRoutes } from "./routes/discover.js";
 import { catalogRoutes } from "./routes/catalog.js";
 import { coachRoutes } from "./routes/coach.js";
 import { goalRoutes } from "./routes/goals.js";
@@ -83,6 +84,7 @@ export async function buildServer() {
   await app.register(meRoutes, { prefix: "/v1" });
   await app.register(adminRoutes, { prefix: "/v1" });
   await app.register(calendarRoutes, { prefix: "/v1" });
+  await app.register(discoverRoutes, { prefix: "/v1" });
 
   return app;
 }

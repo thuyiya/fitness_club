@@ -5,6 +5,7 @@ import { db, schema } from "../db.js";
 import { ApiError, badRequest, notFound } from "../errors.js";
 import { assertCanReadMember, assertOwnsPlan } from "../lib/access.js";
 import { notify } from "../lib/notify.js";
+import { dayCoordsForOffset, daysBetween } from "../lib/planDay.js";
 
 const planBody = z.object({
   type: z.enum(["workout", "meal"]),
@@ -21,18 +22,40 @@ const planBody = z.object({
  * loggingMode: reps+weight for a press, durationSeconds for a plank. The API
  * accepts all of them and the client shows the right ones.
  */
-const planExerciseBody = z.object({
-  exerciseId: z.string().uuid(),
-  position: z.coerce.number().int().min(0).default(0),
-  sets: z.coerce.number().int().min(1).max(20).optional(),
-  reps: z.coerce.number().int().min(1).max(500).optional(),
-  // numeric columns round-trip as strings in Drizzle; transform at the edge so
-  // the rest of the handler never has to remember which is which.
-  weightKg: z.coerce.number().min(0).max(1000).optional().transform((v) => (v == null ? undefined : String(v))),
-  restSeconds: z.coerce.number().int().min(0).max(3600).optional(),
-  durationSeconds: z.coerce.number().int().min(1).max(86400).optional(),
-  notes: z.string().max(500).optional(),
-});
+const planExerciseBody = z
+  .object({
+    exerciseId: z.string().uuid().optional(),
+    /** A sport or other bout, prescribed by duration rather than sets. */
+    activityId: z.string().uuid().optional(),
+    position: z.coerce.number().int().min(0).default(0),
+    sets: z.coerce.number().int().min(1).max(20).optional(),
+    reps: z.coerce.number().int().min(1).max(500).optional(),
+    // numeric columns round-trip as strings in Drizzle; transform at the edge so
+    // the rest of the handler never has to remember which is which.
+    weightKg: z.coerce.number().min(0).max(1000).optional().transform((v) => (v == null ? undefined : String(v))),
+    restSeconds: z.coerce.number().int().min(0).max(3600).optional(),
+    durationSeconds: z.coerce.number().int().min(1).max(86400).optional(),
+    intensity: z.enum(["light", "moderate", "vigorous"]).optional(),
+    notes: z.string().max(500).optional(),
+  })
+  .refine((b) => !!b.exerciseId !== !!b.activityId, {
+    message: "Give exactly one of exerciseId or activityId",
+  });
+
+const isoDateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD");
+
+/**
+ * Rejects a prescription the member's logger could not render: a timed hold
+ * has no rep count, and a rep exercise with no reps is an empty instruction.
+ */
+function assertLoggable(name: string, loggingMode: string, item: { reps?: number; durationSeconds?: number }) {
+  if ((loggingMode === "hold" || loggingMode === "duration") && !item.durationSeconds) {
+    throw badRequest(`"${name}" is a timed hold --- set durationSeconds, not reps`, "logging_mode_mismatch");
+  }
+  if (loggingMode === "reps" && !item.reps) {
+    throw badRequest(`"${name}" is logged in reps --- set reps`, "logging_mode_mismatch");
+  }
+}
 
 export const planRoutes: FastifyPluginAsync = async (app) => {
   const auth = (req: Parameters<typeof app.requireAuth>[0]) => app.requireAuth(req);
@@ -83,6 +106,207 @@ export const planRoutes: FastifyPluginAsync = async (app) => {
     return { plan };
   });
 
+  /**
+   * Build a whole training block from a date range, in one call.
+   *
+   * A coach does not think in "week 2, day 3" --- they think "the 17th to the
+   * 20th, football on Saturday". This takes the dated form of that and writes
+   * the (week, day) form the plan tables store, so the programme stays reusable
+   * while the coach never sees the coordinates.
+   *
+   * It is one transaction because a half-written block is worse than none: the
+   * member would see Monday's session and nothing after it.
+   */
+  app.post("/plans/build", { preHandler: coachOnly }, async (req, reply) => {
+    const item = z
+      .object({
+        exerciseId: z.string().uuid().optional(),
+        activityId: z.string().uuid().optional(),
+        sets: z.coerce.number().int().min(1).max(20).optional(),
+        reps: z.coerce.number().int().min(1).max(500).optional(),
+        weightKg: z.coerce.number().min(0).max(1000).optional(),
+        restSeconds: z.coerce.number().int().min(0).max(3600).optional(),
+        durationSeconds: z.coerce.number().int().min(1).max(86400).optional(),
+        intensity: z.enum(["light", "moderate", "vigorous"]).optional(),
+        notes: z.string().max(500).optional(),
+      })
+      .refine((i) => !!i.exerciseId !== !!i.activityId, {
+        message: "Each item is either an exercise or an activity",
+      });
+
+    const body = z
+      .object({
+        planId: z.string().uuid().optional(),
+        name: z.string().min(1).max(160),
+        goal: z.string().max(200).optional(),
+        difficulty: z.enum(["beginner", "intermediate", "advanced", "elite"]).optional(),
+        startDate: isoDateString,
+        endDate: isoDateString,
+        memberIds: z.array(z.string().uuid()).max(100).default([]),
+        /** Only dated days that carry work need to be sent; the rest are rest days. */
+        days: z.array(z.object({ date: isoDateString, notes: z.string().max(1000).optional(), items: z.array(item).max(30).default([]) })).max(370),
+        strategy: z.enum(["propagate", "fork", "detach"]).optional(),
+      })
+      .parse(req.body);
+
+    const span = daysBetween(body.startDate, body.endDate);
+    if (span < 0) throw badRequest("The end date is before the start date");
+    if (span > 363) throw badRequest("A block can run for at most 52 weeks");
+    for (const d of body.days) {
+      const off = daysBetween(body.startDate, d.date);
+      if (off < 0 || off > span) throw badRequest(`${d.date} is outside ${body.startDate} – ${body.endDate}`);
+    }
+    if (new Set(body.days.map((d) => d.date)).size !== body.days.length) {
+      throw badRequest("The same date appears twice");
+    }
+
+    // Validate every prescription BEFORE writing anything, so a bad item on the
+    // last day cannot leave the first three written.
+    const exerciseIds = [...new Set(body.days.flatMap((d) => d.items.map((i) => i.exerciseId).filter(Boolean)))] as string[];
+    const activityIds = [...new Set(body.days.flatMap((d) => d.items.map((i) => i.activityId).filter(Boolean)))] as string[];
+    const [exRows, actRows] = await Promise.all([
+      exerciseIds.length
+        ? db.select({ id: schema.exercises.id, name: schema.exercises.name, loggingMode: schema.exercises.loggingMode })
+            .from(schema.exercises).where(inArray(schema.exercises.id, exerciseIds))
+        : Promise.resolve([]),
+      activityIds.length
+        ? db.select({ id: schema.activities.id, name: schema.activities.name })
+            .from(schema.activities).where(inArray(schema.activities.id, activityIds))
+        : Promise.resolve([]),
+    ]);
+    const exById = new Map(exRows.map((e) => [e.id, e]));
+    const actById = new Map(actRows.map((a) => [a.id, a]));
+    for (const day of body.days) {
+      for (const i of day.items) {
+        if (i.exerciseId) {
+          const ex = exById.get(i.exerciseId);
+          if (!ex) throw notFound("Exercise");
+          assertLoggable(ex.name, ex.loggingMode, i);
+        } else {
+          const act = actById.get(i.activityId!);
+          if (!act) throw notFound("Activity");
+          if (!i.durationSeconds) throw badRequest(`"${act.name}" needs a duration`, "duration_required");
+        }
+      }
+    }
+
+    for (const memberId of body.memberIds) await assertCanReadMember(req.user!, memberId);
+
+    // Rewriting a block that people are already following is the same decision
+    // PATCH /plans/:id makes, and gets the same answer: ask rather than guess.
+    let existing: { id: string; memberId: string | null; name: string }[] = [];
+    if (body.planId) {
+      await assertOwnsPlan(req.user!, body.planId);
+      existing = await db
+        .select({ id: schema.planAssignments.id, memberId: schema.planAssignments.memberId, name: schema.users.name })
+        .from(schema.planAssignments)
+        .innerJoin(schema.users, eq(schema.users.id, schema.planAssignments.memberId))
+        .where(and(eq(schema.planAssignments.planId, body.planId), inArray(schema.planAssignments.status, ["scheduled", "active"])));
+      if (existing.length > 0 && !body.strategy) {
+        throw new ApiError(409, "plan_has_assignments", JSON.stringify({
+          message: `${existing.length} member${existing.length === 1 ? " is" : "s are"} following this block`,
+          members: existing.map((a) => ({ id: a.memberId, name: a.name })),
+        }));
+      }
+    }
+
+    const durationWeeks = Math.max(1, Math.ceil((span + 1) / 7));
+    const withWork = new Map(body.days.map((d) => [d.date, d]));
+
+    const result = await db.transaction(async (tx) => {
+      let planId = body.planId;
+      if (!planId || body.strategy === "fork") {
+        const [p] = await tx
+          .insert(schema.plans)
+          .values({
+            ownerCoachId: req.user!.id, type: "workout",
+            name: body.strategy === "fork" ? `${body.name} (v2)` : body.name,
+            goal: body.goal, difficulty: body.difficulty, durationWeeks, status: "published",
+          })
+          .returning();
+        planId = p!.id;
+      } else {
+        await tx.update(schema.plans)
+          .set({ name: body.name, goal: body.goal, difficulty: body.difficulty, durationWeeks, updatedAt: new Date() })
+          .where(eq(schema.plans.id, planId));
+        // The range may have moved; the old days no longer line up with it.
+        await tx.delete(schema.planDays).where(eq(schema.planDays.planId, planId));
+      }
+
+      // Every date in the range gets a day, so a rest day is a real row the
+      // calendar can show rather than an absence it has to infer.
+      for (let offset = 0; offset <= span; offset++) {
+        const date = new Date(Date.parse(`${body.startDate}T00:00:00.000Z`) + offset * 86_400_000);
+        const key = date.toISOString().slice(0, 10);
+        const spec = withWork.get(key);
+        const { weekNumber, dayNumber } = dayCoordsForOffset(offset);
+        const [dayRow] = await tx
+          .insert(schema.planDays)
+          .values({
+            planId: planId!, weekNumber, dayNumber,
+            title: date.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }),
+            isRestDay: !spec || spec.items.length === 0,
+            notes: spec?.notes,
+          })
+          .returning();
+
+        if (spec?.items.length) {
+          await tx.insert(schema.planExercises).values(
+            spec.items.map((i, position) => ({
+              planDayId: dayRow!.id, position,
+              exerciseId: i.exerciseId ?? null, activityId: i.activityId ?? null,
+              sets: i.sets ?? null, reps: i.reps ?? null,
+              weightKg: i.weightKg == null ? null : String(i.weightKg),
+              restSeconds: i.restSeconds ?? null, durationSeconds: i.durationSeconds ?? null,
+              intensity: i.intensity ?? null, notes: i.notes ?? null,
+            })),
+          );
+        }
+      }
+
+      if (body.strategy === "detach" && existing.length > 0) {
+        await tx.update(schema.planAssignments)
+          .set({ status: "cancelled", endDate: new Date().toISOString().slice(0, 10) })
+          .where(inArray(schema.planAssignments.id, existing.map((a) => a.id)));
+      }
+
+      // Re-window the people already on it; a rebuilt block that still points
+      // at the old dates would put the work on the wrong days.
+      if (body.strategy === "propagate" && existing.length > 0) {
+        await tx.update(schema.planAssignments)
+          .set({ startDate: body.startDate, endDate: body.endDate })
+          .where(inArray(schema.planAssignments.id, existing.map((a) => a.id)));
+      }
+
+      const alreadyOn = new Set(
+        body.strategy === "propagate" ? existing.map((a) => a.memberId).filter(Boolean) as string[] : [],
+      );
+      const toAssign = body.memberIds.filter((m) => !alreadyOn.has(m));
+      const assignments = toAssign.length
+        ? await tx
+            .insert(schema.planAssignments)
+            .values(toAssign.map((memberId) => ({
+              planId: planId!, memberId, assignedBy: req.user!.id,
+              startDate: body.startDate, endDate: body.endDate, status: "scheduled" as const,
+            })))
+            .returning()
+        : [];
+
+      return { planId: planId!, assignments };
+    });
+
+    await Promise.all(
+      body.memberIds.map((m) =>
+        notify(m, "plan_assigned", "New training block",
+          `Your coach assigned "${body.name}", ${body.startDate} to ${body.endDate}`, { planId: result.planId, type: "workout" }),
+      ),
+    );
+
+    const plan = await db.query.plans.findFirst({ where: eq(schema.plans.id, result.planId) });
+    reply.code(201);
+    return { plan, assignments: result.assignments, days: span + 1 };
+  });
+
   /** Full plan tree: days, each with its exercises and meals resolved. */
   app.get("/plans/:id", { preHandler: auth }, async (req) => {
     const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
@@ -116,6 +340,7 @@ export const planRoutes: FastifyPluginAsync = async (app) => {
               weightKg: schema.planExercises.weightKg,
               restSeconds: schema.planExercises.restSeconds,
               durationSeconds: schema.planExercises.durationSeconds,
+              intensity: schema.planExercises.intensity,
               notes: schema.planExercises.notes,
               exercise: {
                 id: schema.exercises.id,
@@ -126,9 +351,19 @@ export const planRoutes: FastifyPluginAsync = async (app) => {
                 equipment: schema.exercises.equipment,
                 imageUrl: schema.exercises.imageUrl,
               },
+              // Left-joined: an item is an exercise OR an activity, so exactly
+              // one of these two comes back populated.
+              activity: {
+                id: schema.activities.id,
+                slug: schema.activities.slug,
+                name: schema.activities.name,
+                group: schema.activities.group,
+                met: schema.activities.met,
+              },
             })
             .from(schema.planExercises)
-            .innerJoin(schema.exercises, eq(schema.exercises.id, schema.planExercises.exerciseId))
+            .leftJoin(schema.exercises, eq(schema.exercises.id, schema.planExercises.exerciseId))
+            .leftJoin(schema.activities, eq(schema.activities.id, schema.planExercises.activityId))
             .where(inArray(schema.planExercises.planDayId, dayIds))
             .orderBy(asc(schema.planExercises.position)),
           db
@@ -191,16 +426,21 @@ export const planRoutes: FastifyPluginAsync = async (app) => {
     if (!day) throw notFound("Plan day");
     await assertOwnsPlan(req.user!, day.planId);
 
-    const exercise = await db.query.exercises.findFirst({ where: eq(schema.exercises.id, body.exerciseId) });
-    if (!exercise) throw notFound("Exercise");
-
-    // Catch the prescription that cannot be logged: a hold needs seconds, not
-    // reps, and the member's logger renders fields from loggingMode.
-    if (exercise.loggingMode === "hold" && !body.durationSeconds) {
-      throw badRequest(`"${exercise.name}" is a timed hold --- set durationSeconds, not reps`, "logging_mode_mismatch");
+    if (body.exerciseId) {
+      const exercise = await db.query.exercises.findFirst({ where: eq(schema.exercises.id, body.exerciseId) });
+      if (!exercise) throw notFound("Exercise");
+      assertLoggable(exercise.name, exercise.loggingMode, body);
+    } else {
+      const activity = await db.query.activities.findFirst({ where: eq(schema.activities.id, body.activityId!) });
+      if (!activity) throw notFound("Activity");
+      // A bout with no duration is not a prescription, it is a noun.
+      if (!body.durationSeconds) throw badRequest(`"${activity.name}" needs a duration`, "duration_required");
     }
-    if (exercise.loggingMode === "reps" && !body.reps) {
-      throw badRequest(`"${exercise.name}" is logged in reps --- set reps`, "logging_mode_mismatch");
+
+    // Adding real work to a day retires its rest-day marker, so the calendar
+    // cannot say "Rest" over a session the coach just wrote.
+    if (day.isRestDay) {
+      await db.update(schema.planDays).set({ isRestDay: false }).where(eq(schema.planDays.id, dayId));
     }
 
     const [row] = await db.insert(schema.planExercises).values({ planDayId: dayId, ...body }).returning();
@@ -370,9 +610,10 @@ export const planRoutes: FastifyPluginAsync = async (app) => {
           if (exs.length) {
             await tx.insert(schema.planExercises).values(
               exs.map((e) => ({
-                planDayId: newDay!.id, exerciseId: e.exerciseId, position: e.position,
-                sets: e.sets, reps: e.reps, weightKg: e.weightKg, restSeconds: e.restSeconds,
-                durationSeconds: e.durationSeconds, notes: e.notes,
+                planDayId: newDay!.id, exerciseId: e.exerciseId, activityId: e.activityId,
+                position: e.position, sets: e.sets, reps: e.reps, weightKg: e.weightKg,
+                restSeconds: e.restSeconds, durationSeconds: e.durationSeconds,
+                intensity: e.intensity, notes: e.notes,
               })),
             );
           }
@@ -452,7 +693,7 @@ export const planRoutes: FastifyPluginAsync = async (app) => {
           tx.select().from(schema.planExercises).where(eq(schema.planExercises.planDayId, day.id)),
           tx.select().from(schema.planMeals).where(eq(schema.planMeals.planDayId, day.id)),
         ]);
-        if (exs.length) await tx.insert(schema.planExercises).values(exs.map((e) => ({ planDayId: newDay!.id, exerciseId: e.exerciseId, position: e.position, sets: e.sets, reps: e.reps, weightKg: e.weightKg, restSeconds: e.restSeconds, durationSeconds: e.durationSeconds, notes: e.notes })));
+        if (exs.length) await tx.insert(schema.planExercises).values(exs.map((e) => ({ planDayId: newDay!.id, exerciseId: e.exerciseId, activityId: e.activityId, position: e.position, sets: e.sets, reps: e.reps, weightKg: e.weightKg, restSeconds: e.restSeconds, durationSeconds: e.durationSeconds, intensity: e.intensity, notes: e.notes })));
         if (mls.length) await tx.insert(schema.planMeals).values(mls.map((m) => ({ planDayId: newDay!.id, mealId: m.mealId, mealType: m.mealType, position: m.position, servings: m.servings, notes: m.notes })));
       }
       return t!;
@@ -486,7 +727,7 @@ export const planRoutes: FastifyPluginAsync = async (app) => {
           tx.select().from(schema.planExercises).where(eq(schema.planExercises.planDayId, day.id)),
           tx.select().from(schema.planMeals).where(eq(schema.planMeals.planDayId, day.id)),
         ]);
-        if (exs.length) await tx.insert(schema.planExercises).values(exs.map((e) => ({ planDayId: d!.id, exerciseId: e.exerciseId, position: e.position, sets: e.sets, reps: e.reps, weightKg: e.weightKg, restSeconds: e.restSeconds, durationSeconds: e.durationSeconds, notes: e.notes })));
+        if (exs.length) await tx.insert(schema.planExercises).values(exs.map((e) => ({ planDayId: d!.id, exerciseId: e.exerciseId, activityId: e.activityId, position: e.position, sets: e.sets, reps: e.reps, weightKg: e.weightKg, restSeconds: e.restSeconds, durationSeconds: e.durationSeconds, intensity: e.intensity, notes: e.notes })));
         if (mls.length) await tx.insert(schema.planMeals).values(mls.map((m) => ({ planDayId: d!.id, mealId: m.mealId, mealType: m.mealType, position: m.position, servings: m.servings, notes: m.notes })));
       }
       return p!;

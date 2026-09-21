@@ -13,4 +13,5 @@ export * from "./goals.js";
 export * from "./messaging.js";
 export * from "./scheduling.js";
 export * from "./surveys.js";
+export * from "./marketing.js";
 export * from "./billing.js";

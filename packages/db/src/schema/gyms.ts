@@ -92,6 +92,12 @@ export const joinRequests = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     status: requestStatus("status").notNull().default("pending"),
+    /**
+     * The coach the member actually asked for, when they arrived through that
+     * coach's profile. Without it, approval silently links them to whoever
+     * happened to click the button --- which is not who they chose.
+     */
+    requestedCoachId: uuid("requested_coach_id").references(() => users.id, { onDelete: "set null" }),
     message: text("message"),
     decidedBy: uuid("decided_by").references(() => users.id, { onDelete: "set null" }),
     decidedAt: timestamp("decided_at", { withTimezone: true }),

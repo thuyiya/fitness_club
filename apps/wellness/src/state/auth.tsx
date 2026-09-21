@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { api, clearSession, saveSession, storedSession, type Session } from "../api/client";
-import { themeForRole, type Theme } from "../theme/tokens";
+import { themeFor, type Theme } from "../theme/tokens";
+import { ThemeProvider, useTheme } from "./theme";
 
 export type Role = "admin" | "coach" | "member";
 export interface User {
@@ -76,11 +77,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
   }, []);
 
-  const value = useMemo<AuthValue>(
-    () => ({ user, theme: themeForRole(user?.role ?? "member"), loading, signIn, register, signOut }),
-    [user, loading, signIn, register, signOut],
+  // ThemeProvider sits INSIDE so it can read the role, and the inner component
+  // reads the resolved scheme back out. Splitting it this way keeps a single
+  // `useAuth().theme` for every screen.
+  return (
+    <ThemeProvider role={user?.role ?? "member"}>
+      <WithTheme user={user} loading={loading} signIn={signIn} register={register} signOut={signOut}>
+        {children}
+      </WithTheme>
+    </ThemeProvider>
   );
+}
 
+function WithTheme({
+  user, loading, signIn, register, signOut, children,
+}: Omit<AuthValue, "theme"> & { children: React.ReactNode }) {
+  const { scheme } = useTheme();
+  const value = useMemo<AuthValue>(
+    () => ({ user, theme: themeFor(user?.role ?? "member", scheme), loading, signIn, register, signOut }),
+    [user, scheme, loading, signIn, register, signOut],
+  );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 

@@ -5,6 +5,7 @@ import { db, schema } from "../db.js";
 import { badRequest, notFound } from "../errors.js";
 import { assertCanReadMember } from "../lib/access.js";
 import { activityKcal } from "../lib/nutrition.js";
+import { planDayMatchesDate } from "../lib/planDay.js";
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD");
 const num = (max: number) => z.coerce.number().min(0).max(max).transform(String);
@@ -471,7 +472,17 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
       byExercise.set(row.exercise.id, entry);
     }
 
-    // Prescribed work: any active assignment whose window covers this date.
+    // Prescribed work: the day of an active plan that lands on THIS date.
+    // Without planDayMatchesDate every day of the block came back on every
+    // date, so a four-day plan showed four days of work each morning.
+    const onThisDay = and(
+      eq(schema.planAssignments.memberId, member),
+      lte(schema.planAssignments.startDate, date),
+      or(isNull(schema.planAssignments.endDate), gte(schema.planAssignments.endDate, date))!,
+      inArray(schema.planAssignments.status, ["scheduled", "active"]),
+      planDayMatchesDate(date),
+    );
+
     const prescribed = await db
       .select({
         planExerciseId: schema.planExercises.id,
@@ -498,20 +509,59 @@ export const logRoutes: FastifyPluginAsync = async (app) => {
       .innerJoin(schema.planDays, eq(schema.planDays.planId, schema.plans.id))
       .innerJoin(schema.planExercises, eq(schema.planExercises.planDayId, schema.planDays.id))
       .innerJoin(schema.exercises, eq(schema.exercises.id, schema.planExercises.exerciseId))
-      .where(
-        and(
-          eq(schema.planAssignments.memberId, member),
-          lte(schema.planAssignments.startDate, date),
-          or(isNull(schema.planAssignments.endDate), gte(schema.planAssignments.endDate, date))!,
-          inArray(schema.planAssignments.status, ["scheduled", "active"]),
-        ),
-      )
+      .where(onThisDay)
       .orderBy(asc(schema.planExercises.position));
 
+    // Sports and other bouts are prescribed on the same days but logged by
+    // duration, so they are a separate list rather than a set-shaped fake.
+    const prescribedActivities = await db
+      .select({
+        planExerciseId: schema.planExercises.id,
+        planName: schema.plans.name,
+        durationSeconds: schema.planExercises.durationSeconds,
+        intensity: schema.planExercises.intensity,
+        notes: schema.planExercises.notes,
+        activity: {
+          id: schema.activities.id,
+          slug: schema.activities.slug,
+          name: schema.activities.name,
+          group: schema.activities.group,
+          met: schema.activities.met,
+        },
+      })
+      .from(schema.planAssignments)
+      .innerJoin(schema.plans, eq(schema.plans.id, schema.planAssignments.planId))
+      .innerJoin(schema.planDays, eq(schema.planDays.planId, schema.plans.id))
+      .innerJoin(schema.planExercises, eq(schema.planExercises.planDayId, schema.planDays.id))
+      .innerJoin(schema.activities, eq(schema.activities.id, schema.planExercises.activityId))
+      .where(onThisDay)
+      .orderBy(asc(schema.planExercises.position));
+
+    // A rest day the coach wrote is information, not silence --- the member
+    // should be told to rest rather than left wondering what to do.
+    const restDay = await db
+      .select({ planName: schema.plans.name, notes: schema.planDays.notes })
+      .from(schema.planAssignments)
+      .innerJoin(schema.plans, eq(schema.plans.id, schema.planAssignments.planId))
+      .innerJoin(schema.planDays, eq(schema.planDays.planId, schema.plans.id))
+      .where(and(onThisDay, eq(schema.planDays.isRestDay, true), eq(schema.plans.type, "workout")))
+      .limit(1);
+
     const doneIds = new Set(byExercise.keys());
+    const loggedActivityIds = new Set(
+      (await db
+        .select({ activityId: schema.workoutLogs.activityId })
+        .from(schema.workoutLogs)
+        .where(and(eq(schema.workoutLogs.memberId, member), eq(schema.workoutLogs.date, date))))
+        .map((r) => r.activityId)
+        .filter(Boolean) as string[],
+    );
+
     return {
       date,
       prescribed: prescribed.map((p) => ({ ...p, logged: doneIds.has(p.exercise.id) })),
+      prescribedActivities: prescribedActivities.map((p) => ({ ...p, logged: loggedActivityIds.has(p.activity.id) })),
+      restDay: prescribed.length === 0 && prescribedActivities.length === 0 && restDay[0] ? restDay[0] : null,
       logged: [...byExercise.values()],
     };
   });

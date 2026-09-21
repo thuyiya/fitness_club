@@ -1,4 +1,4 @@
-import { and, eq, ilike, or, sql } from "drizzle-orm";
+import { and, desc, eq, ilike, or, sql } from "drizzle-orm";
 import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import { db, schema } from "../db.js";
@@ -203,7 +203,9 @@ export const gymRoutes: FastifyPluginAsync = async (app) => {
   /** A member asks to join. One pending request per gym is enforced by a partial unique index. */
   app.post("/gyms/:gymId/join-requests", { preHandler: auth }, async (req, reply) => {
     const { gymId } = z.object({ gymId: z.string().uuid() }).parse(req.params);
-    const { message } = z.object({ message: z.string().max(500).optional() }).parse(req.body ?? {});
+    const { message, coachId } = z
+      .object({ message: z.string().max(500).optional(), coachId: z.string().uuid().optional() })
+      .parse(req.body ?? {});
 
     const gym = await db.query.gyms.findFirst({ where: eq(schema.gyms.id, gymId) });
     if (!gym) throw notFound("Gym");
@@ -214,10 +216,40 @@ export const gymRoutes: FastifyPluginAsync = async (app) => {
     if (already) throw conflict("You are already a member of this gym");
 
     try {
+      // A named coach must actually work at this gym, or approval would link
+      // the member to someone unconnected to the place they asked to join.
+      if (coachId) {
+        const [works] = await db
+          .select({ id: schema.users.id })
+          .from(schema.users)
+          .where(
+            and(
+              eq(schema.users.id, coachId),
+              eq(schema.users.role, "coach"),
+              sql`(
+                ${gymId}::uuid IN (SELECT g.id FROM gyms g WHERE g.owner_coach_id = users.id)
+                OR EXISTS (SELECT 1 FROM gym_members gm WHERE gm.gym_id = ${gymId} AND gm.user_id = users.id AND gm.status = 'active')
+              )`,
+            ),
+          );
+        if (!works) throw badRequest("That coach does not work at this gym", "coach_not_at_gym");
+      }
+
       const [row] = await db
         .insert(schema.joinRequests)
-        .values({ gymId, memberId: req.user!.id, message: message ?? null })
+        .values({ gymId, memberId: req.user!.id, message: message ?? null, requestedCoachId: coachId ?? null })
         .returning();
+
+      // Tell the people who can act on it: the gym owner, and the named coach.
+      const recipients = new Set<string>([gym.ownerCoachId]);
+      if (coachId) recipients.add(coachId);
+      const who = await db.query.users.findFirst({ where: eq(schema.users.id, req.user!.id) });
+      await Promise.all(
+        [...recipients].map((id) =>
+          notify(id, "join_request", "New join request", `${who?.name ?? "Someone"} asked to join ${gym.name}`, { gymId, requestId: row!.id }),
+        ),
+      );
+
       reply.code(201);
       return { request: row };
     } catch (e) {
@@ -242,6 +274,8 @@ export const gymRoutes: FastifyPluginAsync = async (app) => {
         status: schema.joinRequests.status,
         message: schema.joinRequests.message,
         createdAt: schema.joinRequests.createdAt,
+        requestedCoachId: schema.joinRequests.requestedCoachId,
+        requestedCoachName: sql<string | null>`(SELECT u2.name FROM users u2 WHERE u2.id = join_requests.requested_coach_id)`,
         member: { id: schema.users.id, name: schema.users.name, email: schema.users.email, avatarUrl: schema.users.avatarUrl },
       })
       .from(schema.joinRequests)
@@ -277,14 +311,49 @@ export const gymRoutes: FastifyPluginAsync = async (app) => {
           .insert(schema.gymMembers)
           .values({ gymId: request.gymId, userId: request.memberId, status: "active" })
           .onConflictDoNothing();
+        // Link the member to the coach they ASKED for, falling back to whoever
+        // approved. Approving on someone's behalf is normal --- a gym owner
+        // clearing the queue should not steal the client.
         await tx
           .insert(schema.coachMembers)
-          .values({ coachId: req.user!.id, memberId: request.memberId, status: "active" })
+          .values({ coachId: request.requestedCoachId ?? req.user!.id, memberId: request.memberId, status: "active" })
           .onConflictDoNothing();
       }
     });
 
-    return { ok: true, decision };
+    // The member is waiting on this; tell them either way.
+    const gymRow = await db.query.gyms.findFirst({ where: eq(schema.gyms.id, request.gymId) });
+    await notify(
+      request.memberId,
+      "join_request",
+      decision === "approved" ? "You're in" : "Request declined",
+      decision === "approved"
+        ? `Your request to join ${gymRow?.name} was approved`
+        : `Your request to join ${gymRow?.name} was declined`,
+      { gymId: request.gymId },
+    );
+
+    return { ok: true, decision, linkedCoachId: request.requestedCoachId ?? req.user!.id };
+  });
+
+
+  /** The member's own requests, so a pending one is visible rather than a guess. */
+  app.get("/me/join-requests", { preHandler: auth }, async (req) => {
+    const rows = await db
+      .select({
+        id: schema.joinRequests.id,
+        status: schema.joinRequests.status,
+        message: schema.joinRequests.message,
+        createdAt: schema.joinRequests.createdAt,
+        decidedAt: schema.joinRequests.decidedAt,
+        gym: { id: schema.gyms.id, name: schema.gyms.name, city: schema.gyms.city },
+        requestedCoachName: sql<string | null>`(SELECT u2.name FROM users u2 WHERE u2.id = join_requests.requested_coach_id)`,
+      })
+      .from(schema.joinRequests)
+      .innerJoin(schema.gyms, eq(schema.gyms.id, schema.joinRequests.gymId))
+      .where(eq(schema.joinRequests.memberId, req.user!.id))
+      .orderBy(desc(schema.joinRequests.createdAt));
+    return { items: rows };
   });
 
   /** The coach's roster --- the list every other coach screen is built on. */

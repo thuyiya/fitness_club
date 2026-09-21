@@ -44,7 +44,7 @@ export default function Templates() {
           <Feather name="chevron-left" size={24} color={theme.inkSoft} />
         </Pressable>
         <Text style={{ ...typo.title, color: theme.ink, flex: 1 }}>Templates</Text>
-        <Pressable onPress={() => router.push({ pathname: "/coach/plan", params: { type: "workout" } })} hitSlop={12}>
+        <Pressable onPress={() => router.push("/coach/program")} hitSlop={12}>
           <Feather name="plus" size={22} color={theme.accent} />
         </Pressable>
       </View>

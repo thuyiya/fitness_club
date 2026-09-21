@@ -37,7 +37,16 @@ export interface Theme {
   teal: string; lime: string; warning: string; danger: string; indigo: string;
 }
 
-export const member: Theme = {
+/**
+ * Neutrals come in two sets; the accent comes from the role.
+ *
+ * The design gives members a light journey and coaches a dark one, and that
+ * stays the DEFAULT --- a member checks this between sets in a bright gym, a
+ * coach works at a desk. But a default is not a rule, so either can pick the
+ * other, and the palettes are built from one pair of neutral ramps rather than
+ * four hand-written themes that drift apart.
+ */
+const lightNeutrals = {
   bg: "#F6F5F1",
   card: "#FFFFFF",
   cardAlt: "#EFEDE6",
@@ -45,10 +54,9 @@ export const member: Theme = {
   inkSoft: "#565A6E",
   muted: "#8A8D9E",
   line: "#E7E4DC",
-  ...palette,
-};
+} as const;
 
-export const coach: Theme = {
+const darkNeutrals = {
   bg: "#0B0C10",
   card: "#16181F",
   cardAlt: "#1D2029",
@@ -56,14 +64,28 @@ export const coach: Theme = {
   inkSoft: "#9A9EC0",
   muted: "#6B6E85",
   line: "#242733",
-  ...palette,
-};
+} as const;
 
-/** Admin reuses the coach palette with indigo promoted to the accent. */
-export const admin: Theme = { ...coach, accent: palette.indigo, accentDeep: "#3E5FD9" };
+export type Scheme = "light" | "dark";
+export type Role = "admin" | "coach" | "member";
 
-export const themeForRole = (role: "admin" | "coach" | "member"): Theme =>
-  role === "member" ? member : role === "admin" ? admin : coach;
+export const member: Theme = { ...lightNeutrals, ...palette };
+export const coach: Theme = { ...darkNeutrals, ...palette };
+/** Admin keeps the dark ground but swaps the accent to indigo, per the design. */
+export const admin: Theme = { ...darkNeutrals, ...palette, accent: palette.indigo, accentDeep: "#3E5FD9" };
+
+/** The scheme each role starts on before anyone expresses a preference. */
+export const defaultScheme = (role: Role): Scheme => (role === "member" ? "light" : "dark");
+
+export function themeFor(role: Role, scheme: Scheme): Theme {
+  const neutrals = scheme === "dark" ? darkNeutrals : lightNeutrals;
+  return role === "admin"
+    ? { ...neutrals, ...palette, accent: palette.indigo, accentDeep: "#3E5FD9" }
+    : { ...neutrals, ...palette };
+}
+
+/** Kept for call sites that have a role but no stored preference yet. */
+export const themeForRole = (role: Role): Theme => themeFor(role, defaultScheme(role));
 
 export const radius = { sm: 12, md: 20, lg: 28, pill: 999 } as const;
 export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 } as const;

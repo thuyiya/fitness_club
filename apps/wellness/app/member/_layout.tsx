@@ -3,7 +3,8 @@ import { Tabs } from "expo-router";
 import { Pressable, View } from "react-native";
 import { QuickLogSheet } from "../../src/components/QuickLogSheet";
 import { QuickLogProvider, useQuickLog } from "../../src/state/quicklog";
-import { member, radius } from "../../src/theme/tokens";
+import { radius } from "../../src/theme/tokens";
+import { useAuth } from "../../src/state/auth";
 
 /**
  * Member tabs. The centre is not a tab but a raised action that opens the
@@ -12,7 +13,7 @@ import { member, radius } from "../../src/theme/tokens";
  * it is what makes food diaries get abandoned.
  */
 function MemberTabs() {
-  const theme = member;
+  const { theme } = useAuth();
   const quickLog = useQuickLog();
 
   return (
@@ -55,6 +56,13 @@ function MemberTabs() {
         <Tabs.Screen name="meal" options={{ href: null }} />
         <Tabs.Screen name="meal-detail" options={{ href: null }} />
         <Tabs.Screen name="exercise-detail" options={{ href: null }} />
+        <Tabs.Screen name="profile" options={{ href: null }} />
+        <Tabs.Screen name="appearance" options={{ href: null }} />
+        <Tabs.Screen name="units" options={{ href: null }} />
+        <Tabs.Screen name="health" options={{ href: null }} />
+        <Tabs.Screen name="notification-settings" options={{ href: null }} />
+        <Tabs.Screen name="find-coach" options={{ href: null }} />
+        <Tabs.Screen name="coach/[id]" options={{ href: null }} />
       </Tabs>
 
       <QuickLogSheet

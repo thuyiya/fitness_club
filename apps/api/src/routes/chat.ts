@@ -84,7 +84,17 @@ export const chatRoutes: FastifyPluginAsync = async (app) => {
     const { userId } = z.object({ userId: z.string().uuid() }).parse(req.body);
     if (userId === req.user!.id) throw badRequest("You cannot open a thread with yourself");
 
-    // Only people already linked as coach and member may start a conversation.
+    /**
+     * Who may open a thread:
+     *   - a coach with one of their own members (assertCanReadMember)
+     *   - a member with their coach (the inverse link)
+     *   - a member ENQUIRING with a discoverable coach they have not joined
+     *
+     * The third case is what makes the coach directory useful: nobody commits
+     * to a coach before speaking to them. It is bounded by discoverability ---
+     * the coach must own or work at an approved gym --- so this is not an open
+     * channel to every account on the platform.
+     */
     await assertCanReadMember(req.user!, userId).catch(async () => {
       const inverse = await db.query.coachMembers.findFirst({
         where: and(
@@ -93,7 +103,26 @@ export const chatRoutes: FastifyPluginAsync = async (app) => {
           eq(schema.coachMembers.status, "active"),
         ),
       });
-      if (!inverse) throw forbidden("You are not connected to this person");
+      if (inverse) return;
+
+      const [enquirable] = await db
+        .select({ id: schema.users.id })
+        .from(schema.users)
+        .where(
+          and(
+            eq(schema.users.id, userId),
+            eq(schema.users.role, "coach"),
+            eq(schema.users.status, "active"),
+            sql`(
+              EXISTS (SELECT 1 FROM gyms g WHERE g.owner_coach_id = users.id AND g.status = 'active')
+              OR EXISTS (
+                SELECT 1 FROM gym_members gm JOIN gyms g ON g.id = gm.gym_id
+                WHERE gm.user_id = users.id AND gm.status = 'active' AND g.status = 'active'
+              )
+            )`,
+          ),
+        );
+      if (!enquirable) throw forbidden("You are not connected to this person");
     });
 
     const existing = await db

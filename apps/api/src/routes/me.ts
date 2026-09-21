@@ -124,7 +124,7 @@ export const meRoutes: FastifyPluginAsync = async (app) => {
     const todayStart = new Date(`${today}T00:00:00.000Z`);
     const todayEnd = new Date(`${today}T23:59:59.999Z`);
 
-    const [unread, surveys, assignments, sessions] = await Promise.all([
+    const [unread, surveys, assignments, sessions, coachLink] = await Promise.all([
       db
         .select({
           id: schema.notifications.id, kind: schema.notifications.kind,
@@ -162,6 +162,17 @@ export const meRoutes: FastifyPluginAsync = async (app) => {
         .from(schema.appointments)
         .where(and(eq(schema.appointments.memberId, me), gte(schema.appointments.startsAt, todayStart), lte(schema.appointments.startsAt, todayEnd)))
         .orderBy(asc(schema.appointments.startsAt)),
+      // An ACTIVE coach link, not merely a conversation --- a member who has
+      // only enquired still needs the prompt to find a coach.
+      db
+        .select({
+          coachId: schema.coachMembers.coachId,
+          name: schema.users.name,
+        })
+        .from(schema.coachMembers)
+        .innerJoin(schema.users, eq(schema.users.id, schema.coachMembers.coachId))
+        .where(and(eq(schema.coachMembers.memberId, me), eq(schema.coachMembers.status, "active")))
+        .limit(1),
     ]);
 
     // A survey counts as outstanding only if it has no response for this cycle.
@@ -175,6 +186,8 @@ export const meRoutes: FastifyPluginAsync = async (app) => {
     const done = new Set(answered.map((a) => a.surveyId));
 
     return {
+      coach: coachLink[0] ?? null,
+      hasCoach: coachLink.length > 0,
       unreadNotifications: unread,
       pendingSurveys: surveys.filter((s) => !done.has(s.surveyId)),
       recentAssignments: assignments,

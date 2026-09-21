@@ -78,6 +78,27 @@
       "when": 1789612318001,
       "tag": "0010_free_nitro",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1789625879414,
+      "tag": "0011_swift_the_initiative",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1789627445727,
+      "tag": "0012_chief_junta",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1789629215832,
+      "tag": "0013_illegal_sabra",
+      "breakpoints": true
     }
   ]
 }

@@ -9,7 +9,8 @@ import { brand, member, radius, space, type as typo } from "../src/theme/tokens"
 export default function SignIn() {
   const { signIn, register } = useAuth();
   const insets = useSafeAreaInsets();
-  const theme = member; // Pre-auth there is no role yet, so use the light palette.
+  // Pre-auth there is no role, so this follows the device setting alone.
+  const { theme } = useAuth();
 
   const [mode, setMode] = useState<"in" | "up">("in");
   const [name, setName] = useState("");

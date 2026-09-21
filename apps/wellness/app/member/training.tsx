@@ -20,6 +20,13 @@ interface DayExercises {
     weightKg: string | null; durationSeconds: number | null; restSeconds: number | null;
     notes: string | null; exercise: ExerciseRef; logged: boolean;
   }[];
+  prescribedActivities: {
+    planExerciseId: string; planName: string; durationSeconds: number | null;
+    intensity: string | null; notes: string | null; logged: boolean;
+    activity: { id: string; name: string; group: string };
+  }[];
+  /** Set only when the coach wrote a rest day and prescribed nothing else. */
+  restDay: { planName: string; notes: string | null } | null;
   logged: {
     exercise: ExerciseRef;
     sets: { id: string; setNumber: number; reps: number | null; weightKg: string | null; durationSeconds: number | null; distanceMetres: string | null; rpe: string | null }[];
@@ -50,6 +57,8 @@ export default function Training() {
 
   const day = useApi<DayExercises>(`/v1/logs/exercises?date=${key}`, [quickLog.version]);
   const prescribed = day.data?.prescribed ?? [];
+  const prescribedActivities = day.data?.prescribedActivities ?? [];
+  const restDay = day.data?.restDay ?? null;
   const logged = day.data?.logged ?? [];
 
   return (
@@ -78,12 +87,53 @@ export default function Training() {
             <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginBottom: space.sm }}>
               From your coach
             </Text>
-            {prescribed.length === 0 ? (
+            {prescribed.length === 0 && prescribedActivities.length === 0 ? (
               <Card theme={theme} style={{ marginBottom: space.xl }}>
-                <Text style={{ ...typo.body, color: theme.muted }}>Nothing assigned for this day.</Text>
+                {/* A rest day the coach WROTE is an instruction, not an empty
+                    day --- saying "nothing assigned" would read as an omission. */}
+                {restDay ? (
+                  <>
+                    <View style={{ flexDirection: "row", alignItems: "center", gap: space.sm }}>
+                      <Feather name="moon" size={16} color={theme.teal} />
+                      <Text style={{ ...typo.heading, color: theme.ink }}>Rest day</Text>
+                    </View>
+                    <Text style={{ ...typo.body, color: theme.muted, marginTop: 6 }}>
+                      {restDay.notes ?? `No training in ${restDay.planName} today. Recover well.`}
+                    </Text>
+                  </>
+                ) : (
+                  <Text style={{ ...typo.body, color: theme.muted }}>Nothing assigned for this day.</Text>
+                )}
               </Card>
             ) : (
               <View style={{ marginBottom: space.xl }}>
+                {/* Sports come first: they are the session, and the gym work
+                    around them is usually secondary on a day that has both. */}
+                {prescribedActivities.map((p) => (
+                  <Pressable key={p.planExerciseId} onPress={() => quickLog.open("exercise")}>
+                    <Card theme={theme} style={{ marginBottom: space.sm, flexDirection: "row", alignItems: "center", gap: space.md }}>
+                      <View style={{
+                        width: 26, height: 26, borderRadius: radius.pill,
+                        borderWidth: p.logged ? 0 : 1.5, borderColor: theme.line,
+                        backgroundColor: p.logged ? theme.teal : "transparent",
+                        alignItems: "center", justifyContent: "center",
+                      }}>
+                        {p.logged && <Feather name="check" size={15} color="#FFFFFF" />}
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ ...typo.heading, color: theme.ink, textDecorationLine: p.logged ? "line-through" : "none" }}>
+                          {p.activity.name}
+                        </Text>
+                        <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>
+                          {Math.round((p.durationSeconds ?? 0) / 60)} min
+                          {p.intensity ? ` · ${p.intensity}` : ""}
+                          {p.planName ? ` · ${p.planName}` : ""}
+                        </Text>
+                      </View>
+                      {!p.logged && <Feather name="plus-circle" size={20} color={theme.accent} />}
+                    </Card>
+                  </Pressable>
+                ))}
                 {prescribed.map((p) => (
                   <Pressable key={p.planExerciseId} onPress={() => quickLog.open("exercise")}>
                     <Card theme={theme} style={{ marginBottom: space.sm, flexDirection: "row", alignItems: "center", gap: space.md }}>

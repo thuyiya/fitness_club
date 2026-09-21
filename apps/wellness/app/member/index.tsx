@@ -26,12 +26,15 @@ interface Timeline {
 }
 interface Alerts {
   count: number;
+  hasCoach?: boolean;
+  coach?: { coachId: string; name: string } | null;
   unreadNotifications: { id: string; kind: string; title: string; body: string | null }[];
   pendingSurveys: { assignmentId: string; surveyId: string; title: string; dueDate: string | null }[];
   recentAssignments: { id: string; planName: string; planType: string; startDate: string }[];
   todaySessions: { id: string; title: string; startsAt: string; location: string | null }[];
 }
 interface Targets { ready: boolean; missing?: string[]; targets: { calories: number; proteinG: number; hydrationMl: number } | null }
+
 interface Rec { id: string; slug: string; name: string; servings: string; proteinG: string; carbsG: string; fatG: string; mealType: string | null }
 
 const hhmm = (iso: string) => new Date(iso).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
@@ -46,6 +49,10 @@ export default function MemberHome() {
   const timeline = useApi<Timeline>(`/v1/logs/timeline?date=${key}`, [quickLog.version]);
   const alerts = useApi<Alerts>("/v1/me/alerts", [quickLog.version]);
   const targets = useApi<Targets>("/v1/me/targets");
+  // An ACTIVE coach link, from the alerts endpoint. Having merely messaged a
+  // coach is not having one, and using a thread as the proxy hid the prompt
+  // from exactly the people who still needed it.
+  const hasCoach = alerts.data?.hasCoach ?? false;
   const [recs, setRecs] = useState<Record<string, Rec[]>>({});
 
   const t = targets.data?.targets;
@@ -144,6 +151,28 @@ export default function MemberHome() {
         </Card>
 
         {/* The day in the order it happened. */}
+        {/* Placed above the day, not below it: someone without a coach has an
+            empty day, and burying the way out of that under empty cards is how
+            an app loses them in week one. */}
+        {!hasCoach && (
+          <Pressable onPress={() => router.push("/member/find-coach")} style={{ marginBottom: space.xl }}>
+            <Card theme={theme} style={{ borderColor: theme.accent }}>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: space.md }}>
+                <View style={{ width: 44, height: 44, borderRadius: radius.pill, backgroundColor: theme.accent + "1F", alignItems: "center", justifyContent: "center" }}>
+                  <Feather name="search" size={20} color={theme.accent} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ ...typo.heading, color: theme.ink }}>Find your coach</Text>
+                  <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>
+                    Browse by gym or by name, and message them before you join
+                  </Text>
+                </View>
+                <Feather name="chevron-right" size={18} color={theme.muted} />
+              </View>
+            </Card>
+          </Pressable>
+        )}
+
         <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginBottom: space.sm }}>Your day</Text>
 
         {timeline.loading && !timeline.data ? (

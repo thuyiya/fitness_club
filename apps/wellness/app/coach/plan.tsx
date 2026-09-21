@@ -30,7 +30,7 @@ const SLOTS = ["breakfast", "lunch", "dinner", "snack"] as const;
 export default function PlanBuilder() {
   const { theme } = useAuth();
   const insets = useSafeAreaInsets();
-  const params = useLocalSearchParams<{ id?: string; type?: string }>();
+  const params = useLocalSearchParams<{ id?: string; type?: string; assignTo?: string }>();
   const isNew = !params.id;
   const type = (params.type ?? "workout") as "workout" | "meal";
 
@@ -68,6 +68,14 @@ export default function PlanBuilder() {
         });
         setPlanId(res.plan.id);
         router.setParams({ id: res.plan.id });
+        // Arriving from a member's profile means the plan is FOR them; assign
+        // it on creation rather than making the coach find them again.
+        if (params.assignTo) {
+          await api(`/v1/plans/${res.plan.id}/assign-many`, {
+            method: "POST",
+            body: { memberIds: [params.assignTo], startDate: new Date().toISOString().slice(0, 10) },
+          }).catch(() => {});
+        }
         return res;
       });
       if (r) tree.refetch();
@@ -114,9 +122,14 @@ export default function PlanBuilder() {
         <Pressable onPress={() => router.back()} hitSlop={12}>
           <Feather name="chevron-left" size={24} color={theme.inkSoft} />
         </Pressable>
-        <Text style={{ ...typo.title, color: theme.ink, flex: 1 }}>
-          {isNew && !planId ? (planType === "meal" ? "New meal plan" : "New workout plan") : name || "Plan"}
-        </Text>
+        <View style={{ flex: 1 }}>
+          <Text style={{ ...typo.title, color: theme.ink }}>
+            {isNew && !planId ? (planType === "meal" ? "New meal plan" : "New workout plan") : name || "Plan"}
+          </Text>
+          {params.assignTo && !planId ? (
+            <Text style={{ ...typo.caption, color: theme.accent, marginTop: 1 }}>Will be assigned on save</Text>
+          ) : null}
+        </View>
         <Pressable onPress={() => save()} hitSlop={12} disabled={busy || !name.trim()}>
           <Text style={{ ...typo.heading, color: name.trim() ? theme.accent : theme.muted }}>Save</Text>
         </Pressable>

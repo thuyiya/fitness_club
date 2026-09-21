@@ -1,10 +1,10 @@
 import { Feather } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { admin } from "../../src/theme/tokens";
+import { useAuth } from "../../src/state/auth";
 
 /** Admin reuses the dark palette with indigo as the accent, per the design. */
 export default function AdminLayout() {
-  const theme = admin;
+  const { theme } = useAuth();
   return (
     <Tabs
       screenOptions={{

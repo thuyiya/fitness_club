@@ -156,3 +156,12 @@ export const reportReason = pgEnum("report_reason", [
   "other",
 ]);
 export const reportStatus = pgEnum("report_status", ["open", "reviewing", "resolved", "dismissed"]);
+
+/** What a coach is advertising. */
+export const promotionKind = pgEnum("promotion_kind", [
+  "intro_offer",
+  "discount",
+  "free_consultation",
+  "programme_launch",
+  "announcement",
+]);

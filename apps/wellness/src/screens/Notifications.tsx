@@ -45,12 +45,45 @@ export function NotificationsScreen() {
   };
 
   // Each kind knows where it leads; a notification that opens nothing is noise.
+  /**
+   * Where each notification leads.
+   *
+   * The destination depends on the ROLE as well as the kind: a join request
+   * tells a coach there is something to approve and belongs in the queue, while
+   * the same kind tells a member the answer came back. Routing on kind alone
+   * sent coaches somewhere they could not act.
+   */
   const openTarget = (n: Notification) => {
-    const base = `/${user?.role ?? "member"}` as const;
-    if (n.kind === "message") router.push(`${base}/chat` as never);
-    else if (n.kind === "session_reminder") router.push(`${base}/calendar` as never);
-    else if (n.kind === "plan_assigned") router.push(`${base === "/member" ? "/member/training" : base}` as never);
-    else if (n.kind === "system") router.push(`${base}/progress` as never);
+    const role = user?.role ?? "member";
+    const isCoach = role === "coach" || role === "admin";
+
+    switch (n.kind) {
+      case "join_request":
+        // The only notification that carries an action for the recipient.
+        router.push(isCoach ? "/coach/members" : "/member/find-coach");
+        return;
+      case "message":
+        router.push(isCoach ? "/coach/chat" : "/member/chat");
+        return;
+      case "session_reminder":
+        router.push(isCoach ? "/coach/calendar" : "/member/calendar");
+        return;
+      case "plan_assigned":
+        router.push(isCoach ? "/coach/settings" : "/member/training");
+        return;
+      case "survey_assigned":
+        router.push(isCoach ? "/coach/settings" : "/member");
+        return;
+      case "announcement":
+        router.push(isCoach ? "/coach" : "/member");
+        return;
+      case "hydration_reminder":
+        router.push(isCoach ? "/coach" : "/member");
+        return;
+      default:
+        // "system" covers goals set by either side.
+        router.push(isCoach ? "/coach" : "/member/progress");
+    }
   };
 
   return (
@@ -79,7 +112,15 @@ export function NotificationsScreen() {
           </Card>
         ) : (
           items.map((n) => (
-            <Pressable key={n.id} onPress={() => openTarget(n)}>
+            <Pressable
+              key={n.id}
+              onPress={() => {
+                // Mark read before navigating: a badge that survives acting on
+                // the thing it announced trains people to ignore the badge.
+                if (!n.readAt) api("/v1/notifications/read", { method: "POST", body: { ids: [n.id] } }).then(() => feed.refetch()).catch(() => {});
+                openTarget(n);
+              }}
+            >
               <Card
                 theme={theme}
                 style={{
@@ -99,6 +140,12 @@ export function NotificationsScreen() {
                     <Text style={{ ...typo.caption, color: theme.muted }}>{ago(n.createdAt)}</Text>
                   </View>
                   {n.body && <Text style={{ ...typo.caption, color: theme.inkSoft, marginTop: 3 }}>{n.body}</Text>}
+                  {n.kind === "join_request" && (user?.role === "coach" || user?.role === "admin") ? (
+                    <View style={{ flexDirection: "row", alignItems: "center", gap: 4, marginTop: 6 }}>
+                      <Text style={{ ...typo.caption, color: theme.accent, fontWeight: "700" }}>Review request</Text>
+                      <Feather name="arrow-right" size={12} color={theme.accent} />
+                    </View>
+                  ) : null}
                 </View>
               </Card>
             </Pressable>

@@ -13,9 +13,26 @@ interface Appointment {
   startsAt: string; endsAt: string; status: string;
   member: { id: string; name: string; avatarUrl: string | null } | null;
 }
+interface PlannedItem {
+  name: string; sets: number | null; reps: number | null;
+  durationSeconds: number | null; intensity: string | null; isActivity: boolean;
+}
+interface PlannedDay {
+  date: string; memberId: string; memberName: string;
+  planId: string; planName: string; isRestDay: boolean; items: PlannedItem[];
+}
 interface CalendarData {
   appointments: Appointment[];
   planWindows: { id: string; planName: string; planType: string; startDate: string; endDate: string | null }[];
+  plannedWork: PlannedDay[];
+}
+
+/** How a prescribed item reads on one line. */
+function itemLabel(i: PlannedItem) {
+  const effort = i.intensity ? ` · ${i.intensity}` : "";
+  if (i.isActivity) return `${i.name} — ${Math.round((i.durationSeconds ?? 0) / 60)} min${effort}`;
+  const amount = i.reps != null ? `${i.reps}` : `${i.durationSeconds ?? 0}s`;
+  return `${i.name} — ${i.sets ?? 1} × ${amount}${effort}`;
 }
 
 /** The hours the timeline draws. Outside these, bookings are rare enough that
@@ -48,6 +65,7 @@ export function CalendarScreen() {
   const data = useApi<CalendarData>(`/v1/calendar?from=${key}&to=${key}`, [key]);
   const appointments = data.data?.appointments ?? [];
   const windows = data.data?.planWindows ?? [];
+  const planned = data.data?.plannedWork ?? [];
 
   const shift = (days: number) => {
     const next = new Date(date);
@@ -112,6 +130,45 @@ export function CalendarScreen() {
                 <Feather name={w.planType === "meal" ? "coffee" : "repeat"} size={13} color={theme.teal} />
                 <Text style={{ ...typo.caption, color: theme.inkSoft }}>{w.planName} is active</Text>
               </View>
+            ))}
+          </View>
+        )}
+
+        {/* The prescribed work for THIS date --- not the whole block. A coach
+            sees it per member, a member sees only their own, and both are
+            reading the same assignment from opposite ends. */}
+        {planned.length > 0 && (
+          <View style={{ padding: space.lg, paddingBottom: 0 }}>
+            <Text style={{ ...typo.label, color: theme.muted, textTransform: "uppercase", marginBottom: space.sm }}>
+              Prescribed
+            </Text>
+            {planned.map((p) => (
+              <Card key={`${p.planId}-${p.memberId}`} theme={theme} style={{ marginBottom: space.sm, padding: space.md }}>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: space.sm }}>
+                  <Feather
+                    name={p.isRestDay ? "moon" : "repeat"}
+                    size={14}
+                    color={p.isRestDay ? theme.muted : theme.accent}
+                  />
+                  <Text style={{ ...typo.heading, color: theme.ink, flex: 1 }}>
+                    {isCoach ? p.memberName : p.planName}
+                  </Text>
+                  {p.isRestDay && <Pill theme={theme} label="Rest" tone={theme.muted} />}
+                </View>
+                {isCoach && (
+                  <Text style={{ ...typo.caption, color: theme.muted, marginTop: 2 }}>{p.planName}</Text>
+                )}
+                {p.items.map((i, n) => (
+                  <Text key={n} style={{ ...typo.body, color: theme.inkSoft, marginTop: 6 }}>
+                    {itemLabel(i)}
+                  </Text>
+                ))}
+                {p.isRestDay && (
+                  <Text style={{ ...typo.body, color: theme.muted, marginTop: 6 }}>
+                    No training prescribed for this day.
+                  </Text>
+                )}
+              </Card>
             ))}
           </View>
         )}

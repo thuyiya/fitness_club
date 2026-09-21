@@ -1,0 +1,2 @@
+ALTER TABLE "join_requests" ADD COLUMN "requested_coach_id" uuid;--> statement-breakpoint
+ALTER TABLE "join_requests" ADD CONSTRAINT "join_requests_requested_coach_id_users_id_fk" FOREIGN KEY ("requested_coach_id") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;

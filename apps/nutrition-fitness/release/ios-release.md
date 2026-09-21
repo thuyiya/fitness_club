@@ -65,3 +65,22 @@ npm run submit:ios     # eas submit --platform ios --latest
 These source `.env.local` (gitignored, not committed) for the ASC API key env vars: `EXPO_ASC_API_KEY_PATH`, `EXPO_ASC_KEY_ID`, `EXPO_ASC_ISSUER_ID`, `EXPO_APPLE_TEAM_ID`. See `scripts/build-ios.sh` / `scripts/submit-ios.sh`. The env vars are mainly needed if credentials ever need to be regenerated (cert renewal, new profile); routine builds reuse the credentials already stored on EAS.
 
 First production build (build number 4) was submitted via this flow and is uploading to EAS Build for TestFlight.
+
+## Rejection — build 6 crashed on launch (September 17, 2026)
+
+App Review (Guideline 2.1(a)) reported build 1.0.0 (6) crashing on launch on an iPhone 17 Pro Max running iOS 27.0.
+
+Root cause: build 6 was compiled against the iOS 27 SDK (App Store Connect reports `sdkBuild 24A430`) because the
+EAS `production` profile used `"image": "latest"`, which pointed at Xcode 27 at the time. Apps linked against the iOS 27
+SDK must adopt the UIScene lifecycle (Apple Technote TN3187); UIKit traps at launch otherwise
+(`_UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption`, SIGTRAP before `didFinishLaunching`). React Native 0.74 /
+Expo SDK 51 does not adopt scenes, so every Xcode 27 build of this app crashes on iOS 27. Reproduced locally on the iOS 27.0
+simulator with a Release build from Xcode 27.0.
+
+Fix applied: `eas.json` pins the iOS production image to `macos-tahoe-26.5-xcode-26.6` (iOS 26 SDK). Apps linked against
+the iOS 26 SDK are exempt from the scene requirement and run on iOS 27. Do not switch back to `latest` or any Xcode 27
+image until the app adopts UIScene (Expo SDK 57+ has `expo-build-properties` → `ios.enableSceneSupport`). Apple will
+eventually require the iOS 27 SDK for submissions, so plan the SDK upgrade before that deadline.
+
+Rebuild/submit: the EAS project belongs to the `glitchfy` Expo account; `eas whoami` must show that account (not `tj_cl`)
+before `npm run build:ios` / `npm run submit:ios`.

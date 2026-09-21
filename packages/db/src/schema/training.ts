@@ -1,5 +1,6 @@
 import {
   boolean,
+  check,
   date,
   index,
   integer,
@@ -13,6 +14,7 @@ import {
   vector,
 } from "drizzle-orm/pg-core";
 import {
+  activityIntensity,
   assignmentStatus,
   difficultyLevel,
   discipline,
@@ -24,9 +26,11 @@ import {
   planType,
   recurrence,
 } from "./enums.js";
+import { sql } from "drizzle-orm";
 import { gyms, teams } from "./gyms.js";
 import { users } from "./identity.js";
 import { meals } from "./nutrition.js";
+import { activities } from "./reference.js";
 
 /**
  * Exercise library. ownerCoachId NULL means it is a global/seed exercise;
@@ -123,6 +127,15 @@ export const planDays = pgTable(
   (t) => [uniqueIndex("plan_days_unique").on(t.planId, t.weekNumber, t.dayNumber)],
 );
 
+/**
+ * One prescribed item on a day.
+ *
+ * Exactly one of exerciseId / activityId is set, mirroring the three-way split
+ * the catalog already makes: an exercise is logged as sets, an activity is a
+ * bout with a duration. A coach writing "Tuesday: football, 90 minutes, hard"
+ * is prescribing an activity, and forcing that through the exercise table would
+ * have meant inventing a fake exercise row per sport.
+ */
 export const planExercises = pgTable(
   "plan_exercises",
   {
@@ -130,18 +143,27 @@ export const planExercises = pgTable(
     planDayId: uuid("plan_day_id")
       .notNull()
       .references(() => planDays.id, { onDelete: "cascade" }),
-    exerciseId: uuid("exercise_id")
-      .notNull()
-      .references(() => exercises.id, { onDelete: "restrict" }),
+    exerciseId: uuid("exercise_id").references(() => exercises.id, { onDelete: "restrict" }),
+    activityId: uuid("activity_id").references(() => activities.id, { onDelete: "restrict" }),
     position: integer("position").notNull().default(0),
     sets: integer("sets"),
     reps: integer("reps"),
     weightKg: numeric("weight_kg", { precision: 6, scale: 2 }),
     restSeconds: integer("rest_seconds"),
     durationSeconds: integer("duration_seconds"),
+    /** How hard, independent of how long --- the coach's effort instruction. */
+    intensity: activityIntensity("intensity"),
     notes: text("notes"),
   },
-  (t) => [index("plan_exercises_day_idx").on(t.planDayId, t.position)],
+  (t) => [
+    index("plan_exercises_day_idx").on(t.planDayId, t.position),
+    // Enforced in the database, not just the API: a row with neither reference
+    // is an item nothing can render, and a row with both is ambiguous.
+    check(
+      "plan_exercises_one_subject",
+      sql`("exercise_id" IS NOT NULL) <> ("activity_id" IS NOT NULL)`,
+    ),
+  ],
 );
 
 /** Meal plans reference composed meals (C13 meal editor). */

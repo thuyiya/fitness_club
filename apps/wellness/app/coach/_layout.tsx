@@ -3,7 +3,8 @@ import { Feather } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { Pressable, View } from "react-native";
 import { CoachActionSheet } from "../../src/components/CoachActionSheet";
-import { coach, radius } from "../../src/theme/tokens";
+import { radius } from "../../src/theme/tokens";
+import { useAuth } from "../../src/state/auth";
 
 /**
  * Coach tabs. No Calendar tab --- it is reached from the home header, which
@@ -12,7 +13,7 @@ import { coach, radius } from "../../src/theme/tokens";
  * member layout so the two personas feel like one product.
  */
 export default function CoachLayout() {
-  const theme = coach;
+  const { theme } = useAuth();
   const [sheet, setSheet] = useState(false);
 
   return (
@@ -52,6 +53,7 @@ export default function CoachLayout() {
         <Tabs.Screen name="notifications" options={{ href: null }} />
         <Tabs.Screen name="member/[id]" options={{ href: null }} />
         <Tabs.Screen name="plan" options={{ href: null }} />
+        <Tabs.Screen name="program" options={{ href: null }} />
         <Tabs.Screen name="templates" options={{ href: null }} />
         <Tabs.Screen name="assign" options={{ href: null }} />
         <Tabs.Screen name="add-exercises" options={{ href: null }} />

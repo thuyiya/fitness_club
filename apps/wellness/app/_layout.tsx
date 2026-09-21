@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { Slot, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { api } from "../src/api/client";
 import { AuthProvider, useAuth } from "../src/state/auth";
+import { UnitsProvider } from "../src/state/units";
 import { member } from "../src/theme/tokens";
 
 /**
@@ -20,11 +22,35 @@ function AuthGate() {
   const segments = useSegments();
   const router = useRouter();
 
+  /**
+   * The profile check, stored WITH the user it answers for.
+   *
+   * A bare boolean cannot work here: both effects run after the same render,
+   * so the routing effect closes over the previous user's answer and redirects
+   * before the reset has applied. Keying it to the id makes "we have not asked
+   * about this person yet" a fact about the data rather than a race.
+   */
+  const [check, setCheck] = useState<{ userId: string; needs: boolean } | null>(null);
+  useEffect(() => {
+    if (!user || user.role !== "member") return;
+    if (check?.userId === user.id) return;
+    let cancelled = false;
+    api<{ ready: boolean }>("/v1/me/targets")
+      .then((r) => { if (!cancelled) setCheck({ userId: user.id, needs: !r.ready }); })
+      .catch(() => { if (!cancelled) setCheck({ userId: user.id, needs: false }); });
+    return () => { cancelled = true; };
+  }, [user?.id, user?.role, check?.userId]);
+
+  const needsOnboarding: boolean | null =
+    !user || user.role !== "member" ? false : check?.userId === user.id ? check.needs : null;
+
   useEffect(() => {
     if (loading) return;
+    if (user?.role === "member" && needsOnboarding === null) return;
 
     const root = segments[0];
     const onAuthScreen = root === "sign-in";
+    if (root === "onboarding") return; // let them finish or skip
 
     if (!user && !onAuthScreen) {
       router.replace("/sign-in");
@@ -33,7 +59,11 @@ function AuthGate() {
     // Signed in but sitting on the login form or the bare entry route: send
     // them to the tab set for their role.
     if (user && (onAuthScreen || root === undefined)) {
-      router.replace(`/${user.role}`);
+      // A member whose profile cannot produce a calorie target goes through
+      // onboarding first --- otherwise Home greets them with empty rings and
+      // no way to understand why.
+      if (user.role === "member" && needsOnboarding === true) router.replace("/onboarding");
+      else router.replace(`/${user.role}`);
       return;
     }
     // Signed in but inside someone else's section --- a stale deep link, or a
@@ -41,7 +71,8 @@ function AuthGate() {
     if (user && (root === "member" || root === "coach" || root === "admin") && root !== user.role) {
       router.replace(`/${user.role}`);
     }
-  }, [user, loading, segments, router]);
+    // Leaving onboarding is allowed; being sent back into it is not.
+  }, [user, loading, segments, router, needsOnboarding]);
 
   if (loading) {
     return (
@@ -56,10 +87,12 @@ function AuthGate() {
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <AuthProvider>
+      <UnitsProvider>
+        <AuthProvider>
         <StatusBar style="auto" />
         <AuthGate />
-      </AuthProvider>
+        </AuthProvider>
+      </UnitsProvider>
     </SafeAreaProvider>
   );
 }
