@@ -84,3 +84,29 @@ eventually require the iOS 27 SDK for submissions, so plan the SDK upgrade befor
 
 Rebuild/submit: the EAS project belongs to the `glitchfy` Expo account; `eas whoami` must show that account (not `tj_cl`)
 before `npm run build:ios` / `npm run submit:ios`.
+
+## Build 7 — local Xcode 26.6 build, uploaded September 21, 2026
+
+Built on this Mac without EAS (the CLI was logged in as `tj_cl`, which cannot read the `glitchfy` project):
+
+```
+# archive (Xcode 26.6 at /Applications/Xcode.app, automatic signing via the ASC API key from .env.local)
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -workspace ios/NutritionFitness.xcworkspace \
+  -scheme NutritionFitness -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' \
+  -archivePath build/NutritionFitness.xcarchive archive DEVELOPMENT_TEAM=774S6UKP2X CODE_SIGN_STYLE=Automatic \
+  -allowProvisioningUpdates -authenticationKeyPath "$EXPO_ASC_API_KEY_PATH" \
+  -authenticationKeyID "$EXPO_ASC_KEY_ID" -authenticationKeyIssuerID "$EXPO_ASC_ISSUER_ID"
+# export (method app-store-connect, signingStyle automatic, teamID 774S6UKP2X) with the same auth flags
+xcodebuild -exportArchive -archivePath build/NutritionFitness.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath release/builds ...
+# upload (key copied to ~/.appstoreconnect/private_keys/AuthKey_<KEY_ID>.p8)
+xcrun altool --upload-app -f release/builds/NutritionFitness-1.0.0-7.ipa -t ios --apiKey $EXPO_ASC_KEY_ID --apiIssuer $EXPO_ASC_ISSUER_ID
+```
+
+Notes:
+- `ios/NutritionFitness/Info.plist` `CFBundleVersion` is now `7` (was `1`; EAS used to override it). Bump it by hand for
+  every local build. Before the next EAS cloud build run `eas build:version:set --platform ios` to 7 or higher, because
+  EAS's remote counter still thinks the last build was 6.
+- `ios/NutritionFitness/Supporting/Expo.plist` now carries `EXUpdatesRequestHeaders` → `expo-channel-name: production`,
+  which EAS injected at build time before; local builds need it for EAS Update to work.
+- Export re-signs with the team's Apple Distribution certificate through the API key (no local private key needed).
+- The .ipa lives in `release/builds/` (gitignored).
