@@ -110,3 +110,22 @@ Notes:
   which EAS injected at build time before; local builds need it for EAS Update to work.
 - Export re-signs with the team's Apple Distribution certificate through the API key (no local private key needed).
 - The .ipa lives in `release/builds/` (gitignored).
+
+## Build 10 — EAS cloud build, uploaded November 11, 2026
+
+Build 7 (the Xcode 26.6 fix) was uploaded on September 21 but never attached to the 1.0.0 submission, so App Review's
+latest message was still the build 6 crash. Build 10 replaces it.
+
+- This Mac's `/Applications/Xcode.app` is now Xcode 27.0 and Xcode 26.6 is gone, so a local archive would bring the
+  iOS 27 launch crash back. Build in EAS cloud, which uses the pinned `macos-tahoe-26.5-xcode-26.6` image.
+- Verified on the IPA: `DTXcode 2660`, `DTSDKName iphoneos26.5`, `CFBundleVersion 10`, HealthKit entitlement,
+  `expo-channel-name: production`.
+- EAS Build reads `.easignore` only from the **repo root** (`/.easignore`). Without it, the committed
+  `apps/nutrition-fitness/ios` (gitignored by the root `ios/` rule) arrived on EAS as a partial folder with no Podfile,
+  so EAS skipped prebuild and failed at Install pods (builds 8 and 9). The root `.easignore` excludes `ios/` and `android/`
+  so EAS runs `expo prebuild` (managed workflow), and drops `exercise-db/`, `sport-db/` and `release/` (archive 1.5 GB → 788 MB).
+- `app.json` `runtimeVersion` is the literal `"1.0.0"` (same value the `appVersion` policy produced); EAS rejects
+  policies when it sees a native `ios/` folder.
+- `eas submit` needs an ASC API key stored on EAS (can't be set up with `--non-interactive`); uploaded instead with
+  `xcrun altool --upload-app -f release/builds/NutritionFitness-1.0.0-10.ipa -t ios --apiKey $EXPO_ASC_KEY_ID --apiIssuer $EXPO_ASC_ISSUER_ID`.
+- EAS remote build counter is now 10.
